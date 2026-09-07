@@ -8,3 +8,9 @@ function computeSellPrice(prixAchat) {
 function formatPrice(amount) {
   return amount.toLocaleString("fr-FR", { style: "currency", currency: "EUR" });
 }
+
+function deliveryEstimate(product) {
+  return product.stock === false
+    ? { label: "Sur commande, 5-7 jours", className: "delivery-slow" }
+    : { label: "Expédié sous 24h", className: "delivery-fast" };
+}

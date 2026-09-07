@@ -49,7 +49,7 @@ function submitPaiement(e) {
 
 function finalizeOrder() {
   const lines = getCartLines();
-  const orderNumber = "AP-" + Date.now().toString(36).toUpperCase();
+  const orderNumber = "DTX-" + Date.now().toString(36).toUpperCase();
   document.getElementById("orderNumber").textContent = orderNumber;
   document.getElementById("orderRecap").innerHTML =
     renderOrderLines(lines, { readOnly: true }) +
@@ -57,6 +57,7 @@ function finalizeOrder() {
       <span>Total payé (simulation)</span>
       <span>${formatPrice(getCartTotal())}</span>
     </div>`;
+  recordOrder(orderNumber, lines, checkoutState.livraison);
   clearCart();
 }
 

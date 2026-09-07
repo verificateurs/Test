@@ -1,0 +1,77 @@
+{
+  "_note": "Nomenclature d'exemple, non exhaustive, pour démontrer la sélection en cascade marque → modèle → motorisation → code moteur (cahier des charges §5). À compléter avec un référentiel véhicule réel (type TecDoc/Vin-Info) avant mise en production.",
+  "makes": [
+    {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "models": [
+        {
+          "id": "golf-7",
+          "name": "Golf 7",
+          "motorisations": [
+            { "id": "golf-7-2.0-tdi", "label": "2.0 TDI 150", "codeMoteur": "DFHA" },
+            { "id": "golf-7-2.0-tsi-gti", "label": "2.0 TSI GTI 230", "codeMoteur": "CHHB" }
+          ]
+        },
+        {
+          "id": "golf-8",
+          "name": "Golf 8",
+          "motorisations": [
+            { "id": "golf-8-2.0-tdi", "label": "2.0 TDI 150", "codeMoteur": "DTSA" },
+            { "id": "golf-8-1.5-tsi", "label": "1.5 TSI 150", "codeMoteur": "DPCA" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bmw",
+      "name": "BMW",
+      "models": [
+        {
+          "id": "serie-3-g20",
+          "name": "Série 3 (G20)",
+          "motorisations": [
+            { "id": "320d-g20", "label": "320d 190", "codeMoteur": "B47D20B" },
+            { "id": "330i-g20", "label": "330i 258", "codeMoteur": "B48B20B" }
+          ]
+        },
+        {
+          "id": "serie-1-f40",
+          "name": "Série 1 (F40)",
+          "motorisations": [
+            { "id": "118d-f40", "label": "118d 150", "codeMoteur": "B47D15A" },
+            { "id": "128ti-f40", "label": "128ti 265", "codeMoteur": "B48B20O1" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "peugeot",
+      "name": "Peugeot",
+      "models": [
+        {
+          "id": "308-iii",
+          "name": "308 III",
+          "motorisations": [
+            { "id": "308-1.2-puretech", "label": "1.2 PureTech 130", "codeMoteur": "HNZ" },
+            { "id": "308-1.5-bluehdi", "label": "1.5 BlueHDi 130", "codeMoteur": "YHZ" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "audi",
+      "name": "Audi",
+      "models": [
+        {
+          "id": "a3-8y",
+          "name": "A3 (8Y)",
+          "motorisations": [
+            { "id": "a3-35-tdi", "label": "35 TDI 150", "codeMoteur": "DTSA" },
+            { "id": "a3-35-tfsi", "label": "35 TFSI 150", "codeMoteur": "DPCA" }
+          ]
+        }
+      ]
+    }
+  ]
+}

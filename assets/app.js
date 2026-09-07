@@ -28,6 +28,8 @@ function renderReviews(reviews) {
 /* ---------- Marques ---------- */
 
 let brandsData = null;
+let currentCategoryId = null;
+const brandFilters = { maxPrice: null, minRating: 0, recommendedOnly: false };
 
 function initBrands(data) {
   brandsData = data;
@@ -44,12 +46,38 @@ function initBrands(data) {
   selectCategory(data.categories[0].id);
 
   document.getElementById("brandGrid").addEventListener("click", (e) => {
-    const btn = e.target.closest(".btn-add-cart");
-    if (btn) addToCart(btn.dataset.productId, 1);
+    const addBtn = e.target.closest(".btn-add-cart");
+    if (addBtn) {
+      addToCart(addBtn.dataset.productId, 1);
+      return;
+    }
+    const card = e.target.closest(".product-card");
+    if (card) openProductDetail(card.dataset.productId);
   });
 }
 
+function brandMatchesFilters(brand) {
+  if (brand.rating < brandFilters.minRating) return false;
+  if (brandFilters.recommendedOnly && !brand.recommended) return false;
+  if (brandFilters.maxPrice != null) {
+    const products = productsForBrand(brand.id);
+    const hasAffordable = products.some((p) => computeSellPrice(p.prixAchat) <= brandFilters.maxPrice);
+    if (products.length > 0 && !hasAffordable) return false;
+  }
+  return true;
+}
+
+function renderBrandGrid(catId) {
+  const cat = brandsData.categories.find((c) => c.id === catId);
+  const gridEl = document.getElementById("brandGrid");
+  const filtered = cat.brands.filter(brandMatchesFilters);
+  gridEl.innerHTML = filtered.length
+    ? filtered.map(renderBrandCard).join("")
+    : '<p class="empty-state">Aucune marque ne correspond aux filtres sélectionnés.</p>';
+}
+
 function selectCategory(catId) {
+  currentCategoryId = catId;
   document.querySelectorAll("#categoryTabs .tab-btn").forEach((b) => {
     b.classList.toggle("active", b.dataset.catId === catId);
   });
@@ -57,8 +85,49 @@ function selectCategory(catId) {
   const cat = brandsData.categories.find((c) => c.id === catId);
   document.getElementById("categoryDesc").textContent = cat.description;
 
-  const gridEl = document.getElementById("brandGrid");
-  gridEl.innerHTML = cat.brands.map(renderBrandCard).join("");
+  renderBrandGrid(catId);
+}
+
+function initBrandFilters() {
+  const maxPriceInput = document.getElementById("filterMaxPrice");
+  const maxPriceValue = document.getElementById("filterMaxPriceValue");
+  const minRatingSelect = document.getElementById("filterMinRating");
+  const recommendedCheckbox = document.getElementById("filterRecommended");
+  const resetBtn = document.getElementById("filterReset");
+
+  const allPrices = productsData ? productsData.products.map((p) => computeSellPrice(p.prixAchat)) : [];
+  const maxPossible = allPrices.length ? Math.ceil(Math.max(...allPrices) / 10) * 10 : 1500;
+  maxPriceInput.max = String(maxPossible);
+  maxPriceInput.value = String(maxPossible);
+  brandFilters.maxPrice = maxPossible;
+  maxPriceValue.textContent = formatPrice(maxPossible);
+
+  maxPriceInput.addEventListener("input", () => {
+    brandFilters.maxPrice = Number(maxPriceInput.value);
+    maxPriceValue.textContent = formatPrice(brandFilters.maxPrice);
+    renderBrandGrid(currentCategoryId);
+  });
+
+  minRatingSelect.addEventListener("change", () => {
+    brandFilters.minRating = Number(minRatingSelect.value);
+    renderBrandGrid(currentCategoryId);
+  });
+
+  recommendedCheckbox.addEventListener("change", () => {
+    brandFilters.recommendedOnly = recommendedCheckbox.checked;
+    renderBrandGrid(currentCategoryId);
+  });
+
+  resetBtn.addEventListener("click", () => {
+    maxPriceInput.value = String(maxPossible);
+    brandFilters.maxPrice = maxPossible;
+    maxPriceValue.textContent = formatPrice(maxPossible);
+    minRatingSelect.value = "0";
+    brandFilters.minRating = 0;
+    recommendedCheckbox.checked = false;
+    brandFilters.recommendedOnly = false;
+    renderBrandGrid(currentCategoryId);
+  });
 }
 
 function productsForBrand(brandId) {
@@ -66,14 +135,36 @@ function productsForBrand(brandId) {
   return productsData.products.filter((p) => p.brandId === brandId);
 }
 
+const COMPATIBILITY_LABELS = {
+  universel: { label: "Universel", className: "compat-universel" },
+  compatible: { label: "Compatible avec votre véhicule", className: "compat-compatible" },
+  incompatible: { label: "Non compatible", className: "compat-incompatible" },
+  "a-verifier": { label: "Compatibilité à vérifier", className: "compat-a-verifier" },
+};
+
+function compatibilityStatus(product) {
+  if (product.compatibilite === "universel") return "universel";
+  const activeVehicle = typeof getActiveVehicle === "function" ? getActiveVehicle() : null;
+  if (!activeVehicle) return "a-verifier";
+  return product.compatibilite.codes.includes(activeVehicle.codeMoteur) ? "compatible" : "incompatible";
+}
+
+function renderCompatibilityBadge(product) {
+  const status = COMPATIBILITY_LABELS[compatibilityStatus(product)];
+  return `<span class="compat-badge ${status.className}">${escapeHtml(status.label)}</span>`;
+}
+
 function renderProductCard(product) {
   const price = computeSellPrice(product.prixAchat);
   const outOfStock = product.stock === false;
+  const delivery = deliveryEstimate(product);
   return `
-    <div class="product-card">
+    <div class="product-card" data-product-id="${escapeHtml(product.id)}">
       <div class="product-info">
         <span class="product-name">${escapeHtml(product.name)}</span>
         <span class="product-format">${escapeHtml(product.format)}</span>
+        <span class="delivery-badge ${delivery.className}">${escapeHtml(delivery.label)}</span>
+        ${renderCompatibilityBadge(product)}
       </div>
       <div class="product-buy">
         <span class="product-price">${formatPrice(price)}</span>
@@ -86,10 +177,68 @@ function renderProductCard(product) {
     </div>`;
 }
 
+function findProductInCatalog(productId) {
+  if (!productsData) return null;
+  return productsData.products.find((p) => p.id === productId) || null;
+}
+
+function renderProductDetail(product) {
+  const brand = brandsData
+    ? brandsData.categories.flatMap((c) => c.brands).find((b) => b.id === product.brandId)
+    : null;
+  const price = computeSellPrice(product.prixAchat);
+  const outOfStock = product.stock === false;
+  const delivery = deliveryEstimate(product);
+  return `
+    <p class="product-detail-brand">${brand ? escapeHtml(brand.name) : ""}</p>
+    <h3>${escapeHtml(product.name)}</h3>
+    <p class="product-format">${escapeHtml(product.format)}</p>
+    <p class="product-detail-description">${escapeHtml(product.description)}</p>
+    <div class="product-detail-badges">
+      <span class="delivery-badge ${delivery.className}">${escapeHtml(delivery.label)}</span>
+      ${renderCompatibilityBadge(product)}
+    </div>
+    <div class="product-detail-buy">
+      <span class="product-detail-price">${formatPrice(price)}</span>
+      ${
+        outOfStock
+          ? '<span class="out-of-stock">Rupture de stock</span>'
+          : `<button type="button" class="btn-primary btn-add-cart" data-product-id="${escapeHtml(product.id)}">Ajouter au panier</button>`
+      }
+    </div>`;
+}
+
+function openProductDetail(productId) {
+  const product = findProductInCatalog(productId);
+  if (!product) return;
+  document.getElementById("productModalBody").innerHTML = renderProductDetail(product);
+  document.getElementById("productModal").hidden = false;
+  requestAnimationFrame(() => document.getElementById("productModal").classList.add("visible"));
+}
+
+function closeProductDetail() {
+  const modal = document.getElementById("productModal");
+  modal.classList.remove("visible");
+  setTimeout(() => {
+    modal.hidden = true;
+  }, 250);
+}
+
+function initProductModal() {
+  document.getElementById("productModalClose").addEventListener("click", closeProductDetail);
+  document.getElementById("productModal").addEventListener("click", (e) => {
+    if (e.target.id === "productModal") closeProductDetail();
+  });
+  document.getElementById("productModalBody").addEventListener("click", (e) => {
+    const btn = e.target.closest(".btn-add-cart");
+    if (btn) addToCart(btn.dataset.productId, 1);
+  });
+}
+
 function renderBrandCard(brand) {
   const products = productsForBrand(brand.id);
   return `
-    <article class="brand-card">
+    <article class="brand-card" data-brand-id="${escapeHtml(brand.id)}">
       <div class="brand-card-header">
         <h3>${escapeHtml(brand.name)}</h3>
         ${brand.recommended ? '<span class="badge">Recommandé</span>' : ""}
@@ -197,18 +346,27 @@ function initScrollEffects() {
 /* ---------- Bootstrap ---------- */
 
 async function loadData() {
-  const [brandsRes, prepRes, productsRes, pricingRes] = await Promise.all([
+  const [brandsRes, prepRes, productsRes, pricingRes, vehiclesRes] = await Promise.all([
     fetch("data/brands.json"),
     fetch("data/preparateurs.json"),
     fetch("data/products.json"),
     fetch("data/pricing-config.json"),
+    fetch("data/vehicles.json"),
   ]);
   pricingConfig = await pricingRes.json();
   productsData = await productsRes.json();
+  initGarage(await vehiclesRes.json());
+  window.addEventListener("garage:changed", () => {
+    if (currentCategoryId) renderBrandGrid(currentCategoryId);
+  });
   initBrands(await brandsRes.json());
+  initBrandFilters();
   initPreparateurs(await prepRes.json());
   initCart();
   initCheckout();
+  initAccount();
+  initProductModal();
+  initSearch();
 }
 
 document.addEventListener("DOMContentLoaded", () => {

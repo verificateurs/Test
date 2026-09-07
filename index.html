@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AutoPrep — Marques &amp; préparateurs partenaires</title>
+<title>Detailix — Marques &amp; préparateurs partenaires</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
@@ -14,13 +14,33 @@
 <header class="site-header">
   <div class="container header-inner">
     <div class="brand-mark">
-      <span class="brand-mark-accent">AUTO</span>PREP
+      <span class="brand-mark-accent">DETAIL</span>IX
     </div>
     <div class="header-actions">
       <nav class="site-nav">
         <a href="#marques">Marques &amp; préparations</a>
         <a href="#preparateurs">Préparateurs partenaires</a>
       </nav>
+      <div class="search-wrap">
+        <input type="search" id="searchInput" class="search-input" placeholder="Rechercher une marque ou un produit…" aria-label="Recherche" autocomplete="off">
+        <div id="searchResults" class="search-results" hidden></div>
+      </div>
+      <div class="garage-wrap">
+        <button type="button" id="garageToggle" class="cart-toggle" aria-label="Mon garage">🚗</button>
+        <div id="garagePanel" class="garage-panel" hidden>
+          <h3>Mon garage</h3>
+          <p class="garage-intro">Sélectionnez votre véhicule pour voir les produits compatibles.</p>
+          <div class="garage-form">
+            <select id="vehMakeSelect"><option value="">Marque</option></select>
+            <select id="vehModelSelect" disabled><option value="">Modèle</option></select>
+            <select id="vehMotorSelect" disabled><option value="">Motorisation</option></select>
+            <p id="vehCodeMoteur" class="veh-code-moteur"></p>
+            <button type="button" id="addVehicleBtn" class="btn-primary" disabled>Ajouter au garage</button>
+          </div>
+          <div id="garageList" class="garage-list"></div>
+        </div>
+      </div>
+      <button type="button" id="accountToggle" class="cart-toggle" aria-label="Mon compte">👤</button>
       <button type="button" id="cartToggle" class="cart-toggle" aria-label="Voir le panier">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
         <span id="cartCount" class="cart-count" hidden>0</span>
@@ -44,6 +64,24 @@
 
       <div id="categoryTabs" class="tab-bar" role="tablist" aria-label="Catégories de préparation"></div>
       <p id="categoryDesc" class="category-desc"></p>
+
+      <div id="brandFilters" class="filters-bar">
+        <label>Prix max <span id="filterMaxPriceValue"></span>
+          <input type="range" id="filterMaxPrice" min="0" max="1500" step="5">
+        </label>
+        <label>Note minimale
+          <select id="filterMinRating">
+            <option value="0">Toutes</option>
+            <option value="3">3★+</option>
+            <option value="4">4★+</option>
+            <option value="4.5">4,5★+</option>
+          </select>
+        </label>
+        <label class="filter-checkbox">
+          <input type="checkbox" id="filterRecommended"> Recommandé uniquement
+        </label>
+        <button type="button" id="filterReset" class="btn-secondary">Réinitialiser</button>
+      </div>
 
       <div id="brandGrid" class="brand-grid"></div>
     </div>
@@ -129,11 +167,42 @@
   </div>
 </div>
 
+<div id="productModal" class="product-modal" hidden>
+  <div class="product-modal-panel">
+    <button type="button" id="productModalClose" class="icon-close" aria-label="Fermer">✕</button>
+    <div id="productModalBody"></div>
+  </div>
+</div>
+
+<div id="accountModal" class="product-modal" hidden>
+  <div class="product-modal-panel account-panel">
+    <button type="button" id="accountModalClose" class="icon-close" aria-label="Fermer">✕</button>
+
+    <form id="loginForm" class="account-login-form">
+      <h3>Mon compte</h3>
+      <p class="garage-intro">Connexion simulée (démo, aucun mot de passe réel) — saisissez simplement un nom d'affichage.</p>
+      <label>Nom d'affichage<input type="text" name="displayName" required autocomplete="name"></label>
+      <button type="submit" class="btn-primary">Se connecter</button>
+    </form>
+
+    <div id="accountLoggedIn" hidden>
+      <h3>Bonjour, <span id="accountDisplayName"></span></h3>
+      <button type="button" id="logoutBtn" class="btn-secondary">Se déconnecter</button>
+    </div>
+
+    <h3 class="order-history-title">Historique de mes commandes</h3>
+    <div id="orderHistoryList" class="order-history-list"></div>
+  </div>
+</div>
+
 <div id="toastContainer" class="toast-container" aria-live="polite"></div>
 
 <script src="assets/pricing.js"></script>
 <script src="assets/cart.js"></script>
 <script src="assets/checkout.js"></script>
+<script src="assets/account.js"></script>
+<script src="assets/garage.js"></script>
 <script src="assets/app.js"></script>
+<script src="assets/search.js"></script>
 </body>
 </html>

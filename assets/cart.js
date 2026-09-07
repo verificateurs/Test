@@ -1,4 +1,4 @@
-const CART_STORAGE_KEY = "autoprep_cart_v1";
+const CART_STORAGE_KEY = "detailix_cart_v1";
 
 let cartItems = [];
 
@@ -83,6 +83,7 @@ function getCartLines() {
         qty: item.qty,
         unitPrice,
         lineTotal: Math.round(unitPrice * item.qty * 100) / 100,
+        delivery: deliveryEstimate(product),
       };
     })
     .filter(Boolean);
@@ -122,6 +123,7 @@ function renderOrderLines(lines, options = {}) {
         <div class="cart-line-info">
           <span class="cart-line-name">${escapeHtml(line.product.name)}</span>
           <span class="cart-line-format">${escapeHtml(line.product.format)} · x${line.qty}</span>
+          ${line.delivery ? `<span class="delivery-badge ${line.delivery.className}">${escapeHtml(line.delivery.label)}</span>` : ""}
         </div>
         ${
           readOnly
