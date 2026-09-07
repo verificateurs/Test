@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AutoPrep — Marques &amp; préparateurs partenaires</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
@@ -13,25 +16,31 @@
     <div class="brand-mark">
       <span class="brand-mark-accent">AUTO</span>PREP
     </div>
-    <nav class="site-nav">
-      <a href="#marques">Marques &amp; préparations</a>
-      <a href="#preparateurs">Préparateurs partenaires</a>
-    </nav>
+    <div class="header-actions">
+      <nav class="site-nav">
+        <a href="#marques">Marques &amp; préparations</a>
+        <a href="#preparateurs">Préparateurs partenaires</a>
+      </nav>
+      <button type="button" id="cartToggle" class="cart-toggle" aria-label="Voir le panier">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+        <span id="cartCount" class="cart-count" hidden>0</span>
+      </button>
+    </div>
   </div>
 </header>
 
 <main>
   <section class="hero">
     <div class="container">
-      <h1>Cosmétique &amp; préparation esthétique automobile</h1>
-      <p class="hero-sub">Comparez les marques recommandées par type de préparation, et retrouvez nos préparateurs partenaires notés par ville.</p>
+      <h1 class="reveal">Cosmétique &amp; préparation esthétique automobile</h1>
+      <p class="hero-sub reveal">Comparez les marques recommandées par type de préparation, achetez vos produits, et retrouvez nos préparateurs partenaires notés par ville.</p>
     </div>
   </section>
 
   <section id="marques" class="section">
     <div class="container">
-      <h2>Marques par type de préparation</h2>
-      <p class="section-intro">Sélectionnez une catégorie pour voir les marques proposées, notre préférence et les avis clients.</p>
+      <h2 class="reveal">Marques par type de préparation</h2>
+      <p class="section-intro reveal">Sélectionnez une catégorie pour voir les marques proposées, notre préférence, les produits disponibles et les avis clients.</p>
 
       <div id="categoryTabs" class="tab-bar" role="tablist" aria-label="Catégories de préparation"></div>
       <p id="categoryDesc" class="category-desc"></p>
@@ -42,8 +51,8 @@
 
   <section id="preparateurs" class="section section-alt">
     <div class="container">
-      <h2>Nos préparateurs partenaires</h2>
-      <p class="section-intro">Choisissez un réseau puis une ville pour voir le centre correspondant et ses avis clients.</p>
+      <h2 class="reveal">Nos préparateurs partenaires</h2>
+      <p class="section-intro reveal">Choisissez un réseau puis une ville pour voir le centre correspondant et ses avis clients.</p>
 
       <div id="reseauTabs" class="tab-bar" role="tablist" aria-label="Réseaux de préparateurs"></div>
       <p id="reseauDesc" class="category-desc"></p>
@@ -60,10 +69,71 @@
 
 <footer class="site-footer">
   <div class="container">
-    <p>Contenu de démonstration — marques et avis d'exemple pour prototypage. Données à valider avant mise en production.</p>
+    <p>Contenu de démonstration — marques, produits, prix et avis d'exemple pour prototypage. Données à valider avant mise en production.</p>
   </div>
 </footer>
 
+<div id="cartOverlay" class="cart-overlay" hidden></div>
+
+<aside id="cartDrawer" class="cart-drawer" aria-label="Panier">
+  <div class="cart-drawer-header">
+    <h2>Votre panier</h2>
+    <button type="button" id="cartClose" class="icon-close" aria-label="Fermer le panier">✕</button>
+  </div>
+  <div id="cartItems" class="cart-items"></div>
+  <div class="cart-drawer-footer">
+    <div class="cart-subtotal-row">
+      <span>Total</span>
+      <span id="cartSubtotal">0,00&nbsp;€</span>
+    </div>
+    <button type="button" id="checkoutBtn" class="btn-primary" disabled>Commander</button>
+  </div>
+</aside>
+
+<div id="checkoutModal" class="checkout-modal" hidden>
+  <div class="checkout-panel">
+    <button type="button" id="checkoutClose" class="icon-close" aria-label="Fermer">✕</button>
+    <div class="checkout-steps">
+      <span class="step active" data-step="1">1. Livraison</span>
+      <span class="step" data-step="2">2. Paiement</span>
+      <span class="step" data-step="3">3. Confirmation</span>
+    </div>
+
+    <form id="checkoutStepLivraison" class="checkout-step active" data-step="1">
+      <label>Nom complet<input type="text" name="nom" required autocomplete="name"></label>
+      <label>Adresse<input type="text" name="adresse" required autocomplete="street-address"></label>
+      <div class="form-row">
+        <label>Code postal<input type="text" name="codePostal" required autocomplete="postal-code"></label>
+        <label>Ville<input type="text" name="ville" required autocomplete="address-level2"></label>
+      </div>
+      <button type="submit" class="btn-primary">Continuer</button>
+    </form>
+
+    <form id="checkoutStepPaiement" class="checkout-step" data-step="2" hidden>
+      <p class="demo-warning">⚠️ Démo — aucun paiement réel n'est traité, ne saisissez pas de vraies données bancaires.</p>
+      <label>Nom sur la carte<input type="text" name="nomCarte" required autocomplete="cc-name"></label>
+      <label>Numéro de carte (fictif)<input type="text" name="numeroCarte" required placeholder="4242 4242 4242 4242" autocomplete="off"></label>
+      <div class="form-row">
+        <label>Expiration<input type="text" name="expiration" required placeholder="12/28" autocomplete="off"></label>
+        <label>CVC<input type="text" name="cvc" required placeholder="123" autocomplete="off"></label>
+      </div>
+      <button type="submit" class="btn-primary">Payer (simulation)</button>
+    </form>
+
+    <div id="checkoutStepConfirmation" class="checkout-step" data-step="3" hidden>
+      <h3>Commande confirmée ✓</h3>
+      <p>Numéro de commande : <strong id="orderNumber"></strong></p>
+      <div id="orderRecap"></div>
+      <button type="button" id="checkoutDone" class="btn-primary">Retour à la boutique</button>
+    </div>
+  </div>
+</div>
+
+<div id="toastContainer" class="toast-container" aria-live="polite"></div>
+
+<script src="assets/pricing.js"></script>
+<script src="assets/cart.js"></script>
+<script src="assets/checkout.js"></script>
 <script src="assets/app.js"></script>
 </body>
 </html>

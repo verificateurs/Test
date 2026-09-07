@@ -42,6 +42,11 @@ function initBrands(data) {
     tabsEl.appendChild(btn);
   });
   selectCategory(data.categories[0].id);
+
+  document.getElementById("brandGrid").addEventListener("click", (e) => {
+    const btn = e.target.closest(".btn-add-cart");
+    if (btn) addToCart(btn.dataset.productId, 1);
+  });
 }
 
 function selectCategory(catId) {
@@ -56,7 +61,33 @@ function selectCategory(catId) {
   gridEl.innerHTML = cat.brands.map(renderBrandCard).join("");
 }
 
+function productsForBrand(brandId) {
+  if (!productsData) return [];
+  return productsData.products.filter((p) => p.brandId === brandId);
+}
+
+function renderProductCard(product) {
+  const price = computeSellPrice(product.prixAchat);
+  const outOfStock = product.stock === false;
+  return `
+    <div class="product-card">
+      <div class="product-info">
+        <span class="product-name">${escapeHtml(product.name)}</span>
+        <span class="product-format">${escapeHtml(product.format)}</span>
+      </div>
+      <div class="product-buy">
+        <span class="product-price">${formatPrice(price)}</span>
+        ${
+          outOfStock
+            ? '<span class="out-of-stock">Rupture de stock</span>'
+            : `<button type="button" class="btn-add-cart" data-product-id="${escapeHtml(product.id)}">Ajouter</button>`
+        }
+      </div>
+    </div>`;
+}
+
 function renderBrandCard(brand) {
+  const products = productsForBrand(brand.id);
   return `
     <article class="brand-card">
       <div class="brand-card-header">
@@ -70,6 +101,7 @@ function renderBrandCard(brand) {
         <span class="review-count">(${brand.reviewCount} avis)</span>
       </div>
       <p class="preference">${escapeHtml(brand.preference)}</p>
+      ${products.length ? `<div class="product-list">${products.map(renderProductCard).join("")}</div>` : ""}
       <div class="reviews">${renderReviews(brand.reviews)}</div>
     </article>`;
 }
@@ -126,18 +158,61 @@ function renderCentre(reseauId, centreId) {
     <div class="reviews">${renderReviews(centre.reviews)}</div>`;
 }
 
+/* ---------- Produits & panier (données) ---------- */
+
+let productsData = null;
+
+/* ---------- Effets visuels ---------- */
+
+function initScrollEffects() {
+  const header = document.querySelector(".site-header");
+  window.addEventListener(
+    "scroll",
+    () => {
+      header.classList.toggle("scrolled", window.scrollY > 8);
+    },
+    { passive: true }
+  );
+
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const revealEls = document.querySelectorAll(".reveal");
+  if (reduceMotion || !("IntersectionObserver" in window)) {
+    revealEls.forEach((el) => el.classList.add("in-view"));
+    return;
+  }
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in-view");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+  revealEls.forEach((el) => observer.observe(el));
+}
+
 /* ---------- Bootstrap ---------- */
 
 async function loadData() {
-  const [brandsRes, prepRes] = await Promise.all([
+  const [brandsRes, prepRes, productsRes, pricingRes] = await Promise.all([
     fetch("data/brands.json"),
     fetch("data/preparateurs.json"),
+    fetch("data/products.json"),
+    fetch("data/pricing-config.json"),
   ]);
+  pricingConfig = await pricingRes.json();
+  productsData = await productsRes.json();
   initBrands(await brandsRes.json());
   initPreparateurs(await prepRes.json());
+  initCart();
+  initCheckout();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  initScrollEffects();
   loadData().catch((err) => {
     console.error("Erreur de chargement des données :", err);
   });
