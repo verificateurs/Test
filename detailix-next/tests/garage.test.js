@@ -13,8 +13,14 @@ module.exports = {
         await page.waitForSelector(".garage-panel", { state: "visible" });
         // L'arbre marque/modèle/motorisation est chargé depuis /api/vehicules-arbre
         // après l'ouverture du panneau (fetch async) : attendre qu'au moins une
-        // vraie option (hors "Marque" placeholder) soit présente avant de lire la liste.
-        await page.waitForSelector(".garage-form select:nth-of-type(1) option[value]:not([value=''])", { timeout: 5000 });
+        // vraie option (hors "Marque" placeholder) soit présente avant de lire la
+        // liste. waitForSelector avec l'état "visible" par défaut ne fonctionne pas
+        // sur des <option> (jamais considérées visibles hors ouverture du <select>
+        // par le navigateur) : on interroge directement select.options.length.
+        await page.waitForFunction(
+          () => (document.querySelectorAll(".garage-form select")[0]?.options.length ?? 0) > 1,
+          { timeout: 5000 }
+        );
 
         const makeOptions = await page.$$eval(".garage-form select:nth-of-type(1) option", (opts) =>
           opts.map((o) => o.value).filter(Boolean)
