@@ -3,7 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!--
+  Politique de sécurité du contenu. Pas de 'unsafe-inline' : le site n'a ni script
+  ni style inline. Les deux exceptions fonts.googleapis/gstatic disparaîtront quand
+  les polices seront auto-hébergées (module suivant), la CSP passera alors en 'self' seul.
+-->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; form-action 'none'; base-uri 'none'; object-src 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Detailix — Marques &amp; préparateurs partenaires</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b0d10'/%3E%3Ctext x='16' y='23' font-family='sans-serif' font-size='19' font-weight='bold' fill='%23ff5a1f' text-anchor='middle'%3ED%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
@@ -192,11 +200,20 @@
 
     <h3 class="order-history-title">Historique de mes commandes</h3>
     <div id="orderHistoryList" class="order-history-list"></div>
+
+    <div class="privacy-block">
+      <p class="privacy-note">
+        Vos données (panier, garage, compte, commandes) sont stockées uniquement dans ce navigateur,
+        sur cet appareil. Elles ne sont envoyées à aucun serveur. La déconnexion efface l'historique de commandes.
+      </p>
+      <button type="button" id="eraseDataBtn" class="btn-secondary">Effacer toutes mes données locales</button>
+    </div>
   </div>
 </div>
 
 <div id="toastContainer" class="toast-container" aria-live="polite"></div>
 
+<script src="assets/storage.js"></script>
 <script src="assets/pricing.js"></script>
 <script src="assets/cart.js"></script>
 <script src="assets/checkout.js"></script>

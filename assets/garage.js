@@ -1,24 +1,19 @@
-const GARAGE_STORAGE_KEY = "detailix_garage_v1";
+const GARAGE_STORAGE_KEY = STORAGE_KEYS.garage;
 
 let vehiclesData = null;
 let garageState = { activeIndex: -1, vehicles: [] };
 
 function loadGarage() {
-  try {
-    const raw = localStorage.getItem(GARAGE_STORAGE_KEY);
-    garageState = raw ? JSON.parse(raw) : { activeIndex: -1, vehicles: [] };
-  } catch (err) {
-    console.warn("Garage : localStorage indisponible, le garage ne sera pas conservé après rechargement.", err);
-    garageState = { activeIndex: -1, vehicles: [] };
+  garageState = readStorage(GARAGE_STORAGE_KEY, isValidGarage, { activeIndex: -1, vehicles: [] });
+  // Un activeIndex hors bornes (stockage trafiqué ou véhicule supprimé) ne doit
+  // pas se propager jusqu'au calcul de compatibilité.
+  if (garageState.activeIndex >= garageState.vehicles.length) {
+    garageState.activeIndex = garageState.vehicles.length ? 0 : -1;
   }
 }
 
 function saveGarage() {
-  try {
-    localStorage.setItem(GARAGE_STORAGE_KEY, JSON.stringify(garageState));
-  } catch (err) {
-    console.warn("Garage : impossible d'enregistrer dans localStorage.", err);
-  }
+  writeStorage(GARAGE_STORAGE_KEY, garageState);
 }
 
 function notifyGarageChanged() {

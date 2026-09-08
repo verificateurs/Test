@@ -25,14 +25,27 @@ Tout le contenu vit dans des fichiers JSON, indépendants du code d'affichage :
 
 Modifier ces fichiers (ajouter une marque, un produit, un véhicule, un centre, un avis, changer la marge...) suffit à mettre à jour le site — aucune modification du HTML/CSS/JS n'est nécessaire. Ce sont des données d'exemple destinées à être remplacées/complétées par un import réel depuis le futur back-office (cf. cahier des charges §4.2).
 
-## Stockage local (navigateur)
+## Sécurité
 
-Le prototype n'a pas de back-end : plusieurs fonctionnalités utilisent le `localStorage` du navigateur, propre à chaque visiteur/appareil :
+- **Échappement** : `escapeHtml` (dans `assets/app.js`) échappe `& < > " '`. Sa sortie est donc sûre aussi bien entre deux balises que **dans une valeur d'attribut**. Ne jamais la remplacer par l'astuce `textContent`/`innerHTML`, qui laisse passer les guillemets et permet de sortir d'un attribut (XSS). Un test automatisé injecte des données hostiles dans le catalogue et échoue si la protection saute.
+- **CSP** : politique stricte déclarée en `<meta>` dans `index.html` (`default-src 'self'`, aucun `unsafe-inline`). Le site ne contient volontairement ni script ni style inline pour la rendre applicable.
+- **En-têtes HTTP** : le fichier `_headers` (lu par Netlify et Cloudflare Pages) ajoute `frame-ancestors`, `X-Content-Type-Options`, `Permissions-Policy`, `HSTS`. ⚠️ GitHub Pages ne supporte pas les en-têtes personnalisés : sur cet hébergeur, seule la CSP en `<meta>` s'applique.
+- **Données non fiables** : tout ce qui sort du `localStorage` est validé par une garde de forme (`assets/storage.js`) avant usage — un stockage trafiqué à la main est ignoré, il ne casse pas la page. Idem pour les champs de catalogue absents ou mal formés.
+- **Limites** : le compte et le paiement sont **simulés**, sans back-end. Aucune authentification réelle n'est possible côté client — ne jamais présenter cet écran comme une protection.
+
+## Stockage local (navigateur) et données personnelles
+
+Le prototype n'a pas de back-end : plusieurs fonctionnalités utilisent le `localStorage` du navigateur, propre à chaque visiteur/appareil. Rien n'est envoyé à un serveur.
 
 - `detailix_cart_v1` — contenu du panier.
 - `detailix_garage_v1` — véhicules enregistrés dans "mon garage".
 - `detailix_account_v1` — nom d'affichage du compte simulé.
-- `detailix_orders_v1` — historique des commandes (plafonné aux 20 dernières).
+- `detailix_orders_v1` — historique des commandes, plafonné aux 20 dernières. **Contient le nom et l'adresse de livraison saisis** au tunnel de commande.
+
+Deux garde-fous RGPD, puisque le « compte » ne cloisonne rien réellement :
+
+- la **déconnexion efface l'historique de commandes**, pour qu'un autre pseudo utilisé sur le même navigateur ne voie pas les commandes du précédent ;
+- un bouton **« Effacer toutes mes données locales »** (modale Mon compte) supprime les quatre clés d'un coup.
 
 ## Lancer le prototype en local
 

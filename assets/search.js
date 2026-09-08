@@ -40,7 +40,7 @@ function renderSearchResults(results, query) {
   container.innerHTML = results
     .map(
       (r) => `
-      <button type="button" class="search-result-item" data-type="${r.type}" data-id="${escapeHtml(r.id)}"${r.categoryId ? ` data-category-id="${escapeHtml(r.categoryId)}"` : ""}>
+      <button type="button" class="search-result-item" data-type="${escapeHtml(r.type)}" data-id="${escapeHtml(r.id)}"${r.categoryId ? ` data-category-id="${escapeHtml(r.categoryId)}"` : ""}>
         <span class="search-result-name">${escapeHtml(r.name)}</span>
         <span class="search-result-meta">${escapeHtml(r.meta)}${r.price ? ` · ${r.price}` : ""}</span>
       </button>`
@@ -60,7 +60,9 @@ function selectSearchResult(type, id, categoryId) {
     selectCategory(categoryId);
     document.getElementById("marques").scrollIntoView({ behavior: "smooth" });
     setTimeout(() => {
-      const card = document.querySelector(`.brand-card[data-brand-id="${id}"]`);
+      // On compare les dataset plutôt que d'interpoler l'id dans un sélecteur CSS :
+      // un id contenant un guillemet ferait échouer (ou détourner) le querySelector.
+      const card = [...document.querySelectorAll(".brand-card")].find((el) => el.dataset.brandId === id);
       if (card) {
         card.classList.add("highlight");
         setTimeout(() => card.classList.remove("highlight"), 1500);

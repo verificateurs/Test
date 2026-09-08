@@ -1,23 +1,25 @@
-const CART_STORAGE_KEY = "detailix_cart_v1";
+const CART_STORAGE_KEY = STORAGE_KEYS.cart;
+const MAX_QTY_PER_LINE = 99;
 
 let cartItems = [];
 
 function loadCart() {
-  try {
-    const raw = localStorage.getItem(CART_STORAGE_KEY);
-    cartItems = raw ? JSON.parse(raw) : [];
-  } catch (err) {
-    console.warn("Panier : localStorage indisponible, le panier ne sera pas conservé après rechargement.", err);
-    cartItems = [];
-  }
+  cartItems = readStorage(CART_STORAGE_KEY, isValidCart, []);
+  pruneOrphanCartItems();
+}
+
+/**
+ * Retire les lignes dont le produit n'existe plus au catalogue.
+ * Sans ça elles disparaissent de l'affichage mais restent indéfiniment stockées.
+ */
+function pruneOrphanCartItems() {
+  const before = cartItems.length;
+  cartItems = cartItems.filter((item) => findProductById(item.productId) !== null);
+  if (cartItems.length !== before) saveCart();
 }
 
 function saveCart() {
-  try {
-    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cartItems));
-  } catch (err) {
-    console.warn("Panier : impossible d'enregistrer dans localStorage.", err);
-  }
+  writeStorage(CART_STORAGE_KEY, cartItems);
 }
 
 function findProductById(productId) {
@@ -31,9 +33,9 @@ function addToCart(productId, qty = 1) {
 
   const existing = cartItems.find((item) => item.productId === productId);
   if (existing) {
-    existing.qty += qty;
+    existing.qty = Math.min(existing.qty + qty, MAX_QTY_PER_LINE);
   } else {
-    cartItems.push({ productId, qty });
+    cartItems.push({ productId, qty: Math.min(qty, MAX_QTY_PER_LINE) });
   }
   saveCart();
   renderCartBadge();
@@ -58,7 +60,7 @@ function updateQty(productId, qty) {
   }
   const item = cartItems.find((i) => i.productId === productId);
   if (item) {
-    item.qty = qty;
+    item.qty = Math.min(qty, MAX_QTY_PER_LINE);
     saveCart();
     renderCartBadge();
     renderCartDrawer();

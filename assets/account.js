@@ -1,46 +1,26 @@
-const ACCOUNT_STORAGE_KEY = "detailix_account_v1";
-const ORDERS_STORAGE_KEY = "detailix_orders_v1";
+const ACCOUNT_STORAGE_KEY = STORAGE_KEYS.account;
+const ORDERS_STORAGE_KEY = STORAGE_KEYS.orders;
 const MAX_ORDERS_STORED = 20;
 
 let accountState = null;
 let ordersState = [];
 
 function loadAccount() {
-  try {
-    const raw = localStorage.getItem(ACCOUNT_STORAGE_KEY);
-    accountState = raw ? JSON.parse(raw) : null;
-  } catch (err) {
-    console.warn("Compte : localStorage indisponible.", err);
-    accountState = null;
-  }
+  accountState = readStorage(ACCOUNT_STORAGE_KEY, isValidAccount, null);
 }
 
 function saveAccount(account) {
   accountState = account;
-  try {
-    if (account) localStorage.setItem(ACCOUNT_STORAGE_KEY, JSON.stringify(account));
-    else localStorage.removeItem(ACCOUNT_STORAGE_KEY);
-  } catch (err) {
-    console.warn("Compte : impossible d'enregistrer dans localStorage.", err);
-  }
+  if (account) writeStorage(ACCOUNT_STORAGE_KEY, account);
+  else removeStorage(ACCOUNT_STORAGE_KEY);
 }
 
 function loadOrders() {
-  try {
-    const raw = localStorage.getItem(ORDERS_STORAGE_KEY);
-    ordersState = raw ? JSON.parse(raw) : [];
-  } catch (err) {
-    console.warn("Historique de commandes : localStorage indisponible.", err);
-    ordersState = [];
-  }
+  ordersState = readStorage(ORDERS_STORAGE_KEY, isValidOrders, []);
 }
 
 function saveOrders() {
-  try {
-    localStorage.setItem(ORDERS_STORAGE_KEY, JSON.stringify(ordersState));
-  } catch (err) {
-    console.warn("Historique de commandes : impossible d'enregistrer dans localStorage.", err);
-  }
+  writeStorage(ORDERS_STORAGE_KEY, ordersState);
 }
 
 function login(displayName) {
@@ -48,9 +28,24 @@ function login(displayName) {
   renderAccountUI();
 }
 
+/**
+ * La « connexion » n'est qu'un nom d'affichage : rien ne cloisonne réellement
+ * les données entre deux pseudos. L'historique contenant nom et adresse de
+ * livraison, on le purge à la déconnexion plutôt que de le laisser visible au
+ * pseudo suivant sur le même navigateur.
+ */
 function logout() {
   saveAccount(null);
+  ordersState = [];
+  saveOrders();
   renderAccountUI();
+  renderOrderHistory();
+}
+
+/** Efface panier, garage, compte et commandes, puis recharge la page. */
+function eraseAllLocalData() {
+  clearAllLocalData();
+  window.location.reload();
 }
 
 function recordOrder(orderNumber, lines, livraison) {
@@ -65,7 +60,7 @@ function recordOrder(orderNumber, lines, livraison) {
       lineTotal: line.lineTotal,
       delivery: line.delivery,
     })),
-    total: lines.reduce((sum, line) => sum + line.lineTotal, 0),
+    total: Math.round(lines.reduce((sum, line) => sum + line.lineTotal, 0) * 100) / 100,
   };
   ordersState.push(order);
   if (ordersState.length > MAX_ORDERS_STORED) {
@@ -144,5 +139,12 @@ function initAccount() {
 
   document.getElementById("logoutBtn").addEventListener("click", () => {
     logout();
+  });
+
+  document.getElementById("eraseDataBtn").addEventListener("click", () => {
+    const confirmed = window.confirm(
+      "Effacer toutes vos données locales (panier, garage, compte, historique de commandes) ? Cette action est irréversible."
+    );
+    if (confirmed) eraseAllLocalData();
   });
 }

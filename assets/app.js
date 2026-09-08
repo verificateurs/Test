@@ -3,10 +3,16 @@ function starString(rating) {
   return "★".repeat(full) + "☆".repeat(Math.max(0, 5 - full));
 }
 
-function escapeHtml(str) {
-  const div = document.createElement("div");
-  div.textContent = str;
-  return div.innerHTML;
+// Échappe le texte ET les guillemets : la sortie est sûre aussi bien entre
+// deux balises que dans une valeur d'attribut (`data-x="${escapeHtml(v)}"`).
+// Ne jamais revenir à l'astuce textContent/innerHTML, qui laisse passer " et '.
+function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
 }
 
 function renderReviews(reviews) {
@@ -144,9 +150,13 @@ const COMPATIBILITY_LABELS = {
 
 function compatibilityStatus(product) {
   if (product.compatibilite === "universel") return "universel";
+  // Donnée absente ou mal formée (catalogue édité à la main / import partiel) :
+  // on n'affirme rien plutôt que de planter le rendu de toute la grille.
+  const codes = product.compatibilite && product.compatibilite.codes;
+  if (!Array.isArray(codes)) return "a-verifier";
   const activeVehicle = typeof getActiveVehicle === "function" ? getActiveVehicle() : null;
   if (!activeVehicle) return "a-verifier";
-  return product.compatibilite.codes.includes(activeVehicle.codeMoteur) ? "compatible" : "incompatible";
+  return codes.includes(activeVehicle.codeMoteur) ? "compatible" : "incompatible";
 }
 
 function renderCompatibilityBadge(product) {
@@ -284,7 +294,7 @@ function selectReseau(reseauId) {
 
   const citySelect = document.getElementById("citySelect");
   citySelect.innerHTML = reseau.centres
-    .map((c) => `<option value="${c.id}">${escapeHtml(c.ville)}</option>`)
+    .map((c) => `<option value="${escapeHtml(c.id)}">${escapeHtml(c.ville)}</option>`)
     .join("");
   citySelect.onchange = () => renderCentre(reseauId, citySelect.value);
 
