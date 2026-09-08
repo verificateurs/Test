@@ -9,6 +9,10 @@ import { checkRateLimit, sweepRateLimitBuckets } from "@/lib/auth/rateLimit";
 import { getMarginPercent, computeSellPrice } from "@/lib/catalogue";
 import { getFreeShippingThreshold, computeShippingCost, validatePromoCode } from "@/lib/checkout/pricing";
 import { CartItemsInputSchema, CheckoutSchema } from "@/lib/checkout/schemas";
+import type Stripe from "stripe";
+import { isStripeConfigured, getStripeClient } from "@/lib/stripe";
+import { sendOrderConfirmationEmail } from "@/lib/email";
+import { absoluteUrl } from "@/lib/site";
 
 export type CheckoutActionState = {
   error: string | null;
@@ -112,7 +116,71 @@ export async function createOrderAction(_prev: CheckoutActionState, formData: Fo
       userId: session?.user.id,
       lines: { create: lines },
     },
+    include: { lines: true },
   });
 
-  redirect(`/commande/confirmation/${order.reference}`);
+  // Sans clé Stripe (dev / test utilisateurs sans compte de paiement réel) :
+  // repli explicite et visible plutôt qu'un faux succès silencieux. La
+  // commande est marquée payée directement — jamais depuis la page de
+  // confirmation elle-même, qui reste strictement en lecture seule.
+  if (!isStripeConfigured()) {
+    const paidOrder = await prisma.order.update({
+      where: { id: order.id },
+      data: { status: "PAID" },
+      include: { lines: true },
+    });
+    await sendOrderConfirmationEmail(paidOrder);
+    redirect(`/commande/confirmation/${order.reference}`);
+  }
+
+  // Session Checkout hébergée par Stripe, créée côté serveur uniquement — la
+  // clé secrète ne quitte jamais ce fichier, aucun Stripe.js côté client.
+  // Les montants viennent des lignes déjà recalculées ci-dessus, jamais du
+  // panier envoyé par le client. La commande n'est marquée PAID que par le
+  // webhook signé (voir api/stripe/webhook/route.ts), jamais par ce redirect.
+  const stripe = getStripeClient();
+
+  // Nos codes promo sont des enregistrements internes (PromoCode), pas des
+  // objets Stripe. Pour appliquer la même remise déjà calculée côté serveur
+  // sans dupliquer les codes dans Stripe, on crée un coupon Stripe ad hoc
+  // (montant fixe, usage unique) juste avant la session.
+  let discountParam: Stripe.Checkout.SessionCreateParams["discounts"];
+  if (discount > 0) {
+    const coupon = await stripe.coupons.create({
+      amount_off: Math.round(discount * 100),
+      currency: "eur",
+      duration: "once",
+      name: promo?.ok ? `Code promo ${promo.code}` : "Remise",
+    });
+    discountParam = [{ coupon: coupon.id }];
+  }
+
+  const checkoutSession = await stripe.checkout.sessions.create({
+    mode: "payment",
+    customer_email: checkoutParsed.data.email,
+    client_reference_id: order.id,
+    metadata: { orderId: order.id, orderReference: order.reference },
+    line_items: order.lines.map((line) => ({
+      quantity: line.qty,
+      price_data: {
+        currency: "eur",
+        unit_amount: Math.round(line.unitPrice * 100),
+        product_data: { name: `${line.name} (${line.format})` },
+      },
+    })),
+    shipping_options:
+      shippingCost > 0
+        ? [{ shipping_rate_data: { type: "fixed_amount", fixed_amount: { amount: Math.round(shippingCost * 100), currency: "eur" }, display_name: "Livraison standard" } }]
+        : undefined,
+    discounts: discountParam,
+    success_url: absoluteUrl(`/commande/confirmation/${order.reference}`),
+    cancel_url: absoluteUrl("/commande"),
+  });
+
+  await prisma.order.update({ where: { id: order.id }, data: { stripeSession: checkoutSession.id } });
+
+  if (!checkoutSession.url) {
+    return { error: "Impossible de créer la session de paiement. Réessayez.", values: rawFields };
+  }
+  redirect(checkoutSession.url);
 }

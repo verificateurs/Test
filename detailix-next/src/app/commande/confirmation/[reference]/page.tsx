@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { SiteHeader, SiteFooter } from "@/components/SiteChrome";
 import { ClearCartOnMount } from "../ClearCartOnMount";
+import { PendingRefresh } from "../PendingRefresh";
 
 export const metadata: Metadata = { title: "Commande confirmée", robots: { index: false, follow: false } };
 
@@ -22,6 +23,7 @@ export default async function ConfirmationPage({ params }: { params: Promise<{ r
     <>
       <SiteHeader />
       <ClearCartOnMount />
+      <PendingRefresh isPending={order.status !== "PAID"} />
       <main>
         <section className="section">
           <div className="container">
@@ -29,10 +31,19 @@ export default async function ConfirmationPage({ params }: { params: Promise<{ r
             <p className="section-intro">
               Référence : <strong>{order.reference}</strong> — un email de confirmation sera envoyé à {order.email}.
             </p>
-            <p className="checkout-demo-banner">
-              Mode démonstration : le paiement en ligne réel n&apos;est pas encore activé sur ce lot. Aucune somme n&apos;a
-              été prélevée.
-            </p>
+            {order.status === "PAID" && order.stripeSession ? (
+              <p className="checkout-demo-banner">Paiement confirmé par Stripe.</p>
+            ) : order.status === "PAID" ? (
+              <p className="checkout-demo-banner">
+                Mode démonstration : paiement Stripe non configuré sur cet environnement, la commande est marquée
+                payée directement. Aucune somme n&apos;a réellement été prélevée.
+              </p>
+            ) : (
+              <p className="checkout-demo-banner">
+                Paiement en cours de confirmation par Stripe — cette page se met à jour automatiquement dès sa
+                réception (généralement quelques secondes). Vous recevrez un email dès la confirmation.
+              </p>
+            )}
 
             <div className="order-summary">
               <h2>Détail</h2>
