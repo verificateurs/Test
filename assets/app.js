@@ -164,6 +164,20 @@ function renderCompatibilityBadge(product) {
   return `<span class="compat-badge ${status.className}">${escapeHtml(status.label)}</span>`;
 }
 
+// §11 du cahier des charges : les pièces touchant à la sécurité ou à l'homologation
+// du véhicule (éclairage, échappement, freinage, carrosserie) doivent indiquer
+// clairement si elles sont utilisables sur route ouverte.
+const HOMOLOGATION_LABELS = {
+  "route-ouverte": { label: "Homologué route ouverte", className: "homolog-route" },
+  "usage-piste": { label: "Usage circuit uniquement — non homologué route", className: "homolog-piste" },
+};
+
+function renderHomologationBadge(product) {
+  const info = HOMOLOGATION_LABELS[product.homologation];
+  if (!info) return "";
+  return `<span class="homolog-badge ${info.className}">${escapeHtml(info.label)}</span>`;
+}
+
 function renderProductCard(product) {
   const price = computeSellPrice(product.prixAchat);
   const outOfStock = product.stock === false;
@@ -175,6 +189,7 @@ function renderProductCard(product) {
         <span class="product-format">${escapeHtml(product.format)}</span>
         <span class="delivery-badge ${delivery.className}">${escapeHtml(delivery.label)}</span>
         ${renderCompatibilityBadge(product)}
+        ${renderHomologationBadge(product)}
       </div>
       <div class="product-buy">
         <span class="product-price">${formatPrice(price)}</span>
@@ -207,6 +222,7 @@ function renderProductDetail(product) {
     <div class="product-detail-badges">
       <span class="delivery-badge ${delivery.className}">${escapeHtml(delivery.label)}</span>
       ${renderCompatibilityBadge(product)}
+      ${renderHomologationBadge(product)}
     </div>
     <div class="product-detail-buy">
       <span class="product-detail-price">${formatPrice(price)}</span>

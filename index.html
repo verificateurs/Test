@@ -4,17 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--
-  Politique de sécurité du contenu. Pas de 'unsafe-inline' : le site n'a ni script
-  ni style inline. Les deux exceptions fonts.googleapis/gstatic disparaîtront quand
-  les polices seront auto-hébergées (module suivant), la CSP passera alors en 'self' seul.
+  Politique de sécurité du contenu. Aucune source externe : les polices sont
+  auto-hébergées, il n'y a ni script ni style inline, donc pas de 'unsafe-inline'.
+  Le site ne fait aucune requête sortante vers un tiers.
 -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; form-action 'none'; base-uri 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src 'self'; form-action 'none'; base-uri 'none'; object-src 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Detailix — Marques &amp; préparateurs partenaires</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b0d10'/%3E%3Ctext x='16' y='23' font-family='sans-serif' font-size='19' font-weight='bold' fill='%23ff5a1f' text-anchor='middle'%3ED%3C/text%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/fonts.css">
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>

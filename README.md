@@ -27,8 +27,9 @@ Modifier ces fichiers (ajouter une marque, un produit, un véhicule, un centre, 
 
 ## Sécurité
 
-- **Échappement** : `escapeHtml` (dans `assets/app.js`) échappe `& < > " '`. Sa sortie est donc sûre aussi bien entre deux balises que **dans une valeur d'attribut**. Ne jamais la remplacer par l'astuce `textContent`/`innerHTML`, qui laisse passer les guillemets et permet de sortir d'un attribut (XSS). Un test automatisé injecte des données hostiles dans le catalogue et échoue si la protection saute.
-- **CSP** : politique stricte déclarée en `<meta>` dans `index.html` (`default-src 'self'`, aucun `unsafe-inline`). Le site ne contient volontairement ni script ni style inline pour la rendre applicable.
+- **Échappement** : `escapeHtml` (dans `assets/app.js`) échappe `& < > " '`. Sa sortie est donc sûre aussi bien entre deux balises que **dans une valeur d'attribut**. Ne jamais la remplacer par l'astuce `textContent`/`innerHTML`, qui laisse passer les guillemets et permet de sortir d'un attribut (XSS). `tests/security.test.js` injecte des données hostiles dans le catalogue servi et échoue si la protection saute — vérifié : ces tests échouent bien contre l'ancienne implémentation.
+- **CSP** : politique stricte déclarée en `<meta>` dans `index.html` (`default-src 'self'`, aucun `unsafe-inline`, **aucune source externe**). Le site ne contient volontairement ni script ni style inline, et ne charge aucune ressource tierce.
+- **Aucune requête sortante** : les polices Sora et Inter sont auto-hébergées dans `assets/fonts/`. Le hotlink vers Google Fonts transmettait l'adresse IP de chaque visiteur à Google, ce qui a valu des condamnations en France et en Allemagne.
 - **En-têtes HTTP** : le fichier `_headers` (lu par Netlify et Cloudflare Pages) ajoute `frame-ancestors`, `X-Content-Type-Options`, `Permissions-Policy`, `HSTS`. ⚠️ GitHub Pages ne supporte pas les en-têtes personnalisés : sur cet hébergeur, seule la CSP en `<meta>` s'applique.
 - **Données non fiables** : tout ce qui sort du `localStorage` est validé par une garde de forme (`assets/storage.js`) avant usage — un stockage trafiqué à la main est ignoré, il ne casse pas la page. Idem pour les champs de catalogue absents ou mal formés.
 - **Limites** : le compte et le paiement sont **simulés**, sans back-end. Aucune authentification réelle n'est possible côté client — ne jamais présenter cet écran comme une protection.
@@ -46,6 +47,25 @@ Deux garde-fous RGPD, puisque le « compte » ne cloisonne rien réellement :
 
 - la **déconnexion efface l'historique de commandes**, pour qu'un autre pseudo utilisé sur le même navigateur ne voie pas les commandes du précédent ;
 - un bouton **« Effacer toutes mes données locales »** (modale Mon compte) supprime les quatre clés d'un coup.
+
+## Tests et validation
+
+```bash
+npm run validate   # structure, unicité et intégrité référentielle de data/*.json
+npm test           # 23 tests de bout en bout (Playwright), dont les tests d'injection
+npm run check      # les deux
+```
+
+Les tests tournent sur un serveur statique interne (aucune dépendance réseau) et
+s'exécutent aussi en CI à chaque push (`.github/workflows/ci.yml`).
+
+## Mentions réglementaires
+
+Conformément au §11 du cahier des charges, les produits touchant à la sécurité ou à
+l'homologation du véhicule (éclairage, échappement, freinage, suspension, carrosserie)
+portent un champ `homologation` (`route-ouverte` / `usage-piste` / `non-applicable`)
+affiché sur la fiche produit. La mention « usage circuit uniquement » est signalée en
+rouge : monter une telle pièce sur route expose à une contre-visite au contrôle technique.
 
 ## Lancer le prototype en local
 

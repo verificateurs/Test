@@ -172,6 +172,20 @@
           "reviews": [
             { "author": "Louis A.", "rating": 5, "date": "2025-12-01", "comment": "Kit complet avec certificat, contrôle technique passé sans souci." }
           ]
+        },
+        {
+          "id": "seibon",
+          "name": "Seibon Carbon",
+          "origine": "États-Unis",
+          "gamme": "Haut de gamme",
+          "rating": 4.5,
+          "reviewCount": 38,
+          "recommended": false,
+          "preference": "Pièces en fibre de carbone (capots, ailes, becquets) avec tissage régulier et vernis épais, pour un gain de poids visible.",
+          "reviews": [
+            { "author": "Antoine V.", "rating": 5, "date": "2026-03-06", "comment": "Capot carbone très léger, tissage impeccable et alignement correct après réglage." },
+            { "author": "Julie N.", "rating": 4, "date": "2025-12-22", "comment": "Belle pièce, prévoir un ajustement par un carrossier pour un alignement parfait." }
+          ]
         }
       ]
     },
@@ -270,6 +284,246 @@
           "preference": "Bonne alternative pour la teinte vitrage, gammes de teintes conformes à la réglementation française sur le pare-brise avant.",
           "reviews": [
             { "author": "Chloé B.", "rating": 4, "date": "2025-10-05", "comment": "Teinte homogène, l'installateur a bien expliqué les seuils légaux avant/arrière." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "produits-interieur",
+      "label": "Produits intérieur (cuir, plastique, textile)",
+      "description": "Nettoyants et protections pour le cuir, les plastiques de planche de bord et les textiles de l'habitacle.",
+      "brands": [
+        {
+          "id": "colourlock",
+          "name": "Colourlock",
+          "origine": "Allemagne",
+          "gamme": "Haut de gamme",
+          "rating": 4.7,
+          "reviewCount": 43,
+          "recommended": true,
+          "preference": "Spécialiste du cuir automobile, du nettoyage à la réparation. Protocole bien documenté et résultats réguliers sur cuirs pigmentés.",
+          "reviews": [
+            { "author": "Fabien L.", "rating": 5, "date": "2026-03-02", "comment": "Le kit cuir a rattrapé des sièges très marqués sans laisser d'aspect brillant artificiel." },
+            { "author": "Marion C.", "rating": 4, "date": "2026-01-14", "comment": "Très efficace, mais il faut respecter les temps de pose sinon le rendu est inégal." }
+          ]
+        },
+        {
+          "id": "303-products",
+          "name": "303 Products",
+          "origine": "États-Unis",
+          "gamme": "Milieu de gamme",
+          "rating": 4.5,
+          "reviewCount": 88,
+          "recommended": false,
+          "preference": "Référence pour la protection UV des plastiques et textiles, finition mate naturelle appréciée sur les planches de bord.",
+          "reviews": [
+            { "author": "Yanis M.", "rating": 5, "date": "2026-02-18", "comment": "Rendu mat propre sur le tableau de bord, sans effet gras." },
+            { "author": "Claire B.", "rating": 4, "date": "2025-12-04", "comment": "Bonne tenue au soleil, le flacon part vite sur un grand habitacle." }
+          ]
+        },
+        {
+          "id": "koch-chemie",
+          "name": "Koch-Chemie",
+          "origine": "Allemagne",
+          "gamme": "Professionnel",
+          "rating": 4.8,
+          "reviewCount": 57,
+          "recommended": false,
+          "preference": "Gamme professionnelle utilisée en centre esthétique, dilutions précises et rendement élevé pour un usage intensif.",
+          "reviews": [
+            { "author": "Damien R.", "rating": 5, "date": "2026-04-05", "comment": "Détache les tissus de sièges de façon impressionnante, même sur des taches anciennes." },
+            { "author": "Inès F.", "rating": 5, "date": "2026-01-09", "comment": "Redonne un aspect d'origine aux plastiques, sans reflets gênants dans le pare-brise." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "accessoires-outillage",
+      "label": "Accessoires & outillage",
+      "description": "Microfibres, applicateurs, polisseuses, seaux de lavage et housses pour travailler dans de bonnes conditions.",
+      "brands": [
+        {
+          "id": "rupes",
+          "name": "Rupes",
+          "origine": "Italie",
+          "gamme": "Haut de gamme",
+          "rating": 4.9,
+          "reviewCount": 36,
+          "recommended": true,
+          "preference": "Référence des polisseuses à grand débattement : confort d'utilisation et finition sans hologrammes, notre choix pour le polissage sérieux.",
+          "reviews": [
+            { "author": "Grégory T.", "rating": 5, "date": "2026-03-21", "comment": "Machine équilibrée et peu vibrante, on tient une session complète sans fatigue." },
+            { "author": "Nadia S.", "rating": 5, "date": "2025-11-27", "comment": "Investissement conséquent mais la finition n'a rien à voir avec une machine d'entrée de gamme." }
+          ]
+        },
+        {
+          "id": "the-rag-company",
+          "name": "The Rag Company",
+          "origine": "États-Unis",
+          "gamme": "Milieu-haut de gamme",
+          "rating": 4.7,
+          "reviewCount": 112,
+          "recommended": false,
+          "preference": "Microfibres de densité constante et bords surfilés : elles tiennent de nombreux lavages sans marquer la peinture.",
+          "reviews": [
+            { "author": "Loïc V.", "rating": 5, "date": "2026-02-11", "comment": "Aucune trace sur le noir, un vrai écart avec les microfibres de supermarché." },
+            { "author": "Émilie D.", "rating": 4, "date": "2026-01-03", "comment": "Excellentes serviettes, à laver sans adoucissant pour garder l'absorption." }
+          ]
+        },
+        {
+          "id": "grit-guard",
+          "name": "Grit Guard",
+          "origine": "États-Unis",
+          "gamme": "Milieu de gamme",
+          "rating": 4.4,
+          "reviewCount": 74,
+          "recommended": false,
+          "preference": "Le standard du lavage deux seaux : la grille de fond retient les particules et limite nettement les micro-rayures.",
+          "reviews": [
+            { "author": "Bastien H.", "rating": 5, "date": "2026-02-25", "comment": "Depuis le passage aux deux seaux avec grilles, plus aucune micro-rayure au lavage." },
+            { "author": "Hélène P.", "rating": 4, "date": "2025-12-19", "comment": "Simple et efficace, l'insert bouge un peu dans les seaux d'une autre marque." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "admission-filtration",
+      "label": "Admission & filtration",
+      "description": "Filtres à air sport et kits d'admission. Attention à la mention d'homologation : tous ne sont pas autorisés sur route ouverte.",
+      "brands": [
+        {
+          "id": "k-and-n",
+          "name": "K&N",
+          "origine": "États-Unis",
+          "gamme": "Milieu-haut de gamme",
+          "rating": 4.5,
+          "reviewCount": 91,
+          "recommended": true,
+          "preference": "Filtres lavables réutilisables, montage direct dans le boîtier d'origine : le choix le plus simple pour rester conforme.",
+          "reviews": [
+            { "author": "Julien P.", "rating": 5, "date": "2026-03-17", "comment": "Filtre de remplacement monté en dix minutes, entretien facile au kit de nettoyage." },
+            { "author": "Sofia B.", "rating": 4, "date": "2026-01-22", "comment": "Bon produit, penser à ne pas trop huiler le filtre au remontage." }
+          ]
+        },
+        {
+          "id": "bmc-air-filter",
+          "name": "BMC Air Filter",
+          "origine": "Italie",
+          "gamme": "Haut de gamme",
+          "rating": 4.6,
+          "reviewCount": 48,
+          "recommended": false,
+          "preference": "Fabrication italienne soignée, très bon débit d'air, utilisé en compétition. Tarif supérieur à la concurrence.",
+          "reviews": [
+            { "author": "Adrien M.", "rating": 5, "date": "2026-02-08", "comment": "Qualité de fabrication au-dessus, ajustement parfait dans le boîtier d'origine." }
+          ]
+        },
+        {
+          "id": "pipercross",
+          "name": "Pipercross",
+          "origine": "Royaume-Uni",
+          "gamme": "Milieu de gamme",
+          "rating": 4.3,
+          "reviewCount": 37,
+          "recommended": false,
+          "preference": "Mousse multicouche performante à prix contenu, bonne alternative si le budget est serré.",
+          "reviews": [
+            { "author": "Kevin R.", "rating": 4, "date": "2025-12-11", "comment": "Rapport prix/performance correct, la mousse demande un entretien régulier." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "freinage-suspension",
+      "label": "Freinage & suspension esthétique",
+      "description": "Disques, plaquettes, peinture d'étriers et ressorts courts. Pièces liées à la sécurité : vérifiez systématiquement la mention d'homologation avant achat.",
+      "brands": [
+        {
+          "id": "ebc-brakes",
+          "name": "EBC Brakes",
+          "origine": "Royaume-Uni",
+          "gamme": "Milieu-haut de gamme",
+          "rating": 4.5,
+          "reviewCount": 66,
+          "recommended": true,
+          "preference": "Gamme large et homologuée route ouverte, mordant supérieur à l'origine sans bruit excessif à froid.",
+          "reviews": [
+            { "author": "Thibault G.", "rating": 5, "date": "2026-03-29", "comment": "Freinage nettement plus mordant, rodage respecté et aucun bruit parasite." },
+            { "author": "Amélie D.", "rating": 4, "date": "2026-01-18", "comment": "Très bon compromis route, un peu plus de poussière de frein qu'en origine." }
+          ]
+        },
+        {
+          "id": "foliatec",
+          "name": "Foliatec",
+          "origine": "Allemagne",
+          "gamme": "Milieu de gamme",
+          "rating": 4.4,
+          "reviewCount": 83,
+          "recommended": false,
+          "preference": "Référence de la peinture d'étriers : tenue à la chaleur éprouvée et large choix de teintes, pour un rendu visible à moindre coût.",
+          "reviews": [
+            { "author": "Maxime L.", "rating": 5, "date": "2026-02-14", "comment": "Étriers repeints il y a un an, la couleur n'a pas bougé malgré la chaleur." },
+            { "author": "Sarah T.", "rating": 4, "date": "2025-11-08", "comment": "Beau rendu, la préparation de surface est la clé : ne pas la bâcler." }
+          ]
+        },
+        {
+          "id": "eibach",
+          "name": "Eibach",
+          "origine": "Allemagne",
+          "gamme": "Haut de gamme",
+          "rating": 4.7,
+          "reviewCount": 54,
+          "recommended": false,
+          "preference": "Ressorts courts homologués TÜV, abaissement mesuré qui préserve le confort — rassurant pour un usage quotidien.",
+          "reviews": [
+            { "author": "Romain V.", "rating": 5, "date": "2026-03-11", "comment": "Abaissement propre, le confort reste très acceptable au quotidien." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "elements-finitions",
+      "label": "Éléments & finitions",
+      "description": "Volants, inserts intérieurs, logos et embouts : les pièces de finition qui personnalisent l'habitacle et les détails extérieurs.",
+      "brands": [
+        {
+          "id": "sparco",
+          "name": "Sparco",
+          "origine": "Italie",
+          "gamme": "Haut de gamme",
+          "rating": 4.6,
+          "reviewCount": 45,
+          "recommended": true,
+          "preference": "Volants et accessoires sport de référence, finitions soignées et large choix de moyeux adaptables.",
+          "reviews": [
+            { "author": "Nicolas B.", "rating": 5, "date": "2026-02-21", "comment": "Volant suédine très agréable en main, montage impeccable avec le moyeu dédié." },
+            { "author": "Laura M.", "rating": 4, "date": "2025-12-30", "comment": "Superbe qualité, prévoir le moyeu spécifique au modèle qui n'est pas fourni." }
+          ]
+        },
+        {
+          "id": "omp-racing",
+          "name": "OMP Racing",
+          "origine": "Italie",
+          "gamme": "Haut de gamme",
+          "rating": 4.5,
+          "reviewCount": 31,
+          "recommended": false,
+          "preference": "Alternative directe à Sparco, gamme orientée compétition avec de bonnes finitions cuir et alcantara.",
+          "reviews": [
+            { "author": "Hugo D.", "rating": 5, "date": "2026-01-27", "comment": "Finition alcantara très réussie, prise en main parfaite." }
+          ]
+        },
+        {
+          "id": "momo",
+          "name": "MOMO",
+          "origine": "Italie",
+          "gamme": "Milieu-haut de gamme",
+          "rating": 4.4,
+          "reviewCount": 58,
+          "recommended": false,
+          "preference": "Classique du volant sport depuis des décennies, style intemporel et tarif plus accessible.",
+          "reviews": [
+            { "author": "Patrick S.", "rating": 4, "date": "2026-02-05", "comment": "Look rétro parfait sur un ancien modèle, cuir de bonne qualité." }
           ]
         }
       ]

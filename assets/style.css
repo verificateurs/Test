@@ -551,6 +551,16 @@ a { color: inherit; }
   font-weight: 700;
 }
 
+.homolog-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+/* La mention « usage circuit » doit sauter aux yeux : monter une pièce non
+   homologuée sur route expose à une contre-visite au contrôle technique. */
+.homolog-route { color: var(--text-muted); }
+.homolog-piste { color: var(--danger); }
+
 .compat-universel { color: var(--text-muted); }
 .compat-compatible { color: var(--success); }
 .compat-incompatible { color: var(--danger); }
