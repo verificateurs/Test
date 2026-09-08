@@ -9,7 +9,7 @@ function formatPrice(amount: number): string {
 }
 
 export default function PanierPage() {
-  const { items, subtotal, setQty, removeItem, clear } = useCart();
+  const { items, subtotal, hydrated, setQty, removeItem, clear } = useCart();
 
   return (
     <>
@@ -19,7 +19,7 @@ export default function PanierPage() {
           <div className="container">
             <h1>Mon panier</h1>
 
-            {items.length === 0 ? (
+            {!hydrated ? null : items.length === 0 ? (
               <p className="section-intro">
                 Votre panier est vide. <Link href="/categories">Parcourir le catalogue</Link>.
               </p>

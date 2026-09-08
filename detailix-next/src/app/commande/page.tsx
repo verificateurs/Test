@@ -15,13 +15,17 @@ function formatPrice(amount: number): string {
 
 export default function CommandePage() {
   const router = useRouter();
-  const { items, subtotal } = useCart();
+  const { items, subtotal, hydrated } = useCart();
   const [state, formAction, pending] = useActionState(createOrderAction, initialState);
   const [prefillEmail, setPrefillEmail] = useState("");
 
   useEffect(() => {
-    if (items.length === 0 && !pending) router.replace("/panier");
-  }, [items.length, pending, router]);
+    // Attendre l'hydratation depuis localStorage : juste après un chargement
+    // direct de /commande (F5, lien externe), items vaut [] pendant un
+    // instant même si un panier existe réellement — rediriger sur cet état
+    // transitoire renverrait à tort vers /panier.
+    if (hydrated && items.length === 0 && !pending) router.replace("/panier");
+  }, [hydrated, items.length, pending, router]);
 
   useEffect(() => {
     fetch("/api/session")
@@ -32,7 +36,7 @@ export default function CommandePage() {
       .catch(() => {});
   }, []);
 
-  if (items.length === 0) return null;
+  if (!hydrated || items.length === 0) return null;
 
   return (
     <>

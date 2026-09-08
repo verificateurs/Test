@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 import { CartProvider } from "@/lib/cart/CartContext";
+import { ComparatorProvider } from "@/lib/comparator/ComparatorContext";
 import { ToastProvider } from "@/components/Toast";
 import "./globals.css";
 
@@ -21,7 +22,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="fr">
       <body>
         <CartProvider>
-          <ToastProvider>{children}</ToastProvider>
+          <ComparatorProvider>
+            <ToastProvider>{children}</ToastProvider>
+          </ComparatorProvider>
         </CartProvider>
       </body>
     </html>

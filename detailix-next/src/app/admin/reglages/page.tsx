@@ -5,15 +5,18 @@ import { SettingsForm } from "./SettingsForm";
 export const metadata: Metadata = { title: "Réglages", robots: { index: false } };
 
 export default async function ReglagesPage() {
-  const settings = await prisma.setting.findMany({ where: { key: { in: ["marginPercent", "freeShippingThreshold"] } } });
+  const settings = await prisma.setting.findMany({
+    where: { key: { in: ["marginPercent", "freeShippingThreshold", "proDiscountPercent"] } },
+  });
   const marginPercent = Number(settings.find((s) => s.key === "marginPercent")?.value ?? 0);
   const freeShippingThreshold = Number(settings.find((s) => s.key === "freeShippingThreshold")?.value ?? 79);
+  const proDiscountPercent = Number(settings.find((s) => s.key === "proDiscountPercent")?.value ?? 0);
 
   return (
     <div>
       <h1>Réglages</h1>
       <div className="admin-card">
-        <SettingsForm marginPercent={marginPercent} freeShippingThreshold={freeShippingThreshold} />
+        <SettingsForm marginPercent={marginPercent} freeShippingThreshold={freeShippingThreshold} proDiscountPercent={proDiscountPercent} />
       </div>
     </div>
   );

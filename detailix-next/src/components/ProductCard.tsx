@@ -8,6 +8,7 @@ import {
   COMPAT_LABELS,
   HOMOLOGATION_LABELS,
 } from "@/lib/catalogue";
+import { CompareToggle } from "@/components/CompareToggle";
 
 type ProductLike = {
   id: string;
@@ -28,16 +29,19 @@ export function ProductCard({ product, marginPercent }: { product: ProductLike; 
   const homolog = product.homologation ? HOMOLOGATION_LABELS[product.homologation] : null;
 
   return (
-    <Link href={`/produits/${product.id}`} className="tile">
-      <h3>{product.name}</h3>
-      <p>{product.format}</p>
-      <div className="badge-row">
-        <span className="product-price">{formatPrice(price)}</span>
-        <span className={`delivery-badge ${delivery.className}`}>{delivery.label}</span>
-        <span className={`compat-badge ${compat.className}`}>{compat.label}</span>
-        {homolog && <span className={`homolog-badge ${homolog.className}`}>{homolog.label}</span>}
-        {product.stock === false && <span className="out-of-stock">Rupture de stock</span>}
-      </div>
-    </Link>
+    <div className="tile">
+      <Link href={`/produits/${product.id}`} className="tile-link">
+        <h3>{product.name}</h3>
+        <p>{product.format}</p>
+        <div className="badge-row">
+          <span className="product-price">{formatPrice(price)}</span>
+          <span className={`delivery-badge ${delivery.className}`}>{delivery.label}</span>
+          <span className={`compat-badge ${compat.className}`}>{compat.label}</span>
+          {homolog && <span className={`homolog-badge ${homolog.className}`}>{homolog.label}</span>}
+          {product.stock === false && <span className="out-of-stock">Rupture de stock</span>}
+        </div>
+      </Link>
+      <CompareToggle productId={product.id} />
+    </div>
   );
 }

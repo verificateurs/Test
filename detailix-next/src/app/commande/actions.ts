@@ -7,7 +7,7 @@ import { getSession } from "@/lib/auth/session";
 import { getClientIp } from "@/lib/auth/rbac";
 import { checkRateLimit, sweepRateLimitBuckets } from "@/lib/auth/rateLimit";
 import { getMarginPercent, computeSellPrice } from "@/lib/catalogue";
-import { getFreeShippingThreshold, computeShippingCost, validatePromoCode } from "@/lib/checkout/pricing";
+import { getFreeShippingThreshold, computeShippingCost, validatePromoCode, getProDiscountPercent } from "@/lib/checkout/pricing";
 import { CartItemsInputSchema, CheckoutSchema } from "@/lib/checkout/schemas";
 import type Stripe from "stripe";
 import { isStripeConfigured, getStripeClient } from "@/lib/stripe";
@@ -86,18 +86,28 @@ export async function createOrderAction(_prev: CheckoutActionState, formData: Fo
   });
 
   const subtotal = Math.round(lines.reduce((sum, l) => sum + l.lineTotal, 0) * 100) / 100;
+  const session = await getSession();
 
   const promo = await validatePromoCode(checkoutParsed.data.promoCode, subtotal);
   if (promo && !promo.ok) {
     return { error: promo.message, values: rawFields };
   }
 
+  // Remise pro : uniquement à partir du rôle de la session serveur — jamais
+  // d'un champ envoyé par le client. Cumulée avec un éventuel code promo,
+  // plafonnée pour ne jamais dépasser le sous-total.
+  let proDiscount = 0;
+  if (session?.user.role === "PRO") {
+    const proDiscountPercent = await getProDiscountPercent();
+    proDiscount = Math.round(((subtotal * proDiscountPercent) / 100) * 100) / 100;
+  }
+
+  const promoDiscount = promo?.ok ? promo.discount : 0;
+  const discount = Math.min(promoDiscount + proDiscount, subtotal);
+
   const threshold = await getFreeShippingThreshold();
   const shippingCost = computeShippingCost(subtotal, threshold, promo?.ok === true && promo.freeShipping);
-  const discount = promo?.ok ? promo.discount : 0;
   const total = Math.max(0, Math.round((subtotal - discount + shippingCost) * 100) / 100);
-
-  const session = await getSession();
 
   const order = await prisma.order.create({
     data: {

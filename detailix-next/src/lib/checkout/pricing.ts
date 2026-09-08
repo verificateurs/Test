@@ -10,6 +10,16 @@ import { prisma } from "@/lib/prisma";
 export const STANDARD_SHIPPING_COST = 5.9;
 const DEFAULT_FREE_SHIPPING_THRESHOLD = 79;
 
+/** Remise automatique appliquée aux comptes Role.PRO à la validation de
+ * commande — jamais affichée sur les fiches produit statiques, qui sont
+ * identiques pour tous les visiteurs (voir src/lib/admin/revalidate.ts). */
+export async function getProDiscountPercent(): Promise<number> {
+  const setting = await prisma.setting.findUnique({ where: { key: "proDiscountPercent" } });
+  if (!setting) return 0;
+  const value = Number(setting.value);
+  return Number.isFinite(value) && value >= 0 ? value : 0;
+}
+
 export async function getFreeShippingThreshold(): Promise<number> {
   const setting = await prisma.setting.findUnique({ where: { key: "freeShippingThreshold" } });
   if (!setting) return DEFAULT_FREE_SHIPPING_THRESHOLD;

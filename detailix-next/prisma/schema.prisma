@@ -69,6 +69,7 @@ model Product {
   brand       Brand      @relation(fields: [brandId], references: [id])
   category    Category   @relation(fields: [categoryId], references: [id])
   orderLines  OrderLine[]
+  wishlistItems WishlistItem[]
 
   @@index([brandId])
   @@index([categoryId])
@@ -106,18 +107,34 @@ model VehicleMotorisation {
 
 enum Role {
   CUSTOMER
+  PRO
   ADMIN
 }
 
 model User {
-  id           String   @id @default(cuid())
-  email        String   @unique
-  passwordHash String
-  displayName  String
-  role         Role     @default(CUSTOMER)
-  createdAt    DateTime @default(now())
-  orders       Order[]
-  sessions     Session[]
+  id             String         @id @default(cuid())
+  email          String         @unique
+  passwordHash   String
+  displayName    String
+  role           Role           @default(CUSTOMER)
+  createdAt      DateTime       @default(now())
+  orders         Order[]
+  sessions       Session[]
+  wishlistItems  WishlistItem[]
+}
+
+// Réservée aux utilisateurs connectés (pas de liste d'envies anonyme) — un
+// visiteur sans compte est redirigé vers /connexion, comme /compte.
+model WishlistItem {
+  id        Int      @id @default(autoincrement())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, productId])
+  @@index([userId])
 }
 
 model Session {

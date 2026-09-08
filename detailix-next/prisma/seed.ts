@@ -157,6 +157,11 @@ async function main() {
     create: { key: "freeShippingThreshold", value: "79" },
     update: {},
   });
+  await prisma.setting.upsert({
+    where: { key: "proDiscountPercent" },
+    create: { key: "proDiscountPercent", value: "15" },
+    update: {},
+  });
 
   // Code promo de démonstration pour tester le tunnel de commande.
   await prisma.promoCode.upsert({

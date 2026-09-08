@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { AccountMenu } from "@/components/AccountMenu";
 import { CartLink } from "@/components/CartLink";
+import { ComparatorLink } from "@/components/ComparatorLink";
 
 export function SiteHeader() {
   return (
@@ -15,9 +16,11 @@ export function SiteHeader() {
           <Link href="/marques">Marques</Link>
           <Link href="/preparateurs">Préparateurs</Link>
           <Link href="/blog">Guides</Link>
+          <Link href="/espace-pro">Espace pro</Link>
         </nav>
         <div className="header-actions">
           <AccountMenu />
+          <ComparatorLink />
           <CartLink />
         </div>
       </div>

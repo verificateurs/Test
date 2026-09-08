@@ -25,6 +25,12 @@ type CartContextValue = {
   items: CartItem[];
   count: number;
   subtotal: number;
+  /** false tant que le panier n'a pas été relu depuis localStorage (juste
+   * après le montage) — avant ça, `items` vaut [] même si un panier existe
+   * réellement. Les pages qui redirigent sur "panier vide" doivent attendre
+   * hydrated=true, sinon un chargement direct de /commande (F5, lien externe)
+   * redirige à tort vers /panier avant que le panier n'ait pu se charger. */
+  hydrated: boolean;
   addItem: (item: Omit<CartItem, "qty">, qty?: number) => void;
   removeItem: (productId: string) => void;
   setQty: (productId: string, qty: number) => void;
@@ -106,8 +112,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const subtotal = useMemo(() => items.reduce((sum, i) => sum + i.unitPriceSnapshot * i.qty, 0), [items]);
 
   const value = useMemo(
-    () => ({ items, count, subtotal, addItem, removeItem, setQty, clear }),
-    [items, count, subtotal, addItem, removeItem, setQty, clear]
+    () => ({ items, count, subtotal, hydrated, addItem, removeItem, setQty, clear }),
+    [items, count, subtotal, hydrated, addItem, removeItem, setQty, clear]
   );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

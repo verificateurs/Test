@@ -112,6 +112,9 @@ a { color: inherit; text-decoration: none; }
 .tile:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: #3a4048; }
 .tile h3 { margin: 0 0 6px; font-size: 1.08rem; }
 .tile p { margin: 0; color: var(--text-muted); font-size: 0.9rem; }
+.tile-link { display: block; color: inherit; text-decoration: none; }
+.compare-toggle { display: flex; align-items: center; gap: 6px; margin-top: 12px; font-size: 0.8rem; color: var(--text-muted); cursor: pointer; width: fit-content; }
+.compare-toggle input { width: auto; }
 
 .badge { background: var(--accent); color: #12100e; font-size: 0.72rem; font-weight: 800; padding: 3px 10px; border-radius: 999px; white-space: nowrap; }
 .brand-meta { color: var(--text-muted); font-size: 0.85rem; margin: 4px 0 10px; }
