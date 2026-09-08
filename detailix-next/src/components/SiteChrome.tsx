@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { AccountMenu } from "@/components/AccountMenu";
+import { CartLink } from "@/components/CartLink";
 
 export function SiteHeader() {
   return (
@@ -11,7 +13,13 @@ export function SiteHeader() {
           <Link href="/categories">Catalogue</Link>
           <Link href="/vehicules">Par véhicule</Link>
           <Link href="/marques">Marques</Link>
+          <Link href="/preparateurs">Préparateurs</Link>
+          <Link href="/blog">Guides</Link>
         </nav>
+        <div className="header-actions">
+          <AccountMenu />
+          <CartLink />
+        </div>
       </div>
     </header>
   );
