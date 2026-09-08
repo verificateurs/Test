@@ -40,7 +40,7 @@ module.exports = {
 
         await page.goto(`${baseUrl}/compte/commandes`, { waitUntil: "load" });
         assert(
-          await page.$eval("body", (el) => el.textContent.includes(reference)),
+          await page.$eval("body", (el, ref) => el.textContent.includes(ref), reference),
           "la référence de la commande passée doit apparaître dans /compte/commandes"
         );
 

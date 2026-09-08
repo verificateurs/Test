@@ -86,31 +86,34 @@ module.exports = {
 
         await page.goto(`${baseUrl}/admin/reglages`, { waitUntil: "load" });
         const before = await page.$eval('input[name="marginPercent"]', (el) => el.value);
-        const targetValue = String(Number(before) + 1);
+        const valueA = String(Number(before) + 1);
+        const valueB = String(Number(before) + 2);
 
-        // On capture la requête Server Action réelle (next-action + corps) mais on
-        // l'intercepte avant qu'elle n'atteigne le serveur : on veut uniquement sa
-        // forme exacte, pas laisser l'admin légitime appliquer la mutation, pour que
-        // la valeur en base reste `before` — condition nécessaire à un test non ambigu.
-        let captured = null;
-        await page.route(`${baseUrl}/admin/reglages`, async (route) => {
-          const req = route.request();
-          if (req.method() === "POST" && req.headers()["next-action"]) {
-            captured = { url: req.url(), headers: req.headers(), postData: req.postData() };
-            await route.abort();
-          } else {
-            await route.continue();
+        // On snoope (sans intercepter — pas de route/abort, qui casserait le fetch
+        // client et polluerait la page d'une erreur JS) la requête Server Action
+        // réelle envoyée pour le changement vers `valueA`, appliqué légitimement.
+        let capturedA = null;
+        page.on("request", (req) => {
+          if (!capturedA && req.method() === "POST" && req.headers()["next-action"]) {
+            capturedA = { url: req.url(), headers: req.headers(), postData: req.postData() };
           }
         });
-
-        await page.fill('input[name="marginPercent"]', targetValue);
+        await page.fill('input[name="marginPercent"]', valueA);
         await page.click('button:has-text("Enregistrer")');
         await page.waitForTimeout(500);
-        await page.unroute(`${baseUrl}/admin/reglages`);
+        assert(!!capturedA, "la requête Server Action du changement vers valueA doit avoir été capturée");
+        assertEqual(await page.$eval('input[name="marginPercent"]', (el) => el.value), valueA, "le changement légitime vers valueA doit être appliqué");
 
-        assert(!!captured, "la requête Server Action doit avoir été capturée avant interception");
+        // Second changement légitime, vers une valeur différente `valueB` — la base
+        // vaut maintenant valueB, distincte de la requête capturée (qui encode valueA).
+        await page.fill('input[name="marginPercent"]', valueB);
+        await page.click('button:has-text("Enregistrer")');
+        await page.waitForTimeout(500);
+        assertEqual(await page.$eval('input[name="marginPercent"]', (el) => el.value), valueB, "le second changement légitime vers valueB doit être appliqué");
 
-        // Rejeu de cette requête EXACTE, mais authentifié comme CUSTOMER (pas ADMIN).
+        // Rejeu de la requête EXACTE capturée pour valueA, mais authentifié comme
+        // CUSTOMER (pas ADMIN). Comme la base vaut désormais valueB (≠ valueA), un
+        // rejeu accepté serait immédiatement visible : la valeur reviendrait à valueA.
         const customerContext = await browser.newContext();
         const customerPage = await customerContext.newPage();
         const custEmail = `customer-replay-${Date.now()}@example.com`;
@@ -121,17 +124,15 @@ module.exports = {
         await customerPage.click('button[type="submit"]');
         await customerPage.waitForURL("**/compte", { timeout: 8000 });
 
-        await customerPage.request.post(captured.url, {
-          headers: { ...captured.headers, cookie: undefined }, // le cookie de session CUSTOMER du contexte s'applique
-          data: captured.postData,
+        await customerPage.request.post(capturedA.url, {
+          headers: { ...capturedA.headers, cookie: undefined }, // le cookie de session CUSTOMER du contexte s'applique
+          data: capturedA.postData,
         });
         await customerContext.close();
 
-        // La valeur en base doit être restée `before` : ni la tentative interceptée de
-        // l'admin, ni le rejeu par un CUSTOMER, n'ont dû appliquer `targetValue`.
         await page.goto(`${baseUrl}/admin/reglages`, { waitUntil: "load" });
         const after = await page.$eval('input[name="marginPercent"]', (el) => el.value);
-        assertEqual(after, before, "un CUSTOMER ne doit jamais pouvoir modifier les réglages via un rejeu direct de Server Action");
+        assertEqual(after, valueB, "un CUSTOMER ne doit jamais pouvoir modifier les réglages via un rejeu direct de Server Action");
       },
     },
   ],

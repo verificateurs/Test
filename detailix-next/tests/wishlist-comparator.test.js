@@ -34,7 +34,7 @@ module.exports = {
 
         await page.goto(`${baseUrl}/compte/liste-envies`, { waitUntil: "load" });
         assert(
-          await page.$eval("body", (el) => el.textContent.includes(PRODUCT_NAME)),
+          await page.$eval("body", (el, name) => el.textContent.includes(name), PRODUCT_NAME),
           "le produit ajouté doit apparaître dans /compte/liste-envies"
         );
 
