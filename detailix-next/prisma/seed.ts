@@ -1,0 +1,171 @@
+/**
+ * Seed de la base à partir des données du prototype vanilla (../data/*.json).
+ *
+ * Source unique de vérité pour le catalogue tant que le back-office (module 5)
+ * n'écrit pas encore en base. Idempotent : on vide puis on recharge.
+ *
+ * Lancé via `npm run db:seed`. Node exécute le TypeScript directement
+ * (--experimental-strip-types) : aucune étape de compilation.
+ */
+
+import { readFileSync } from "node:fs";
+import { join, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
+import { PrismaClient } from "../src/generated/prisma/client.js";
+
+const prisma = new PrismaClient();
+const DATA_DIR = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "data");
+
+function readJson<T>(name: string): T {
+  return JSON.parse(readFileSync(join(DATA_DIR, name), "utf8")) as T;
+}
+
+type BrandsFile = {
+  categories: Array<{
+    id: string;
+    label: string;
+    description: string;
+    brands: Array<{
+      id: string;
+      name: string;
+      origine: string;
+      gamme: string;
+      rating: number;
+      reviewCount: number;
+      recommended: boolean;
+      preference: string;
+      reviews: Array<{ author: string; rating: number; date: string; comment: string }>;
+    }>;
+  }>;
+};
+
+type ProductsFile = {
+  products: Array<{
+    id: string;
+    brandId: string;
+    categoryId: string;
+    name: string;
+    format: string;
+    description: string;
+    prixAchat: number;
+    stock: boolean;
+    compatibilite: unknown;
+    homologation?: string;
+  }>;
+};
+
+type VehiclesFile = {
+  makes: Array<{
+    id: string;
+    name: string;
+    models: Array<{
+      id: string;
+      name: string;
+      motorisations: Array<{ id: string; label: string; codeMoteur: string }>;
+    }>;
+  }>;
+};
+
+type PricingFile = { marginPercent: number; currency: string };
+
+async function main() {
+  const brandsFile = readJson<BrandsFile>("brands.json");
+  const productsFile = readJson<ProductsFile>("products.json");
+  const vehiclesFile = readJson<VehiclesFile>("vehicles.json");
+  const pricing = readJson<PricingFile>("pricing-config.json");
+
+  // Purge dans l'ordre des dépendances (les OrderLine/Order ne référencent pas
+  // encore de produits en seed, mais on reste défensif pour les re-seeds).
+  await prisma.orderLine.deleteMany();
+  await prisma.review.deleteMany();
+  await prisma.product.deleteMany();
+  await prisma.brand.deleteMany();
+  await prisma.category.deleteMany();
+  await prisma.vehicleMotorisation.deleteMany();
+  await prisma.vehicleModel.deleteMany();
+  await prisma.vehicleMake.deleteMany();
+
+  // Catégories + marques + avis
+  for (const [position, cat] of brandsFile.categories.entries()) {
+    await prisma.category.create({
+      data: { id: cat.id, label: cat.label, description: cat.description, position },
+    });
+    for (const brand of cat.brands) {
+      await prisma.brand.create({
+        data: {
+          id: brand.id,
+          name: brand.name,
+          origine: brand.origine,
+          gamme: brand.gamme,
+          rating: brand.rating,
+          reviewCount: brand.reviewCount,
+          recommended: brand.recommended,
+          preference: brand.preference,
+          categoryId: cat.id,
+          reviews: {
+            create: brand.reviews.map((r) => ({
+              author: r.author,
+              rating: r.rating,
+              date: r.date,
+              comment: r.comment,
+            })),
+          },
+        },
+      });
+    }
+  }
+
+  // Produits — compatibilite sérialisée en chaîne JSON pour SQLite
+  for (const p of productsFile.products) {
+    await prisma.product.create({
+      data: {
+        id: p.id,
+        name: p.name,
+        format: p.format,
+        description: p.description,
+        prixAchat: p.prixAchat,
+        stock: p.stock,
+        compatibilite: typeof p.compatibilite === "string" ? p.compatibilite : JSON.stringify(p.compatibilite),
+        homologation: p.homologation ?? null,
+        brandId: p.brandId,
+        categoryId: p.categoryId,
+      },
+    });
+  }
+
+  // Véhicules
+  for (const make of vehiclesFile.makes) {
+    await prisma.vehicleMake.create({ data: { id: make.id, name: make.name } });
+    for (const model of make.models) {
+      await prisma.vehicleModel.create({ data: { id: model.id, name: model.name, makeId: make.id } });
+      for (const motor of model.motorisations) {
+        await prisma.vehicleMotorisation.create({
+          data: { id: motor.id, label: motor.label, codeMoteur: motor.codeMoteur, modelId: model.id },
+        });
+      }
+    }
+  }
+
+  // Réglages (marge globale) — la source de vérité du prix de vente
+  await prisma.setting.upsert({
+    where: { key: "marginPercent" },
+    create: { key: "marginPercent", value: String(pricing.marginPercent) },
+    update: { value: String(pricing.marginPercent) },
+  });
+
+  const counts = {
+    catégories: await prisma.category.count(),
+    marques: await prisma.brand.count(),
+    produits: await prisma.product.count(),
+    avis: await prisma.review.count(),
+    "codes moteur": await prisma.vehicleMotorisation.count(),
+  };
+  console.log("Seed terminé :", Object.entries(counts).map(([k, v]) => `${v} ${k}`).join(", "));
+}
+
+main()
+  .catch((err) => {
+    console.error(err);
+    process.exit(1);
+  })
+  .finally(() => prisma.$disconnect());

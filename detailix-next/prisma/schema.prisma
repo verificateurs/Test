@@ -1,0 +1,198 @@
+// Schéma Detailix.
+//
+// SQLite en développement (aucun compte requis, testable immédiatement).
+// En production : passer `provider` à "postgresql" et fournir DATABASE_URL
+// (Neon / Supabase). Une seule ligne à changer, aucune requête à réécrire.
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ---------- Catalogue ----------
+
+model Category {
+  id          String    @id
+  label       String
+  description String
+  position    Int       @default(0)
+  brands      Brand[]
+  products    Product[]
+}
+
+model Brand {
+  id          String    @id
+  name        String
+  origine     String
+  gamme       String
+  rating      Float
+  reviewCount Int
+  recommended Boolean   @default(false)
+  preference  String
+  categoryId  String
+  category    Category  @relation(fields: [categoryId], references: [id])
+  reviews     Review[]
+  products    Product[]
+
+  @@index([categoryId])
+}
+
+model Review {
+  id      Int    @id @default(autoincrement())
+  author  String
+  rating  Int
+  date    String
+  comment String
+  brandId String
+  brand   Brand  @relation(fields: [brandId], references: [id], onDelete: Cascade)
+
+  @@index([brandId])
+}
+
+model Product {
+  id          String  @id
+  name        String
+  format      String
+  description String
+  prixAchat   Float // coût HT ; le prix de vente est calculé via Setting.marginPercent
+  stock       Boolean @default(true)
+  // "universel" ou JSON {"type":"codesMoteurs","codes":[...]}
+  compatibilite String @default("universel")
+  homologation  String? // route-ouverte | usage-piste | non-applicable
+  brandId     String
+  categoryId  String
+  brand       Brand      @relation(fields: [brandId], references: [id])
+  category    Category   @relation(fields: [categoryId], references: [id])
+  orderLines  OrderLine[]
+
+  @@index([brandId])
+  @@index([categoryId])
+}
+
+// ---------- Véhicules ----------
+
+model VehicleMake {
+  id     String         @id
+  name   String
+  models VehicleModel[]
+}
+
+model VehicleModel {
+  id            String                @id
+  name          String
+  makeId        String
+  make          VehicleMake           @relation(fields: [makeId], references: [id], onDelete: Cascade)
+  motorisations VehicleMotorisation[]
+
+  @@index([makeId])
+}
+
+model VehicleMotorisation {
+  id         String       @id
+  label      String
+  codeMoteur String
+  modelId    String
+  model      VehicleModel @relation(fields: [modelId], references: [id], onDelete: Cascade)
+
+  @@index([modelId])
+}
+
+// ---------- Comptes & commandes (activés aux modules 4-6) ----------
+
+enum Role {
+  CUSTOMER
+  ADMIN
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  displayName  String
+  role         Role     @default(CUSTOMER)
+  createdAt    DateTime @default(now())
+  orders       Order[]
+  sessions     Session[]
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  SHIPPED
+  CANCELLED
+}
+
+model Order {
+  id            String      @id @default(cuid())
+  reference     String      @unique
+  status        OrderStatus @default(PENDING)
+  email         String
+  shippingName  String
+  shippingAddr  String
+  shippingZip   String
+  shippingCity  String
+  subtotal      Float
+  shippingCost  Float       @default(0)
+  discount      Float       @default(0)
+  total         Float
+  promoCode     String?
+  stripeSession String?
+  createdAt     DateTime    @default(now())
+  userId        String?
+  user          User?       @relation(fields: [userId], references: [id])
+  lines         OrderLine[]
+
+  @@index([userId])
+}
+
+model OrderLine {
+  id        Int     @id @default(autoincrement())
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+  name      String // figé au moment de l'achat
+  format    String
+  unitPrice Float
+  qty       Int
+  lineTotal Float
+
+  @@index([orderId])
+}
+
+enum PromoType {
+  FIXED
+  PERCENT
+}
+
+model PromoCode {
+  id            String    @id @default(cuid())
+  code          String    @unique
+  type          PromoType
+  value         Float
+  minSubtotal   Float     @default(0)
+  freeShipping  Boolean   @default(false)
+  active        Boolean   @default(true)
+  expiresAt     DateTime?
+  createdAt     DateTime  @default(now())
+}
+
+model Setting {
+  key   String @id
+  value String
+}
