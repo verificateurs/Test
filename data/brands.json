@@ -1,0 +1,278 @@
+{
+  "_note": "Données d'exemple pour prototypage. À remplacer/compléter par un import réel depuis le back-office (voir cahier des charges §4.2, §6). Chaque marque et chaque avis client ci-dessous est un contenu d'exemple, pas une donnée vérifiée.",
+  "categories": [
+    {
+      "id": "cosmetique-carrosserie",
+      "label": "Cosmétique carrosserie",
+      "description": "Shampoings, décontaminants, cires et traitements de protection pour la carrosserie.",
+      "brands": [
+        {
+          "id": "meguiars",
+          "name": "Meguiar's",
+          "origine": "États-Unis",
+          "gamme": "Milieu de gamme",
+          "rating": 4.6,
+          "reviewCount": 128,
+          "recommended": true,
+          "preference": "Gamme large et accessible, très bon rapport qualité/prix pour un entretien régulier, produits faciles à prendre en main pour les débutants.",
+          "reviews": [
+            { "author": "Julien R.", "rating": 5, "date": "2026-03-12", "comment": "Le shampoing Gold Class sent très bon et ne dessèche pas les plastiques extérieurs." },
+            { "author": "Sophie M.", "rating": 4, "date": "2026-01-28", "comment": "Bon produit mais le décontaminant ferreux demande un peu de temps de pose par temps froid." }
+          ]
+        },
+        {
+          "id": "chemical-guys",
+          "name": "Chemical Guys",
+          "origine": "États-Unis",
+          "gamme": "Milieu-haut de gamme",
+          "rating": 4.5,
+          "reviewCount": 96,
+          "recommended": false,
+          "preference": "Très large catalogue et parfums travaillés, pratique pour composer une routine complète, mais tarif un cran au-dessus sur certaines références.",
+          "reviews": [
+            { "author": "Karim B.", "rating": 5, "date": "2026-02-02", "comment": "Le Honeydew Snow Foam mousse énormément, décrasse bien avant le lavage manuel." },
+            { "author": "Anaïs T.", "rating": 4, "date": "2025-12-15", "comment": "Bons produits mais les flacons diffusent parfois mal en pulvérisateur d'origine." }
+          ]
+        },
+        {
+          "id": "autoglym",
+          "name": "Autoglym",
+          "origine": "Royaume-Uni",
+          "gamme": "Milieu de gamme",
+          "rating": 4.4,
+          "reviewCount": 71,
+          "recommended": false,
+          "preference": "Formules éprouvées et fiables depuis longtemps, bon choix pour un usage professionnel régulier (centres esthétique).",
+          "reviews": [
+            { "author": "Thomas V.", "rating": 4, "date": "2026-04-01", "comment": "Le Polar Blast est efficace en hiver, mousse dense qui tient bien sur la carrosserie." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "polish-protection-ceramique",
+      "label": "Polish, protection & traitements céramiques",
+      "description": "Polish, scellants et céramiques pour la protection longue durée de la peinture.",
+      "brands": [
+        {
+          "id": "gtechniq",
+          "name": "Gtechniq",
+          "origine": "Royaume-Uni",
+          "gamme": "Haut de gamme",
+          "rating": 4.8,
+          "reviewCount": 54,
+          "recommended": true,
+          "preference": "Référence sur les céramiques longue durée, tenue annoncée parmi les plus élevées du marché, protocole d'application bien documenté.",
+          "reviews": [
+            { "author": "Nicolas P.", "rating": 5, "date": "2026-02-20", "comment": "Le Crystal Serum tient vraiment plus d'un an, l'effet hydrophobe reste marqué." },
+            { "author": "Élise D.", "rating": 5, "date": "2025-11-05", "comment": "Application exigeante mais résultat au niveau, brillance très nette." }
+          ]
+        },
+        {
+          "id": "carpro",
+          "name": "CarPro",
+          "origine": "Corée du Sud",
+          "gamme": "Milieu-haut de gamme",
+          "rating": 4.6,
+          "reviewCount": 63,
+          "recommended": false,
+          "preference": "Bon compromis facilité d'application / tenue, plus accessible que Gtechniq pour un premier passage céramique.",
+          "reviews": [
+            { "author": "Yohann S.", "rating": 4, "date": "2026-01-10", "comment": "Le CQuartz UK 3.0 s'applique facilement même pour un amateur, bon effet autonettoyant." }
+          ]
+        },
+        {
+          "id": "turtle-wax-pro",
+          "name": "Turtle Wax Pro",
+          "origine": "États-Unis",
+          "gamme": "Entrée-milieu de gamme",
+          "rating": 4.1,
+          "reviewCount": 89,
+          "recommended": false,
+          "preference": "Gamme grand public correcte pour un budget serré, tenue plus courte mais large disponibilité en magasin.",
+          "reviews": [
+            { "author": "Marc L.", "rating": 4, "date": "2025-10-22", "comment": "Bon rapport prix pour une cire de finition, effet visible mais à renouveler tous les 2-3 mois." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "jantes-pneus",
+      "label": "Nettoyage et accessoires jantes",
+      "description": "Nettoyants jantes et accessoires (centres de roue, boulonnerie décorative, jantes aftermarket).",
+      "brands": [
+        {
+          "id": "sonax",
+          "name": "Sonax",
+          "origine": "Allemagne",
+          "gamme": "Milieu de gamme",
+          "rating": 4.5,
+          "reviewCount": 77,
+          "recommended": true,
+          "preference": "Nettoyant jantes à réaction colorée très visible pour contrôler le décrassage, efficace sur les résidus de freinage sans agresser le vernis des jantes.",
+          "reviews": [
+            { "author": "David N.", "rating": 5, "date": "2026-03-02", "comment": "Le Full Effect vire au rouge sur la poussière de frein, très pratique pour savoir où insister." }
+          ]
+        },
+        {
+          "id": "p21s",
+          "name": "P21S",
+          "origine": "Allemagne",
+          "gamme": "Haut de gamme",
+          "rating": 4.4,
+          "reviewCount": 32,
+          "recommended": false,
+          "preference": "Formule douce recommandée sur jantes vernies fragiles ou jantes carbone/forgées haut de gamme.",
+          "reviews": [
+            { "author": "Camille F.", "rating": 4, "date": "2025-09-18", "comment": "Doux mais efficace, rassurant sur des jantes forgées récemment reverni." }
+          ]
+        },
+        {
+          "id": "oz-racing",
+          "name": "OZ Racing",
+          "origine": "Italie",
+          "gamme": "Haut de gamme",
+          "rating": 4.7,
+          "reviewCount": 45,
+          "recommended": false,
+          "preference": "Référence en jantes aftermarket allégées pour la préparation esthétique et le gain de poids non suspendu.",
+          "reviews": [
+            { "author": "Hugo M.", "rating": 5, "date": "2026-02-14", "comment": "Montage nickel, gain de poids ressenti au freinage, finition irréprochable." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "kits-carrosserie",
+      "label": "Kits carrosserie & esthétique extérieure",
+      "description": "Spoilers, jupes, diffuseurs et kits carrosserie.",
+      "brands": [
+        {
+          "id": "maxton-design",
+          "name": "Maxton Design",
+          "origine": "Pologne",
+          "gamme": "Milieu de gamme",
+          "rating": 4.3,
+          "reviewCount": 58,
+          "recommended": true,
+          "preference": "Catalogue très large par modèle, bon compromis prix/finition pour un montage esthétique sans viser l'homologation course.",
+          "reviews": [
+            { "author": "Baptiste C.", "rating": 4, "date": "2026-01-05", "comment": "Le splitter avant s'ajuste bien, ABS de bonne épaisseur, quelques finitions à reprendre soi-même." }
+          ]
+        },
+        {
+          "id": "rieger",
+          "name": "Rieger Tuning",
+          "origine": "Allemagne",
+          "gamme": "Haut de gamme",
+          "rating": 4.6,
+          "reviewCount": 41,
+          "recommended": false,
+          "preference": "Pièces homologuées TÜV disponibles sur une partie du catalogue, rassurant pour un usage route ouverte.",
+          "reviews": [
+            { "author": "Louis A.", "rating": 5, "date": "2025-12-01", "comment": "Kit complet avec certificat, contrôle technique passé sans souci." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "eclairage",
+      "label": "Éclairage (phares, feux LED)",
+      "description": "Ampoules LED homologuées et blocs optiques.",
+      "brands": [
+        {
+          "id": "osram-ledriving",
+          "name": "Osram LEDriving",
+          "origine": "Allemagne",
+          "gamme": "Milieu-haut de gamme",
+          "rating": 4.5,
+          "reviewCount": 102,
+          "recommended": true,
+          "preference": "Gamme homologuée route ouverte disponible, bon éclairement et fiabilité reconnue — à privilégier pour rester conforme au code de la route.",
+          "reviews": [
+            { "author": "Sami K.", "rating": 5, "date": "2026-02-27", "comment": "Installation simple, faisceau net, pas d'éblouissement signalé en face." }
+          ]
+        },
+        {
+          "id": "philips-ultinon",
+          "name": "Philips Ultinon",
+          "origine": "Pays-Bas",
+          "gamme": "Haut de gamme",
+          "rating": 4.6,
+          "reviewCount": 84,
+          "recommended": false,
+          "preference": "Très bonne portée lumineuse, légèrement plus cher que la concurrence sur certaines références.",
+          "reviews": [
+            { "author": "Manon G.", "rating": 5, "date": "2025-11-30", "comment": "Nette amélioration par rapport aux ampoules halogènes d'origine, très bon rendu couleur." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "echappement-sport",
+      "label": "Échappement sport",
+      "description": "Lignes d'échappement sport et silencieux.",
+      "brands": [
+        {
+          "id": "akrapovic",
+          "name": "Akrapovič",
+          "origine": "Slovénie",
+          "gamme": "Haut de gamme",
+          "rating": 4.8,
+          "reviewCount": 39,
+          "recommended": true,
+          "preference": "Titane et finitions haut de gamme, gain de poids notable, sonorité travaillée — référence premium du secteur.",
+          "reviews": [
+            { "author": "Antoine L.", "rating": 5, "date": "2026-03-08", "comment": "Sonorité posée sans être fatigante sur autoroute, finition titane superbe." }
+          ]
+        },
+        {
+          "id": "milltek-sport",
+          "name": "Milltek Sport",
+          "origine": "Royaume-Uni",
+          "gamme": "Milieu-haut de gamme",
+          "rating": 4.6,
+          "reviewCount": 52,
+          "recommended": false,
+          "preference": "Bon compromis prix/qualité, large compatibilité par motorisation et code moteur.",
+          "reviews": [
+            { "author": "Rayan H.", "rating": 4, "date": "2026-01-19", "comment": "Montage facile avec les colliers fournis, gain sonore net dès le ralenti." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "covering-vitres-teintees",
+      "label": "Covering & vitres teintées",
+      "description": "Films de covering et films de teinte pour vitrage.",
+      "brands": [
+        {
+          "id": "3m",
+          "name": "3M",
+          "origine": "États-Unis",
+          "gamme": "Haut de gamme",
+          "rating": 4.7,
+          "reviewCount": 47,
+          "recommended": true,
+          "preference": "Garantie constructeur reconnue et large réseau d'installateurs certifiés, sécurisant pour un covering complet.",
+          "reviews": [
+            { "author": "Fabien R.", "rating": 5, "date": "2026-02-11", "comment": "Film posé par un installateur certifié 3M, aucun défaut de tension après 6 mois." }
+          ]
+        },
+        {
+          "id": "llumar",
+          "name": "Llumar",
+          "origine": "États-Unis",
+          "gamme": "Milieu-haut de gamme",
+          "rating": 4.5,
+          "reviewCount": 33,
+          "recommended": false,
+          "preference": "Bonne alternative pour la teinte vitrage, gammes de teintes conformes à la réglementation française sur le pare-brise avant.",
+          "reviews": [
+            { "author": "Chloé B.", "rating": 4, "date": "2025-10-05", "comment": "Teinte homogène, l'installateur a bien expliqué les seuils légaux avant/arrière." }
+          ]
+        }
+      ]
+    }
+  ]
+}

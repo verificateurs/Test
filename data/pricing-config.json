@@ -1,0 +1,5 @@
+{
+  "_note": "Configuration de marge globale. Modifier marginPercent recalcule automatiquement tous les prix affichés sur le site (fiches produit, panier, tunnel d'achat) — aucun prix de vente n'est jamais stocké ailleurs.",
+  "marginPercent": 45,
+  "currency": "EUR"
+}

@@ -1,0 +1,18 @@
+# En-têtes de sécurité HTTP.
+#
+# Format lu automatiquement par Netlify et Cloudflare Pages (fichier à la racine
+# du site publié). GitHub Pages NE SUPPORTE PAS les en-têtes personnalisés : sur
+# cet hébergeur, seule la CSP en <meta> d'index.html s'applique, et
+# frame-ancestors / Permissions-Policy sont alors inopérants.
+#
+# La CSP est volontairement identique à celle du <meta> d'index.html, avec en plus
+# frame-ancestors, qui n'est pris en compte QUE via un en-tête HTTP.
+
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; form-action 'none'; frame-ancestors 'none'; base-uri 'none'; object-src 'none'
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), interest-cohort=()
+  Cross-Origin-Opener-Policy: same-origin
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
