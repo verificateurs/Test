@@ -16,6 +16,7 @@ import {
 import { SiteHeader, SiteFooter, Breadcrumb } from "@/components/SiteChrome";
 import { JsonLd } from "@/components/JsonLd";
 import { absoluteUrl } from "@/lib/site";
+import { AddToCartButton } from "@/components/AddToCartButton";
 
 export const dynamic = "force-static";
 
@@ -100,9 +101,12 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
               {product.stock === false ? (
                 <p className="out-of-stock">Rupture de stock — réapprovisionnement sous 5 à 7 jours</p>
               ) : (
-                <Link href="/panier" className="btn-primary">
-                  Ajouter au panier
-                </Link>
+                <AddToCartButton
+                  productId={product.id}
+                  name={product.name}
+                  format={product.format}
+                  unitPriceSnapshot={price}
+                />
               )}
             </div>
           </div>

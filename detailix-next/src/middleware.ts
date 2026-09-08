@@ -4,12 +4,21 @@ import { SESSION_COOKIE } from "@/lib/auth/constants";
 /**
  * Deux responsabilités distinctes dans ce middleware Edge :
  *
- * 1. CSP par nonce — un nonce aléatoire est généré à chaque requête, transmis
- *    à Next via l'en-tête `x-nonce` (Next l'applique automatiquement aux
- *    scripts d'hydratation qu'il injecte) et posé sur l'en-tête de réponse
- *    Content-Security-Policy. Sans ça, `script-src 'self'` bloque les scripts
- *    inline générés par Next lui-même (état RSC, hydratation) et casse le
- *    montage de toute île cliente sur le site — pas seulement l'admin.
+ * 1. Content-Security-Policy. `script-src` inclut 'unsafe-inline' — un choix
+ *    assumé, pas un oubli. Next.js injecte sur CHAQUE page (statique ou non)
+ *    un script inline contenant la charge utile RSC nécessaire à
+ *    l'hydratation ; sur les pages statiques (force-static/SSG, la majorité
+ *    du site pour le SEO), ce HTML est figé à la build et ne peut recevoir
+ *    aucun nonce par requête — un essai avec nonce + 'strict-dynamic' a été
+ *    testé et bloquait purement et simplement l'hydratation de /produits/*,
+ *    /panier, /commande (toutes statiques). 'unsafe-inline' est donc requis
+ *    pour que le site fonctionne. Le risque réel est limité : aucun
+ *    `dangerouslySetInnerHTML` dans le code ne reçoit de contenu utilisateur
+ *    (seul JsonLd.tsx l'utilise, avec des données catalogue échappées) ; React
+ *    échappe par défaut tout le texte/attributs rendus. `object-src 'none'`,
+ *    `base-uri 'none'` et `connect-src 'self'` restent en place comme
+ *    filet de sécurité (pas d'exfiltration vers un domaine tiers, pas de
+ *    détournement de <base>/plugin).
  *
  * 2. Filtre d'authentification rapide : redirige si le cookie de session est
  *    absent. Ce n'est PAS le contrôle faisant autorité — Prisma (SQLite) ne
@@ -21,24 +30,20 @@ import { SESSION_COOKIE } from "@/lib/auth/constants";
  *    la base — c'est ce contrôle-là qui fait foi. Ce middleware n'est qu'une
  *    optimisation pour rediriger tôt un visiteur manifestement non connecté.
  */
+const CSP = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline'",
+  "style-src 'self' 'unsafe-inline'",
+  "font-src 'self'",
+  "img-src 'self' data:",
+  "connect-src 'self'",
+  "form-action 'self'",
+  "frame-ancestors 'none'",
+  "base-uri 'none'",
+  "object-src 'none'",
+].join("; ");
+
 export function middleware(request: NextRequest) {
-  const nonce = Buffer.from(crypto.randomUUID()).toString("base64");
-  const csp = [
-    "default-src 'self'",
-    `script-src 'self' 'nonce-${nonce}' 'strict-dynamic'`,
-    "style-src 'self' 'unsafe-inline'",
-    "font-src 'self'",
-    "img-src 'self' data:",
-    "connect-src 'self'",
-    "form-action 'self'",
-    "frame-ancestors 'none'",
-    "base-uri 'none'",
-    "object-src 'none'",
-  ].join("; ");
-
-  const requestHeaders = new Headers(request.headers);
-  requestHeaders.set("x-nonce", nonce);
-
   const hasSessionCookie = request.cookies.has(SESSION_COOKIE);
   const { pathname } = request.nextUrl;
 
@@ -46,12 +51,12 @@ export function middleware(request: NextRequest) {
     const url = new URL("/connexion", request.url);
     url.searchParams.set("next", pathname);
     const response = NextResponse.redirect(url);
-    response.headers.set("Content-Security-Policy", csp);
+    response.headers.set("Content-Security-Policy", CSP);
     return response;
   }
 
-  const response = NextResponse.next({ request: { headers: requestHeaders } });
-  response.headers.set("Content-Security-Policy", csp);
+  const response = NextResponse.next();
+  response.headers.set("Content-Security-Policy", CSP);
   return response;
 }
 

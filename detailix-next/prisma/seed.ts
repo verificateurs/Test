@@ -152,6 +152,18 @@ async function main() {
     create: { key: "marginPercent", value: String(pricing.marginPercent) },
     update: { value: String(pricing.marginPercent) },
   });
+  await prisma.setting.upsert({
+    where: { key: "freeShippingThreshold" },
+    create: { key: "freeShippingThreshold", value: "79" },
+    update: {},
+  });
+
+  // Code promo de démonstration pour tester le tunnel de commande.
+  await prisma.promoCode.upsert({
+    where: { code: "BIENVENUE10" },
+    create: { code: "BIENVENUE10", type: "PERCENT", value: 10, minSubtotal: 0, freeShipping: false, active: true },
+    update: {},
+  });
 
   const counts = {
     catégories: await prisma.category.count(),
