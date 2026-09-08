@@ -21,6 +21,14 @@ export async function getMarginPercent(): Promise<number> {
   return marginCache.value;
 }
 
+/** À appeler depuis l'action admin qui modifie la marge — sans ça, un
+ * changement de marge resterait invisible jusqu'à 60s même après la
+ * revalidation des pages statiques (le prix vient de ce cache, pas de la
+ * requête Prisma directe). */
+export function invalidateMarginCache(): void {
+  marginCache = null;
+}
+
 export function computeSellPrice(prixAchat: number, marginPercent: number): number {
   return Math.round(prixAchat * (1 + marginPercent / 100) * 100) / 100;
 }
