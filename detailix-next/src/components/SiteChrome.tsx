@@ -2,6 +2,8 @@ import Link from "next/link";
 import { AccountMenu } from "@/components/AccountMenu";
 import { CartLink } from "@/components/CartLink";
 import { ComparatorLink } from "@/components/ComparatorLink";
+import { GarageToggle } from "@/components/GarageToggle";
+import { SearchBox } from "@/components/SearchBox";
 
 export function SiteHeader() {
   return (
@@ -19,7 +21,9 @@ export function SiteHeader() {
           <Link href="/espace-pro">Espace pro</Link>
         </nav>
         <div className="header-actions">
+          <SearchBox />
           <AccountMenu />
+          <GarageToggle />
           <ComparatorLink />
           <CartLink />
         </div>

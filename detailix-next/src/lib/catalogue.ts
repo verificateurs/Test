@@ -1,14 +1,20 @@
 import { prisma } from "@/lib/prisma";
+import { parseCompatibilite, compatibilityStatus, COMPAT_LABELS } from "@/lib/compat";
+export type { Compatibilite, CompatStatus } from "@/lib/compat";
+export { parseCompatibilite, compatibilityStatus, COMPAT_LABELS };
 
 /**
  * Accès catalogue + logique métier partagée (prix, compatibilité, livraison,
  * homologation). Portage typé des helpers du prototype vanilla.
  *
+ * La logique de compatibilité vit dans lib/compat.ts (réexportée ici pour ne
+ * pas casser les imports existants) : ce fichier-ci importe Prisma et ne
+ * peut donc jamais être importé depuis un composant client (CompatBadge,
+ * garage) sans faire fuiter le client Prisma dans le bundle navigateur.
+ *
  * Règle inchangée : aucun prix de vente n'est stocké. Il est toujours calculé
  * à partir du coût (prixAchat) et de la marge globale (Setting.marginPercent).
  */
-
-export type Compatibilite = "universel" | { type: "codesMoteurs"; codes: string[] };
 
 let marginCache: { value: number; at: number } | null = null;
 const MARGIN_TTL_MS = 60_000;
@@ -42,33 +48,6 @@ export function deliveryEstimate(stock: boolean): { label: string; className: st
     ? { label: "Sur commande, 5-7 jours", className: "delivery-slow" }
     : { label: "Expédié sous 24h", className: "delivery-fast" };
 }
-
-export function parseCompatibilite(raw: string): Compatibilite {
-  if (raw === "universel") return "universel";
-  try {
-    const parsed = JSON.parse(raw);
-    if (parsed && parsed.type === "codesMoteurs" && Array.isArray(parsed.codes)) return parsed;
-  } catch {
-    /* donnée mal formée : traitée comme non renseignée ci-dessous */
-  }
-  return { type: "codesMoteurs", codes: [] };
-}
-
-export type CompatStatus = "universel" | "compatible" | "incompatible" | "a-verifier";
-
-export function compatibilityStatus(compatibilite: Compatibilite, activeCodeMoteur: string | null): CompatStatus {
-  if (compatibilite === "universel") return "universel";
-  if (!Array.isArray(compatibilite.codes) || compatibilite.codes.length === 0) return "a-verifier";
-  if (!activeCodeMoteur) return "a-verifier";
-  return compatibilite.codes.includes(activeCodeMoteur) ? "compatible" : "incompatible";
-}
-
-export const COMPAT_LABELS: Record<CompatStatus, { label: string; className: string }> = {
-  universel: { label: "Universel", className: "compat-universel" },
-  compatible: { label: "Compatible avec votre véhicule", className: "compat-compatible" },
-  incompatible: { label: "Non compatible", className: "compat-incompatible" },
-  "a-verifier": { label: "Compatibilité à vérifier", className: "compat-a-verifier" },
-};
 
 export const HOMOLOGATION_LABELS: Record<string, { label: string; className: string }> = {
   "route-ouverte": { label: "Homologué route ouverte", className: "homolog-route" },

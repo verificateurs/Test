@@ -2,22 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
-import {
-  getProduct,
-  getMarginPercent,
-  computeSellPrice,
-  formatPrice,
-  deliveryEstimate,
-  parseCompatibilite,
-  compatibilityStatus,
-  COMPAT_LABELS,
-  HOMOLOGATION_LABELS,
-} from "@/lib/catalogue";
+import { getProduct, getMarginPercent, computeSellPrice, formatPrice, deliveryEstimate, HOMOLOGATION_LABELS } from "@/lib/catalogue";
 import { SiteHeader, SiteFooter, Breadcrumb } from "@/components/SiteChrome";
 import { JsonLd } from "@/components/JsonLd";
 import { absoluteUrl } from "@/lib/site";
 import { AddToCartButton } from "@/components/AddToCartButton";
 import { WishlistToggleButton } from "@/components/WishlistToggleButton";
+import { CompatBadge } from "@/components/CompatBadge";
 
 export const dynamic = "force-static";
 
@@ -47,7 +38,6 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
   const marginPercent = await getMarginPercent();
   const price = computeSellPrice(product.prixAchat, marginPercent);
   const delivery = deliveryEstimate(product.stock);
-  const compat = COMPAT_LABELS[compatibilityStatus(parseCompatibilite(product.compatibilite), null)];
   const homolog = product.homologation ? HOMOLOGATION_LABELS[product.homologation] : null;
 
   return (
@@ -94,7 +84,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
 
               <div className="badge-row">
                 <span className={`delivery-badge ${delivery.className}`}>{delivery.label}</span>
-                <span className={`compat-badge ${compat.className}`}>{compat.label}</span>
+                <CompatBadge compatibilite={product.compatibilite} />
                 {homolog && <span className={`homolog-badge ${homolog.className}`}>{homolog.label}</span>}
               </div>
 

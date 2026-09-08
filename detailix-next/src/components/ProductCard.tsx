@@ -1,14 +1,7 @@
 import Link from "next/link";
-import {
-  computeSellPrice,
-  formatPrice,
-  deliveryEstimate,
-  parseCompatibilite,
-  compatibilityStatus,
-  COMPAT_LABELS,
-  HOMOLOGATION_LABELS,
-} from "@/lib/catalogue";
+import { computeSellPrice, formatPrice, deliveryEstimate, HOMOLOGATION_LABELS } from "@/lib/catalogue";
 import { CompareToggle } from "@/components/CompareToggle";
+import { CompatBadge } from "@/components/CompatBadge";
 
 type ProductLike = {
   id: string;
@@ -20,12 +13,12 @@ type ProductLike = {
   homologation: string | null;
 };
 
-/** Carte produit en lien vers sa fiche. Compatibilité calculée hors véhicule
- *  actif (page statique) : "universel" ou "à vérifier", jamais bloquante. */
+/** Carte produit en lien vers sa fiche. Le badge de compatibilité est rendu
+ *  par défaut hors véhicule actif (page statique), puis recalculé côté
+ *  client une fois le garage (localStorage) relu — voir CompatBadge. */
 export function ProductCard({ product, marginPercent }: { product: ProductLike; marginPercent: number }) {
   const price = computeSellPrice(product.prixAchat, marginPercent);
   const delivery = deliveryEstimate(product.stock);
-  const compat = COMPAT_LABELS[compatibilityStatus(parseCompatibilite(product.compatibilite), null)];
   const homolog = product.homologation ? HOMOLOGATION_LABELS[product.homologation] : null;
 
   return (
@@ -36,7 +29,7 @@ export function ProductCard({ product, marginPercent }: { product: ProductLike; 
         <div className="badge-row">
           <span className="product-price">{formatPrice(price)}</span>
           <span className={`delivery-badge ${delivery.className}`}>{delivery.label}</span>
-          <span className={`compat-badge ${compat.className}`}>{compat.label}</span>
+          <CompatBadge compatibilite={product.compatibilite} />
           {homolog && <span className={`homolog-badge ${homolog.className}`}>{homolog.label}</span>}
           {product.stock === false && <span className="out-of-stock">Rupture de stock</span>}
         </div>

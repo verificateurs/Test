@@ -21,5 +21,7 @@ export function revalidateCatalogue(): void {
   revalidatePath("/produits/[id]", "page");
   revalidatePath("/vehicules");
   revalidatePath("/vehicules/[slug]", "page");
+  revalidatePath("/api/vehicules-arbre");
+  revalidatePath("/api/recherche-index");
   revalidatePath("/sitemap.xml");
 }

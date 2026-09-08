@@ -65,6 +65,19 @@ module.exports = {
           `la fiche produit publique doit être accessible immédiatement, titre obtenu « ${publicHeading} »`
         );
 
+        // L'index de recherche (/api/recherche-index) est un asset statique
+        // indépendant de la fiche produit : sans revalidation dédiée, un produit
+        // fraîchement créé resterait introuvable en recherche alors même que sa
+        // fiche publique fonctionne déjà (même classe de divergence silencieuse
+        // que le cache mémoire de marge — voir invalidateMarginCache()).
+        await page.goto(`${baseUrl}/`, { waitUntil: "load" });
+        await page.fill(".search-input", "Produit Test E2E");
+        await page.waitForSelector(".search-result-item", { timeout: 5000 });
+        assert(
+          await page.$eval("body", (el) => el.textContent.includes("Produit Test E2E")),
+          "le produit fraîchement créé doit être trouvable en recherche immédiatement, sans rebuild"
+        );
+
         // Nettoyage : produit -> marque -> catégorie (ordre des dépendances).
         page.on("dialog", (d) => d.accept());
         await page.goto(`${baseUrl}/admin/produits`, { waitUntil: "load" });
