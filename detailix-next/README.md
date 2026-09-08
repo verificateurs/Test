@@ -1,36 +1,48 @@
-# Detailix — application Next.js (migration en cours)
+# Detailix — application Next.js
 
-Réécriture du prototype vanilla (dossier parent) sur **Next.js 16 (App Router) +
-Prisma**, pour un vrai référencement (pages HTML par produit/catégorie/véhicule)
-et, aux modules suivants, une authentification et un paiement réels côté serveur.
+Réécriture complète du prototype vanilla (dossier parent) sur **Next.js 16
+(App Router) + Prisma**, avec authentification, paiement et back-office réels
+côté serveur. Fonctionnellement complète et prête pour un test par de vrais
+utilisateurs (voir « Limites connues » ci-dessous pour ce qui reste
+volontairement simplifié).
 
 Le site vanilla d'origine (`../index.html`, `../assets/`, `../data/`) reste
-intact et fonctionnel pendant toute la migration. La bascule se fera quand cette
-application couvrira l'ensemble de ses fonctionnalités.
+intact et fonctionnel : cette application le remplace mais ne le supprime pas.
 
-## Ce qui est en place (module 3)
+## Fonctionnalités
 
-- **Catalogue en base** (Prisma) : catégories, marques, avis, produits,
-  véhicules, plus les tables comptes/commandes/promos préparées pour les modules
-  suivants. Le prix de vente n'est jamais stocké : il est calculé à partir du
-  coût et de la marge globale (`Setting.marginPercent`).
-- **Seed** depuis les `../data/*.json` du prototype : `npm run db:seed`. Sur une
-  base fraîche, aucun compte n'existe donc le back-office `/admin` est
-  inatteignable : définir `SEED_ADMIN_EMAIL`/`SEED_ADMIN_PASSWORD` (voir
-  `.env.example`) avant de seed pour obtenir un premier compte ADMIN — sinon
-  cette étape est silencieusement ignorée.
-- **Pages générées statiquement** (contenu dans le HTML, vérifiable JS désactivé) :
-  accueil, `/categories`, `/categories/[id]`, `/marques`, `/marques/[id]`,
-  `/produits/[id]`, `/vehicules`, `/vehicules/[slug]`.
-- **SEO** : `title`/`description` uniques, canonical, Open Graph, JSON-LD
-  `Product` + `offers` (prix, disponibilité), `BreadcrumbList`, `ItemList`,
-  `sitemap.xml`, `robots.txt`. Pas de balisage d'avis (`aggregateRating`/`review`)
-  tant que les avis sont des exemples — cela violerait les règles Google.
-- **Pages véhicule dé-dupliquées** : deux modèles au même ensemble de produits
-  compatibles (mêmes codes moteur) ne produisent qu'une page indexable ; la ou
-  les autres passent en `noindex` et sont exclues du sitemap.
-- **En-têtes de sécurité** au niveau serveur (`next.config.ts`) : CSP,
-  `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`.
+- **Catalogue** (Prisma/SQLite en dev) : catégories, marques, avis, produits,
+  véhicules. Le prix de vente n'est jamais stocké : calculé à partir du coût
+  (`Product.prixAchat`) et de la marge globale (`Setting.marginPercent`),
+  modifiable depuis le back-office et appliqué immédiatement (revalidation).
+- **Pages générées statiquement** pour le SEO (contenu dans le HTML,
+  vérifiable JS désactivé) : accueil, catégories, marques, produits,
+  véhicules, préparateurs, blog. `sitemap.xml`/`robots.txt`, JSON-LD
+  `Product`/`BreadcrumbList`/`ItemList`/`BlogPosting`. Pas de balisage d'avis
+  (`aggregateRating`/`review`) tant que les avis restent des données
+  d'exemple — cela violerait les règles de données structurées de Google.
+- **Comptes** : inscription/connexion (mots de passe hachés en scrypt,
+  `node:crypto`, aucune dépendance native), sessions par cookie httpOnly,
+  rôles CUSTOMER/PRO/ADMIN, historique de commandes (`/compte/commandes`,
+  strictement filtré par l'utilisateur connecté), liste d'envies.
+- **Panier + tunnel de commande** : panier client (localStorage), adresse de
+  livraison, code promo, remise pro automatique. Le total facturé est
+  **toujours recalculé côté serveur** depuis le catalogue en base — jamais
+  depuis une valeur envoyée par le client.
+- **Paiement Stripe** (Checkout Session hébergée, webhook signé) : sans
+  `STRIPE_SECRET_KEY`, bascule en mode démonstration explicite (commande
+  marquée payée directement, bandeau visible). Emails de confirmation via
+  Resend, best-effort (ne bloque jamais une commande).
+- **Back-office** (`/admin`, protégé par rôle) : produits, marques,
+  catégories, véhicules, codes promo, commandes, utilisateurs, articles de
+  blog, réglages (marge, seuil de livraison offerte, remise pro),
+  import/export catalogue.
+- **Mon garage** : véhicule(s) mémorisé(s) (localStorage), badge de
+  compatibilité produit recalculé côté client sans rechargement de page.
+- **Recherche interne** avec autocomplétion (produits + marques).
+- **Préparateurs partenaires** (Shiftech, BR Performance...) et **blog /
+  guides** : contenu texte brut, jamais de HTML injecté côté client (voir
+  la CSP ci-dessous).
 
 ## Développement
 
@@ -41,6 +53,35 @@ npm run dev        # http://localhost:3000
 npm run build && npm start   # build de production + serveur
 ```
 
+Copier `.env.example` en `.env` et compléter selon les besoins — toute
+variable absente fait basculer la fonctionnalité correspondante en mode
+démonstration explicite (jamais un faux succès silencieux). Notamment,
+définir `SEED_ADMIN_EMAIL`/`SEED_ADMIN_PASSWORD` **avant** de seed pour
+obtenir un premier compte ADMIN : sur une base fraîche sans ces variables,
+`/admin` reste inatteignable (personne n'a de compte).
+
+## Tests
+
+```bash
+npm run test:e2e
+```
+
+Suite Playwright de bout en bout (`tests/`) : base SQLite jetable, seed
+(catalogue + compte admin de test), build, `next start`, exécution de la
+suite, puis arrêt et nettoyage — orchestré par `tests/e2e.js`, sans état
+partagé avec la base de développement (`prisma/dev.db`). Couvre
+l'inscription/connexion, le panier et le tunnel de commande (y compris un
+prix trafiqué côté client, toujours recalculé serveur), le CRUD admin, le
+refus serveur d'une Server Action admin rejouée par un CUSTOMER authentifié
+(pas seulement un contrôle d'interface), la liste d'envies, le comparateur,
+la remise pro, l'historique de commandes (avec vérification anti-IDOR), le
+garage/recherche/préparateurs, le blog (avec une vérification explicite que
+du HTML injecté dans un article s'affiche échappé, jamais exécuté), et la
+redirection ouverte sur `?next=`.
+
+`npm run test:e2e -- <motif>` limite l'exécution aux fichiers dont le nom
+contient `<motif>` (ex. `npm run test:e2e -- checkout`).
+
 ## Base de données
 
 - **Développement** : SQLite (`prisma/dev.db`, `DATABASE_URL="file:./dev.db"`),
@@ -48,7 +89,28 @@ npm run build && npm start   # build de production + serveur
 - **Production** : passer `provider` à `postgresql` dans `prisma/schema.prisma`
   et fournir `DATABASE_URL` (Neon / Supabase). Aucune requête à réécrire.
 
-## Vulnérabilités npm connues
+## Sécurité
+
+- En-têtes de sécurité (`src/middleware.ts`, pas `next.config.ts`) : CSP,
+  `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`. La CSP
+  autorise `script-src 'self' 'unsafe-inline'` — choix assumé et documenté en
+  commentaire dans `middleware.ts` (les pages statiques ne peuvent pas
+  porter de nonce par requête), dont la sûreté repose sur l'absence de tout
+  `dangerouslySetInnerHTML` recevant du contenu utilisateur (`grep -rn
+  dangerouslySetInnerHTML src/` ne doit renvoyer que `JsonLd.tsx`).
+- Autorisation admin en profondeur : filtre Edge (cookie, non faisant
+  autorité) + `admin/layout.tsx` (`requireAdmin()`, faisant autorité) +
+  chaque Server Action admin revérifie `requireAdmin()` elle-même — vérifié
+  par un test qui rejoue une requête Server Action admin capturée en tant
+  que CUSTOMER authentifié et confirme le refus.
+- Prix, total de commande et remise pro : toujours recalculés côté serveur.
+- Redirection `?next=` (connexion) filtrée par `safeRedirectPath()` (chemin
+  interne uniquement) — pas de redirection ouverte.
+- IDOR : historique de commandes et liste d'envies systématiquement
+  filtrés par l'utilisateur de la session, jamais par un identifiant pris
+  dans l'URL ou le payload client.
+
+### Vulnérabilités npm connues
 
 `npm audit` signale `mysql2` (pilote MySQL non utilisé — on est sur SQLite/
 Postgres) et, selon les versions, `deepmerge-ts` : ce sont des dépendances
@@ -56,9 +118,20 @@ transitives du **CLI Prisma**, présentes uniquement au build/CLI, jamais dans l
 bundle navigateur ni au runtime de production. Ne pas downgrader Prisma vers une
 version majeure antérieure pour ces alertes.
 
-## À venir (modules 4-8)
+## Limites connues
 
-Authentification réelle (argon2id, sessions httpOnly, CSRF, anti-brute-force),
-panel admin protégé côté serveur, tunnel de commande, codes promo, paiement
-Stripe (clé secrète côté serveur, webhook signé), emails de confirmation, puis
-reprise du garage/recherche/comparateur et bascule finale.
+- **Stock booléen** (disponible/rupture), pas de quantités réelles ni de
+  décrément transactionnel — une vraie gestion de stock est un chantier à
+  part.
+- **Limiteur de débit en mémoire** (connexion/inscription) : mono-instance,
+  ne survit pas à un redémarrage ni à plusieurs instances serverless. Une
+  vraie mise en production nécessite un store partagé (Upstash Redis...).
+- **Modes démonstration explicites** sans clés externes : `STRIPE_SECRET_KEY`
+  absent → commande marquée payée directement (bandeau visible) ;
+  `RESEND_API_KEY` absent → email loggé, jamais envoyé, ne bloque jamais la
+  commande.
+- **Avis et fiches préparateurs** : données d'exemple pour prototypage,
+  explicitement signalées comme telles (bandeau pied de page, `_note` dans
+  `data/preparateurs.json`) — à remplacer avant mise en production, et
+  aucun balisage `aggregateRating`/`review` n'est émis tant qu'elles le
+  restent.

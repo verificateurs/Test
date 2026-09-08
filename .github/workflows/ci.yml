@@ -31,3 +31,33 @@ jobs:
       # Inclut les tests d'injection : ils échouent si l'échappement HTML régresse.
       - name: Lancer la suite de tests
         run: npm test
+
+  detailix-next:
+    name: detailix-next — build et tests de bout en bout
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # prisma/seed.ts est exécuté via `node --experimental-strip-types`,
+      # qui nécessite Node 22+ (distinct du job ci-dessus, qui teste le
+      # prototype vanilla séparément et n'a pas cette contrainte).
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: detailix-next/package-lock.json
+
+      - name: Installer les dépendances
+        working-directory: detailix-next
+        run: npm ci || npm install
+
+      - name: Installer le navigateur de test
+        working-directory: detailix-next
+        run: npx playwright install --with-deps chromium
+
+      # Orchestre lui-même : base SQLite jetable, seed, build, next start,
+      # suite Playwright, arrêt + nettoyage — voir detailix-next/tests/e2e.js.
+      - name: Build + suite de tests de bout en bout
+        working-directory: detailix-next
+        run: npm run test:e2e
