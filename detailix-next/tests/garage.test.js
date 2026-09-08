@@ -51,7 +51,9 @@ module.exports = {
         // Le badge doit se recalculer côté client sans navigation — au moins un
         // produit catalogue doit être marqué compatible, incompatible ou universel
         // (jamais bloquant, mais différent du panorama "à vérifier" par défaut).
-        await page.goto(`${baseUrl}/categories`, { waitUntil: "load" });
+        // /categories liste les catégories elles-mêmes (pas de ProductCard) ; il
+        // faut une page de catégorie pour voir des badges de compatibilité.
+        await page.goto(`${baseUrl}/categories/cosmetique-carrosserie`, { waitUntil: "load" });
         await page.waitForTimeout(300);
         const badgeClasses = await page.$$eval(".compat-badge", (els) => els.map((el) => el.className));
         assert(badgeClasses.length > 0, "des badges de compatibilité doivent être rendus sur le catalogue");
