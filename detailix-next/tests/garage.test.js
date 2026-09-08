@@ -11,6 +11,10 @@ module.exports = {
         await page.goto(`${baseUrl}/`, { waitUntil: "load" });
         await page.click('button[aria-label="Mon garage"]');
         await page.waitForSelector(".garage-panel", { state: "visible" });
+        // L'arbre marque/modèle/motorisation est chargé depuis /api/vehicules-arbre
+        // après l'ouverture du panneau (fetch async) : attendre qu'au moins une
+        // vraie option (hors "Marque" placeholder) soit présente avant de lire la liste.
+        await page.waitForSelector(".garage-form select:nth-of-type(1) option[value]:not([value=''])", { timeout: 5000 });
 
         const makeOptions = await page.$$eval(".garage-form select:nth-of-type(1) option", (opts) =>
           opts.map((o) => o.value).filter(Boolean)
