@@ -171,6 +171,27 @@ async function main() {
     update: {},
   });
 
+  // Articles de démonstration pour le blog.
+  const articles = [
+    {
+      slug: "bien-choisir-son-polish",
+      title: "Bien choisir son polish selon l'état de sa carrosserie",
+      excerpt: "Abrasif, finition, protection : comment s'y retrouver avant un polissage.",
+      content:
+        "Le choix d'un polish dépend d'abord de l'état réel de la carrosserie, pas de la promesse marketing du produit.\n\nSur une peinture peu marquée, un polish de finition à grain fin suffit à raviver l'éclat sans retirer de matière inutilement.\n\nSur des hologrammes ou des micro-rayures plus profondes, un abrasif intermédiaire est nécessaire avant de repasser en finition, sous peine de laisser les défauts visibles sous certains angles de lumière.\n\nDans tous les cas, un test sur une zone peu visible reste la meilleure façon de valider la combinaison produit/pad avant de traiter l'ensemble du véhicule.",
+    },
+    {
+      slug: "entretien-jantes-hiver",
+      title: "Entretien des jantes en hiver : ce qui change vraiment",
+      excerpt: "Sel de déneigement, poussière de frein, gel : adapter sa routine au lieu de la multiplier.",
+      content:
+        "Le sel de déneigement accélère la corrosion sur les jantes non protégées, en particulier au niveau des fixations et des zones déjà micro-rayées.\n\nUn rinçage plus fréquent qu'en été, même sommaire, limite le temps de contact entre le sel et le métal — c'est ce facteur temps qui fait la différence, plus que le produit utilisé.\n\nUne protection céramique ou un scellant appliqué en amont de la saison facilite ce rinçage rapide en empêchant les résidus de s'incruster dans les micro-aspérités.",
+    },
+  ];
+  for (const article of articles) {
+    await prisma.article.upsert({ where: { slug: article.slug }, create: article, update: article });
+  }
+
   // Bootstrap admin optionnel : une base fraîche n'a aucun utilisateur, donc
   // le back-office est inatteignable tant que personne n'a de compte ADMIN.
   // Activé uniquement si les deux variables sont fournies — silencieux sinon,

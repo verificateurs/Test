@@ -213,3 +213,19 @@ model Setting {
   key   String @id
   value String
 }
+
+// Contenu éditorial (guides), publié directement à la création — pas de
+// statut brouillon : plus simple, et un article existant est toujours
+// consultable, cohérent avec generateStaticParams qui liste tout Article.
+// `content` est du texte brut (paragraphes séparés par une ligne vide),
+// jamais du HTML — voir src/lib/blog.ts : la fiche rend chaque paragraphe
+// comme enfant texte React (échappé), sans dangerouslySetInnerHTML, pour ne
+// pas invalider la CSP script-src 'unsafe-inline' (voir middleware.ts).
+model Article {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  excerpt     String
+  content     String
+  publishedAt DateTime @default(now())
+}

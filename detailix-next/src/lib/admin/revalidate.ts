@@ -25,3 +25,10 @@ export function revalidateCatalogue(): void {
   revalidatePath("/api/recherche-index");
   revalidatePath("/sitemap.xml");
 }
+
+/** Contenu éditorial (guides), indépendant du catalogue — voir Article dans schema.prisma. */
+export function revalidateBlog(): void {
+  revalidatePath("/blog");
+  revalidatePath("/blog/[slug]", "page");
+  revalidatePath("/sitemap.xml");
+}

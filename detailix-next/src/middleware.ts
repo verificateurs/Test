@@ -15,7 +15,14 @@ import { SESSION_COOKIE } from "@/lib/auth/constants";
  *    pour que le site fonctionne. Le risque réel est limité : aucun
  *    `dangerouslySetInnerHTML` dans le code ne reçoit de contenu utilisateur
  *    (seul JsonLd.tsx l'utilise, avec des données catalogue échappées) ; React
- *    échappe par défaut tout le texte/attributs rendus. `object-src 'none'`,
+ *    échappe par défaut tout le texte/attributs rendus. Le blog (contenu
+ *    admin, donc "utilisateur" au sens large) suit la même règle : Article.content
+ *    est du texte brut rendu en enfants texte React (voir lib/blog.ts et
+ *    /blog/[slug]), jamais interprété comme HTML — vérifié par
+ *    `grep -rn dangerouslySetInnerHTML src/`, qui ne doit renvoyer que
+ *    JsonLd.tsx. Toute future fonctionnalité rendant du contenu utilisateur
+ *    en HTML brut invaliderait cette justification et devrait revoir la CSP.
+ *    `object-src 'none'`,
  *    `base-uri 'none'` et `connect-src 'self'` restent en place comme
  *    filet de sécurité (pas d'exfiltration vers un domaine tiers, pas de
  *    détournement de <base>/plugin).

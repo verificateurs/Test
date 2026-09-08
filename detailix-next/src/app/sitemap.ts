@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { prisma } from "@/lib/prisma";
 import { getVehiclePages } from "@/lib/vehicles";
 import { getReseaux } from "@/lib/preparateurs";
+import { getArticles } from "@/lib/blog";
 import { absoluteUrl } from "@/lib/site";
 
 export const dynamic = "force-static";
@@ -14,6 +15,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ]);
   const vehiclePages = await getVehiclePages();
   const centres = getReseaux().flatMap((r) => r.centres);
+  const articles = await getArticles();
 
   const entries: MetadataRoute.Sitemap = [
     { url: absoluteUrl("/"), priority: 1 },
@@ -21,12 +23,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: absoluteUrl("/marques"), priority: 0.6 },
     { url: absoluteUrl("/vehicules"), priority: 0.8 },
     { url: absoluteUrl("/preparateurs"), priority: 0.6 },
+    { url: absoluteUrl("/blog"), priority: 0.6 },
     ...categories.map((c) => ({ url: absoluteUrl(`/categories/${c.id}`), priority: 0.7 })),
     ...brands.map((b) => ({ url: absoluteUrl(`/marques/${b.id}`), priority: 0.5 })),
     ...products.map((p) => ({ url: absoluteUrl(`/produits/${p.id}`), priority: 0.7 })),
     // Les pages véhicule dupliquées sont noindex : on les exclut du sitemap.
     ...vehiclePages.filter((v) => !v.isDuplicate).map((v) => ({ url: absoluteUrl(`/vehicules/${v.slug}`), priority: 0.6 })),
     ...centres.map((c) => ({ url: absoluteUrl(`/preparateurs/${c.id}`), priority: 0.5 })),
+    ...articles.map((a) => ({ url: absoluteUrl(`/blog/${a.slug}`), priority: 0.6 })),
   ];
   return entries;
 }
