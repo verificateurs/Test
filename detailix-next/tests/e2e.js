@@ -145,8 +145,19 @@ function startServerAndWaitReady(command, args, timeoutMs) {
 
 let activeServer = null;
 
-function cleanupAndExit(code) {
+// `next start` (Turbopack) lance un processus `next-server` distinct de celui
+// que nous spawnons (npx next start) — tuer seulement notre child direct ne
+// suffit pas, ce petit-fils survit comme orphelin (observé : PID toujours en
+// LISTEN sur le port après server.kill(), alors que la commande venait de
+// rendre le code 0). On tue donc aussi tout ce qui écoute encore sur le
+// port, indépendamment de la forme exacte de l'arbre de processus.
+function stopServer() {
   if (activeServer && activeServer.exitCode === null) activeServer.kill("SIGKILL");
+  freePort(PORT);
+}
+
+function cleanupAndExit(code) {
+  stopServer();
   cleanupDb();
   process.exit(code);
 }
@@ -176,7 +187,7 @@ async function main() {
     });
     exitCode = testRun.status ?? 1;
   } finally {
-    if (server.exitCode === null) server.kill();
+    stopServer();
     cleanupDb();
   }
 
@@ -185,7 +196,7 @@ async function main() {
 
 main().catch((err) => {
   console.error("Échec de l'orchestration des tests e2e :", err);
-  if (activeServer && activeServer.exitCode === null) activeServer.kill("SIGKILL");
+  stopServer();
   cleanupDb();
   process.exit(1);
 });
