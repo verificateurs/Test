@@ -12,6 +12,7 @@ import { readFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { PrismaClient } from "../src/generated/prisma/client.js";
+import { hashPassword } from "../src/lib/auth/password.ts";
 
 const prisma = new PrismaClient();
 const DATA_DIR = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "data");
@@ -169,6 +170,22 @@ async function main() {
     create: { code: "BIENVENUE10", type: "PERCENT", value: 10, minSubtotal: 0, freeShipping: false, active: true },
     update: {},
   });
+
+  // Bootstrap admin optionnel : une base fraîche n'a aucun utilisateur, donc
+  // le back-office est inatteignable tant que personne n'a de compte ADMIN.
+  // Activé uniquement si les deux variables sont fournies — silencieux sinon,
+  // pour ne jamais créer de compte avec un mot de passe par défaut deviné.
+  const adminEmail = process.env.SEED_ADMIN_EMAIL;
+  const adminPassword = process.env.SEED_ADMIN_PASSWORD;
+  if (adminEmail && adminPassword) {
+    const passwordHash = await hashPassword(adminPassword);
+    await prisma.user.upsert({
+      where: { email: adminEmail },
+      create: { email: adminEmail, passwordHash, displayName: "Administrateur", role: "ADMIN" },
+      update: { passwordHash, role: "ADMIN" },
+    });
+    console.log(`Compte admin initialisé : ${adminEmail}`);
+  }
 
   const counts = {
     catégories: await prisma.category.count(),

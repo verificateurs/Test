@@ -14,7 +14,11 @@ application couvrira l'ensemble de ses fonctionnalités.
   véhicules, plus les tables comptes/commandes/promos préparées pour les modules
   suivants. Le prix de vente n'est jamais stocké : il est calculé à partir du
   coût et de la marge globale (`Setting.marginPercent`).
-- **Seed** depuis les `../data/*.json` du prototype : `npm run db:seed`.
+- **Seed** depuis les `../data/*.json` du prototype : `npm run db:seed`. Sur une
+  base fraîche, aucun compte n'existe donc le back-office `/admin` est
+  inatteignable : définir `SEED_ADMIN_EMAIL`/`SEED_ADMIN_PASSWORD` (voir
+  `.env.example`) avant de seed pour obtenir un premier compte ADMIN — sinon
+  cette étape est silencieusement ignorée.
 - **Pages générées statiquement** (contenu dans le HTML, vérifiable JS désactivé) :
   accueil, `/categories`, `/categories/[id]`, `/marques`, `/marques/[id]`,
   `/produits/[id]`, `/vehicules`, `/vehicules/[slug]`.
