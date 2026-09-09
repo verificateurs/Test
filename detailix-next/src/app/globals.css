@@ -358,8 +358,12 @@ a { color: inherit; text-decoration: none; }
   .checkout-layout { grid-template-columns: 1fr; }
   .product-detail { grid-template-columns: 1fr; }
   .product-detail-media { max-width: 420px; }
+  .admin-table { display: block; overflow-x: auto; }
 }
 
 @media (max-width: 640px) {
   .header-inner { height: auto; padding: 12px 0; flex-direction: column; align-items: flex-start; gap: 10px; }
+  .header-actions { flex-wrap: wrap; width: 100%; }
+  .search-wrap { width: 100%; flex: 1 1 100%; }
+  .form-row { grid-template-columns: 1fr; }
 }
