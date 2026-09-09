@@ -132,14 +132,23 @@ version majeure antérieure pour ces alertes.
   (aucun événement envoyé), sans que `next.config.ts` n'enveloppe même la
   config de build avec Sentry (voir `src/instrumentation.ts`).
 - **Suivi d'erreurs Sentry**, quand configuré : les événements client
-  transitent par un chemin same-origin (`tunnelRoute: "/monitoring"`, généré
-  par le plugin Sentry) plutôt que directement vers le domaine d'ingestion
-  Sentry, pour ne pas élargir `connect-src 'self'` dans la CSP
-  (`src/middleware.ts`). Le build de ce projet tourne sous Turbopack
-  (`next build`), qui n'applique pas l'instrumentation Sentry au niveau
-  webpack (upload de source maps notamment) — seule la capture d'erreurs via
-  `instrumentation.ts`/`instrumentation-client.ts` (mécanisme Next.js natif,
-  indépendant du bundler) est donc active.
+  transitent par un chemin same-origin (`src/app/monitoring/route.ts`)
+  plutôt que directement vers le domaine d'ingestion Sentry, pour ne pas
+  élargir `connect-src 'self'` dans la CSP (`src/middleware.ts`). L'option
+  `tunnelRoute` de `withSentryConfig` (next.config.ts) repose sur le plugin
+  webpack de Sentry et n'a aucun effet sous Turbopack (bundler utilisé ici
+  pour `next build` — vérifié : avec un DSN factice, `withSentryConfig`
+  n'injectait aucune route). Le tunnel réel est donc câblé indépendamment du
+  bundler : `tunnel: "/monitoring"` dans `Sentry.init()`
+  (`src/instrumentation-client.ts`, option du SDK client, pas du plugin de
+  build) et une route écrite à la main avec `handleTunnelRequest()`
+  (`@sentry/core`, valide le DSN de l'enveloppe avant de relayer — sans ça,
+  la route serait un relais ouvert). Vérifié avec un DSN factice : la route
+  `/monitoring` apparaît dans la table des routes et le SDK client est bien
+  présent dans le bundle. L'upload de source maps au build (option
+  `authToken`), en revanche, reste tributaire du plugin webpack et n'a pas
+  d'effet sous Turbopack — les erreurs remontent quand même, sans code
+  source associé aux traces.
 - **Avis et fiches préparateurs** : données d'exemple pour prototypage,
   explicitement signalées comme telles (bandeau pied de page, `_note` dans
   `data/preparateurs.json`) — à remplacer avant mise en production, et

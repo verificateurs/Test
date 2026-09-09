@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { prisma } from "@/lib/prisma";
-import { ADMIN_PAGE_SIZE, parsePage, parseSearchQuery } from "@/lib/admin/pagination";
+import { ADMIN_PAGE_SIZE, clampPage, parsePage, parseSearchQuery } from "@/lib/admin/pagination";
 import { AdminPagination } from "@/components/admin/AdminPagination";
 import { AdminSearchForm } from "@/components/admin/AdminSearchForm";
 import { PromoForm } from "./PromoForm";
@@ -12,18 +12,17 @@ export const metadata: Metadata = { title: "Codes promo", robots: { index: false
 
 export default async function AdminPromosPage({ searchParams }: { searchParams: Promise<{ page?: string; q?: string }> }) {
   const { page: rawPage, q: rawQ } = await searchParams;
-  const page = parsePage(rawPage);
+  const requestedPage = parsePage(rawPage);
   const q = parseSearchQuery(rawQ);
   const where = q ? { code: { contains: q } } : {};
-  const [promos, total] = await Promise.all([
-    prisma.promoCode.findMany({
-      where,
-      orderBy: { createdAt: "desc" },
-      skip: (page - 1) * ADMIN_PAGE_SIZE,
-      take: ADMIN_PAGE_SIZE,
-    }),
-    prisma.promoCode.count({ where }),
-  ]);
+  const total = await prisma.promoCode.count({ where });
+  const page = clampPage(requestedPage, total, ADMIN_PAGE_SIZE);
+  const promos = await prisma.promoCode.findMany({
+    where,
+    orderBy: { createdAt: "desc" },
+    skip: (page - 1) * ADMIN_PAGE_SIZE,
+    take: ADMIN_PAGE_SIZE,
+  });
 
   return (
     <div>

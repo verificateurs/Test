@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { getMarginPercent, computeSellPrice, formatPrice } from "@/lib/catalogue";
-import { ADMIN_PAGE_SIZE, parsePage, parseSearchQuery } from "@/lib/admin/pagination";
+import { ADMIN_PAGE_SIZE, clampPage, parsePage, parseSearchQuery } from "@/lib/admin/pagination";
 import { AdminPagination } from "@/components/admin/AdminPagination";
 import { AdminSearchForm } from "@/components/admin/AdminSearchForm";
 import { deleteProductAction } from "./actions";
@@ -12,20 +12,18 @@ export const metadata: Metadata = { title: "Produits", robots: { index: false } 
 
 export default async function AdminProductsPage({ searchParams }: { searchParams: Promise<{ erreur?: string; page?: string; q?: string }> }) {
   const { erreur, page: rawPage, q: rawQ } = await searchParams;
-  const page = parsePage(rawPage);
+  const requestedPage = parsePage(rawPage);
   const q = parseSearchQuery(rawQ);
   const where = q ? { name: { contains: q } } : {};
-  const [products, total, marginPercent] = await Promise.all([
-    prisma.product.findMany({
-      where,
-      include: { brand: true, category: true },
-      orderBy: { name: "asc" },
-      skip: (page - 1) * ADMIN_PAGE_SIZE,
-      take: ADMIN_PAGE_SIZE,
-    }),
-    prisma.product.count({ where }),
-    getMarginPercent(),
-  ]);
+  const [total, marginPercent] = await Promise.all([prisma.product.count({ where }), getMarginPercent()]);
+  const page = clampPage(requestedPage, total, ADMIN_PAGE_SIZE);
+  const products = await prisma.product.findMany({
+    where,
+    include: { brand: true, category: true },
+    orderBy: { name: "asc" },
+    skip: (page - 1) * ADMIN_PAGE_SIZE,
+    take: ADMIN_PAGE_SIZE,
+  });
 
   return (
     <div>

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { parsePage, parseSearchQuery } from "./pagination";
+import { clampPage, parsePage, parseSearchQuery } from "./pagination";
 
 describe("parsePage", () => {
   it("accepte un entier positif", () => {
@@ -26,5 +26,19 @@ describe("parseSearchQuery", () => {
 
   it("borne la longueur pour éviter un paramètre abusif", () => {
     expect(parseSearchQuery("a".repeat(500)).length).toBe(200);
+  });
+});
+
+describe("clampPage", () => {
+  it("laisse une page valide inchangée", () => {
+    expect(clampPage(2, 45, 20)).toBe(2);
+  });
+
+  it("ramène une page hors bornes à la dernière page réelle", () => {
+    expect(clampPage(999, 45, 20)).toBe(3);
+  });
+
+  it("retombe sur la page 1 quand il n'y a aucun résultat", () => {
+    expect(clampPage(5, 0, 20)).toBe(1);
   });
 });

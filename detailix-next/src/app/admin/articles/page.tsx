@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
-import { ADMIN_PAGE_SIZE, parsePage, parseSearchQuery } from "@/lib/admin/pagination";
+import { ADMIN_PAGE_SIZE, clampPage, parsePage, parseSearchQuery } from "@/lib/admin/pagination";
 import { AdminPagination } from "@/components/admin/AdminPagination";
 import { AdminSearchForm } from "@/components/admin/AdminSearchForm";
 import { deleteArticleAction } from "./actions";
@@ -11,18 +11,17 @@ export const metadata: Metadata = { title: "Articles", robots: { index: false } 
 
 export default async function AdminArticlesPage({ searchParams }: { searchParams: Promise<{ erreur?: string; page?: string; q?: string }> }) {
   const { erreur, page: rawPage, q: rawQ } = await searchParams;
-  const page = parsePage(rawPage);
+  const requestedPage = parsePage(rawPage);
   const q = parseSearchQuery(rawQ);
   const where = q ? { title: { contains: q } } : {};
-  const [articles, total] = await Promise.all([
-    prisma.article.findMany({
-      where,
-      orderBy: { publishedAt: "desc" },
-      skip: (page - 1) * ADMIN_PAGE_SIZE,
-      take: ADMIN_PAGE_SIZE,
-    }),
-    prisma.article.count({ where }),
-  ]);
+  const total = await prisma.article.count({ where });
+  const page = clampPage(requestedPage, total, ADMIN_PAGE_SIZE);
+  const articles = await prisma.article.findMany({
+    where,
+    orderBy: { publishedAt: "desc" },
+    skip: (page - 1) * ADMIN_PAGE_SIZE,
+    take: ADMIN_PAGE_SIZE,
+  });
 
   return (
     <div>

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
-import { ADMIN_PAGE_SIZE, parsePage, parseSearchQuery } from "@/lib/admin/pagination";
+import { ADMIN_PAGE_SIZE, clampPage, parsePage, parseSearchQuery } from "@/lib/admin/pagination";
 import { AdminPagination } from "@/components/admin/AdminPagination";
 import { AdminSearchForm } from "@/components/admin/AdminSearchForm";
 import { deleteCategoryAction } from "./actions";
@@ -11,19 +11,18 @@ export const metadata: Metadata = { title: "Catégories", robots: { index: false
 
 export default async function AdminCategoriesPage({ searchParams }: { searchParams: Promise<{ erreur?: string; page?: string; q?: string }> }) {
   const { erreur, page: rawPage, q: rawQ } = await searchParams;
-  const page = parsePage(rawPage);
+  const requestedPage = parsePage(rawPage);
   const q = parseSearchQuery(rawQ);
   const where = q ? { label: { contains: q } } : {};
-  const [categories, total] = await Promise.all([
-    prisma.category.findMany({
-      where,
-      orderBy: { position: "asc" },
-      include: { _count: { select: { products: true, brands: true } } },
-      skip: (page - 1) * ADMIN_PAGE_SIZE,
-      take: ADMIN_PAGE_SIZE,
-    }),
-    prisma.category.count({ where }),
-  ]);
+  const total = await prisma.category.count({ where });
+  const page = clampPage(requestedPage, total, ADMIN_PAGE_SIZE);
+  const categories = await prisma.category.findMany({
+    where,
+    orderBy: { position: "asc" },
+    include: { _count: { select: { products: true, brands: true } } },
+    skip: (page - 1) * ADMIN_PAGE_SIZE,
+    take: ADMIN_PAGE_SIZE,
+  });
 
   return (
     <div>

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { formatPrice } from "@/lib/catalogue";
-import { ADMIN_PAGE_SIZE, parsePage, parseSearchQuery } from "@/lib/admin/pagination";
+import { ADMIN_PAGE_SIZE, clampPage, parsePage, parseSearchQuery } from "@/lib/admin/pagination";
 import { AdminPagination } from "@/components/admin/AdminPagination";
 import { AdminSearchForm } from "@/components/admin/AdminSearchForm";
 
@@ -12,18 +12,17 @@ const STATUS_LABELS: Record<string, string> = { PENDING: "En attente", PAID: "Pa
 
 export default async function AdminOrdersPage({ searchParams }: { searchParams: Promise<{ page?: string; q?: string }> }) {
   const { page: rawPage, q: rawQ } = await searchParams;
-  const page = parsePage(rawPage);
+  const requestedPage = parsePage(rawPage);
   const q = parseSearchQuery(rawQ);
   const where = q ? { OR: [{ reference: { contains: q } }, { email: { contains: q } }] } : {};
-  const [orders, total] = await Promise.all([
-    prisma.order.findMany({
-      where,
-      orderBy: { createdAt: "desc" },
-      skip: (page - 1) * ADMIN_PAGE_SIZE,
-      take: ADMIN_PAGE_SIZE,
-    }),
-    prisma.order.count({ where }),
-  ]);
+  const total = await prisma.order.count({ where });
+  const page = clampPage(requestedPage, total, ADMIN_PAGE_SIZE);
+  const orders = await prisma.order.findMany({
+    where,
+    orderBy: { createdAt: "desc" },
+    skip: (page - 1) * ADMIN_PAGE_SIZE,
+    take: ADMIN_PAGE_SIZE,
+  });
 
   return (
     <div>

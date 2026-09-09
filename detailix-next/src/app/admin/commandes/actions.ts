@@ -41,7 +41,18 @@ export async function refundOrderAction(_prev: OrderActionState, formData: FormD
   if (!order.stripePaymentIntentId) return { error: "Aucun paiement Stripe associé à cette commande, remboursement impossible." };
 
   const stripe = getStripeClient();
-  await stripe.refunds.create({ payment_intent: order.stripePaymentIntentId });
+  try {
+    await stripe.refunds.create({ payment_intent: order.stripePaymentIntentId });
+  } catch (err) {
+    // Un double clic (remboursement déjà effectué), un solde Stripe
+    // insuffisant, une coupure réseau... : Stripe rejette avec un message
+    // déjà présentable (StripeError#message), jamais une trace technique.
+    // Sans ce catch, la Server Action plante au lieu de renvoyer state.error,
+    // et le statut de la commande resterait PAID de toute façon — c'est
+    // seulement le message à l'admin qui change ici.
+    const message = err instanceof Error ? err.message : "Erreur inconnue.";
+    return { error: `Le remboursement Stripe a échoué : ${message}` };
+  }
   await prisma.order.update({ where: { id }, data: { status: "REFUNDED" } });
   redirect(`/admin/commandes/${id}`);
 }

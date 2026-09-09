@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
-import { ADMIN_PAGE_SIZE, parsePage, parseSearchQuery } from "@/lib/admin/pagination";
+import { ADMIN_PAGE_SIZE, clampPage, parsePage, parseSearchQuery } from "@/lib/admin/pagination";
 import { AdminPagination } from "@/components/admin/AdminPagination";
 import { AdminSearchForm } from "@/components/admin/AdminSearchForm";
 import { deleteBrandAction } from "./actions";
@@ -11,19 +11,18 @@ export const metadata: Metadata = { title: "Marques", robots: { index: false } }
 
 export default async function AdminBrandsPage({ searchParams }: { searchParams: Promise<{ erreur?: string; page?: string; q?: string }> }) {
   const { erreur, page: rawPage, q: rawQ } = await searchParams;
-  const page = parsePage(rawPage);
+  const requestedPage = parsePage(rawPage);
   const q = parseSearchQuery(rawQ);
   const where = q ? { name: { contains: q } } : {};
-  const [brands, total] = await Promise.all([
-    prisma.brand.findMany({
-      where,
-      include: { category: true },
-      orderBy: { name: "asc" },
-      skip: (page - 1) * ADMIN_PAGE_SIZE,
-      take: ADMIN_PAGE_SIZE,
-    }),
-    prisma.brand.count({ where }),
-  ]);
+  const total = await prisma.brand.count({ where });
+  const page = clampPage(requestedPage, total, ADMIN_PAGE_SIZE);
+  const brands = await prisma.brand.findMany({
+    where,
+    include: { category: true },
+    orderBy: { name: "asc" },
+    skip: (page - 1) * ADMIN_PAGE_SIZE,
+    take: ADMIN_PAGE_SIZE,
+  });
 
   return (
     <div>

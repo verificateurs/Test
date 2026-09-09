@@ -11,3 +11,13 @@ export function parsePage(raw: string | undefined): number {
 export function parseSearchQuery(raw: string | undefined): string {
   return (raw ?? "").trim().slice(0, 200);
 }
+
+/**
+ * Ramène une page demandée dans les bornes réelles (1..dernière page connue).
+ * Sans ça, `?page=999` calcule un `skip` qui dépasse le total et affiche un
+ * tableau vide sous une étiquette "Page 999 / N" trompeuse.
+ */
+export function clampPage(page: number, total: number, pageSize: number): number {
+  const pageCount = Math.max(1, Math.ceil(total / pageSize));
+  return Math.min(page, pageCount);
+}
