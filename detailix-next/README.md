@@ -120,12 +120,11 @@ version majeure antérieure pour ces alertes.
 
 ## Limites connues
 
-- **Stock booléen** (disponible/rupture), pas de quantités réelles ni de
-  décrément transactionnel — une vraie gestion de stock est un chantier à
-  part.
-- **Limiteur de débit en mémoire** (connexion/inscription) : mono-instance,
-  ne survit pas à un redémarrage ni à plusieurs instances serverless. Une
-  vraie mise en production nécessite un store partagé (Upstash Redis...).
+- **Limiteur de débit** : partagé via Upstash Redis quand
+  `UPSTASH_REDIS_REST_URL`/`UPSTASH_REDIS_REST_TOKEN` sont renseignées
+  (voir `.env.example`), sinon repli en mémoire du processus Node —
+  mono-instance, ne survit pas à un redémarrage ni à plusieurs instances
+  serverless (voir `src/lib/auth/rateLimit.ts`).
 - **Modes démonstration explicites** sans clés externes : `STRIPE_SECRET_KEY`
   absent → commande marquée payée directement (bandeau visible) ;
   `RESEND_API_KEY` absent → email loggé, jamais envoyé, ne bloque jamais la

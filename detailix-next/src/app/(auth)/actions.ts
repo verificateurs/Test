@@ -30,7 +30,7 @@ export async function signupAction(_prev: AuthActionState, formData: FormData): 
   const values = { email: emailRaw, displayName: displayNameRaw };
 
   const ip = await getClientIp();
-  const limit = checkRateLimit(`signup:ip:${ip}`, { max: 10, windowMs: 15 * 60 * 1000 });
+  const limit = await checkRateLimit(`signup:ip:${ip}`, { max: 10, windowMs: 15 * 60 * 1000 });
   if (!limit.allowed) return { error: "Trop de tentatives. Réessayez dans quelques minutes.", values };
 
   const parsed = SignupSchema.safeParse({
@@ -62,8 +62,10 @@ export async function loginAction(_prev: AuthActionState, formData: FormData): P
 
   // Deux clés : par IP (empêche le bourrage massif) et par IP+email (empêche le
   // ciblage d'un compte précis) — l'une ou l'autre suffit à bloquer.
-  const ipLimit = checkRateLimit(`login:ip:${ip}`, { max: 20, windowMs: 15 * 60 * 1000 });
-  const ieLimit = checkRateLimit(`login:ie:${ip}:${emailRaw}`, { max: 5, windowMs: 15 * 60 * 1000 });
+  const [ipLimit, ieLimit] = await Promise.all([
+    checkRateLimit(`login:ip:${ip}`, { max: 20, windowMs: 15 * 60 * 1000 }),
+    checkRateLimit(`login:ie:${ip}:${emailRaw}`, { max: 5, windowMs: 15 * 60 * 1000 }),
+  ]);
   if (!ipLimit.allowed || !ieLimit.allowed) {
     return { error: "Trop de tentatives. Réessayez dans quelques minutes.", values };
   }
@@ -108,7 +110,7 @@ export async function verifyTwoFactorAction(_prev: TwoFactorState, formData: For
   if (!pending) redirect("/connexion");
 
   const ip = await getClientIp();
-  const limit = checkRateLimit(`2fa:ip:${ip}:${pending.user.id}`, { max: 8, windowMs: 15 * 60 * 1000 });
+  const limit = await checkRateLimit(`2fa:ip:${ip}:${pending.user.id}`, { max: 8, windowMs: 15 * 60 * 1000 });
   if (!limit.allowed) return { error: "Trop de tentatives. Réessayez dans quelques minutes." };
 
   const parsed = TotpCodeSchema.safeParse({ code: formData.get("code") });
@@ -137,8 +139,10 @@ export async function requestPasswordResetAction(
   // Deux clés, comme login : IP (bourrage massif) et IP+email (ciblage d'un
   // compte précis). Le message de rate-limit ne dépend pas de l'existence du
   // compte, donc n'introduit aucun oracle.
-  const ipLimit = checkRateLimit(`pwreset:ip:${ip}`, { max: 10, windowMs: 15 * 60 * 1000 });
-  const ieLimit = checkRateLimit(`pwreset:ie:${ip}:${email}`, { max: 5, windowMs: 15 * 60 * 1000 });
+  const [ipLimit, ieLimit] = await Promise.all([
+    checkRateLimit(`pwreset:ip:${ip}`, { max: 10, windowMs: 15 * 60 * 1000 }),
+    checkRateLimit(`pwreset:ie:${ip}:${email}`, { max: 5, windowMs: 15 * 60 * 1000 }),
+  ]);
   if (!ipLimit.allowed || !ieLimit.allowed) {
     return { submitted: false, error: "Trop de tentatives. Réessayez dans quelques minutes." };
   }
@@ -161,7 +165,7 @@ export type ResetPasswordState = { error: string | null; success: boolean };
 export async function resetPasswordAction(_prev: ResetPasswordState, formData: FormData): Promise<ResetPasswordState> {
   sweepRateLimitBuckets();
   const ip = await getClientIp();
-  const limit = checkRateLimit(`pwreset-consume:ip:${ip}`, { max: 20, windowMs: 15 * 60 * 1000 });
+  const limit = await checkRateLimit(`pwreset-consume:ip:${ip}`, { max: 20, windowMs: 15 * 60 * 1000 });
   if (!limit.allowed) return { error: "Trop de tentatives. Réessayez dans quelques minutes.", success: false };
 
   const token = String(formData.get("token") ?? "");

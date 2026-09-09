@@ -38,7 +38,7 @@ class InsufficientStockError extends Error {
 export async function createOrderAction(_prev: CheckoutActionState, formData: FormData): Promise<CheckoutActionState> {
   sweepRateLimitBuckets();
   const ip = await getClientIp();
-  const limit = checkRateLimit(`order:ip:${ip}`, { max: 10, windowMs: 15 * 60 * 1000 });
+  const limit = await checkRateLimit(`order:ip:${ip}`, { max: 10, windowMs: 15 * 60 * 1000 });
 
   const rawFields = {
     email: String(formData.get("email") ?? ""),

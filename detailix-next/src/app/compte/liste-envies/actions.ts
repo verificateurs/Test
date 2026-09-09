@@ -25,7 +25,7 @@ export async function addToWishlistAction(productId: string): Promise<WishlistRe
   if (!session) return { ok: false, error: "Connectez-vous pour ajouter un produit à votre liste d'envies." };
 
   sweepRateLimitBuckets();
-  const limit = checkRateLimit(`wishlist:user:${session.user.id}`, { max: 30, windowMs: 5 * 60 * 1000 });
+  const limit = await checkRateLimit(`wishlist:user:${session.user.id}`, { max: 30, windowMs: 5 * 60 * 1000 });
   if (!limit.allowed) return { ok: false, error: "Trop de tentatives, réessayez dans quelques minutes." };
 
   const product = await prisma.product.findUnique({ where: { id: productId }, select: { id: true } });
