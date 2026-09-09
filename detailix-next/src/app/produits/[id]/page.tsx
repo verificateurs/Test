@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { getProduct, getMarginPercent, computeSellPrice, formatPrice, deliveryEstimate, HOMOLOGATION_LABELS } from "@/lib/catalogue";
+import { listProductImageFiles, resolveProductImage } from "@/lib/products/image";
+import { ProductImagePlaceholder } from "@/components/ProductImagePlaceholder";
 import { SiteHeader, SiteFooter, Breadcrumb } from "@/components/SiteChrome";
 import { JsonLd } from "@/components/JsonLd";
 import { absoluteUrl } from "@/lib/site";
@@ -39,6 +42,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
   const price = computeSellPrice(product.prixAchat, marginPercent);
   const delivery = deliveryEstimate(product.stockQty > 0);
   const homolog = product.homologation ? HOMOLOGATION_LABELS[product.homologation] : null;
+  const imagePath = resolveProductImage(product.id, listProductImageFiles());
 
   return (
     <>
@@ -74,6 +78,21 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
       <main>
         <section className="section">
           <div className="container product-detail">
+            <div className="product-detail-media">
+              {imagePath ? (
+                <Image
+                  src={imagePath}
+                  alt={product.name}
+                  width={480}
+                  height={360}
+                  sizes="(max-width: 640px) 100vw, 480px"
+                  priority
+                  className="product-detail-img"
+                />
+              ) : (
+                <ProductImagePlaceholder className="product-detail-media-placeholder" />
+              )}
+            </div>
             <div>
               <p className="product-detail-brand">
                 <Link href={`/marques/${product.brand.id}`}>{product.brand.name}</Link>

@@ -1,5 +1,8 @@
+import Image from "next/image";
 import Link from "next/link";
 import { computeSellPrice, formatPrice, deliveryEstimate, HOMOLOGATION_LABELS } from "@/lib/catalogue";
+import { listProductImageFiles, resolveProductImage } from "@/lib/products/image";
+import { ProductImagePlaceholder } from "@/components/ProductImagePlaceholder";
 import { CompareToggle } from "@/components/CompareToggle";
 import { CompatBadge } from "@/components/CompatBadge";
 
@@ -20,10 +23,24 @@ export function ProductCard({ product, marginPercent }: { product: ProductLike; 
   const price = computeSellPrice(product.prixAchat, marginPercent);
   const delivery = deliveryEstimate(product.stockQty > 0);
   const homolog = product.homologation ? HOMOLOGATION_LABELS[product.homologation] : null;
+  const imagePath = resolveProductImage(product.id, listProductImageFiles());
 
   return (
     <div className="tile">
       <Link href={`/produits/${product.id}`} className="tile-link">
+        <div className="tile-media">
+          {imagePath ? (
+            <Image
+              src={imagePath}
+              alt={product.name}
+              fill
+              sizes="(max-width: 640px) 45vw, (max-width: 900px) 30vw, 280px"
+              style={{ objectFit: "cover" }}
+            />
+          ) : (
+            <ProductImagePlaceholder className="tile-media-placeholder" />
+          )}
+        </div>
         <h3>{product.name}</h3>
         <p>{product.format}</p>
         <div className="badge-row">

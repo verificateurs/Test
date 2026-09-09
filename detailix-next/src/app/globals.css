@@ -129,6 +129,18 @@ a { color: inherit; text-decoration: none; }
   transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease), border-color 0.2s var(--ease);
 }
 .tile:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: #3a4048; }
+.tile-media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  margin: -20px -20px var(--space-md);
+  border-radius: var(--radius) var(--radius) 0 0;
+  overflow: hidden;
+  background: var(--bg-elevated);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.tile-media-placeholder { width: 40%; height: 40%; color: var(--text-muted); }
 .tile h3 { margin: 0 0 6px; font-size: 1.08rem; }
 .tile p { margin: 0; color: var(--text-muted); font-size: var(--text-base); }
 .tile-link { display: block; color: inherit; text-decoration: none; }
@@ -158,7 +170,19 @@ a { color: inherit; text-decoration: none; }
 .badge-row { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: var(--space-md) 0; }
 
 /* Fiche produit */
-.product-detail { display: grid; grid-template-columns: 1fr; gap: 20px; max-width: 720px; }
+.product-detail { display: grid; grid-template-columns: 320px 1fr; gap: var(--space-xl); max-width: 960px; align-items: start; }
+.product-detail-media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--bg-elevated);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.product-detail-img { width: 100%; height: 100%; object-fit: cover; }
+.product-detail-media-placeholder { width: 30%; height: 30%; color: var(--text-muted); }
 .product-detail-brand { color: var(--text-muted); font-size: 0.82rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; margin: 0 0 4px; }
 .preference { font-size: 0.92rem; background: var(--accent-soft); border-left: 3px solid var(--accent); padding: 10px 12px; border-radius: 6px; margin: 0 0 16px; }
 .reviews { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
@@ -332,6 +356,8 @@ a { color: inherit; text-decoration: none; }
   .admin-shell { flex-direction: column; }
   .admin-nav { width: 100%; height: auto; position: static; }
   .checkout-layout { grid-template-columns: 1fr; }
+  .product-detail { grid-template-columns: 1fr; }
+  .product-detail-media { max-width: 420px; }
 }
 
 @media (max-width: 640px) {
