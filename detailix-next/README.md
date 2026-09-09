@@ -128,7 +128,18 @@ version majeure antérieure pour ces alertes.
 - **Modes démonstration explicites** sans clés externes : `STRIPE_SECRET_KEY`
   absent → commande marquée payée directement (bandeau visible) ;
   `RESEND_API_KEY` absent → email loggé, jamais envoyé, ne bloque jamais la
-  commande.
+  commande ; `SENTRY_DSN`/`NEXT_PUBLIC_SENTRY_DSN` absents → SDK inactif
+  (aucun événement envoyé), sans que `next.config.ts` n'enveloppe même la
+  config de build avec Sentry (voir `src/instrumentation.ts`).
+- **Suivi d'erreurs Sentry**, quand configuré : les événements client
+  transitent par un chemin same-origin (`tunnelRoute: "/monitoring"`, généré
+  par le plugin Sentry) plutôt que directement vers le domaine d'ingestion
+  Sentry, pour ne pas élargir `connect-src 'self'` dans la CSP
+  (`src/middleware.ts`). Le build de ce projet tourne sous Turbopack
+  (`next build`), qui n'applique pas l'instrumentation Sentry au niveau
+  webpack (upload de source maps notamment) — seule la capture d'erreurs via
+  `instrumentation.ts`/`instrumentation-client.ts` (mécanisme Next.js natif,
+  indépendant du bundler) est donc active.
 - **Avis et fiches préparateurs** : données d'exemple pour prototypage,
   explicitement signalées comme telles (bandeau pied de page, `_note` dans
   `data/preparateurs.json`) — à remplacer avant mise en production, et

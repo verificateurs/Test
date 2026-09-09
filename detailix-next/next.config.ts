@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { withSentryConfig } from "@sentry/nextjs";
 
 const nextConfig: NextConfig = {
   // En-têtes de sécurité statiques (remplacent le fichier _headers du site
@@ -19,4 +20,21 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+// Sentry n'enveloppe la config qu'avec un DSN renseigné (voir .env.example) :
+// sans lui, `nextConfig` part inchangé et le build n'a strictement aucune
+// dépendance à Sentry — même logique de mode démonstration explicite que
+// Stripe/Resend, ici appliquée dès la config de build plutôt qu'à l'exécution.
+export default process.env.SENTRY_DSN
+  ? withSentryConfig(nextConfig, {
+      org: process.env.SENTRY_ORG,
+      project: process.env.SENTRY_PROJECT,
+      authToken: process.env.SENTRY_AUTH_TOKEN,
+      silent: true,
+      // Chemin same-origin pour l'envoi des événements client : évite d'ajouter
+      // le domaine d'ingestion Sentry à connect-src dans la CSP (src/middleware.ts,
+      // qui reste 'self' — voir la justification qui y est déjà documentée).
+      tunnelRoute: "/monitoring",
+      widenClientFileUpload: true,
+      disableLogger: true,
+    })
+  : nextConfig;
