@@ -52,6 +52,12 @@ jobs:
         working-directory: detailix-next
         run: npm ci || npm install
 
+      # Tests unitaires (Vitest, logique pure) : échouent en quelques secondes,
+      # sans navigateur ni build — avant d'investir le temps de la suite e2e.
+      - name: Lancer les tests unitaires
+        working-directory: detailix-next
+        run: npm run test:unit
+
       - name: Installer le navigateur de test
         working-directory: detailix-next
         run: npx playwright install --with-deps chromium

@@ -40,6 +40,10 @@ export function SiteFooter() {
           Contenu de démonstration — marques, produits, prix et avis d&apos;exemple pour prototypage. Données à valider
           avant mise en production.
         </p>
+        <nav className="footer-legal" aria-label="Informations légales">
+          <Link href="/mentions-legales">Mentions légales</Link>
+          <Link href="/confidentialite">Politique de confidentialité</Link>
+        </nav>
       </div>
     </footer>
   );
