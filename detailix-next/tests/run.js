@@ -37,14 +37,29 @@ async function main() {
 
   let passed = 0;
   const failures = [];
+  let testCounter = 0;
 
   for (const file of files) {
     const suite = require(path.join(__dirname, file));
     console.log(`\n\x1b[1m${suite.name}\x1b[0m`);
 
     for (const test of suite.tests) {
+      testCounter += 1;
       // Contexte neuf : isole localStorage, cookies et cache entre les tests.
-      const context = await browser.newContext({ viewport: { width: 1280, height: 900 } });
+      // IP synthétique distincte par test (x-forwarded-for, lu par
+      // getClientIp()) : les limiteurs de débit de signup/connexion sont
+      // volontairement gardés par IP (rateLimit.ts), mais toute la suite
+      // e2e partage en réalité une seule IP réelle (le navigateur de test).
+      // Sans cette isolation, des tests indépendants s'accumulent sur les
+      // mêmes compteurs et un test légitime plus loin dans la suite se fait
+      // bloquer par le quota d'un autre — pas un bug applicatif, un artefact
+      // du harnais. Chaque test simule ainsi un client distinct, comme de
+      // vrais utilisateurs indépendants en auraient un.
+      const syntheticIp = `10.${(testCounter >> 16) & 255}.${(testCounter >> 8) & 255}.${testCounter & 255}`;
+      const context = await browser.newContext({
+        viewport: { width: 1280, height: 900 },
+        extraHTTPHeaders: { "x-forwarded-for": syntheticIp },
+      });
       const page = await context.newPage();
       const pageErrors = [];
       page.on("pageerror", (err) => pageErrors.push(String(err)));

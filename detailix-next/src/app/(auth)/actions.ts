@@ -6,7 +6,12 @@ import { hashPassword, verifyPassword } from "@/lib/auth/password";
 import { createSession, destroySession, safeRedirectPath } from "@/lib/auth/session";
 import { checkRateLimit, sweepRateLimitBuckets } from "@/lib/auth/rateLimit";
 import { getClientIp } from "@/lib/auth/rbac";
-import { SignupSchema, LoginSchema } from "@/lib/auth/schemas";
+import { SignupSchema, LoginSchema, ForgotPasswordSchema, ResetPasswordSchema, TotpCodeSchema } from "@/lib/auth/schemas";
+import { createPasswordResetToken, consumePasswordResetToken } from "@/lib/auth/passwordReset";
+import { createPendingTwoFactor, getPendingTwoFactor, clearPendingTwoFactor } from "@/lib/auth/twoFactor";
+import { verifyTotpCode } from "@/lib/auth/totp";
+import { sendPasswordResetEmail } from "@/lib/email";
+import { absoluteUrl } from "@/lib/site";
 
 export type AuthActionState = {
   error: string | null;
@@ -74,6 +79,15 @@ export async function loginAction(_prev: AuthActionState, formData: FormData): P
     return { error: "Email ou mot de passe incorrect.", values };
   }
 
+  // Mot de passe vérifié, mais compte protégé par 2FA : pas de session tout
+  // de suite, un état intermédiaire (cookie distinct, TTL court) porte
+  // l'utilisateur jusqu'à /connexion/verification. Le ?next= d'origine
+  // traverse ce détour via PendingTwoFactor.next.
+  if (user.totpEnabled) {
+    await createPendingTwoFactor(user.id, (formData.get("next") as string | null) ?? null);
+    redirect("/connexion/verification");
+  }
+
   // Rotation : toute session précédente sur ce navigateur est invalidée avant
   // d'en créer une nouvelle (protection contre la fixation de session).
   await destroySession();
@@ -84,4 +98,87 @@ export async function loginAction(_prev: AuthActionState, formData: FormData): P
 export async function logoutAction(): Promise<void> {
   await destroySession();
   redirect("/");
+}
+
+export type TwoFactorState = { error: string | null };
+
+export async function verifyTwoFactorAction(_prev: TwoFactorState, formData: FormData): Promise<TwoFactorState> {
+  sweepRateLimitBuckets();
+  const pending = await getPendingTwoFactor();
+  if (!pending) redirect("/connexion");
+
+  const ip = await getClientIp();
+  const limit = checkRateLimit(`2fa:ip:${ip}:${pending.user.id}`, { max: 8, windowMs: 15 * 60 * 1000 });
+  if (!limit.allowed) return { error: "Trop de tentatives. Réessayez dans quelques minutes." };
+
+  const parsed = TotpCodeSchema.safeParse({ code: formData.get("code") });
+  if (!parsed.success || !pending.user.totpSecret || !verifyTotpCode(pending.user.totpSecret, parsed.data.code)) {
+    return { error: "Code invalide." };
+  }
+
+  const next = pending.next;
+  await clearPendingTwoFactor();
+  await createSession(pending.user.id);
+  redirect(safeRedirectPath(next, "/admin"));
+}
+
+export type ForgotPasswordState = { submitted: boolean; error: string | null };
+
+export async function requestPasswordResetAction(
+  _prev: ForgotPasswordState,
+  formData: FormData
+): Promise<ForgotPasswordState> {
+  sweepRateLimitBuckets();
+  const parsed = ForgotPasswordSchema.safeParse({ email: formData.get("email") });
+  if (!parsed.success) return { submitted: false, error: "Adresse email invalide." };
+
+  const { email } = parsed.data;
+  const ip = await getClientIp();
+  // Deux clés, comme login : IP (bourrage massif) et IP+email (ciblage d'un
+  // compte précis). Le message de rate-limit ne dépend pas de l'existence du
+  // compte, donc n'introduit aucun oracle.
+  const ipLimit = checkRateLimit(`pwreset:ip:${ip}`, { max: 10, windowMs: 15 * 60 * 1000 });
+  const ieLimit = checkRateLimit(`pwreset:ie:${ip}:${email}`, { max: 5, windowMs: 15 * 60 * 1000 });
+  if (!ipLimit.allowed || !ieLimit.allowed) {
+    return { submitted: false, error: "Trop de tentatives. Réessayez dans quelques minutes." };
+  }
+
+  const user = await prisma.user.findUnique({ where: { email } });
+  if (user) {
+    const token = await createPasswordResetToken(user.id);
+    await sendPasswordResetEmail(user.email, absoluteUrl(`/reinitialiser-mot-de-passe/${token}`));
+  }
+
+  // Réponse strictement identique que le compte existe ou non : ne jamais
+  // révéler si un email est enregistré (voir passwordReset.ts et
+  // lib/email/index.ts::sendPasswordResetEmail — le lien n'est en mode démo
+  // jamais renvoyé dans cette réponse, seulement loggé côté serveur).
+  return { submitted: true, error: null };
+}
+
+export type ResetPasswordState = { error: string | null; success: boolean };
+
+export async function resetPasswordAction(_prev: ResetPasswordState, formData: FormData): Promise<ResetPasswordState> {
+  sweepRateLimitBuckets();
+  const ip = await getClientIp();
+  const limit = checkRateLimit(`pwreset-consume:ip:${ip}`, { max: 20, windowMs: 15 * 60 * 1000 });
+  if (!limit.allowed) return { error: "Trop de tentatives. Réessayez dans quelques minutes.", success: false };
+
+  const token = String(formData.get("token") ?? "");
+  const parsed = ResetPasswordSchema.safeParse({ password: formData.get("password") });
+  if (!token || !parsed.success) {
+    return { error: parsed.success ? "Lien invalide." : (parsed.error.issues[0]?.message ?? "Mot de passe invalide."), success: false };
+  }
+
+  const userId = await consumePasswordResetToken(token);
+  if (!userId) return { error: "Ce lien de réinitialisation est invalide ou a expiré.", success: false };
+
+  const passwordHash = await hashPassword(parsed.data.password);
+  await prisma.user.update({ where: { id: userId }, data: { passwordHash } });
+
+  // Un mot de passe compromis est la raison la plus probable d'une
+  // réinitialisation : toute session existante ailleurs doit mourir.
+  await prisma.session.deleteMany({ where: { userId } });
+
+  return { error: null, success: true };
 }

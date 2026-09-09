@@ -25,6 +25,9 @@ export function LoginForm({ next }: { next?: string }) {
         {pending ? "Connexion…" : "Se connecter"}
       </button>
       <p className="auth-switch">
+        <Link href="/mot-de-passe-oublie">Mot de passe oublié ?</Link>
+      </p>
+      <p className="auth-switch">
         Pas de compte ? <Link href={next ? `/inscription?next=${encodeURIComponent(next)}` : "/inscription"}>Créer un compte</Link>
       </p>
     </form>

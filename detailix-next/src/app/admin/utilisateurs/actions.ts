@@ -20,5 +20,14 @@ export async function updateUserRoleAction(formData: FormData): Promise<void> {
   }
 
   await prisma.user.update({ where: { id: userId }, data: { role: parsed.data.role } });
+
+  // Pas d'invalidation de session ici, volontairement : getSession() relit
+  // le rôle en base à chaque requête (include: { user: true }), le rôle
+  // n'est jamais mis en cache dans la session elle-même — un changement de
+  // rôle prend donc effet dès la requête suivante sans rien à purger.
+  // Contrairement au mot de passe (passwordReset.ts), qui invalide bien les
+  // sessions : là, la validité du jeton de session est indépendante de la
+  // connaissance du mot de passe, donc un jeton volé survivrait sinon au
+  // changement.
   redirect("/admin/utilisateurs");
 }

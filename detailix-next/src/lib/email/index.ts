@@ -47,3 +47,36 @@ export async function sendOrderConfirmationEmail(order: Order & { lines: OrderLi
     console.error(`[email] Échec d'envoi pour la commande ${order.reference} :`, err);
   }
 }
+
+/**
+ * En mode démo (pas de RESEND_API_KEY), le lien n'est JAMAIS renvoyé dans la
+ * réponse HTTP de /mot-de-passe-oublie — seulement loggé ici, côté serveur.
+ * Sinon l'affichage conditionnel du lien (seulement si le compte existe)
+ * deviendrait lui-même un oracle d'énumération de comptes, ce que cette page
+ * doit justement éviter (voir mot-de-passe-oublie/actions).
+ */
+export async function sendPasswordResetEmail(to: string, resetUrl: string): Promise<void> {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    console.info(`[email] RESEND_API_KEY absent — lien de réinitialisation (mode démo) pour ${to} : ${resetUrl}`);
+    return;
+  }
+
+  try {
+    const resend = new Resend(apiKey);
+    const from = process.env.RESEND_FROM_EMAIL ?? "commandes@detailix.fr";
+    await resend.emails.send({
+      from,
+      to,
+      subject: "Réinitialisation de votre mot de passe Detailix",
+      html: `
+        <h1>Réinitialisation de mot de passe</h1>
+        <p>Une demande de réinitialisation de mot de passe a été effectuée pour ce compte.</p>
+        <p><a href="${resetUrl}">Choisir un nouveau mot de passe</a></p>
+        <p>Ce lien expire dans 45 minutes. Si vous n'êtes pas à l'origine de cette demande, ignorez cet email.</p>
+      `,
+    });
+  } catch (err) {
+    console.error(`[email] Échec d'envoi du lien de réinitialisation pour ${to} :`, err);
+  }
+}

@@ -112,15 +112,23 @@ enum Role {
 }
 
 model User {
-  id             String         @id @default(cuid())
-  email          String         @unique
-  passwordHash   String
-  displayName    String
-  role           Role           @default(CUSTOMER)
-  createdAt      DateTime       @default(now())
-  orders         Order[]
-  sessions       Session[]
-  wishlistItems  WishlistItem[]
+  id                   String                @id @default(cuid())
+  email                String                @unique
+  passwordHash         String
+  displayName          String
+  role                 Role                  @default(CUSTOMER)
+  // 2FA (admin uniquement) : totpSecret est renseigné dès la génération du QR
+  // code (voir /admin/securite), mais totpEnabled ne passe à true qu'après
+  // confirmation d'un code valide — un secret généré mais jamais confirmé
+  // n'active jamais la 2FA au login.
+  totpSecret           String?
+  totpEnabled          Boolean               @default(false)
+  createdAt            DateTime              @default(now())
+  orders               Order[]
+  sessions             Session[]
+  wishlistItems        WishlistItem[]
+  passwordResetTokens  PasswordResetToken[]
+  pendingTwoFactors    PendingTwoFactor[]
 }
 
 // Réservée aux utilisateurs connectés (pas de liste d'envies anonyme) — un
@@ -141,6 +149,35 @@ model Session {
   id        String   @id @default(cuid())
   userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}
+
+// Même schéma que Session : id = empreinte SHA-256 du jeton envoyé par email,
+// jamais le jeton en clair. TTL court, usage unique (usedAt).
+model PasswordResetToken {
+  id        String    @id
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([userId])
+}
+
+// État intermédiaire entre "mot de passe vérifié" et "session créée" quand le
+// compte a la 2FA activée. id = empreinte SHA-256 du jeton posé dans un
+// cookie temporaire distinct de SESSION_COOKIE. `next` porte la redirection
+// d'origine à travers ce détour (perdue sinon, le cookie ?next= n'existant
+// que le temps de la requête de connexion).
+model PendingTwoFactor {
+  id        String   @id
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  next      String?
   expiresAt DateTime
   createdAt DateTime @default(now())
 
