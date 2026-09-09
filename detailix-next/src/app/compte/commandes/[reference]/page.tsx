@@ -13,6 +13,7 @@ const STATUS_LABELS: Record<string, string> = {
   PAID: "Payée",
   SHIPPED: "Expédiée",
   CANCELLED: "Annulée",
+  REFUNDED: "Remboursée",
 };
 
 export default async function CommandeDetailPage({ params }: { params: Promise<{ reference: string }> }) {

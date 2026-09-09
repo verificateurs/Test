@@ -51,9 +51,14 @@ export async function POST(request: Request): Promise<NextResponse> {
 
     // Idempotent : un webhook peut être livré plusieurs fois (Stripe retry).
     if (order.status !== "PAID") {
+      // Pour mode: "payment", Stripe fournit toujours payment_intent (l'ID du
+      // PaymentIntent créé pour la session), sans qu'il soit nécessaire de
+      // l'"expand" — distinct de session.id, c'est le seul identifiant que
+      // stripe.refunds.create() accepte (voir admin/commandes/actions.ts).
+      const paymentIntentId = typeof session.payment_intent === "string" ? session.payment_intent : (session.payment_intent?.id ?? null);
       const paidOrder = await prisma.order.update({
         where: { id: order.id },
-        data: { status: "PAID", stripeSession: session.id },
+        data: { status: "PAID", stripeSession: session.id, stripePaymentIntentId: paymentIntentId },
         include: { lines: true },
       });
       await sendOrderConfirmationEmail(paidOrder);

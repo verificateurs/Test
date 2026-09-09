@@ -8,7 +8,7 @@ import { AdminSearchForm } from "@/components/admin/AdminSearchForm";
 
 export const metadata: Metadata = { title: "Commandes", robots: { index: false } };
 
-const STATUS_LABELS: Record<string, string> = { PENDING: "En attente", PAID: "Payée", SHIPPED: "Expédiée", CANCELLED: "Annulée" };
+const STATUS_LABELS: Record<string, string> = { PENDING: "En attente", PAID: "Payée", SHIPPED: "Expédiée", CANCELLED: "Annulée", REFUNDED: "Remboursée" };
 
 export default async function AdminOrdersPage({ searchParams }: { searchParams: Promise<{ page?: string; q?: string }> }) {
   const { page: rawPage, q: rawQ } = await searchParams;

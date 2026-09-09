@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { formatPrice } from "@/lib/catalogue";
 import { StatusForm } from "./StatusForm";
+import { RefundForm } from "./RefundForm";
 
 export const metadata: Metadata = { title: "Détail commande", robots: { index: false } };
 
@@ -16,9 +17,12 @@ export default async function AdminOrderDetailPage({ params }: { params: Promise
       <h1>Commande {order.reference}</h1>
 
       <div className="admin-card">
-        <p>
+        {/* <form> n'est pas un contenu phrasant valide dans <p> — un <div> évite
+            la renormalisation DOM par le navigateur qui provoquait une erreur
+            d'hydratation React sur StatusForm/RefundForm. */}
+        <div className="admin-detail-row">
           <strong>Statut :</strong> <StatusForm id={order.id} status={order.status} />
-        </p>
+        </div>
         <p>
           <strong>Client :</strong> {order.email} {order.user ? `(compte : ${order.user.displayName})` : "(invité)"}
         </p>
@@ -32,6 +36,11 @@ export default async function AdminOrderDetailPage({ params }: { params: Promise
           <p>
             <strong>Session Stripe :</strong> {order.stripeSession}
           </p>
+        )}
+        {order.status === "PAID" && (
+          <div className="admin-detail-row">
+            <strong>Remboursement :</strong> <RefundForm id={order.id} />
+          </div>
         )}
       </div>
 

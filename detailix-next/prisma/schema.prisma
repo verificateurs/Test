@@ -189,27 +189,32 @@ enum OrderStatus {
   PAID
   SHIPPED
   CANCELLED
+  REFUNDED
 }
 
 model Order {
-  id            String      @id @default(cuid())
-  reference     String      @unique
-  status        OrderStatus @default(PENDING)
-  email         String
-  shippingName  String
-  shippingAddr  String
-  shippingZip   String
-  shippingCity  String
-  subtotal      Float
-  shippingCost  Float       @default(0)
-  discount      Float       @default(0)
-  total         Float
-  promoCode     String?
-  stripeSession String?
-  createdAt     DateTime    @default(now())
-  userId        String?
-  user          User?       @relation(fields: [userId], references: [id])
-  lines         OrderLine[]
+  id                     String      @id @default(cuid())
+  reference              String      @unique
+  status                 OrderStatus @default(PENDING)
+  email                  String
+  shippingName           String
+  shippingAddr           String
+  shippingZip            String
+  shippingCity           String
+  subtotal               Float
+  shippingCost           Float       @default(0)
+  discount               Float       @default(0)
+  total                  Float
+  promoCode              String?
+  stripeSession          String?
+  // ID du PaymentIntent Stripe (distinct de la Checkout Session ci-dessus),
+  // seul identifiant accepté par stripe.refunds.create() — persisté par le
+  // webhook au moment du paiement, requis pour le remboursement admin.
+  stripePaymentIntentId  String?
+  createdAt              DateTime    @default(now())
+  userId                 String?
+  user                   User?       @relation(fields: [userId], references: [id])
+  lines                  OrderLine[]
 
   @@index([userId])
 }
