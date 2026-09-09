@@ -91,7 +91,7 @@ export default async function ComparateurPage({ searchParams }: { searchParams: 
                     <tr>
                       <td>Disponibilité</td>
                       {ordered.map((p) => (
-                        <td key={p.id}>{deliveryEstimate(p.stock).label}</td>
+                        <td key={p.id}>{deliveryEstimate(p.stockQty > 0).label}</td>
                       ))}
                     </tr>
                     <tr>

@@ -17,6 +17,14 @@ import { hashPassword } from "../src/lib/auth/password.ts";
 const prisma = new PrismaClient();
 const DATA_DIR = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "data");
 
+// data/products.json (partagé avec le site vanilla) ne connaît qu'un booléen
+// "en stock" — jamais une quantité réelle. Valeur de démarrage raisonnable,
+// dupliquée depuis lib/catalogue.ts::FALLBACK_IN_STOCK_QTY (ce script tourne
+// via `node --experimental-strip-types`, sans résolution de l'alias "@/" que
+// ce fichier utilise en interne — voir l'import relatif de hashPassword
+// ci-dessous pour la même raison).
+const FALLBACK_IN_STOCK_QTY = 25;
+
 function readJson<T>(name: string): T {
   return JSON.parse(readFileSync(join(DATA_DIR, name), "utf8")) as T;
 }
@@ -125,7 +133,7 @@ async function main() {
         format: p.format,
         description: p.description,
         prixAchat: p.prixAchat,
-        stock: p.stock,
+        stockQty: p.stock ? FALLBACK_IN_STOCK_QTY : 0,
         compatibilite: typeof p.compatibilite === "string" ? p.compatibilite : JSON.stringify(p.compatibilite),
         homologation: p.homologation ?? null,
         brandId: p.brandId,

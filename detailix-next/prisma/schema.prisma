@@ -60,7 +60,7 @@ model Product {
   format      String
   description String
   prixAchat   Float // coût HT ; le prix de vente est calculé via Setting.marginPercent
-  stock       Boolean @default(true)
+  stockQty    Int     @default(0) // quantité réelle ; décrémentée atomiquement à la commande (voir commande/actions.ts)
   // "universel" ou JSON {"type":"codesMoteurs","codes":[...]}
   compatibilite String @default("universel")
   homologation  String? // route-ouverte | usage-piste | non-applicable

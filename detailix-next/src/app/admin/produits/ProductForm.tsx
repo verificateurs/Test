@@ -12,7 +12,7 @@ type Product = {
   format: string;
   description: string;
   prixAchat: number;
-  stock: boolean;
+  stockQty: number;
   homologation: string | null;
   brandId: string;
   categoryId: string;
@@ -58,8 +58,8 @@ export function ProductForm({
           <input type="number" name="prixAchat" required min={0.01} step="0.01" defaultValue={product?.prixAchat} />
         </label>
         <label>
-          En stock
-          <input type="checkbox" name="stock" defaultChecked={product?.stock ?? true} style={{ width: "auto" }} />
+          Quantité en stock
+          <input type="number" name="stockQty" required min={0} step="1" defaultValue={product?.stockQty ?? 0} />
         </label>
       </div>
       <div className="form-row">

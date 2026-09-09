@@ -3,6 +3,7 @@
 import { prisma } from "@/lib/prisma";
 import { requireAdmin } from "@/lib/auth/rbac";
 import { revalidateCatalogue } from "@/lib/admin/revalidate";
+import { FALLBACK_IN_STOCK_QTY } from "@/lib/catalogue";
 import { ImportPayloadSchema, type ProductImport } from "./schemas";
 
 export type ImportActionState = { error: string | null; success: string | null };
@@ -70,6 +71,15 @@ export async function importProductsAction(_prev: ImportActionState, formData: F
     }
   }
 
+  // Le format d'import ne connaît que le booléen hérité "stock" (compatible
+  // avec data/products.json du site vanilla), jamais une quantité réelle. À
+  // la création, on lui donne une quantité de départ raisonnable. À la mise
+  // à jour, l'asymétrie est volontaire : "stock: false" est un signal sans
+  // ambiguïté (rupture) et force stockQty à 0, alors que "stock: true" ne
+  // dit rien sur la quantité réelle — on laisse alors intact un stock déjà
+  // affiné via le formulaire produit (ProductForm, qui expose stockQty
+  // directement), pour ne pas le remettre à une valeur générique à chaque
+  // réimport d'un export précédent.
   await prisma.$transaction(
     products.map((p) =>
       prisma.product.upsert({
@@ -80,7 +90,7 @@ export async function importProductsAction(_prev: ImportActionState, formData: F
           format: p.format,
           description: p.description,
           prixAchat: p.prixAchat,
-          stock: p.stock,
+          stockQty: p.stock ? FALLBACK_IN_STOCK_QTY : 0,
           compatibilite: compatibiliteToJson(p.compatibilite),
           homologation: p.homologation ?? null,
           brandId: p.brandId,
@@ -91,7 +101,7 @@ export async function importProductsAction(_prev: ImportActionState, formData: F
           format: p.format,
           description: p.description,
           prixAchat: p.prixAchat,
-          stock: p.stock,
+          ...(p.stock ? {} : { stockQty: 0 }),
           compatibilite: compatibiliteToJson(p.compatibilite),
           homologation: p.homologation ?? null,
           brandId: p.brandId,
@@ -114,7 +124,7 @@ export async function exportProductsAction(): Promise<string> {
     format: p.format,
     description: p.description,
     prixAchat: p.prixAchat,
-    stock: p.stock,
+    stock: p.stockQty > 0,
     compatibilite: p.compatibilite === "universel" ? "universel" : JSON.parse(p.compatibilite),
     homologation: p.homologation,
     brandId: p.brandId,

@@ -26,6 +26,15 @@ function generateOrderReference(): string {
   return `CMD-${randomBytes(9).toString("base64url").toUpperCase()}`;
 }
 
+/** Portée volontairement au module : distinguée d'une erreur Prisma
+ * inattendue dans le catch de createOrderAction, pour renvoyer un message
+ * utilisateur clair plutôt que de laisser planter l'action. */
+class InsufficientStockError extends Error {
+  constructor(public readonly productName: string) {
+    super(`Stock insuffisant pour "${productName}"`);
+  }
+}
+
 export async function createOrderAction(_prev: CheckoutActionState, formData: FormData): Promise<CheckoutActionState> {
   sweepRateLimitBuckets();
   const ip = await getClientIp();
@@ -109,25 +118,57 @@ export async function createOrderAction(_prev: CheckoutActionState, formData: Fo
   const shippingCost = computeShippingCost(subtotal, threshold, promo?.ok === true && promo.freeShipping);
   const total = Math.max(0, Math.round((subtotal - discount + shippingCost) * 100) / 100);
 
-  const order = await prisma.order.create({
-    data: {
-      reference: generateOrderReference(),
-      status: "PENDING",
-      email: checkoutParsed.data.email,
-      shippingName: checkoutParsed.data.shippingName,
-      shippingAddr: checkoutParsed.data.shippingAddr,
-      shippingZip: checkoutParsed.data.shippingZip,
-      shippingCity: checkoutParsed.data.shippingCity,
-      subtotal,
-      shippingCost,
-      discount,
-      total,
-      promoCode: promo?.ok ? promo.code : null,
-      userId: session?.user.id,
-      lines: { create: lines },
-    },
-    include: { lines: true },
-  });
+  // Décrément atomique par ligne : updateMany conditionné sur stockQty >= qty
+  // (comme le jeton de réinitialisation à usage unique — voir
+  // passwordReset.ts) évite qu'une commande concurrente ne fasse passer le
+  // stock sous zéro entre la lecture et l'écriture. Sur SQLite, l'écriture
+  // mono-fichier sérialise déjà les accès ; cette garantie ne devient
+  // réellement porteuse de sens qu'après une bascule Postgres (non planifiée
+  // ici), mais le code est écrit pour être correct dans les deux cas.
+  // Limite connue : le stock est réservé dès la création de la commande, y
+  // compris pour une session Stripe Checkout jamais finalisée par le client
+  // (pas de mécanisme d'expiration/restauration dans ce lot) — acceptable en
+  // mode démonstration, à revoir avant une mise en production avec Stripe actif.
+  let order;
+  try {
+    order = await prisma.$transaction(async (tx) => {
+      for (const line of lines) {
+        const decremented = await tx.product.updateMany({
+          where: { id: line.productId, stockQty: { gte: line.qty } },
+          data: { stockQty: { decrement: line.qty } },
+        });
+        if (decremented.count === 0) throw new InsufficientStockError(line.name);
+      }
+
+      return tx.order.create({
+        data: {
+          reference: generateOrderReference(),
+          status: "PENDING",
+          email: checkoutParsed.data.email,
+          shippingName: checkoutParsed.data.shippingName,
+          shippingAddr: checkoutParsed.data.shippingAddr,
+          shippingZip: checkoutParsed.data.shippingZip,
+          shippingCity: checkoutParsed.data.shippingCity,
+          subtotal,
+          shippingCost,
+          discount,
+          total,
+          promoCode: promo?.ok ? promo.code : null,
+          userId: session?.user.id,
+          lines: { create: lines },
+        },
+        include: { lines: true },
+      });
+    });
+  } catch (err) {
+    if (err instanceof InsufficientStockError) {
+      return {
+        error: `Stock insuffisant pour "${err.productName}". Ajustez la quantité dans votre panier et réessayez.`,
+        values: rawFields,
+      };
+    }
+    throw err;
+  }
 
   // Sans clé Stripe (dev / test utilisateurs sans compte de paiement réel) :
   // repli explicite et visible plutôt qu'un faux succès silencieux. La

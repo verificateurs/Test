@@ -43,11 +43,22 @@ export function formatPrice(amount: number): string {
   return amount.toLocaleString("fr-FR", { style: "currency", currency: "EUR" });
 }
 
-export function deliveryEstimate(stock: boolean): { label: string; className: string } {
-  return stock === false
+export function deliveryEstimate(inStock: boolean): { label: string; className: string } {
+  return inStock === false
     ? { label: "Sur commande, 5-7 jours", className: "delivery-slow" }
     : { label: "Expédié sous 24h", className: "delivery-fast" };
 }
+
+/**
+ * Utilisée uniquement à la frontière avec l'ancien indicateur booléen `stock`
+ * (format d'import/export JSON back-office, hérité de data/products.json du
+ * prototype vanilla — voir admin/import/actions.ts) : cette frontière ne
+ * connaît qu'un booléen, jamais une quantité réelle, donc une valeur de
+ * démarrage raisonnable est nécessaire pour ne pas tout remettre à zéro à
+ * chaque import "en stock". Le formulaire produit individuel (ProductForm),
+ * lui, expose directement stockQty.
+ */
+export const FALLBACK_IN_STOCK_QTY = 25;
 
 export const HOMOLOGATION_LABELS: Record<string, { label: string; className: string }> = {
   "route-ouverte": { label: "Homologué route ouverte", className: "homolog-route" },

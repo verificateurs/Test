@@ -30,7 +30,7 @@ export default async function AdminProductsPage({ searchParams }: { searchParams
             <th>Catégorie</th>
             <th>Prix achat</th>
             <th>Prix vente</th>
-            <th>Stock</th>
+            <th>Stock (qté)</th>
             <th aria-label="Actions" />
           </tr>
         </thead>
@@ -42,7 +42,7 @@ export default async function AdminProductsPage({ searchParams }: { searchParams
               <td>{p.category.label}</td>
               <td>{formatPrice(p.prixAchat)}</td>
               <td>{formatPrice(computeSellPrice(p.prixAchat, marginPercent))}</td>
-              <td>{p.stock ? "Oui" : "Non"}</td>
+              <td>{p.stockQty}</td>
               <td className="admin-actions-row">
                 <Link href={`/admin/produits/${p.id}`}>Modifier</Link>
                 <ConfirmDeleteForm

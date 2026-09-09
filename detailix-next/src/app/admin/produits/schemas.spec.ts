@@ -6,22 +6,31 @@ const validInput = {
   format: "1 unité",
   description: "Description de test.",
   prixAchat: "10",
-  stock: "on",
+  stockQty: "25",
   compatibiliteType: "universel" as const,
   brandId: "brand-1",
   categoryId: "cat-1",
 };
 
 describe("ProductFormSchema", () => {
-  it("accepte des valeurs valides et coerce les types HTML (string -> number/boolean)", () => {
+  it("accepte des valeurs valides et coerce les types HTML (string -> number)", () => {
     const parsed = ProductFormSchema.parse(validInput);
     expect(parsed.prixAchat).toBe(10);
-    expect(parsed.stock).toBe(true);
+    expect(parsed.stockQty).toBe(25);
   });
 
   it("refuse un prix d'achat négatif ou nul", () => {
     expect(ProductFormSchema.safeParse({ ...validInput, prixAchat: "0" }).success).toBe(false);
     expect(ProductFormSchema.safeParse({ ...validInput, prixAchat: "-5" }).success).toBe(false);
+  });
+
+  it("refuse une quantité en stock négative ou non entière", () => {
+    expect(ProductFormSchema.safeParse({ ...validInput, stockQty: "-1" }).success).toBe(false);
+    expect(ProductFormSchema.safeParse({ ...validInput, stockQty: "2.5" }).success).toBe(false);
+  });
+
+  it("accepte une quantité en stock nulle (rupture de stock)", () => {
+    expect(ProductFormSchema.safeParse({ ...validInput, stockQty: "0" }).success).toBe(true);
   });
 
   it("refuse un type de compatibilité inconnu (pas de mass-assignment via une valeur arbitraire)", () => {

@@ -5,7 +5,7 @@ export const ProductFormSchema = z.object({
   format: z.string().trim().min(1, "Format requis").max(80),
   description: z.string().trim().min(1, "Description requise").max(2000),
   prixAchat: z.coerce.number().positive("Le prix d'achat doit être positif"),
-  stock: z.coerce.boolean(),
+  stockQty: z.coerce.number().int("Nombre entier requis").min(0, "La quantité en stock ne peut pas être négative"),
   compatibiliteType: z.enum(["universel", "codesMoteurs"]),
   compatibiliteCodes: z.string().trim().max(2000).optional().default(""),
   homologation: z.enum(["", "route-ouverte", "usage-piste"]).optional().default(""),

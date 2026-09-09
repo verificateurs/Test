@@ -8,7 +8,7 @@ type ProductLike = {
   name: string;
   format: string;
   prixAchat: number;
-  stock: boolean;
+  stockQty: number;
   compatibilite: string;
   homologation: string | null;
 };
@@ -18,7 +18,7 @@ type ProductLike = {
  *  client une fois le garage (localStorage) relu — voir CompatBadge. */
 export function ProductCard({ product, marginPercent }: { product: ProductLike; marginPercent: number }) {
   const price = computeSellPrice(product.prixAchat, marginPercent);
-  const delivery = deliveryEstimate(product.stock);
+  const delivery = deliveryEstimate(product.stockQty > 0);
   const homolog = product.homologation ? HOMOLOGATION_LABELS[product.homologation] : null;
 
   return (
@@ -31,7 +31,7 @@ export function ProductCard({ product, marginPercent }: { product: ProductLike; 
           <span className={`delivery-badge ${delivery.className}`}>{delivery.label}</span>
           <CompatBadge compatibilite={product.compatibilite} />
           {homolog && <span className={`homolog-badge ${homolog.className}`}>{homolog.label}</span>}
-          {product.stock === false && <span className="out-of-stock">Rupture de stock</span>}
+          {product.stockQty <= 0 && <span className="out-of-stock">Rupture de stock</span>}
         </div>
       </Link>
       <CompareToggle productId={product.id} />

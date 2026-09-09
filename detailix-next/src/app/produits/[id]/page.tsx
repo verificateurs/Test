@@ -37,7 +37,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
   if (!product) notFound();
   const marginPercent = await getMarginPercent();
   const price = computeSellPrice(product.prixAchat, marginPercent);
-  const delivery = deliveryEstimate(product.stock);
+  const delivery = deliveryEstimate(product.stockQty > 0);
   const homolog = product.homologation ? HOMOLOGATION_LABELS[product.homologation] : null;
 
   return (
@@ -66,7 +66,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
             "@type": "Offer",
             price: price.toFixed(2),
             priceCurrency: "EUR",
-            availability: product.stock === false ? "https://schema.org/BackOrder" : "https://schema.org/InStock",
+            availability: product.stockQty <= 0 ? "https://schema.org/BackOrder" : "https://schema.org/InStock",
             url: absoluteUrl(`/produits/${product.id}`),
           },
         }}
@@ -90,7 +90,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
 
               <p className="product-detail-price">{formatPrice(price)}</p>
               <div className="admin-actions-row">
-                {product.stock === false ? (
+                {product.stockQty <= 0 ? (
                   <p className="out-of-stock">Rupture de stock — réapprovisionnement sous 5 à 7 jours</p>
                 ) : (
                   <AddToCartButton
