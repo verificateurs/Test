@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { prisma } from "@/lib/prisma";
+import { ADMIN_PAGE_SIZE, parsePage, parseSearchQuery } from "@/lib/admin/pagination";
+import { AdminPagination } from "@/components/admin/AdminPagination";
+import { AdminSearchForm } from "@/components/admin/AdminSearchForm";
 import { PromoForm } from "./PromoForm";
 import { togglePromoAction, deletePromoAction } from "./actions";
 import { ConfirmDeleteForm } from "@/components/admin/ConfirmDeleteForm";
@@ -7,18 +10,30 @@ import { formatPrice } from "@/lib/catalogue";
 
 export const metadata: Metadata = { title: "Codes promo", robots: { index: false } };
 
-export default async function AdminPromosPage() {
-  const promos = await prisma.promoCode.findMany({ orderBy: { createdAt: "desc" } });
+export default async function AdminPromosPage({ searchParams }: { searchParams: Promise<{ page?: string; q?: string }> }) {
+  const { page: rawPage, q: rawQ } = await searchParams;
+  const page = parsePage(rawPage);
+  const q = parseSearchQuery(rawQ);
+  const where = q ? { code: { contains: q } } : {};
+  const [promos, total] = await Promise.all([
+    prisma.promoCode.findMany({
+      where,
+      orderBy: { createdAt: "desc" },
+      skip: (page - 1) * ADMIN_PAGE_SIZE,
+      take: ADMIN_PAGE_SIZE,
+    }),
+    prisma.promoCode.count({ where }),
+  ]);
 
   return (
     <div>
-      <h1>Codes promo</h1>
+      <h1>Codes promo ({total})</h1>
 
       <div className="admin-card">
         <h2>Nouveau code</h2>
         <PromoForm />
       </div>
-
+      <AdminSearchForm q={q} placeholder="Rechercher un code…" />
       <table className="admin-table">
         <thead>
           <tr>
@@ -53,6 +68,7 @@ export default async function AdminPromosPage() {
           ))}
         </tbody>
       </table>
+      <AdminPagination page={page} total={total} pageSize={ADMIN_PAGE_SIZE} basePath="/admin/promos" query={q ? { q } : {}} />
     </div>
   );
 }

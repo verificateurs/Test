@@ -24,6 +24,12 @@ module.exports = {
         await page.fill('input[name="position"]', "99");
         await page.click('button:has-text("Créer la catégorie")');
         await page.waitForURL("**/admin/categories", { timeout: 8000 });
+        // La liste admin est paginée : on cherche l'élément créé plutôt que de
+        // supposer qu'il tombe sur la première page (tri alphabétique/position,
+        // sans rapport avec l'ordre de création).
+        await page.fill('.admin-search-form input[name="q"]', "Catégorie Test E2E");
+        await page.click('.admin-search-form button[type="submit"]');
+        await page.waitForLoadState("load");
         assert(
           await page.$eval("body", (el) => el.textContent.includes("Catégorie Test E2E")),
           "la catégorie créée doit apparaître dans la liste admin"
@@ -37,6 +43,9 @@ module.exports = {
         await page.fill('textarea[name="preference"]', "Marque de test.");
         await page.click('button:has-text("Créer la marque")');
         await page.waitForURL("**/admin/marques", { timeout: 8000 });
+        await page.fill('.admin-search-form input[name="q"]', "Marque Test E2E");
+        await page.click('.admin-search-form button[type="submit"]');
+        await page.waitForLoadState("load");
         assert(
           await page.$eval("body", (el) => el.textContent.includes("Marque Test E2E")),
           "la marque créée doit apparaître dans la liste admin"
@@ -51,6 +60,9 @@ module.exports = {
         await page.selectOption('select[name="categoryId"]', { label: "Catégorie Test E2E" });
         await page.click('button:has-text("Créer le produit")');
         await page.waitForURL("**/admin/produits", { timeout: 8000 });
+        await page.fill('.admin-search-form input[name="q"]', "Produit Test E2E");
+        await page.click('.admin-search-form button[type="submit"]');
+        await page.waitForLoadState("load");
         assert(
           await page.$eval("body", (el) => el.textContent.includes("Produit Test E2E")),
           "le produit créé doit apparaître dans la liste admin"
@@ -79,14 +91,16 @@ module.exports = {
         );
 
         // Nettoyage : produit -> marque -> catégorie (ordre des dépendances).
+        // On recherche à nouveau chaque élément pour être sûr qu'il est bien
+        // affiché sur la page courante avant de cliquer sur "Supprimer".
         page.on("dialog", (d) => d.accept());
-        await page.goto(`${baseUrl}/admin/produits`, { waitUntil: "load" });
+        await page.goto(`${baseUrl}/admin/produits?q=${encodeURIComponent("Produit Test E2E")}`, { waitUntil: "load" });
         await page.click('tr:has-text("Produit Test E2E") button:has-text("Supprimer")');
         await page.waitForTimeout(500);
-        await page.goto(`${baseUrl}/admin/marques`, { waitUntil: "load" });
+        await page.goto(`${baseUrl}/admin/marques?q=${encodeURIComponent("Marque Test E2E")}`, { waitUntil: "load" });
         await page.click('tr:has-text("Marque Test E2E") button:has-text("Supprimer")');
         await page.waitForTimeout(500);
-        await page.goto(`${baseUrl}/admin/categories`, { waitUntil: "load" });
+        await page.goto(`${baseUrl}/admin/categories?q=${encodeURIComponent("Catégorie Test E2E")}`, { waitUntil: "load" });
         await page.click('tr:has-text("Catégorie Test E2E") button:has-text("Supprimer")');
         await page.waitForTimeout(500);
       },

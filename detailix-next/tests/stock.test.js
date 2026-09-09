@@ -54,7 +54,9 @@ module.exports = {
         assert(!!errorText && errorText.toLowerCase().includes("stock"), `un message d'erreur de stock doit s'afficher, obtenu « ${errorText} »`);
 
         // Le stock n'a pas bougé : la transaction avortée n'a rien décrémenté.
-        await page.goto(`${baseUrl}/admin/produits`, { waitUntil: "load" });
+        // La liste admin est paginée : on cherche le produit plutôt que de
+        // supposer qu'il tombe sur la première page (tri alphabétique).
+        await page.goto(`${baseUrl}/admin/produits?q=${encodeURIComponent(PRODUCT_NAME)}`, { waitUntil: "load" });
         const qtyAfterFailure = await page.locator(`tr:has-text("${PRODUCT_NAME}") td:nth-child(6)`).textContent();
         assertEqual(qtyAfterFailure.trim(), "1", "un paiement refusé ne doit pas avoir touché le stock");
 
@@ -77,7 +79,7 @@ module.exports = {
         // commande, volontairement : seule l'application du décompte au
         // paiement est garantie, pas l'actualisation immédiate du badge
         // affiché sur la fiche statique).
-        await page.goto(`${baseUrl}/admin/produits`, { waitUntil: "load" });
+        await page.goto(`${baseUrl}/admin/produits?q=${encodeURIComponent(PRODUCT_NAME)}`, { waitUntil: "load" });
         const qtyAfterSuccess = await page.locator(`tr:has-text("${PRODUCT_NAME}") td:nth-child(6)`).textContent();
         assertEqual(qtyAfterSuccess.trim(), "0", "la commande réussie doit avoir décrémenté le stock jusqu'à 0");
 

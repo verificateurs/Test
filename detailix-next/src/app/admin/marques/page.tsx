@@ -1,22 +1,38 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
+import { ADMIN_PAGE_SIZE, parsePage, parseSearchQuery } from "@/lib/admin/pagination";
+import { AdminPagination } from "@/components/admin/AdminPagination";
+import { AdminSearchForm } from "@/components/admin/AdminSearchForm";
 import { deleteBrandAction } from "./actions";
 import { ConfirmDeleteForm } from "@/components/admin/ConfirmDeleteForm";
 
 export const metadata: Metadata = { title: "Marques", robots: { index: false } };
 
-export default async function AdminBrandsPage({ searchParams }: { searchParams: Promise<{ erreur?: string }> }) {
-  const { erreur } = await searchParams;
-  const brands = await prisma.brand.findMany({ include: { category: true }, orderBy: { name: "asc" } });
+export default async function AdminBrandsPage({ searchParams }: { searchParams: Promise<{ erreur?: string; page?: string; q?: string }> }) {
+  const { erreur, page: rawPage, q: rawQ } = await searchParams;
+  const page = parsePage(rawPage);
+  const q = parseSearchQuery(rawQ);
+  const where = q ? { name: { contains: q } } : {};
+  const [brands, total] = await Promise.all([
+    prisma.brand.findMany({
+      where,
+      include: { category: true },
+      orderBy: { name: "asc" },
+      skip: (page - 1) * ADMIN_PAGE_SIZE,
+      take: ADMIN_PAGE_SIZE,
+    }),
+    prisma.brand.count({ where }),
+  ]);
 
   return (
     <div>
-      <h1>Marques ({brands.length})</h1>
+      <h1>Marques ({total})</h1>
       {erreur && <p className="admin-flash error">{erreur}</p>}
       <Link href="/admin/marques/nouveau" className="btn-primary">
         + Nouvelle marque
       </Link>
+      <AdminSearchForm q={q} placeholder="Rechercher une marque…" />
 
       <table className="admin-table">
         <thead>
@@ -43,6 +59,7 @@ export default async function AdminBrandsPage({ searchParams }: { searchParams: 
           ))}
         </tbody>
       </table>
+      <AdminPagination page={page} total={total} pageSize={ADMIN_PAGE_SIZE} basePath="/admin/marques" query={q ? { q } : {}} />
     </div>
   );
 }
