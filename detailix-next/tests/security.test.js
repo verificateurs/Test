@@ -67,5 +67,32 @@ module.exports = {
         assert(!vehicleTree.includes("prixAchat"), "l'arbre véhicule ne doit jamais exposer le coût d'achat");
       },
     },
+
+    {
+      name: "l'ajout à la liste d'envies est rate-limité (pas d'écriture en base sans limite)",
+      fn: async ({ page, baseUrl }) => {
+        const email = `wishlist-ratelimit-${Date.now()}@example.com`;
+        await page.goto(`${baseUrl}/inscription`, { waitUntil: "load" });
+        await page.fill('input[name="displayName"]', "Wishlist Ratelimit");
+        await page.fill('input[name="email"]', email);
+        await page.fill('input[name="password"]', "motdepasse-solide-123");
+        await page.click('button[type="submit"]');
+        await page.waitForURL("**/compte", { timeout: 8000 });
+
+        await page.goto(`${baseUrl}/produits/303-aerospace-protectant`, { waitUntil: "load" });
+
+        // Chaque toast reste visible 2,5s (voir Toast.tsx, plusieurs peuvent
+        // s'empiler) : un intervalle court entre les clics garde tout le lot
+        // dans le DOM le temps du test, sans dépendre de l'ordre d'expiration.
+        let sawRateLimitMessage = false;
+        for (let i = 0; i < 32 && !sawRateLimitMessage; i++) {
+          await page.click('button:has-text("Ajouter à ma liste d\'envies")');
+          await page.waitForTimeout(50);
+          const toasts = await page.$$eval(".toast", (els) => els.map((el) => el.textContent ?? ""));
+          sawRateLimitMessage = toasts.some((t) => t.includes("Trop de tentatives"));
+        }
+        assert(sawRateLimitMessage, "après une trentaine d'appels rapprochés, le rate-limit doit se déclencher (message affiché)");
+      },
+    },
   ],
 };
