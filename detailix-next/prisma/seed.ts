@@ -17,6 +17,10 @@ async function main() {
   const categories: Array<{ id: string; label: string; description: string; brands: unknown[] }> =
     brandsData.categories;
 
+  // BrandReview/ProductReview rows have no natural unique key in the source JSON,
+  // so re-seeding would duplicate them indefinitely without this reset.
+  await prisma.brandReview.deleteMany({});
+
   for (const cat of categories) {
     await prisma.category.upsert({
       where: { id: cat.id },
@@ -94,9 +98,25 @@ async function main() {
 
   for (const p of products) {
     const stockQty = p.stock ? 10 : 0;
-    const compatJson = typeof p.compatibilite === "string"
-      ? p.compatibilite
-      : JSON.stringify(p.compatibilite);
+
+    // Normalize to the {type:"universel"} | {type:"codesMoteurs",codes:[...]} JSON
+    // shape expected by lib/compat.ts::parseCompatCodes — legacy source data stores
+    // "universel" as a bare (non-JSON-encoded) string, which JSON.parse() rejects.
+    let compatObj: unknown;
+    if (typeof p.compatibilite === "string") {
+      if (p.compatibilite === "universel") {
+        compatObj = { type: "universel" };
+      } else {
+        try {
+          compatObj = JSON.parse(p.compatibilite);
+        } catch {
+          compatObj = { type: "universel" };
+        }
+      }
+    } else {
+      compatObj = p.compatibilite;
+    }
+    const compatJson = JSON.stringify(compatObj);
 
     let homologation: Homologation | undefined;
     if (p.homologation === "route-ouverte") homologation = Homologation.route_ouverte;
