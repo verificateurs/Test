@@ -1,0 +1,175 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Enum ────────────────────────────────────────────────────────────────────
+
+enum Role {
+  USER
+  PRO
+  ADMIN
+}
+
+enum Homologation {
+  route_ouverte
+  usage_piste
+  non_applicable
+}
+
+// ─── Catalogue ───────────────────────────────────────────────────────────────
+
+model Category {
+  id          String  @id
+  label       String
+  description String
+  brands      Brand[]
+  products    Product[]
+}
+
+model Brand {
+  id           String   @id
+  categoryId   String
+  category     Category @relation(fields: [categoryId], references: [id])
+  name         String
+  origine      String
+  gamme        String
+  rating       Float
+  reviewCount  Int
+  recommended  Boolean
+  preference   String
+  reviews      BrandReview[]
+  products     Product[]
+}
+
+model BrandReview {
+  id       Int     @id @default(autoincrement())
+  brandId  String
+  brand    Brand   @relation(fields: [brandId], references: [id])
+  author   String
+  rating   Int
+  date     String
+  comment  String
+}
+
+model Vehicle {
+  codeMoteur   String  @id
+  marque       String
+  modele       String
+  motorisation String
+}
+
+model Product {
+  id            String        @id
+  brandId       String
+  brand         Brand         @relation(fields: [brandId], references: [id])
+  categoryId    String
+  category      Category      @relation(fields: [categoryId], references: [id])
+  name          String
+  format        String
+  description   String
+  prixAchat     Float
+  stockQty      Int           @default(10)
+  compatibilite String        // JSON: "universel" | {type:"codesMoteurs",codes:[...]}
+  homologation  Homologation?
+  orderItems    OrderItem[]
+  wishlistItems WishlistItem[]
+}
+
+// ─── Auth ────────────────────────────────────────────────────────────────────
+
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  passwordHash String
+  role         Role      @default(USER)
+  createdAt    DateTime  @default(now())
+  sessions     Session[]
+  orders       Order[]
+  wishlist     WishlistItem[]
+  passwordResets PasswordResetToken[]
+  totpSecret   String?   // 2FA TOTP (admin only), base32-encoded
+  totpEnabled  Boolean   @default(false)
+}
+
+model Session {
+  // id is SHA-256(rawToken) — rawToken lives only in the httpOnly cookie
+  id        String   @id
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+
+  @@index([userId])
+}
+
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tokenHash String   @unique // SHA-256(rawToken)
+  expiresAt DateTime
+  usedAt    DateTime?
+}
+
+// ─── Commerce ─────────────────────────────────────────────────────────────────
+
+model Order {
+  id              String      @id @default(cuid())
+  userId          String?
+  user            User?       @relation(fields: [userId], references: [id])
+  status          String      @default("pending") // pending | paid | shipped | cancelled
+  total           Float
+  shippingName    String?
+  shippingAddress String?
+  createdAt       DateTime    @default(now())
+  items           OrderItem[]
+}
+
+model OrderItem {
+  id         Int     @id @default(autoincrement())
+  orderId    String
+  order      Order   @relation(fields: [orderId], references: [id])
+  productId  String
+  product    Product @relation(fields: [productId], references: [id])
+  qty        Int
+  unitPrice  Float   // retail price TTC snapshot at order time
+}
+
+model WishlistItem {
+  id        Int     @id @default(autoincrement())
+  userId    String
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+  addedAt   DateTime @default(now())
+
+  @@unique([userId, productId])
+}
+
+model Promo {
+  id              String    @id @default(cuid())
+  code            String    @unique
+  discountPercent Int       // e.g. 10 = 10%
+  maxUses         Int       @default(100)
+  usedCount       Int       @default(0)
+  expiresAt       DateTime?
+  active          Boolean   @default(true)
+}
+
+// ─── Content ─────────────────────────────────────────────────────────────────
+
+model Article {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  excerpt     String
+  content     String   // Markdown
+  publishedAt DateTime?
+  createdAt   DateTime @default(now())
+}

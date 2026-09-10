@@ -1,0 +1,908 @@
+{
+  "_note": "Données pour prototypage et seed Prisma. prixAchat = coût HT revendeur. Le prix affiché est calculé depuis data/pricing-config.json (marginPercent). brandId dans products.json doit correspondre à un id ici. Ne jamais stocker de prix de vente en dur.",
+  "categories": [
+    {
+      "id": "cosmetique-carrosserie",
+      "label": "Cosmétique carrosserie",
+      "description": "Shampoings, décontaminants, cires et traitements de protection pour la carrosserie.",
+      "brands": [
+        {
+          "id": "meguiars",
+          "name": "Meguiar's",
+          "origine": "États-Unis",
+          "gamme": "Milieu de gamme",
+          "rating": 4.6,
+          "reviewCount": 128,
+          "recommended": true,
+          "preference": "Gamme large et accessible, très bon rapport qualité/prix pour un entretien régulier, produits faciles à prendre en main pour les débutants.",
+          "reviews": [
+            { "author": "Julien R.", "rating": 5, "date": "2026-03-12", "comment": "Le shampoing Gold Class sent très bon et ne dessèche pas les plastiques extérieurs." },
+            { "author": "Sophie M.", "rating": 4, "date": "2026-01-28", "comment": "Bon produit mais le décontaminant ferreux demande un peu de temps de pose par temps froid." }
+          ]
+        },
+        {
+          "id": "chemical-guys",
+          "name": "Chemical Guys",
+          "origine": "États-Unis",
+          "gamme": "Milieu-haut de gamme",
+          "rating": 4.5,
+          "reviewCount": 96,
+          "recommended": false,
+          "preference": "Très large catalogue et parfums travaillés, pratique pour composer une routine complète, mais tarif un cran au-dessus sur certaines références.",
+          "reviews": [
+            { "author": "Karim B.", "rating": 5, "date": "2026-02-02", "comment": "Le Honeydew Snow Foam mousse énormément, décrasse bien avant le lavage manuel." },
+            { "author": "Anaïs T.", "rating": 4, "date": "2025-12-15", "comment": "Bons produits mais les flacons diffusent parfois mal en pulvérisateur d'origine." }
+          ]
+        },
+        {
+          "id": "autoglym",
+          "name": "Autoglym",
+          "origine": "Royaume-Uni",
+          "gamme": "Milieu de gamme",
+          "rating": 4.4,
+          "reviewCount": 71,
+          "recommended": false,
+          "preference": "Formules éprouvées et fiables depuis longtemps, bon choix pour un usage professionnel régulier (centres esthétique).",
+          "reviews": [
+            { "author": "Thomas V.", "rating": 4, "date": "2026-04-01", "comment": "Le Polar Blast est efficace en hiver, mousse dense qui tient bien sur la carrosserie." },
+            { "author": "Lucie B.", "rating": 4, "date": "2025-11-15", "comment": "Shampoing conditionneur très doux, idéal pour les peintures métallisées fragiles." }
+          ]
+        },
+        {
+          "id": "gyeon",
+          "name": "Gyeon",
+          "origine": "Corée du Sud",
+          "gamme": "Haut de gamme",
+          "rating": 4.7,
+          "reviewCount": 43,
+          "recommended": false,
+          "preference": "Gamme détailing pro avec des produits au pH très précis, résultats impeccables pour les préparateurs exigeants.",
+          "reviews": [
+            { "author": "Pierre A.", "rating": 5, "date": "2026-05-03", "comment": "Le shampoing Bathe+ mousse parfaitement et laisse une surface ultra douce après rinçage." },
+            { "author": "Julie M.", "rating": 5, "date": "2026-02-20", "comment": "Les produits Gyeon sont ceux que j'utilise en atelier depuis deux ans — résultats constants." }
+          ]
+        },
+        {
+          "id": "bilt-hamber",
+          "name": "Bilt-Hamber",
+          "origine": "Royaume-Uni",
+          "gamme": "Milieu-haut de gamme",
+          "rating": 4.5,
+          "reviewCount": 38,
+          "recommended": false,
+          "preference": "Formules très efficaces à des prix raisonnables, particulièrement reconnu pour ses décontaminants ferreux et claybar.",
+          "reviews": [
+            { "author": "Mathieu F.", "rating": 5, "date": "2026-03-18", "comment": "Le Auto-Foam est le meilleur prélavage que j'ai utilisé — très dense et décrasse en profondeur." },
+            { "author": "Alexis R.", "rating": 4, "date": "2025-10-30", "comment": "Excellent rapport qualité/prix, la claybar est parmi les plus souples du marché." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "polish-protection-ceramique",
+      "label": "Polish, protection & traitements céramiques",
+      "description": "Polish, scellants et céramiques pour la protection longue durée de la peinture.",
+      "brands": [
+        {
+          "id": "gtechniq",
+          "name": "Gtechniq",
+          "origine": "Royaume-Uni",
+          "gamme": "Haut de gamme",
+          "rating": 4.8,
+          "reviewCount": 54,
+          "recommended": true,
+          "preference": "Référence sur les céramiques longue durée, tenue annoncée parmi les plus élevées du marché, protocole d'application bien documenté.",
+          "reviews": [
+            { "author": "Nicolas P.", "rating": 5, "date": "2026-02-20", "comment": "Le Crystal Serum tient vraiment plus d'un an, l'effet hydrophobe reste marqué." },
+            { "author": "Élise D.", "rating": 5, "date": "2025-11-05", "comment": "Application exigeante mais résultat au niveau, brillance très nette." }
+          ]
+        },
+        {
+          "id": "carpro",
+          "name": "CarPro",
+          "origine": "Corée du Sud",
+          "gamme": "Milieu-haut de gamme",
+          "rating": 4.6,
+          "reviewCount": 63,
+          "recommended": false,
+          "preference": "Bon compromis facilité d'application / tenue, plus accessible que Gtechniq pour un premier passage céramique.",
+          "reviews": [
+            { "author": "Yohann S.", "rating": 4, "date": "2026-01-10", "comment": "Le CQuartz UK 3.0 s'applique facilement même pour un amateur, bon effet autonettoyant." },
+            { "author": "Cédric P.", "rating": 5, "date": "2025-09-22", "comment": "Iron X décontamine vraiment bien avant l'application céramique — virage coloré impressionnant." }
+          ]
+        },
+        {
+          "id": "turtle-wax-pro",
+          "name": "Turtle Wax Pro",
+          "origine": "États-Unis",
+          "gamme": "Entrée-milieu de gamme",
+          "rating": 4.1,
+          "reviewCount": 89,
+          "recommended": false,
+          "preference": "Gamme grand public correcte pour un budget serré, tenue plus courte mais large disponibilité en magasin.",
+          "reviews": [
+            { "author": "Marc L.", "rating": 4, "date": "2025-10-22", "comment": "Bon rapport prix pour une cire de finition, effet visible mais à renouveler tous les 2-3 mois." },
+            { "author": "Sandra K.", "rating": 4, "date": "2026-01-05", "comment": "Le spray graphène est facile à appliquer, bonne brillance pour le prix." }
+          ]
+        },
+        {
+          "id": "kamikaze",
+          "name": "Kamikaze Collection",
+          "origine": "Japon",
+          "gamme": "Très haut de gamme",
+          "rating": 4.9,
+          "reviewCount": 29,
+          "recommended": false,
+          "preference": "Céramiques japonaises de référence absolue — Miyabi et ISM restent des standards de dureté et de brillance pour les préparateurs haut de gamme.",
+          "reviews": [
+            { "author": "Antoine B.", "rating": 5, "date": "2026-04-14", "comment": "L'ISM en couche isolante sous l'Infinity Wax — résultat vitreux incomparable." },
+            { "author": "Romain C.", "rating": 5, "date": "2026-01-28", "comment": "Prix premium mais tenue 3 ans+ sur ma GT3 — largement amorti." }
+          ]
+        },
+        {
+          "id": "sonax-polish",
+          "name": "Sonax Polish & Protect",
+          "origine": "Allemagne",
+          "gamme": "Milieu de gamme",
+          "rating": 4.3,
+          "reviewCount": 61,
+          "recommended": false,
+          "preference": "Polish grand public efficace pour corriger les micro-rayures légères et protéger la peinture en une seule opération.",
+          "reviews": [
+            { "author": "François D.", "rating": 4, "date": "2026-02-08", "comment": "Correction légère satisfaisante sur vernis récent, finition propre." },
+            { "author": "Laura S.", "rating": 4, "date": "2025-12-01", "comment": "Bon compromis pour un entretien annuel sans machine à polir." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "jantes-pneus",
+      "label": "Jantes, nettoyage & accessoires roues",
+      "description": "Jantes aftermarket, nettoyants jantes et accessoires (centres de roue, boulonnerie décorative).",
+      "brands": [
+        {
+          "id": "sonax",
+          "name": "Sonax",
+          "origine": "Allemagne",
+          "gamme": "Milieu de gamme",
+          "rating": 4.5,
+          "reviewCount": 77,
+          "recommended": true,
+          "preference": "Nettoyant jantes à réaction colorée très visible pour contrôler le décrassage, efficace sur les résidus de freinage sans agresser le vernis des jantes.",
+          "reviews": [
+            { "author": "David N.", "rating": 5, "date": "2026-03-02", "comment": "Le Full Effect vire au rouge sur la poussière de frein, très pratique pour savoir où insister." },
+            { "author": "Stéphane L.", "rating": 5, "date": "2026-01-11", "comment": "Meilleur nettoyant jantes sur le marché, résultat garanti même sur jantes sport encrassées." }
+          ]
+        },
+        {
+          "id": "p21s",
+          "name": "P21S",
+          "origine": "Allemagne",
+          "gamme": "Haut de gamme",
+          "rating": 4.4,
+          "reviewCount": 32,
+          "recommended": false,
+          "preference": "Formule douce recommandée sur jantes vernies fragiles ou jantes carbone/forgées haut de gamme.",
+          "reviews": [
+            { "author": "Camille F.", "rating": 4, "date": "2025-09-18", "comment": "Doux mais efficace, rassurant sur des jantes forgées récemment revernie." },
+            { "author": "Olivier T.", "rating": 5, "date": "2026-03-25", "comment": "Nettoie sans dégrader le vernis, parfait pour mes BBS forgées." }
+          ]
+        },
+        {
+          "id": "oz-racing",
+          "name": "OZ Racing",
+          "origine": "Italie",
+          "gamme": "Haut de gamme",
+          "rating": 4.7,
+          "reviewCount": 45,
+          "recommended": false,
+          "preference": "Référence en jantes aftermarket allégées pour la préparation esthétique et le gain de poids non suspendu.",
+          "reviews": [
+            { "author": "Hugo M.", "rating": 5, "date": "2026-02-14", "comment": "Montage nickel, gain de poids ressenti au freinage, finition irréprochable." },
+            { "author": "Alexandre P.", "rating": 5, "date": "2026-04-20", "comment": "Les Ultraleggera en 18\" sur ma Golf R — légèreté et look parfaits." }
+          ]
+        },
+        {
+          "id": "bbs-wheels",
+          "name": "BBS",
+          "origine": "Allemagne",
+          "gamme": "Très haut de gamme",
+          "rating": 4.9,
+          "reviewCount": 62,
+          "recommended": true,
+          "preference": "Jantes de référence absolue en compétition et road car premium — technologie forgée, légèreté extrême et finitions sur mesure disponibles.",
+          "reviews": [
+            { "author": "Vincent H.", "rating": 5, "date": "2026-05-10", "comment": "Les CH-R en 18\" sur ma Série 3 — qualité de finition sans égal, chaque détail est parfait." },
+            { "author": "Émile G.", "rating": 5, "date": "2026-02-28", "comment": "Jantes allemandes premium, made in Germany, aucune déception depuis 3 ans." }
+          ]
+        },
+        {
+          "id": "enkei",
+          "name": "Enkei",
+          "origine": "Japon",
+          "gamme": "Milieu-haut de gamme",
+          "rating": 4.6,
+          "reviewCount": 48,
+          "recommended": false,
+          "preference": "Jantes japonaises avec un excellent ratio poids/résistance, très populaires dans le monde du tuning et du time attack.",
+          "reviews": [
+            { "author": "Kévin D.", "rating": 5, "date": "2026-03-15", "comment": "Les RPF1 sont le standard en time attack — ultraléger et résistant, rapport qualité/prix imbattable." },
+            { "author": "Bastien A.", "rating": 4, "date": "2026-01-22", "comment": "Bonne qualité de finition, expédition rapide depuis le Japon." }
+          ]
+        },
+        {
+          "id": "rays-volk-racing",
+          "name": "Rays / Volk Racing",
+          "origine": "Japon",
+          "gamme": "Très haut de gamme",
+          "rating": 4.9,
+          "reviewCount": 37,
+          "recommended": false,
+          "preference": "Les TE37 et ZE40 sont des icônes du tuning japonais — forgées à froid, légèreté record et durabilité prouvée en circuit.",
+          "reviews": [
+            { "author": "Gaëtan S.", "rating": 5, "date": "2026-04-05", "comment": "TE37 SL en bronze — le look parfait sur ma Civic Type R, légèreté remarquable." },
+            { "author": "Dylan M.", "rating": 5, "date": "2025-12-10", "comment": "CE28N ultraléger, ressenti immédiat à la conduite sur circuit." }
+          ]
+        },
+        {
+          "id": "vossen",
+          "name": "Vossen Wheels",
+          "origine": "États-Unis",
+          "gamme": "Haut de gamme",
+          "rating": 4.6,
+          "reviewCount": 41,
+          "recommended": false,
+          "preference": "Jantes au style affirmé, populaires sur les berlines et SUV premium — finitions multiples disponibles, look show car.",
+          "reviews": [
+            { "author": "Maxime B.", "rating": 5, "date": "2026-03-08", "comment": "HF-3 en 20\" sur mon M3, look impressionnant et qualité au rendez-vous." },
+            { "author": "Camille R.", "rating": 4, "date": "2026-01-14", "comment": "Très bon service client, délai de fabrication correct pour des jantes custom." }
+          ]
+        },
+        {
+          "id": "advan-racing",
+          "name": "Advan Racing",
+          "origine": "Japon",
+          "gamme": "Haut de gamme",
+          "rating": 4.8,
+          "reviewCount": 33,
+          "recommended": false,
+          "preference": "Division course de Yokohama — les GT Beyond et RS incarnent le savoir-faire japonais en forgé léger pour la piste et la route.",
+          "reviews": [
+            { "author": "Rémi C.", "rating": 5, "date": "2026-02-20", "comment": "GT Beyond en titane sur ma RS3, les regards se retournent — légèreté incroyable." },
+            { "author": "Aurélien F.", "rating": 5, "date": "2025-11-30", "comment": "Advan RS, référence en 5x100, qualité de fabrication au niveau des Volk." }
+          ]
+        },
+        {
+          "id": "rotiform",
+          "name": "Rotiform",
+          "origine": "États-Unis",
+          "gamme": "Milieu-haut de gamme",
+          "rating": 4.4,
+          "reviewCount": 29,
+          "recommended": false,
+          "preference": "Jantes américaines au design contemporain, bon rapport qualité/prix pour un style show-car sur les volkswagen, Audi et BMW.",
+          "reviews": [
+            { "author": "Tom B.", "rating": 4, "date": "2026-03-01", "comment": "BLQ en noir mat sur Golf GTI — look parfait, finition correcte pour le prix." },
+            { "author": "Clément V.", "rating": 5, "date": "2026-01-18", "comment": "RSE bien fini, poids acceptable, bon rapport qualité/prix pour une jante coulée." }
+          ]
+        },
+        {
+          "id": "work-wheels",
+          "name": "Work Wheels",
+          "origine": "Japon",
+          "gamme": "Haut de gamme",
+          "rating": 4.7,
+          "reviewCount": 25,
+          "recommended": false,
+          "preference": "Constructeur japonais spécialisé dans les jantes multi-pièces haut de gamme, très appréciées en stance et VIP scene.",
+          "reviews": [
+            { "author": "Jérémy L.", "rating": 5, "date": "2026-04-12", "comment": "Meister S1 3 pièces — le summum du luxe automobile, finitions parfaites." },
+            { "author": "Marc T.", "rating": 5, "date": "2026-02-05", "comment": "Emotion D9R, juste le bon équilibre entre style et légèreté pour la route." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "kits-carrosserie",
+      "label": "Kits carrosserie & esthétique extérieure",
+      "description": "Ailerons, spoilers, lames avant, diffuseurs, pare-chocs, capots, élargisseurs et kits widebody.",
+      "brands": [
+        {
+          "id": "maxton-design",
+          "name": "Maxton Design",
+          "origine": "Pologne",
+          "gamme": "Milieu de gamme",
+          "rating": 4.3,
+          "reviewCount": 58,
+          "recommended": true,
+          "preference": "Catalogue très large par modèle, bon compromis prix/finition pour un montage esthétique sans viser l'homologation course.",
+          "reviews": [
+            { "author": "Baptiste C.", "rating": 4, "date": "2026-01-05", "comment": "Le splitter avant s'ajuste bien, ABS de bonne épaisseur, quelques finitions à reprendre soi-même." },
+            { "author": "Kevin S.", "rating": 4, "date": "2025-11-20", "comment": "Diffuseur bien fini pour le prix, montage simple avec la visserie fournie." }
+          ]
+        },
+        {
+          "id": "rieger",
+          "name": "Rieger Tuning",
+          "origine": "Allemagne",
+          "gamme": "Haut de gamme",
+          "rating": 4.6,
+          "reviewCount": 41,
+          "recommended": false,
+          "preference": "Pièces homologuées TÜV disponibles sur une partie du catalogue, rassurant pour un usage route ouverte.",
+          "reviews": [
+            { "author": "Louis A.", "rating": 5, "date": "2025-12-01", "comment": "Kit complet avec certificat, contrôle technique passé sans souci." },
+            { "author": "Arthur B.", "rating": 5, "date": "2026-03-14", "comment": "Qualité allemande évidente, finition peinture apprêt prête à peindre." }
+          ]
+        },
+        {
+          "id": "seibon",
+          "name": "Seibon Carbon",
+          "origine": "États-Unis",
+          "gamme": "Haut de gamme",
+          "rating": 4.5,
+          "reviewCount": 36,
+          "recommended": false,
+          "preference": "Pièces carbone (capots, coffres, ailes) à un niveau de finition accessible, idéal pour un allègement visible sans budget compétition.",
+          "reviews": [
+            { "author": "Tristan M.", "rating": 5, "date": "2026-02-18", "comment": "Capot carbone FK8 parfaitement ajusté, tissu carbone propre, gain de poids notable." },
+            { "author": "Jordan F.", "rating": 4, "date": "2025-12-22", "comment": "Beau produit, pose un peu délicate mais résultat bluffant une fois en place." }
+          ]
+        },
+        {
+          "id": "apr-performance",
+          "name": "APR Performance",
+          "origine": "États-Unis",
+          "gamme": "Compétition",
+          "rating": 4.7,
+          "reviewCount": 44,
+          "recommended": false,
+          "preference": "Pièces aérodynamiques testées en soufflerie pour le circuit — ailerons GTC300/GTC500 utilisés en compétition amateur.",
+          "reviews": [
+            { "author": "Florian C.", "rating": 5, "date": "2026-04-08", "comment": "Aileron GTC300 monté sur ma Type R, downforce remarquée dès 100 km/h sur circuit." },
+            { "author": "Sébastien P.", "rating": 5, "date": "2026-01-30", "comment": "Qualité compétition, fixations solides, pas de vibration même à haute vitesse." }
+          ]
+        },
+        {
+          "id": "voltex",
+          "name": "Voltex",
+          "origine": "Japon",
+          "gamme": "Compétition",
+          "rating": 4.8,
+          "reviewCount": 22,
+          "recommended": false,
+          "preference": "Pièces carbone japonaises pour la compétition — ailerons Type 1 et Type 7 très populaires sur le circuit de Tsukuba et les GT Yokomo.",
+          "reviews": [
+            { "author": "Adrien K.", "rating": 5, "date": "2026-05-01", "comment": "Aileron Type 1 — build quality irréprochable, on sent que c'est fait pour la piste." },
+            { "author": "Mehdi B.", "rating": 5, "date": "2026-02-22", "comment": "Le pare-chocs carbone FD3S est une sculpture — perfection japonaise." }
+          ]
+        },
+        {
+          "id": "duraflex",
+          "name": "Duraflex",
+          "origine": "États-Unis",
+          "gamme": "Milieu de gamme",
+          "rating": 4.1,
+          "reviewCount": 53,
+          "recommended": false,
+          "preference": "Kits carrosserie polyuréthane flexibles et légers pour customiser son véhicule à moindre coût — finition à prévoir en atelier carrosserie.",
+          "reviews": [
+            { "author": "Nathan D.", "rating": 4, "date": "2026-01-12", "comment": "Bon rapport prix/matière, polyuréthane flexible qui encaisse les petits chocs." },
+            { "author": "Théo V.", "rating": 4, "date": "2025-10-18", "comment": "Montage facile, quelques ajustements d'ajustage mais résultat satisfaisant pour le budget." }
+          ]
+        },
+        {
+          "id": "prior-design",
+          "name": "Prior Design",
+          "origine": "Allemagne",
+          "gamme": "Haut de gamme",
+          "rating": 4.6,
+          "reviewCount": 19,
+          "recommended": false,
+          "preference": "Spécialiste des kits widebody pour berlines premium — BMW, Mercedes et Porsche — avec une finition très soignée et un look body kit haut de gamme.",
+          "reviews": [
+            { "author": "Charles M.", "rating": 5, "date": "2026-03-20", "comment": "Kit E92 M3 Prior Design — transformation radicale et look spectaculaire." },
+            { "author": "Nicolas F.", "rating": 4, "date": "2025-12-14", "comment": "Finition haut de gamme, montage assisté par un carrossier recommandé." }
+          ]
+        },
+        {
+          "id": "rocket-bunny",
+          "name": "Rocket Bunny",
+          "origine": "Japon",
+          "gamme": "Compétition / Show",
+          "rating": 4.8,
+          "reviewCount": 16,
+          "recommended": false,
+          "preference": "Créateur japonais Kei Miura — kits widebody iconiques pour GT-R, GR86, BRZ et 86. Référence absolue de la culture stance et show car.",
+          "reviews": [
+            { "author": "Lucas T.", "rating": 5, "date": "2026-04-25", "comment": "Kit GT-R V2 — le rêve de tout amateur japonais réalisé, qualité FRP au top." },
+            { "author": "Enzo P.", "rating": 5, "date": "2026-02-10", "comment": "Look inégalable, chaque pièce s'ajuste parfaitement — Kei Miura c'est un artiste." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "eclairage",
+      "label": "Éclairage (phares, feux LED)",
+      "description": "Ampoules LED homologuées, blocs optiques et éclairage additionnel.",
+      "brands": [
+        {
+          "id": "osram-ledriving",
+          "name": "Osram LEDriving",
+          "origine": "Allemagne",
+          "gamme": "Milieu-haut de gamme",
+          "rating": 4.5,
+          "reviewCount": 102,
+          "recommended": true,
+          "preference": "Gamme homologuée route ouverte disponible, bon éclairement et fiabilité reconnue — à privilégier pour rester conforme au code de la route.",
+          "reviews": [
+            { "author": "Sami K.", "rating": 5, "date": "2026-02-27", "comment": "Installation simple, faisceau net, pas d'éblouissement signalé en face." },
+            { "author": "Benoit L.", "rating": 4, "date": "2026-01-08", "comment": "Bonne durée de vie, l'homologation EU rassure pour le contrôle technique." }
+          ]
+        },
+        {
+          "id": "philips-ultinon",
+          "name": "Philips Ultinon",
+          "origine": "Pays-Bas",
+          "gamme": "Haut de gamme",
+          "rating": 4.6,
+          "reviewCount": 84,
+          "recommended": false,
+          "preference": "Très bonne portée lumineuse, légèrement plus cher que la concurrence sur certaines références.",
+          "reviews": [
+            { "author": "Manon G.", "rating": 5, "date": "2025-11-30", "comment": "Nette amélioration par rapport aux ampoules halogènes d'origine, très bon rendu couleur." },
+            { "author": "Cyril B.", "rating": 5, "date": "2026-03-05", "comment": "Pro9100 H7 — la luminosité est bluffante, route éclairée bien plus loin." }
+          ]
+        },
+        {
+          "id": "lazer-lamps",
+          "name": "Lazer Lamps",
+          "origine": "Royaume-Uni",
+          "gamme": "Haut de gamme",
+          "rating": 4.8,
+          "reviewCount": 27,
+          "recommended": false,
+          "preference": "Barres LED triple diode haut de gamme, homologuées route ouverte, très prisées pour les SUV et 4x4 préparés.",
+          "reviews": [
+            { "author": "Romain D.", "rating": 5, "date": "2026-03-30", "comment": "Triple-R 16 sur mon T6.1 — la nuit devient le jour, qualité britannique remarquable." },
+            { "author": "Xavier P.", "rating": 5, "date": "2026-01-25", "comment": "Kit grille VW parfaitement intégré, faisceau propre sans éblouissement." }
+          ]
+        },
+        {
+          "id": "rigid-industries",
+          "name": "Rigid Industries",
+          "origine": "États-Unis",
+          "gamme": "Haut de gamme",
+          "rating": 4.7,
+          "reviewCount": 21,
+          "recommended": false,
+          "preference": "Barres LED tout-terrain d'origine américaine, robustesse extrême et luminosité record pour les 4x4 et pick-up préparés.",
+          "reviews": [
+            { "author": "Julien M.", "rating": 5, "date": "2026-04-18", "comment": "E-Series 20\" sur mon Defender, éclairage tout-terrain incomparable, build quality au top." },
+            { "author": "Damien K.", "rating": 5, "date": "2026-02-02", "comment": "Rigid c'est du matériel militaire, ça dure, ça éclaire, c'est parfait." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "echappement-sport",
+      "label": "Échappement sport",
+      "description": "Lignes d'échappement sport, silencieux et downpipes.",
+      "brands": [
+        {
+          "id": "akrapovic",
+          "name": "Akrapovič",
+          "origine": "Slovénie",
+          "gamme": "Haut de gamme",
+          "rating": 4.8,
+          "reviewCount": 39,
+          "recommended": true,
+          "preference": "Titane et finitions haut de gamme, gain de poids notable, sonorité travaillée — référence premium du secteur.",
+          "reviews": [
+            { "author": "Antoine L.", "rating": 5, "date": "2026-03-08", "comment": "Sonorité posée sans être fatigante sur autoroute, finition titane superbe." },
+            { "author": "Morgan V.", "rating": 5, "date": "2026-01-20", "comment": "Ligne Evolution sur M3 G80 — sonorité racée sans être excessive, build quality impeccable." }
+          ]
+        },
+        {
+          "id": "milltek-sport",
+          "name": "Milltek Sport",
+          "origine": "Royaume-Uni",
+          "gamme": "Milieu-haut de gamme",
+          "rating": 4.6,
+          "reviewCount": 52,
+          "recommended": false,
+          "preference": "Bon compromis prix/qualité, large compatibilité par motorisation et code moteur.",
+          "reviews": [
+            { "author": "Rayan H.", "rating": 4, "date": "2026-01-19", "comment": "Montage facile avec les colliers fournis, gain sonore net dès le ralenti." },
+            { "author": "Pierre B.", "rating": 5, "date": "2025-10-30", "comment": "Cat-back sur Golf GTI — parfait équilibre discrétion/sport, aucune vibration." }
+          ]
+        },
+        {
+          "id": "remus",
+          "name": "Remus",
+          "origine": "Autriche",
+          "gamme": "Milieu-haut de gamme",
+          "rating": 4.5,
+          "reviewCount": 34,
+          "recommended": false,
+          "preference": "Échappements sport autrichiens avec valve de commutation électronique disponible — idéal pour alterner mode discret / mode sport.",
+          "reviews": [
+            { "author": "Cédric M.", "rating": 4, "date": "2026-02-15", "comment": "Valve électronique très pratique, discret en ville et sportif sur route." },
+            { "author": "Théo R.", "rating": 5, "date": "2025-11-05", "comment": "Sonorité Remus très équilibrée, pas de ronron à la croisière, claque en Sport." }
+          ]
+        },
+        {
+          "id": "armytrix",
+          "name": "Armytrix",
+          "origine": "Hong Kong",
+          "gamme": "Haut de gamme",
+          "rating": 4.6,
+          "reviewCount": 28,
+          "recommended": false,
+          "preference": "Spécialiste des lignes d'échappement avec valve intelligente via application Bluetooth — parfait pour les voitures habitant en copropriété.",
+          "reviews": [
+            { "author": "Dylan T.", "rating": 5, "date": "2026-04-02", "comment": "Application Bluetooth fonctionnelle, mode nuit silencieux — ma copropriété me remercie." },
+            { "author": "Enzo M.", "rating": 4, "date": "2026-01-10", "comment": "Finition titane très belle, valve réactive et fiable depuis 1 an." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "covering-vitres-teintees",
+      "label": "Covering & vitres teintées",
+      "description": "Films de covering, PPF et films de teinte pour vitrage.",
+      "brands": [
+        {
+          "id": "3m",
+          "name": "3M",
+          "origine": "États-Unis",
+          "gamme": "Haut de gamme",
+          "rating": 4.7,
+          "reviewCount": 47,
+          "recommended": true,
+          "preference": "Garantie constructeur reconnue et large réseau d'installateurs certifiés, sécurisant pour un covering complet.",
+          "reviews": [
+            { "author": "Fabien R.", "rating": 5, "date": "2026-02-11", "comment": "Film posé par un installateur certifié 3M, aucun défaut de tension après 6 mois." },
+            { "author": "Amélie G.", "rating": 5, "date": "2026-04-05", "comment": "PPF invisible à l'œil nu, ma peinture est protégée sans altérer l'aspect." }
+          ]
+        },
+        {
+          "id": "llumar",
+          "name": "Llumar",
+          "origine": "États-Unis",
+          "gamme": "Milieu-haut de gamme",
+          "rating": 4.5,
+          "reviewCount": 33,
+          "recommended": false,
+          "preference": "Bonne alternative pour la teinte vitrage, gammes de teintes conformes à la réglementation française sur le pare-brise avant.",
+          "reviews": [
+            { "author": "Chloé B.", "rating": 4, "date": "2025-10-05", "comment": "Teinte homogène, l'installateur a bien expliqué les seuils légaux avant/arrière." },
+            { "author": "Simon D.", "rating": 4, "date": "2026-02-18", "comment": "Bon rapport qualité/prix sur les vitres arrière, pose professionnelle recommandée." }
+          ]
+        },
+        {
+          "id": "avery-dennison",
+          "name": "Avery Dennison",
+          "origine": "États-Unis",
+          "gamme": "Haut de gamme",
+          "rating": 4.6,
+          "reviewCount": 29,
+          "recommended": false,
+          "preference": "Gamme Supreme Wrapping Film avec des finitions innovantes (Chrome, Satin, Gloss) et une durabilité outdoor reconnue.",
+          "reviews": [
+            { "author": "Lionel C.", "rating": 5, "date": "2026-03-22", "comment": "Gloss Metallic Silver, rendu proche de la peinture, tient très bien 2 ans après pose." },
+            { "author": "Pauline M.", "rating": 4, "date": "2025-12-20", "comment": "Bon film pour les courbures complexes, repositionnable, résultat professionnel." }
+          ]
+        },
+        {
+          "id": "xpel",
+          "name": "XPEL",
+          "origine": "États-Unis",
+          "gamme": "Très haut de gamme",
+          "rating": 4.8,
+          "reviewCount": 22,
+          "recommended": false,
+          "preference": "PPF auto-cicatrisant Ultimate Plus — le meilleur film de protection peinture du marché, utilisé par les constructeurs premium en série.",
+          "reviews": [
+            { "author": "Guillaume P.", "rating": 5, "date": "2026-04-14", "comment": "PPF Ultimate sur GT3 RS — invisible et auto-cicatrisant, investissement qui protège réellement." },
+            { "author": "Bertrand L.", "rating": 5, "date": "2026-01-28", "comment": "XPEL c'est le meilleur PPF disponible, période. Réseau d'installateurs certifiés très professionnel." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "preparation-moteur",
+      "label": "Préparation moteur",
+      "description": "Admission, carburation, injection, allumage, refroidissement, gestion moteur et systèmes boost — pour tous les paliers de préparation, du Stage 1 à la compétition.",
+      "brands": [
+        {
+          "id": "k-n",
+          "name": "K&N Filters",
+          "origine": "États-Unis",
+          "gamme": "Milieu-haut de gamme",
+          "rating": 4.6,
+          "reviewCount": 187,
+          "recommended": true,
+          "preference": "Référence mondiale en filtration d'air sport — filtres lavables et kits d'admission disponibles pour quasiment tous les véhicules modernes.",
+          "reviews": [
+            { "author": "Mathieu L.", "rating": 5, "date": "2026-03-28", "comment": "Filtre 33-2865 monté sur Golf GTI — gain perceptible en reprises, filtration garantie à vie." },
+            { "author": "Axel T.", "rating": 4, "date": "2026-01-15", "comment": "Kit 57i impressionnant visuellement, gain sonore d'admission notable en pleine charge." }
+          ]
+        },
+        {
+          "id": "bmc-filter",
+          "name": "BMC Air Filters",
+          "origine": "Italie",
+          "gamme": "Haut de gamme",
+          "rating": 4.7,
+          "reviewCount": 64,
+          "recommended": false,
+          "preference": "Filtres italiens haute performance utilisés en F1 et WRC — mousse d'huile spéciale pour une filtration optimale même en conditions extrêmes.",
+          "reviews": [
+            { "author": "Luc D.", "rating": 5, "date": "2026-02-12", "comment": "Filtre FB484 sur S3 — débit d'air amélioré, qualité de fabrication italienne irréprochable." },
+            { "author": "Jérémy R.", "rating": 5, "date": "2025-12-08", "comment": "BMC vs K&N — la mousse donne un meilleur débit, je ne reviendrai pas en arrière." }
+          ]
+        },
+        {
+          "id": "forge-motorsport",
+          "name": "Forge Motorsport",
+          "origine": "Royaume-Uni",
+          "gamme": "Haut de gamme",
+          "rating": 4.8,
+          "reviewCount": 92,
+          "recommended": true,
+          "preference": "Spécialiste britannique des systèmes de pression turbo — dump valves, intercoolers et pipings reconnus pour leur fiabilité en usage intensif.",
+          "reviews": [
+            { "author": "Samuel V.", "rating": 5, "date": "2026-04-10", "comment": "Dump valve FMSSQV4 sur Golf R — son d'admission caractéristique, aucun creuset au shift." },
+            { "author": "Florian G.", "rating": 5, "date": "2026-02-25", "comment": "Intercooler Competition sur Audi S3 — températures d'air charge divisées par 2 par rapport à l'OEM." }
+          ]
+        },
+        {
+          "id": "mishimoto",
+          "name": "Mishimoto",
+          "origine": "États-Unis",
+          "gamme": "Haut de gamme",
+          "rating": 4.7,
+          "reviewCount": 78,
+          "recommended": false,
+          "preference": "Spécialiste américain des systèmes de refroidissement performance — intercoolers, radiateurs aluminium et refroidisseurs d'huile pour la préparation route et circuit.",
+          "reviews": [
+            { "author": "Quentin D.", "rating": 5, "date": "2026-03-15", "comment": "Intercooler Mishimoto sur Mk7 GTI — températures d'air charge stables même après 3 tours de circuit." },
+            { "author": "Thomas G.", "rating": 4, "date": "2026-01-28", "comment": "Radiateur aluminium sur BMW F30 — montage parfait, refroidissement nettement amélioré." }
+          ]
+        },
+        {
+          "id": "wagner-tuning",
+          "name": "Wagner Tuning",
+          "origine": "Allemagne",
+          "gamme": "Haut de gamme",
+          "rating": 4.9,
+          "reviewCount": 56,
+          "recommended": true,
+          "preference": "Référence allemande en intercoolers Competition pour le groupe VAG — résultats mesurés en course de côte et dragster, qualité d'aluminium soudé exemplaire.",
+          "reviews": [
+            { "author": "Alexis M.", "rating": 5, "date": "2026-04-20", "comment": "Intercooler S3 8V Competition — sur ma S3 Stage 2, aucune chute de puissance même en track day." },
+            { "author": "Cédric H.", "rating": 5, "date": "2026-02-08", "comment": "Golf R Mk7 — la qualité de soudure est remarquable, le produit inspire confiance." }
+          ]
+        },
+        {
+          "id": "apr",
+          "name": "APR",
+          "origine": "États-Unis",
+          "gamme": "Très haut de gamme",
+          "rating": 4.8,
+          "reviewCount": 103,
+          "recommended": false,
+          "preference": "Leader mondial en reprogrammation ECU pour le groupe VAG — Stage 1, 2, 3 testés sur banc moteur, avec intercoolers et kits d'admission carbone assortis.",
+          "reviews": [
+            { "author": "Théo A.", "rating": 5, "date": "2026-05-02", "comment": "Stage 2 sur Golf R Mk8 — 400ch au banc, fiabilité parfaite depuis 18 mois." },
+            { "author": "Kévin M.", "rating": 5, "date": "2026-02-14", "comment": "Kit admission carbone sur S3 — gain de 10ch sur Stage 2, look magnifique sous le capot." }
+          ]
+        },
+        {
+          "id": "hks",
+          "name": "HKS",
+          "origine": "Japon",
+          "gamme": "Haut de gamme / Compétition",
+          "rating": 4.8,
+          "reviewCount": 71,
+          "recommended": false,
+          "preference": "Pionnier japonais des pièces performance — SSQV4, turbos GT Series et échappements Hi-Power sont des références mondiales depuis 50 ans.",
+          "reviews": [
+            { "author": "Martin T.", "rating": 5, "date": "2026-03-18", "comment": "SSQV4 sur EVO X — le pscht caractéristique HKS, qualité japonaise indestructible." },
+            { "author": "Victor L.", "rating": 5, "date": "2026-01-05", "comment": "Turbo GT compétition sur STI — montage complexe mais résultat bluffant au banc." }
+          ]
+        },
+        {
+          "id": "walbro",
+          "name": "Walbro",
+          "origine": "États-Unis",
+          "gamme": "Milieu-haut de gamme",
+          "rating": 4.6,
+          "reviewCount": 58,
+          "recommended": false,
+          "preference": "Référence en pompes à carburant haute pression pour préparations Stage 2-3 — débit de 450 lph pour alimenter les moteurs à plus de 450ch.",
+          "reviews": [
+            { "author": "Paul C.", "rating": 5, "date": "2026-02-28", "comment": "Pompe 450lph sur WRX STI Stage 2 — alimentation impeccable même en pleine charge piste." },
+            { "author": "Simon R.", "rating": 4, "date": "2025-11-12", "comment": "Bon produit, kit complet bien pensé, montage guidé par la documentation fournie." }
+          ]
+        },
+        {
+          "id": "deatschwerks",
+          "name": "DeatschWerks",
+          "origine": "États-Unis",
+          "gamme": "Haut de gamme",
+          "rating": 4.8,
+          "reviewCount": 49,
+          "recommended": false,
+          "preference": "Spécialiste en injecteurs et pompes à carburant haute performance pour les moteurs préparés au-delà de 400ch — solutions plug-and-play disponibles.",
+          "reviews": [
+            { "author": "Damien S.", "rating": 5, "date": "2026-04-08", "comment": "Injecteurs 65c sur EVO X Stage 3 — map parfaite par le préparateur, fiabilité totale." },
+            { "author": "Julien K.", "rating": 5, "date": "2026-01-20", "comment": "Pompe DW300, montage drop-in sur Civic Type R, pas de panne depuis 2 ans d'usage piste." }
+          ]
+        },
+        {
+          "id": "ngk",
+          "name": "NGK",
+          "origine": "Japon",
+          "gamme": "Milieu de gamme",
+          "rating": 4.7,
+          "reviewCount": 243,
+          "recommended": true,
+          "preference": "Standard mondial en bougies d'allumage — les séries Iridium et Laser Iridium sont recommandées pour les moteurs préparés à haut régime.",
+          "reviews": [
+            { "author": "Robert M.", "rating": 5, "date": "2026-03-05", "comment": "Bougies Laser Iridium sur M3 S58 — régularité d'allumage parfaite, pas de raté même à haute charge." },
+            { "author": "Nathalie P.", "rating": 5, "date": "2025-12-28", "comment": "Iridium IX sur 208 GTi, performance identique aux OEM Renault mais durée de vie supérieure." }
+          ]
+        },
+        {
+          "id": "eventuri",
+          "name": "Eventuri",
+          "origine": "Royaume-Uni",
+          "gamme": "Très haut de gamme / Compétition",
+          "rating": 4.9,
+          "reviewCount": 31,
+          "recommended": false,
+          "preference": "Kits d'admission en carbone forgé conçus en soufflerie — gains de 15-25ch sur les moteurs Stage 2+ grâce à un débit d'air optimisé.",
+          "reviews": [
+            { "author": "Julien A.", "rating": 5, "date": "2026-04-28", "comment": "Kit admission M2 G87 — qualité carbone extraordinaire, gain de 20ch vérifié au banc." },
+            { "author": "Adrien L.", "rating": 5, "date": "2026-02-18", "comment": "RS3 avec Eventuri — son d'admission unique, montage parfait, résultat exceptionnel." }
+          ]
+        },
+        {
+          "id": "cobb-tuning",
+          "name": "COBB Tuning",
+          "origine": "États-Unis",
+          "gamme": "Haut de gamme",
+          "rating": 4.7,
+          "reviewCount": 67,
+          "recommended": false,
+          "preference": "Spécialiste Subaru et Ford — l'Accessport V3 est le standard de reprogrammation pour WRX STI et Focus ST/RS.",
+          "reviews": [
+            { "author": "Baptiste F.", "rating": 5, "date": "2026-03-10", "comment": "Accessport V3 sur WRX STI — interface intuitive, maps OTS excellentes dès l'installation." },
+            { "author": "Enzo K.", "rating": 4, "date": "2026-01-22", "comment": "Focus ST Stage 2 COBB — montage simple, gains immédiats et bien documentés." }
+          ]
+        },
+        {
+          "id": "garrett",
+          "name": "Garrett",
+          "origine": "États-Unis",
+          "gamme": "Compétition",
+          "rating": 4.8,
+          "reviewCount": 44,
+          "recommended": false,
+          "preference": "Référence mondiale en turbines — les séries GTX et G Series sont utilisées en compétition mondiale, du rallye à la F1.",
+          "reviews": [
+            { "author": "Xavier V.", "rating": 5, "date": "2026-04-15", "comment": "GTX2867R GEN2 sur Focus RS — résultats de banc impressionnants, turbine très réactive." },
+            { "author": "Raphaël M.", "rating": 5, "date": "2026-02-05", "comment": "G25-660 drop-in sur Golf R, montage avec préparateur certifié, fiabilité parfaite." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "outils-detailing",
+      "label": "Outils & équipements détailing",
+      "description": "Machines à polir, lances à mousse, pistolets air, aspirateurs, pads et consommables professionnels pour le détailing automobile.",
+      "brands": [
+        {
+          "id": "rupes",
+          "name": "Rupes",
+          "origine": "Italie",
+          "gamme": "Haut de gamme",
+          "rating": 4.9,
+          "reviewCount": 112,
+          "recommended": true,
+          "preference": "Standard mondial des polisseuses orbitales — LHR15 et LHR21 utilisées par tous les préparateurs professionnels pour un rendu sans vibration et sans brûlure de vernis.",
+          "reviews": [
+            { "author": "Christophe B.", "rating": 5, "date": "2026-05-01", "comment": "LHR21 MK3 — la polisseuse orbitale absolue, aucune machine ne la surpasse pour les grands panneaux." },
+            { "author": "Isabelle P.", "rating": 5, "date": "2026-02-15", "comment": "Kit Bigfoot complet, idéal pour débuter — résultats professionnels dès la première utilisation." }
+          ]
+        },
+        {
+          "id": "festool-car",
+          "name": "Festool Car",
+          "origine": "Allemagne",
+          "gamme": "Très haut de gamme",
+          "rating": 4.8,
+          "reviewCount": 47,
+          "recommended": false,
+          "preference": "Polisseuses Rotex à double action — mode rotatif pour la correction et mode orbital pour la finition, dans un seul outil — prisées des détailers haut de gamme.",
+          "reviews": [
+            { "author": "Laurent G.", "rating": 5, "date": "2026-03-25", "comment": "Rotex RO 150 — deux machines en une, résultats sur les égratignures profonds bluffants." },
+            { "author": "Patricia V.", "rating": 5, "date": "2026-01-30", "comment": "Qualité Festool comme toujours — robuste, équilibrée, résultats impeccables même sur peinture noire." }
+          ]
+        },
+        {
+          "id": "koch-chemie",
+          "name": "Koch-Chemie",
+          "origine": "Allemagne",
+          "gamme": "Pro",
+          "rating": 4.7,
+          "reviewCount": 68,
+          "recommended": false,
+          "preference": "Pads et consommables de référence pour les professionnels du détailing — gamme complète coupe/intermédiaire/finition avec une efficacité mesurable.",
+          "reviews": [
+            { "author": "Sébastien M.", "rating": 5, "date": "2026-04-05", "comment": "Pad microfibre de coupe excellent sur les égratignures profondes, finition propre." },
+            { "author": "Claire D.", "rating": 4, "date": "2026-01-12", "comment": "Chiffons microfibre Koch-Chemie — aucune trace sur les vitres, qualité professionnelle." }
+          ]
+        },
+        {
+          "id": "the-rag-company",
+          "name": "The Rag Company",
+          "origine": "États-Unis",
+          "gamme": "Haut de gamme",
+          "rating": 4.8,
+          "reviewCount": 89,
+          "recommended": false,
+          "preference": "Microfibre américaine de référence — Gauntlet et Eagle Edgeless sont les chiffons préférés des détailers professionnels mondiaux.",
+          "reviews": [
+            { "author": "François L.", "rating": 5, "date": "2026-03-18", "comment": "Gauntlet 70x90 pour le séchage — aucune rayure, absorbe incroyablement bien." },
+            { "author": "Hélène R.", "rating": 5, "date": "2026-01-28", "comment": "Eagle Edgeless 500gsm — la serviette de finition ultime, pas une trace sur ma céramique." }
+          ]
+        },
+        {
+          "id": "tornador",
+          "name": "Tornador",
+          "origine": "Italie",
+          "gamme": "Pro",
+          "rating": 4.6,
+          "reviewCount": 53,
+          "recommended": false,
+          "preference": "Pistolets pneumatiques révolutionnaires pour le nettoyage intérieur — action tornade qui décrasse les recoins inaccessibles sans brosse.",
+          "reviews": [
+            { "author": "Frédéric A.", "rating": 5, "date": "2026-04-01", "comment": "Tornador Black Z-020 — le nettoyage de planche de bord n'a jamais été aussi facile." },
+            { "author": "Sandra L.", "rating": 4, "date": "2026-02-10", "comment": "Classic Z-010 efficace sur moquettes et alcantara, nécessite un compresseur d'au moins 50L." }
+          ]
+        },
+        {
+          "id": "karcher-pro",
+          "name": "Kärcher Pro",
+          "origine": "Allemagne",
+          "gamme": "Pro",
+          "rating": 4.7,
+          "reviewCount": 134,
+          "recommended": true,
+          "preference": "Leader mondial du nettoyage haute pression — gamme Pro conçue pour un usage intensif en atelier avec des performances élevées et une robustesse à toute épreuve.",
+          "reviews": [
+            { "author": "Denis M.", "rating": 5, "date": "2026-03-12", "comment": "K5 Premium en atelier depuis 2 ans — aucune panne, débit constant, parfait pour le pré-lavage." },
+            { "author": "Véronique P.", "rating": 5, "date": "2026-01-08", "comment": "Aspirateur NT 30/1 Pro indispensable pour l'intérieur, puissance et capacité parfaites." }
+          ]
+        },
+        {
+          "id": "makita-detailing",
+          "name": "Makita Détailing",
+          "origine": "Japon",
+          "gamme": "Pro",
+          "rating": 4.6,
+          "reviewCount": 76,
+          "recommended": false,
+          "preference": "Outillage japonais professionnel fiable — polisseuses orbitales et souffleurs sans-fil idéaux pour les préparateurs mobiles ou sans accès compresseur.",
+          "reviews": [
+            { "author": "Arnaud C.", "rating": 4, "date": "2026-02-22", "comment": "Polisseuse BO6050J silencieuse et efficace, idéale pour un usage hebdomadaire." },
+            { "author": "Margot D.", "rating": 5, "date": "2025-12-05", "comment": "Souffleur 36V pour le séchage — parfait pour les jantes et miroirs, aucun câble en chemin." }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!--
+  Politique de sécurité du contenu. Pas de 'unsafe-inline' : le site n'a ni script
+  ni style inline. Les deux exceptions fonts.googleapis/gstatic disparaîtront quand
+  les polices seront auto-hébergées (module suivant), la CSP passera alors en 'self' seul.
+-->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; form-action 'none'; base-uri 'none'; object-src 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Detailix — Marques &amp; préparateurs partenaires</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b0d10'/%3E%3Ctext x='16' y='23' font-family='sans-serif' font-size='19' font-weight='bold' fill='%23ff5a1f' text-anchor='middle'%3ED%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <div class="brand-mark">
+      <span class="brand-mark-accent">DETAIL</span>IX
+    </div>
+    <div class="header-actions">
+      <nav class="site-nav">
+        <a href="#marques">Marques &amp; préparations</a>
+        <a href="#preparateurs">Préparateurs partenaires</a>
+      </nav>
+      <div class="search-wrap">
+        <input type="search" id="searchInput" class="search-input" placeholder="Rechercher une marque ou un produit…" aria-label="Recherche" autocomplete="off">
+        <div id="searchResults" class="search-results" hidden></div>
+      </div>
+      <div class="garage-wrap">
+        <button type="button" id="garageToggle" class="cart-toggle" aria-label="Mon garage">🚗</button>
+        <div id="garagePanel" class="garage-panel" hidden>
+          <h3>Mon garage</h3>
+          <p class="garage-intro">Sélectionnez votre véhicule pour voir les produits compatibles.</p>
+          <div class="garage-form">
+            <select id="vehMakeSelect"><option value="">Marque</option></select>
+            <select id="vehModelSelect" disabled><option value="">Modèle</option></select>
+            <select id="vehMotorSelect" disabled><option value="">Motorisation</option></select>
+            <p id="vehCodeMoteur" class="veh-code-moteur"></p>
+            <button type="button" id="addVehicleBtn" class="btn-primary" disabled>Ajouter au garage</button>
+          </div>
+          <div id="garageList" class="garage-list"></div>
+        </div>
+      </div>
+      <button type="button" id="accountToggle" class="cart-toggle" aria-label="Mon compte">👤</button>
+      <button type="button" id="cartToggle" class="cart-toggle" aria-label="Voir le panier">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+        <span id="cartCount" class="cart-count" hidden>0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="container">
+      <h1 class="reveal">Cosmétique &amp; préparation esthétique automobile</h1>
+      <p class="hero-sub reveal">Comparez les marques recommandées par type de préparation, achetez vos produits, et retrouvez nos préparateurs partenaires notés par ville.</p>
+    </div>
+  </section>
+
+  <section id="marques" class="section">
+    <div class="container">
+      <h2 class="reveal">Marques par type de préparation</h2>
+      <p class="section-intro reveal">Sélectionnez une catégorie pour voir les marques proposées, notre préférence, les produits disponibles et les avis clients.</p>
+
+      <div id="categoryTabs" class="tab-bar" role="tablist" aria-label="Catégories de préparation"></div>
+      <p id="categoryDesc" class="category-desc"></p>
+
+      <div id="brandFilters" class="filters-bar">
+        <label>Prix max <span id="filterMaxPriceValue"></span>
+          <input type="range" id="filterMaxPrice" min="0" max="1500" step="5">
+        </label>
+        <label>Note minimale
+          <select id="filterMinRating">
+            <option value="0">Toutes</option>
+            <option value="3">3★+</option>
+            <option value="4">4★+</option>
+            <option value="4.5">4,5★+</option>
+          </select>
+        </label>
+        <label class="filter-checkbox">
+          <input type="checkbox" id="filterRecommended"> Recommandé uniquement
+        </label>
+        <button type="button" id="filterReset" class="btn-secondary">Réinitialiser</button>
+      </div>
+
+      <div id="brandGrid" class="brand-grid"></div>
+    </div>
+  </section>
+
+  <section id="preparateurs" class="section section-alt">
+    <div class="container">
+      <h2 class="reveal">Nos préparateurs partenaires</h2>
+      <p class="section-intro reveal">Choisissez un réseau puis une ville pour voir le centre correspondant et ses avis clients.</p>
+
+      <div id="reseauTabs" class="tab-bar" role="tablist" aria-label="Réseaux de préparateurs"></div>
+      <p id="reseauDesc" class="category-desc"></p>
+
+      <div class="city-select-wrap">
+        <label for="citySelect">Ville</label>
+        <select id="citySelect" aria-label="Choisir une ville"></select>
+      </div>
+
+      <div id="centreCard" class="centre-card"></div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>Contenu de démonstration — marques, produits, prix et avis d'exemple pour prototypage. Données à valider avant mise en production.</p>
+  </div>
+</footer>
+
+<div id="cartOverlay" class="cart-overlay" hidden></div>
+
+<aside id="cartDrawer" class="cart-drawer" aria-label="Panier">
+  <div class="cart-drawer-header">
+    <h2>Votre panier</h2>
+    <button type="button" id="cartClose" class="icon-close" aria-label="Fermer le panier">✕</button>
+  </div>
+  <div id="cartItems" class="cart-items"></div>
+  <div class="cart-drawer-footer">
+    <div class="cart-subtotal-row">
+      <span>Total</span>
+      <span id="cartSubtotal">0,00&nbsp;€</span>
+    </div>
+    <button type="button" id="checkoutBtn" class="btn-primary" disabled>Commander</button>
+  </div>
+</aside>
+
+<div id="checkoutModal" class="checkout-modal" hidden>
+  <div class="checkout-panel">
+    <button type="button" id="checkoutClose" class="icon-close" aria-label="Fermer">✕</button>
+    <div class="checkout-steps">
+      <span class="step active" data-step="1">1. Livraison</span>
+      <span class="step" data-step="2">2. Paiement</span>
+      <span class="step" data-step="3">3. Confirmation</span>
+    </div>
+
+    <form id="checkoutStepLivraison" class="checkout-step active" data-step="1">
+      <label>Nom complet<input type="text" name="nom" required autocomplete="name"></label>
+      <label>Adresse<input type="text" name="adresse" required autocomplete="street-address"></label>
+      <div class="form-row">
+        <label>Code postal<input type="text" name="codePostal" required autocomplete="postal-code"></label>
+        <label>Ville<input type="text" name="ville" required autocomplete="address-level2"></label>
+      </div>
+      <button type="submit" class="btn-primary">Continuer</button>
+    </form>
+
+    <form id="checkoutStepPaiement" class="checkout-step" data-step="2" hidden>
+      <p class="demo-warning">⚠️ Démo — aucun paiement réel n'est traité, ne saisissez pas de vraies données bancaires.</p>
+      <label>Nom sur la carte<input type="text" name="nomCarte" required autocomplete="cc-name"></label>
+      <label>Numéro de carte (fictif)<input type="text" name="numeroCarte" required placeholder="4242 4242 4242 4242" autocomplete="off"></label>
+      <div class="form-row">
+        <label>Expiration<input type="text" name="expiration" required placeholder="12/28" autocomplete="off"></label>
+        <label>CVC<input type="text" name="cvc" required placeholder="123" autocomplete="off"></label>
+      </div>
+      <button type="submit" class="btn-primary">Payer (simulation)</button>
+    </form>
+
+    <div id="checkoutStepConfirmation" class="checkout-step" data-step="3" hidden>
+      <h3>Commande confirmée ✓</h3>
+      <p>Numéro de commande : <strong id="orderNumber"></strong></p>
+      <div id="orderRecap"></div>
+      <button type="button" id="checkoutDone" class="btn-primary">Retour à la boutique</button>
+    </div>
+  </div>
+</div>
+
+<div id="productModal" class="product-modal" hidden>
+  <div class="product-modal-panel">
+    <button type="button" id="productModalClose" class="icon-close" aria-label="Fermer">✕</button>
+    <div id="productModalBody"></div>
+  </div>
+</div>
+
+<div id="accountModal" class="product-modal" hidden>
+  <div class="product-modal-panel account-panel">
+    <button type="button" id="accountModalClose" class="icon-close" aria-label="Fermer">✕</button>
+
+    <form id="loginForm" class="account-login-form">
+      <h3>Mon compte</h3>
+      <p class="garage-intro">Connexion simulée (démo, aucun mot de passe réel) — saisissez simplement un nom d'affichage.</p>
+      <label>Nom d'affichage<input type="text" name="displayName" required autocomplete="name"></label>
+      <button type="submit" class="btn-primary">Se connecter</button>
+    </form>
+
+    <div id="accountLoggedIn" hidden>
+      <h3>Bonjour, <span id="accountDisplayName"></span></h3>
+      <button type="button" id="logoutBtn" class="btn-secondary">Se déconnecter</button>
+    </div>
+
+    <h3 class="order-history-title">Historique de mes commandes</h3>
+    <div id="orderHistoryList" class="order-history-list"></div>
+
+    <div class="privacy-block">
+      <p class="privacy-note">
+        Vos données (panier, garage, compte, commandes) sont stockées uniquement dans ce navigateur,
+        sur cet appareil. Elles ne sont envoyées à aucun serveur. La déconnexion efface l'historique de commandes.
+      </p>
+      <button type="button" id="eraseDataBtn" class="btn-secondary">Effacer toutes mes données locales</button>
+    </div>
+  </div>
+</div>
+
+<div id="toastContainer" class="toast-container" aria-live="polite"></div>
+
+<script src="assets/storage.js"></script>
+<script src="assets/pricing.js"></script>
+<script src="assets/cart.js"></script>
+<script src="assets/checkout.js"></script>
+<script src="assets/account.js"></script>
+<script src="assets/garage.js"></script>
+<script src="assets/app.js"></script>
+<script src="assets/search.js"></script>
+</body>
+</html>

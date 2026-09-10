@@ -1,0 +1,123 @@
+{
+  "_note": "Données d'exemple pour prototypage. Les centres, notes et avis ci-dessous sont des contenus d'exemple à valider/remplacer par les données réelles des réseaux partenaires avant mise en production (voir cahier des charges §3, §4.1).",
+  "reseaux": [
+    {
+      "id": "shiftech",
+      "name": "Shiftech",
+      "specialite": "Reprogrammation moteur & gestion électronique",
+      "description": "Réseau de centres spécialisés dans l'optimisation moteur (reprogrammation, gestion électronique) avec suivi personnalisé par véhicule.",
+      "centres": [
+        {
+          "id": "shiftech-paris",
+          "ville": "Paris",
+          "rating": 4.8,
+          "reviewCount": 64,
+          "reviews": [
+            { "author": "Kevin D.", "rating": 5, "date": "2026-03-15", "comment": "Rendez-vous rapide, explication claire des gains avant/après sur banc, résultat conforme à ce qui était annoncé." },
+            { "author": "Aline P.", "rating": 5, "date": "2026-02-01", "comment": "Reprogrammation nette en souplesse, aucune anomalie détectée au contrôle technique ensuite." }
+          ]
+        },
+        {
+          "id": "shiftech-lyon",
+          "ville": "Lyon",
+          "rating": 4.7,
+          "reviewCount": 41,
+          "reviews": [
+            { "author": "Mathieu G.", "rating": 5, "date": "2026-01-22", "comment": "Passage sur banc avant/après très instructif, équipe pédagogue sur les réglages choisis." },
+            { "author": "Sarah L.", "rating": 4, "date": "2025-12-10", "comment": "Bon suivi, léger délai d'attente pour obtenir un créneau en période chargée." }
+          ]
+        },
+        {
+          "id": "shiftech-marseille",
+          "ville": "Marseille",
+          "rating": 4.6,
+          "reviewCount": 29,
+          "reviews": [
+            { "author": "Nadia B.", "rating": 5, "date": "2026-02-19", "comment": "Très satisfaite de la reprise à bas régime après le passage, garantie moteur expliquée en détail." }
+          ]
+        },
+        {
+          "id": "shiftech-bordeaux",
+          "ville": "Bordeaux",
+          "rating": 4.7,
+          "reviewCount": 22,
+          "reviews": [
+            { "author": "Romain F.", "rating": 5, "date": "2025-11-14", "comment": "Diagnostic complet avant intervention, aucune surprise sur le devis final." }
+          ]
+        },
+        {
+          "id": "shiftech-lille",
+          "ville": "Lille",
+          "rating": 4.5,
+          "reviewCount": 18,
+          "reviews": [
+            { "author": "Émilie C.", "rating": 4, "date": "2025-10-30", "comment": "Bon travail dans l'ensemble, communication à améliorer sur les délais de rendez-vous." }
+          ]
+        },
+        {
+          "id": "shiftech-nantes",
+          "ville": "Nantes",
+          "rating": 4.8,
+          "reviewCount": 25,
+          "reviews": [
+            { "author": "Victor S.", "rating": 5, "date": "2026-03-01", "comment": "Excellent accueil, reprogrammation réversible bien expliquée avant intervention." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "br-performance",
+      "name": "BR Performance",
+      "specialite": "Échappements sport & préparation moteur",
+      "description": "Réseau spécialisé dans la conception et l'installation de lignes d'échappement sport et de préparations moteur associées.",
+      "centres": [
+        {
+          "id": "brperf-paris",
+          "ville": "Paris",
+          "rating": 4.6,
+          "reviewCount": 37,
+          "reviews": [
+            { "author": "Guillaume T.", "rating": 5, "date": "2026-02-25", "comment": "Ligne sur-mesure montée proprement, sonorité exactement comme demandée en amont." },
+            { "author": "Laura V.", "rating": 4, "date": "2026-01-08", "comment": "Bon travail, délai de fabrication un peu long pour une pièce sur-mesure." }
+          ]
+        },
+        {
+          "id": "brperf-lyon",
+          "ville": "Lyon",
+          "rating": 4.5,
+          "reviewCount": 26,
+          "reviews": [
+            { "author": "Pierre M.", "rating": 4, "date": "2025-12-20", "comment": "Bon rendu sonore, quelques finitions de soudure à retoucher au premier passage." }
+          ]
+        },
+        {
+          "id": "brperf-toulouse",
+          "ville": "Toulouse",
+          "rating": 4.7,
+          "reviewCount": 19,
+          "reviews": [
+            { "author": "Océane R.", "rating": 5, "date": "2026-03-05", "comment": "Conseil précis sur le choix de silencieux selon l'usage route/circuit, résultat conforme." }
+          ]
+        },
+        {
+          "id": "brperf-strasbourg",
+          "ville": "Strasbourg",
+          "rating": 4.4,
+          "reviewCount": 14,
+          "reviews": [
+            { "author": "Julie N.", "rating": 4, "date": "2025-11-02", "comment": "Bonne prestation, attention aux délais qui varient selon la disponibilité des pièces." }
+          ]
+        },
+        {
+          "id": "brperf-marseille",
+          "ville": "Marseille",
+          "rating": 4.6,
+          "reviewCount": 21,
+          "reviews": [
+            { "author": "Simon D.", "rating": 5, "date": "2026-01-30", "comment": "Ligne titane montée nickel, gain de poids ressenti, bruit homologué route confirmé." }
+          ]
+        }
+      ]
+    }
+  ]
+}

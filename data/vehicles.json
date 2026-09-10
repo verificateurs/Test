@@ -1,0 +1,432 @@
+{
+  "_note": "Nomenclature véhicule étendue aux modèles emblématiques du tuning automobile. Couvre les motorisations communément préparées (Stage 1 à 3, compétition). À compléter avec un référentiel réel (TecDoc/Vin-Info) avant mise en production.",
+  "makes": [
+    {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "models": [
+        {
+          "id": "golf-7",
+          "name": "Golf 7",
+          "motorisations": [
+            { "id": "golf-7-2.0-tdi", "label": "2.0 TDI 150", "codeMoteur": "DFHA" },
+            { "id": "golf-7-2.0-tsi-gti", "label": "2.0 TSI GTI 230", "codeMoteur": "CHHB" },
+            { "id": "golf-7-2.0-tsi-r", "label": "2.0 TSI R 300", "codeMoteur": "CJXB" }
+          ]
+        },
+        {
+          "id": "golf-8",
+          "name": "Golf 8",
+          "motorisations": [
+            { "id": "golf-8-2.0-tdi", "label": "2.0 TDI 150", "codeMoteur": "DTSA" },
+            { "id": "golf-8-1.5-tsi", "label": "1.5 TSI 150", "codeMoteur": "DPCA" },
+            { "id": "golf-8-2.0-tsi-gti", "label": "2.0 TSI GTI 245", "codeMoteur": "DLAA" },
+            { "id": "golf-8-2.0-tsi-r", "label": "2.0 TSI R 320", "codeMoteur": "DNFA" }
+          ]
+        },
+        {
+          "id": "polo-6",
+          "name": "Polo 6 (AW)",
+          "motorisations": [
+            { "id": "polo-6-2.0-tsi-gti", "label": "2.0 TSI GTI 207", "codeMoteur": "DKZB" }
+          ]
+        },
+        {
+          "id": "scirocco",
+          "name": "Scirocco (13)",
+          "motorisations": [
+            { "id": "scirocco-2.0-tsi-r", "label": "2.0 TSI R 265", "codeMoteur": "CCZB" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "audi",
+      "name": "Audi",
+      "models": [
+        {
+          "id": "a3-8y",
+          "name": "A3 (8Y)",
+          "motorisations": [
+            { "id": "a3-35-tdi", "label": "35 TDI 150", "codeMoteur": "DTSA" },
+            { "id": "a3-35-tfsi", "label": "35 TFSI 150", "codeMoteur": "DPCA" }
+          ]
+        },
+        {
+          "id": "s3-8y",
+          "name": "S3 (8Y)",
+          "motorisations": [
+            { "id": "s3-8y-2.0-tfsi", "label": "2.0 TFSI 310", "codeMoteur": "DNUE" }
+          ]
+        },
+        {
+          "id": "rs3-8y",
+          "name": "RS3 (8Y)",
+          "motorisations": [
+            { "id": "rs3-8y-2.5-tfsi", "label": "2.5 TFSI 400", "codeMoteur": "DNUA" }
+          ]
+        },
+        {
+          "id": "tt-rs-8s",
+          "name": "TT RS (8S)",
+          "motorisations": [
+            { "id": "tt-rs-2.5-tfsi", "label": "2.5 TFSI 400", "codeMoteur": "TFSA" }
+          ]
+        },
+        {
+          "id": "rs4-b9",
+          "name": "RS4 (B9)",
+          "motorisations": [
+            { "id": "rs4-b9-2.9-tfsi", "label": "2.9 TFSI 450", "codeMoteur": "DECA" }
+          ]
+        },
+        {
+          "id": "rs6-c8",
+          "name": "RS6 (C8)",
+          "motorisations": [
+            { "id": "rs6-c8-4.0-tfsi", "label": "4.0 TFSI 600", "codeMoteur": "DNCB" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bmw",
+      "name": "BMW",
+      "models": [
+        {
+          "id": "serie-3-g20",
+          "name": "Série 3 (G20)",
+          "motorisations": [
+            { "id": "320d-g20", "label": "320d 190", "codeMoteur": "B47D20B" },
+            { "id": "330i-g20", "label": "330i 258", "codeMoteur": "B48B20B" },
+            { "id": "m340i-g20", "label": "M340i 374", "codeMoteur": "B58B30M0" }
+          ]
+        },
+        {
+          "id": "serie-1-f40",
+          "name": "Série 1 (F40)",
+          "motorisations": [
+            { "id": "118d-f40", "label": "118d 150", "codeMoteur": "B47D15A" },
+            { "id": "m135i-f40", "label": "M135i xDrive 306", "codeMoteur": "B48B20O1" }
+          ]
+        },
+        {
+          "id": "m2-g87",
+          "name": "M2 (G87)",
+          "motorisations": [
+            { "id": "m2-g87-s58", "label": "S58 460", "codeMoteur": "S58B30B" }
+          ]
+        },
+        {
+          "id": "m3-g80",
+          "name": "M3 (G80)",
+          "motorisations": [
+            { "id": "m3-g80-s58", "label": "S58 480", "codeMoteur": "S58B30A" },
+            { "id": "m3-g80-comp", "label": "Competition 510", "codeMoteur": "S58B30A" }
+          ]
+        },
+        {
+          "id": "m4-g82",
+          "name": "M4 (G82)",
+          "motorisations": [
+            { "id": "m4-g82-s58", "label": "S58 480", "codeMoteur": "S58B30A" }
+          ]
+        },
+        {
+          "id": "serie-4-g22",
+          "name": "Série 4 (G22)",
+          "motorisations": [
+            { "id": "430i-g22", "label": "430i 258", "codeMoteur": "B48B20B" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mercedes",
+      "name": "Mercedes-Benz",
+      "models": [
+        {
+          "id": "a45-amg-w177",
+          "name": "A 45 AMG (W177)",
+          "motorisations": [
+            { "id": "a45s-amg", "label": "A 45 S AMG 421", "codeMoteur": "M139" }
+          ]
+        },
+        {
+          "id": "a35-amg-w177",
+          "name": "A 35 AMG (W177)",
+          "motorisations": [
+            { "id": "a35-amg", "label": "A 35 AMG 306", "codeMoteur": "M260" }
+          ]
+        },
+        {
+          "id": "c63-amg-w206",
+          "name": "C 63 AMG (W206)",
+          "motorisations": [
+            { "id": "c63-amg-w206", "label": "C 63 AMG 476", "codeMoteur": "M139L" }
+          ]
+        },
+        {
+          "id": "gla45-amg",
+          "name": "GLA 45 AMG (H247)",
+          "motorisations": [
+            { "id": "gla45s-amg", "label": "GLA 45 S AMG 421", "codeMoteur": "M139" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "renault",
+      "name": "Renault",
+      "models": [
+        {
+          "id": "megane-4-rs",
+          "name": "Mégane 4 RS",
+          "motorisations": [
+            { "id": "megane-4-rs-280", "label": "1.8 TCe 280", "codeMoteur": "M5MT" },
+            { "id": "megane-4-rs-trophy", "label": "1.8 TCe RS Trophy 300", "codeMoteur": "M5MT-300" }
+          ]
+        },
+        {
+          "id": "clio-4-rs",
+          "name": "Clio 4 RS",
+          "motorisations": [
+            { "id": "clio-4-rs-200", "label": "1.6 Turbo 200", "codeMoteur": "F4RT" }
+          ]
+        },
+        {
+          "id": "alpine-a110",
+          "name": "Alpine A110",
+          "motorisations": [
+            { "id": "a110-s-252", "label": "1.8 Turbo S 252", "codeMoteur": "H5Ht" },
+            { "id": "a110-gt-300", "label": "1.8 Turbo GT 300", "codeMoteur": "H5Ht-GT" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ford",
+      "name": "Ford",
+      "models": [
+        {
+          "id": "focus-st-mk4",
+          "name": "Focus ST Mk4",
+          "motorisations": [
+            { "id": "focus-st-2.3-ecoboost", "label": "2.3 EcoBoost 280", "codeMoteur": "M2GA" }
+          ]
+        },
+        {
+          "id": "focus-rs-mk3",
+          "name": "Focus RS Mk3",
+          "motorisations": [
+            { "id": "focus-rs-2.3-ecoboost", "label": "2.3 EcoBoost 350", "codeMoteur": "M2DA" }
+          ]
+        },
+        {
+          "id": "fiesta-st-mk7",
+          "name": "Fiesta ST Mk7",
+          "motorisations": [
+            { "id": "fiesta-st-1.5-ecoboost", "label": "1.5 EcoBoost 200", "codeMoteur": "SFJA" }
+          ]
+        },
+        {
+          "id": "mustang-s550",
+          "name": "Mustang (S550)",
+          "motorisations": [
+            { "id": "mustang-5.0-v8", "label": "5.0 V8 450", "codeMoteur": "GENF" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "honda",
+      "name": "Honda",
+      "models": [
+        {
+          "id": "civic-type-r-fk8",
+          "name": "Civic Type R (FK8)",
+          "motorisations": [
+            { "id": "civic-fk8-k20c1", "label": "2.0 VTEC Turbo 320", "codeMoteur": "K20C1" }
+          ]
+        },
+        {
+          "id": "civic-type-r-fl5",
+          "name": "Civic Type R (FL5)",
+          "motorisations": [
+            { "id": "civic-fl5-k20c1", "label": "2.0 VTEC Turbo 330", "codeMoteur": "K20C1-FL5" }
+          ]
+        },
+        {
+          "id": "integra-type-r-dc5",
+          "name": "Integra Type R (DC5)",
+          "motorisations": [
+            { "id": "dc5-k20a", "label": "2.0 VTEC 220", "codeMoteur": "K20A" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "toyota",
+      "name": "Toyota",
+      "models": [
+        {
+          "id": "gr-yaris",
+          "name": "GR Yaris",
+          "motorisations": [
+            { "id": "gr-yaris-1.6-turbo", "label": "1.6 Turbo 261", "codeMoteur": "G16E-GTS" }
+          ]
+        },
+        {
+          "id": "gr86-2022",
+          "name": "GR86 (2022)",
+          "motorisations": [
+            { "id": "gr86-2.4-na", "label": "2.4 NA 234", "codeMoteur": "FA24" }
+          ]
+        },
+        {
+          "id": "supra-a90",
+          "name": "GR Supra (A90)",
+          "motorisations": [
+            { "id": "supra-3.0-turbo", "label": "3.0 Turbo 340", "codeMoteur": "B58B30M0" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "subaru",
+      "name": "Subaru",
+      "models": [
+        {
+          "id": "wrx-sti",
+          "name": "WRX STI",
+          "motorisations": [
+            { "id": "wrx-sti-ej257", "label": "2.5 Turbo EJ257 300", "codeMoteur": "EJ257" }
+          ]
+        },
+        {
+          "id": "impreza-wrx",
+          "name": "Impreza WRX",
+          "motorisations": [
+            { "id": "wrx-ej205", "label": "2.0 Turbo EJ205 224", "codeMoteur": "EJ205" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "peugeot",
+      "name": "Peugeot",
+      "models": [
+        {
+          "id": "308-iii",
+          "name": "308 III",
+          "motorisations": [
+            { "id": "308-1.2-puretech", "label": "1.2 PureTech 130", "codeMoteur": "HNZ" },
+            { "id": "308-1.5-bluehdi", "label": "1.5 BlueHDi 130", "codeMoteur": "YHZ" }
+          ]
+        },
+        {
+          "id": "208-gti",
+          "name": "208 GTi",
+          "motorisations": [
+            { "id": "208-gti-1.6-thp", "label": "1.6 THP 208", "codeMoteur": "EP6CDTX" }
+          ]
+        },
+        {
+          "id": "308-gti",
+          "name": "308 GTi",
+          "motorisations": [
+            { "id": "308-gti-1.6-thp", "label": "1.6 THP 270", "codeMoteur": "5FX" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "seat-cupra",
+      "name": "Seat / Cupra",
+      "models": [
+        {
+          "id": "leon-cupra",
+          "name": "Leon Cupra 300",
+          "motorisations": [
+            { "id": "leon-cupra-2.0-tsi", "label": "2.0 TSI Cupra 300", "codeMoteur": "CHHB" }
+          ]
+        },
+        {
+          "id": "formentor-vz",
+          "name": "Formentor VZ",
+          "motorisations": [
+            { "id": "formentor-2.0-tsi", "label": "2.0 TSI VZ 310", "codeMoteur": "DNFA" }
+          ]
+        },
+        {
+          "id": "cupra-ateca",
+          "name": "Cupra Ateca",
+          "motorisations": [
+            { "id": "ateca-2.0-tsi", "label": "2.0 TSI 300", "codeMoteur": "CJXC" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mitsubishi",
+      "name": "Mitsubishi",
+      "models": [
+        {
+          "id": "lancer-evo-x",
+          "name": "Lancer Evo X",
+          "motorisations": [
+            { "id": "evo-x-4b11", "label": "2.0 Turbo 4B11 295", "codeMoteur": "4B11" }
+          ]
+        },
+        {
+          "id": "lancer-evo-ix",
+          "name": "Lancer Evo IX",
+          "motorisations": [
+            { "id": "evo-ix-4g63t", "label": "2.0 Turbo 4G63T 280", "codeMoteur": "4G63T" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "porsche",
+      "name": "Porsche",
+      "models": [
+        {
+          "id": "cayman-gt4-992",
+          "name": "718 Cayman GT4",
+          "motorisations": [
+            { "id": "gt4-4.0-na", "label": "4.0 NA 420", "codeMoteur": "9A2.2" }
+          ]
+        },
+        {
+          "id": "911-992",
+          "name": "911 (992)",
+          "motorisations": [
+            { "id": "911-carrera-s", "label": "Carrera S 3.0 Biturbo 450", "codeMoteur": "9A2-S" },
+            { "id": "911-gt3", "label": "GT3 4.0 NA 510", "codeMoteur": "9A2-GT3" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nissan",
+      "name": "Nissan",
+      "models": [
+        {
+          "id": "gt-r-r35",
+          "name": "GT-R (R35)",
+          "motorisations": [
+            { "id": "gtr-vr38dett", "label": "3.8 V6 Biturbo 570", "codeMoteur": "VR38DETT" }
+          ]
+        },
+        {
+          "id": "370z-z34",
+          "name": "370Z (Z34)",
+          "motorisations": [
+            { "id": "370z-vq37vhr", "label": "3.7 V6 328", "codeMoteur": "VQ37VHR" }
+          ]
+        }
+      ]
+    }
+  ]
+}
