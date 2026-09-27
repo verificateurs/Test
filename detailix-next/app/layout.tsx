@@ -5,6 +5,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { RevealObserver } from "@/components/RevealObserver";
 import { Footer } from "@/components/Footer";
 import { JsonLd } from "@/components/Breadcrumb";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 // CSP nonces are created per request, so the HTML cannot be statically cached.
 export const dynamic = "force-dynamic";
@@ -66,6 +67,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
         </main>
         <Footer />
+        <SpeedInsights />
       </body>
     </html>
   );
