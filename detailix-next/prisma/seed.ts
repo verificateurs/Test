@@ -1,5 +1,5 @@
 import "dotenv/config";
-import { PrismaClient, Homologation } from "@prisma/client";
+import { PrismaClient, Homologation, type Carburant } from "@prisma/client";
 import { readFileSync } from "fs";
 import { join } from "path";
 
@@ -62,27 +62,43 @@ async function main() {
     }
   }
 
-  // vehicles.json uses { name, models: [{ name, motorisations: [{ label, codeMoteur }] }] }
+  // vehicles.json uses { name, models: [{ name, motorisations: [{ label, codeMoteur, ...specs }] }] }
   const vehiclesData = loadJson("vehicles.json");
   const makes: Array<{
     name: string;
     models: Array<{
       name: string;
-      motorisations: Array<{ label: string; codeMoteur: string }>;
+      motorisations: Array<{
+        label: string; codeMoteur: string;
+        anneeDebut?: number | null; anneeFin?: number | null;
+        carburant?: string | null; cylindreeCm3?: number | null;
+        puissanceOrigineCh?: number | null; coupleOrigineNm?: number | null;
+        consoOrigineL100?: number | null;
+      }>;
     }>;
   }> = vehiclesData.makes;
 
   for (const make of makes) {
     for (const model of make.models) {
       for (const m of model.motorisations) {
+        const specs = {
+          anneeDebut: m.anneeDebut ?? null,
+          anneeFin: m.anneeFin ?? null,
+          carburant: (m.carburant as Carburant | undefined) ?? null,
+          cylindreeCm3: m.cylindreeCm3 ?? null,
+          puissanceOrigineCh: m.puissanceOrigineCh ?? null,
+          coupleOrigineNm: m.coupleOrigineNm ?? null,
+          consoOrigineL100: m.consoOrigineL100 ?? null,
+        };
         await prisma.vehicle.upsert({
           where: { codeMoteur: m.codeMoteur },
-          update: { marque: make.name, modele: model.name, motorisation: m.label },
+          update: { marque: make.name, modele: model.name, motorisation: m.label, ...specs },
           create: {
             codeMoteur: m.codeMoteur,
             marque: make.name,
             modele: model.name,
             motorisation: m.label,
+            ...specs,
           },
         });
       }
@@ -159,6 +175,37 @@ async function main() {
     }
   }
 
+  // stage-packs.json généré par data/generate-stage-packs.ts (dérivé de vehicles.json + products.json)
+  const stagePacksData = loadJson("stage-packs.json");
+  const stagePacks: Array<{
+    id: string; codeMoteur: string; stage: number; label: string; description: string;
+    gainChMin: number; gainChMax: number; gainNmMin: number; gainNmMax: number;
+    consoDeltaL100: number; prixIndicatif: number; homologation: string;
+    includedProductIds: string[];
+  }> = stagePacksData.packs;
+
+  for (const sp of stagePacks) {
+    const homologation =
+      sp.homologation === "route_ouverte" ? Homologation.route_ouverte
+      : sp.homologation === "usage_piste" ? Homologation.usage_piste
+      : Homologation.non_applicable;
+    await prisma.stagePack.upsert({
+      where: { id: sp.id },
+      update: {
+        codeMoteur: sp.codeMoteur, stage: sp.stage, label: sp.label, description: sp.description,
+        gainChMin: sp.gainChMin, gainChMax: sp.gainChMax, gainNmMin: sp.gainNmMin, gainNmMax: sp.gainNmMax,
+        consoDeltaL100: sp.consoDeltaL100, prixIndicatif: sp.prixIndicatif, homologation,
+        includedProductIds: JSON.stringify(sp.includedProductIds),
+      },
+      create: {
+        id: sp.id, codeMoteur: sp.codeMoteur, stage: sp.stage, label: sp.label, description: sp.description,
+        gainChMin: sp.gainChMin, gainChMax: sp.gainChMax, gainNmMin: sp.gainNmMin, gainNmMax: sp.gainNmMax,
+        consoDeltaL100: sp.consoDeltaL100, prixIndicatif: sp.prixIndicatif, homologation,
+        includedProductIds: JSON.stringify(sp.includedProductIds),
+      },
+    });
+  }
+
   console.log("Seed termine.");
   console.log(`   ${categories.length} categories`);
   const brandCount = categories.reduce((n, c) => n + (c.brands as unknown[]).length, 0);
@@ -168,6 +215,7 @@ async function main() {
   console.log(`   ${products.length} produits`);
   const productReviewCount = products.reduce((n, p) => n + (p.reviews?.length ?? 0), 0);
   console.log(`   ${productReviewCount} avis produits`);
+  console.log(`   ${stagePacks.length} packs stage`);
 }
 
 main()

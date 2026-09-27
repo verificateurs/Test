@@ -4,7 +4,8 @@ import { useEffect, useRef, useState, useCallback, useSyncExternalStore } from "
 import { useRouter } from "next/navigation";
 import { GarageStore, type GarageVehicle } from "./GarageStore";
 import type { VehiculeTree } from "@/app/api/vehicules/route";
-import { isValidPlateFormat, lookupPlate } from "@/lib/plate-lookup";
+import type { ImmatriculationResponse } from "@/app/api/immatriculation/[plaque]/route";
+import { isValidPlateFormat } from "@/lib/plate-lookup";
 
 type GarageMode = "manuel" | "plaque";
 type PlateStatus = "idle" | "not-found" | "found";
@@ -40,6 +41,8 @@ export function GarageSelector() {
   const [plateInput, setPlateInput] = useState("");
   const [plateStatus, setPlateStatus] = useState<PlateStatus>("idle");
   const [plateMatch, setPlateMatch] = useState<GarageVehicle | null>(null);
+  const [plateVehicleDetails, setPlateVehicleDetails] = useState<ImmatriculationResponse["vehicle"] | null>(null);
+  const [plateSearching, setPlateSearching] = useState(false);
 
   const dialogRef = useRef<HTMLDialogElement>(null);
 
@@ -81,6 +84,7 @@ export function GarageSelector() {
     setPlateInput("");
     setPlateStatus("idle");
     setPlateMatch(null);
+    setPlateVehicleDetails(null);
   }
 
   // Close on backdrop click
@@ -115,37 +119,53 @@ export function GarageSelector() {
     router.refresh();
   }
 
+  function handleSavePlate() {
+    // Le véhicule résolu par plaque vient directement de l'API (force-dynamic) et peut
+    // ne pas encore figurer dans `tree` (/api/vehicules, force-static) : on enregistre
+    // `plateMatch` tel quel plutôt que de re-résoudre via l'arbre marque/modèle/moteur.
+    if (!plateMatch) return;
+    GarageStore.set(plateMatch);
+    closeDialog();
+    router.refresh();
+  }
+
   const canSave = selMarque && selModele && selCode;
 
   const plateFormatValid = isValidPlateFormat(plateInput);
 
-  function handlePlateSearch() {
-    if (!tree || !plateFormatValid) return;
-    const codeMoteur = lookupPlate(plateInput);
-    let found: GarageVehicle | null = null;
-
-    if (codeMoteur) {
-      for (const marque of tree.marques) {
-        for (const modele of marque.modeles) {
-          const moto = modele.motorisations.find((m) => m.codeMoteur === codeMoteur);
-          if (moto) {
-            found = { marque: marque.label, modele: modele.label, codeMoteur, motorisation: moto.label };
-            break;
-          }
-        }
-        if (found) break;
+  async function handlePlateSearch() {
+    if (!plateFormatValid || plateSearching) return;
+    const searchedPlate = plateInput;
+    setPlateSearching(true);
+    setPlateMatch(null);
+    setPlateVehicleDetails(null);
+    try {
+      const res = await fetch(`/api/immatriculation/${encodeURIComponent(searchedPlate)}`);
+      // L'utilisateur a pu modifier le champ pendant l'attente de la réponse : on ignore
+      // une réponse devenue obsolète plutôt que d'afficher un résultat qui ne correspond
+      // plus à la plaque affichée.
+      if (searchedPlate !== plateInput) return;
+      if (!res.ok) {
+        setPlateStatus("not-found");
+        return;
       }
-    }
-
-    if (found) {
+      const data: ImmatriculationResponse = await res.json();
+      const found: GarageVehicle = {
+        marque: data.vehicle.marque,
+        modele: data.vehicle.modele,
+        codeMoteur: data.vehicle.codeMoteur,
+        motorisation: data.vehicle.motorisation,
+      };
       setSelMarque(found.marque);
       setSelModele(found.modele);
       setSelCode(found.codeMoteur);
       setPlateMatch(found);
+      setPlateVehicleDetails(data.vehicle);
       setPlateStatus("found");
-    } else {
-      setPlateMatch(null);
+    } catch {
       setPlateStatus("not-found");
+    } finally {
+      setPlateSearching(false);
     }
   }
 
@@ -237,14 +257,22 @@ export function GarageSelector() {
                 type="button"
                 className="btn btn-primary"
                 onClick={handlePlateSearch}
-                disabled={!plateFormatValid}
+                disabled={!plateFormatValid || plateSearching}
               >
-                Rechercher
+                {plateSearching ? "Recherche…" : "Rechercher"}
               </button>
 
               {plateStatus === "found" && plateMatch && (
                 <div className="plate-result plate-result--found">
-                  {plateMatch.marque} {plateMatch.modele} — {plateMatch.motorisation} détectée
+                  <div>{plateMatch.marque} {plateMatch.modele} — {plateMatch.motorisation} détectée</div>
+                  {plateVehicleDetails && (plateVehicleDetails.puissanceOrigineCh || plateVehicleDetails.coupleOrigineNm) && (
+                    <div className="plate-hint" style={{ marginTop: 4 }}>
+                      Origine :{" "}
+                      {plateVehicleDetails.puissanceOrigineCh && `${plateVehicleDetails.puissanceOrigineCh} ch`}
+                      {plateVehicleDetails.puissanceOrigineCh && plateVehicleDetails.coupleOrigineNm && " · "}
+                      {plateVehicleDetails.coupleOrigineNm && `${plateVehicleDetails.coupleOrigineNm} Nm`}
+                    </div>
+                  )}
                 </div>
               )}
 
@@ -257,8 +285,8 @@ export function GarageSelector() {
               <div style={{ display: "flex", gap: "var(--space-md)", marginTop: "var(--space-lg)" }}>
                 <button
                   className="btn btn-primary"
-                  onClick={handleSave}
-                  disabled={!canSave || plateStatus !== "found"}
+                  onClick={handleSavePlate}
+                  disabled={plateStatus !== "found" || !plateMatch}
                   style={{ flex: 1 }}
                 >
                   Enregistrer

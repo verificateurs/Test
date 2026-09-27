@@ -903,6 +903,83 @@
           ]
         }
       ]
+    },
+    {
+      "id": "entretien-moteur",
+      "label": "Entretien moteur",
+      "description": "Nettoyants injecteurs, décalaminants, additifs carburant et huile pour l'entretien préventif du moteur.",
+      "brands": [
+        {
+          "id": "liqui-moly",
+          "name": "Liqui Moly",
+          "origine": "Allemagne",
+          "gamme": "Haut de gamme",
+          "rating": 4.7,
+          "reviewCount": 210,
+          "recommended": true,
+          "preference": "Marque allemande de référence en additifs et lubrifiants, gamme complète de nettoyants injecteurs et décalaminants reconnue par les professionnels de l'entretien.",
+          "reviews": [
+            { "author": "Nicolas P.", "rating": 5, "date": "2026-02-14", "comment": "Le nettoyant injecteurs diesel a redonné un ralenti plus régulier après un plein, simple à utiliser." },
+            { "author": "Camille D.", "rating": 4, "date": "2025-12-30", "comment": "Décalaminant admission efficace, notice claire et dosage facile à respecter." }
+          ]
+        },
+        {
+          "id": "motul",
+          "name": "Motul",
+          "origine": "France",
+          "gamme": "Très haut de gamme",
+          "rating": 4.6,
+          "reviewCount": 150,
+          "recommended": true,
+          "preference": "Fabricant français reconnu en lubrification et additivation, gamme d'entretien moteur complète du nettoyant carburant au traitement conservation.",
+          "reviews": [
+            { "author": "Thomas B.", "rating": 5, "date": "2026-03-05", "comment": "Additif huile anti-usure utilisé avant une longue vidange, aucun souci depuis." },
+            { "author": "Émilie L.", "rating": 4, "date": "2026-01-10", "comment": "Nettoyant additif FAP utilisé sur un plein avant autoroute, régénération plus facile ensuite." }
+          ]
+        },
+        {
+          "id": "wynns",
+          "name": "Wynn's",
+          "origine": "Belgique",
+          "gamme": "Pro",
+          "rating": 4.5,
+          "reviewCount": 175,
+          "recommended": true,
+          "preference": "Marque belge historiquement utilisée en atelier professionnel, produits d'entretien moteur formulés pour un usage courant en garage.",
+          "reviews": [
+            { "author": "Mathieu V.", "rating": 5, "date": "2026-02-20", "comment": "Utilisé par mon garagiste pour le décalaminant vanne EGR, résultat visible au diagnostic suivant." },
+            { "author": "Marion C.", "rating": 4, "date": "2025-11-18", "comment": "L'additif stop-fuite joint a limité un léger suintement sans intervention mécanique." }
+          ]
+        },
+        {
+          "id": "bardahl",
+          "name": "Bardahl",
+          "origine": "France",
+          "gamme": "Milieu de gamme",
+          "rating": 4.3,
+          "reviewCount": 140,
+          "recommended": false,
+          "preference": "Marque historique de l'additivation automobile, gamme accessible de nettoyants et additifs pour un entretien préventif régulier.",
+          "reviews": [
+            { "author": "Kevin T.", "rating": 4, "date": "2026-01-22", "comment": "Additif carburant nettoyant système utilisé tous les 10 000 km sans problème particulier." },
+            { "author": "Julie N.", "rating": 4, "date": "2025-12-08", "comment": "Bon rapport qualité/prix sur le décalaminant chambre de combustion, odeur un peu marquée pendant le traitement." }
+          ]
+        },
+        {
+          "id": "forte",
+          "name": "Forté",
+          "origine": "France",
+          "gamme": "Entrée-milieu de gamme",
+          "rating": 4.0,
+          "reviewCount": 90,
+          "recommended": false,
+          "preference": "Marque française accessible, gamme d'entretien moteur basique pour un usage occasionnel à petit budget.",
+          "reviews": [
+            { "author": "David S.", "rating": 4, "date": "2026-02-02", "comment": "Nettoyant injecteurs essence correct pour le prix, effet plus visible sur plusieurs pleins consécutifs." },
+            { "author": "Chloé A.", "rating": 4, "date": "2025-10-27", "comment": "Additif anti-corrosion réservoir simple à doser, conforme à ce qui est annoncé sur l'emballage." }
+          ]
+        }
+      ]
     }
   ]
 }

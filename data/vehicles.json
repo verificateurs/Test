@@ -1,5 +1,5 @@
 {
-  "_note": "Nomenclature véhicule étendue aux modèles emblématiques du tuning automobile. Couvre les motorisations communément préparées (Stage 1 à 3, compétition). À compléter avec un référentiel réel (TecDoc/Vin-Info) avant mise en production.",
+  "_note": "Nomenclature véhicule étendue aux modèles emblématiques du tuning automobile. Couvre les motorisations communément préparées (Stage 1 à 3, compétition) ainsi que des motorisations de série courantes (diesel/essence). Données techniques indicatives (puissance/couple/conso d'origine), à titre de démonstration — à compléter avec un référentiel réel (TecDoc/Vin-Info) avant mise en production.",
   "makes": [
     {
       "id": "volkswagen",
@@ -9,33 +9,480 @@
           "id": "golf-7",
           "name": "Golf 7",
           "motorisations": [
-            { "id": "golf-7-2.0-tdi", "label": "2.0 TDI 150", "codeMoteur": "DFHA" },
-            { "id": "golf-7-2.0-tsi-gti", "label": "2.0 TSI GTI 230", "codeMoteur": "CHHB" },
-            { "id": "golf-7-2.0-tsi-r", "label": "2.0 TSI R 300", "codeMoteur": "CJXB" }
+            {
+              "id": "golf-7-2.0-tdi",
+              "label": "2.0 TDI 150",
+              "codeMoteur": "DFHA",
+              "anneeDebut": 2012,
+              "anneeFin": 2017,
+              "carburant": "diesel",
+              "cylindreeCm3": 1968,
+              "puissanceOrigineCh": 150,
+              "coupleOrigineNm": 340,
+              "consoOrigineL100": 4.2
+            },
+            {
+              "id": "golf-7-1.6-tdi",
+              "label": "1.6 TDI 110",
+              "codeMoteur": "DGDA",
+              "anneeDebut": 2012,
+              "anneeFin": 2017,
+              "carburant": "diesel",
+              "cylindreeCm3": 1598,
+              "puissanceOrigineCh": 110,
+              "coupleOrigineNm": 250,
+              "consoOrigineL100": 3.8
+            },
+            {
+              "id": "golf-7-1.4-tsi",
+              "label": "1.4 TSI 125",
+              "codeMoteur": "CZDA",
+              "anneeDebut": 2012,
+              "anneeFin": 2017,
+              "carburant": "essence",
+              "cylindreeCm3": 1395,
+              "puissanceOrigineCh": 125,
+              "coupleOrigineNm": 200,
+              "consoOrigineL100": 5.3
+            },
+            {
+              "id": "golf-7-2.0-tsi-gti",
+              "label": "2.0 TSI GTI 230",
+              "codeMoteur": "CHHB",
+              "anneeDebut": 2013,
+              "anneeFin": 2017,
+              "carburant": "essence",
+              "cylindreeCm3": 1984,
+              "puissanceOrigineCh": 230,
+              "coupleOrigineNm": 350,
+              "consoOrigineL100": 6.9
+            },
+            {
+              "id": "golf-7-2.0-tsi-gti-clubsport",
+              "label": "2.0 TSI GTI Clubsport 265",
+              "codeMoteur": "CHHC",
+              "anneeDebut": 2016,
+              "anneeFin": 2017,
+              "carburant": "essence",
+              "cylindreeCm3": 1984,
+              "puissanceOrigineCh": 265,
+              "coupleOrigineNm": 350,
+              "consoOrigineL100": 7.1
+            },
+            {
+              "id": "golf-7-2.0-tsi-r",
+              "label": "2.0 TSI R 300",
+              "codeMoteur": "CJXB",
+              "anneeDebut": 2014,
+              "anneeFin": 2019,
+              "carburant": "essence",
+              "cylindreeCm3": 1984,
+              "puissanceOrigineCh": 300,
+              "coupleOrigineNm": 380,
+              "consoOrigineL100": 7.7
+            }
           ]
         },
         {
           "id": "golf-8",
           "name": "Golf 8",
           "motorisations": [
-            { "id": "golf-8-2.0-tdi", "label": "2.0 TDI 150", "codeMoteur": "DTSA" },
-            { "id": "golf-8-1.5-tsi", "label": "1.5 TSI 150", "codeMoteur": "DPCA" },
-            { "id": "golf-8-2.0-tsi-gti", "label": "2.0 TSI GTI 245", "codeMoteur": "DLAA" },
-            { "id": "golf-8-2.0-tsi-r", "label": "2.0 TSI R 320", "codeMoteur": "DNFA" }
+            {
+              "id": "golf-8-2.0-tdi",
+              "label": "2.0 TDI 150",
+              "codeMoteur": "DTSA",
+              "anneeDebut": 2020,
+              "anneeFin": 2024,
+              "carburant": "diesel",
+              "cylindreeCm3": 1968,
+              "puissanceOrigineCh": 150,
+              "coupleOrigineNm": 360,
+              "consoOrigineL100": 4.4
+            },
+            {
+              "id": "golf-8-1.5-tsi",
+              "label": "1.5 TSI 150",
+              "codeMoteur": "DPCA",
+              "anneeDebut": 2020,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 1498,
+              "puissanceOrigineCh": 150,
+              "coupleOrigineNm": 250,
+              "consoOrigineL100": 5.6
+            },
+            {
+              "id": "golf-8-1.0-tsi",
+              "label": "1.0 TSI 110",
+              "codeMoteur": "DKRF",
+              "anneeDebut": 2020,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 999,
+              "puissanceOrigineCh": 110,
+              "coupleOrigineNm": 200,
+              "consoOrigineL100": 5.4
+            },
+            {
+              "id": "golf-8-2.0-tsi-gti",
+              "label": "2.0 TSI GTI 245",
+              "codeMoteur": "DLAA",
+              "anneeDebut": 2020,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 1984,
+              "puissanceOrigineCh": 245,
+              "coupleOrigineNm": 370,
+              "consoOrigineL100": 7.2
+            },
+            {
+              "id": "golf-8-2.0-tsi-r",
+              "label": "2.0 TSI R 320",
+              "codeMoteur": "DNFA",
+              "anneeDebut": 2021,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 1984,
+              "puissanceOrigineCh": 320,
+              "coupleOrigineNm": 420,
+              "consoOrigineL100": 8
+            }
           ]
         },
         {
           "id": "polo-6",
           "name": "Polo 6 (AW)",
           "motorisations": [
-            { "id": "polo-6-2.0-tsi-gti", "label": "2.0 TSI GTI 207", "codeMoteur": "DKZB" }
+            {
+              "id": "polo-6-1.0-tsi",
+              "label": "1.0 TSI 95",
+              "codeMoteur": "DKRA",
+              "anneeDebut": 2017,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 999,
+              "puissanceOrigineCh": 95,
+              "coupleOrigineNm": 175,
+              "consoOrigineL100": 5.1
+            },
+            {
+              "id": "polo-6-1.6-tdi",
+              "label": "1.6 TDI 95",
+              "codeMoteur": "DDAA",
+              "anneeDebut": 2017,
+              "anneeFin": 2021,
+              "carburant": "diesel",
+              "cylindreeCm3": 1598,
+              "puissanceOrigineCh": 95,
+              "coupleOrigineNm": 250,
+              "consoOrigineL100": 4
+            },
+            {
+              "id": "polo-6-2.0-tsi-gti",
+              "label": "2.0 TSI GTI 207",
+              "codeMoteur": "DKZB",
+              "anneeDebut": 2018,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 1984,
+              "puissanceOrigineCh": 207,
+              "coupleOrigineNm": 320,
+              "consoOrigineL100": 6.6
+            }
+          ]
+        },
+        {
+          "id": "polo-5",
+          "name": "Polo 5 (6R/6C)",
+          "motorisations": [
+            {
+              "id": "polo-5-1.4-tdi",
+              "label": "1.4 TDI 90",
+              "codeMoteur": "CUSA",
+              "anneeDebut": 2009,
+              "anneeFin": 2017,
+              "carburant": "diesel",
+              "cylindreeCm3": 1422,
+              "puissanceOrigineCh": 90,
+              "coupleOrigineNm": 230,
+              "consoOrigineL100": 4.1
+            },
+            {
+              "id": "polo-5-1.8-tsi-gti",
+              "label": "1.8 TSI GTI 192",
+              "codeMoteur": "CJZC",
+              "anneeDebut": 2010,
+              "anneeFin": 2017,
+              "carburant": "essence",
+              "cylindreeCm3": 1798,
+              "puissanceOrigineCh": 192,
+              "coupleOrigineNm": 250,
+              "consoOrigineL100": 6.5
+            }
           ]
         },
         {
           "id": "scirocco",
           "name": "Scirocco (13)",
           "motorisations": [
-            { "id": "scirocco-2.0-tsi-r", "label": "2.0 TSI R 265", "codeMoteur": "CCZB" }
+            {
+              "id": "scirocco-2.0-tsi",
+              "label": "2.0 TSI 200",
+              "codeMoteur": "CCZA",
+              "anneeDebut": 2008,
+              "anneeFin": 2014,
+              "carburant": "essence",
+              "cylindreeCm3": 1984,
+              "puissanceOrigineCh": 200,
+              "coupleOrigineNm": 280,
+              "consoOrigineL100": 7.8
+            },
+            {
+              "id": "scirocco-2.0-tsi-r",
+              "label": "2.0 TSI R 265",
+              "codeMoteur": "CCZB",
+              "anneeDebut": 2009,
+              "anneeFin": 2017,
+              "carburant": "essence",
+              "cylindreeCm3": 1984,
+              "puissanceOrigineCh": 265,
+              "coupleOrigineNm": 350,
+              "consoOrigineL100": 8
+            }
+          ]
+        },
+        {
+          "id": "golf-6",
+          "name": "Golf 6",
+          "motorisations": [
+            {
+              "id": "golf-6-2.0-tdi",
+              "label": "2.0 TDI 140",
+              "codeMoteur": "CBDC",
+              "anneeDebut": 2008,
+              "anneeFin": 2012,
+              "carburant": "diesel",
+              "cylindreeCm3": 1968,
+              "puissanceOrigineCh": 140,
+              "coupleOrigineNm": 320,
+              "consoOrigineL100": 4.9
+            },
+            {
+              "id": "golf-6-2.0-tsi-gti",
+              "label": "2.0 TSI GTI 210",
+              "codeMoteur": "CCZD",
+              "anneeDebut": 2009,
+              "anneeFin": 2012,
+              "carburant": "essence",
+              "cylindreeCm3": 1984,
+              "puissanceOrigineCh": 210,
+              "coupleOrigineNm": 280,
+              "consoOrigineL100": 7.6
+            },
+            {
+              "id": "golf-6-2.0-tsi-r",
+              "label": "2.0 TSI R 270",
+              "codeMoteur": "CCZB-R",
+              "anneeDebut": 2009,
+              "anneeFin": 2012,
+              "carburant": "essence",
+              "cylindreeCm3": 1984,
+              "puissanceOrigineCh": 270,
+              "coupleOrigineNm": 350,
+              "consoOrigineL100": 8.6
+            }
+          ]
+        },
+        {
+          "id": "golf-5",
+          "name": "Golf 5",
+          "motorisations": [
+            {
+              "id": "golf-5-2.0-tfsi-gti",
+              "label": "2.0 TFSI GTI 200",
+              "codeMoteur": "AXX",
+              "anneeDebut": 2004,
+              "anneeFin": 2008,
+              "carburant": "essence",
+              "cylindreeCm3": 1984,
+              "puissanceOrigineCh": 200,
+              "coupleOrigineNm": 280,
+              "consoOrigineL100": 8
+            },
+            {
+              "id": "golf-5-3.2-r32",
+              "label": "3.2 V6 R32 250",
+              "codeMoteur": "BUB",
+              "anneeDebut": 2005,
+              "anneeFin": 2008,
+              "carburant": "essence",
+              "cylindreeCm3": 3189,
+              "puissanceOrigineCh": 250,
+              "coupleOrigineNm": 320,
+              "consoOrigineL100": 11
+            }
+          ]
+        },
+        {
+          "id": "tiguan-2",
+          "name": "Tiguan 2 (AD1)",
+          "motorisations": [
+            {
+              "id": "tiguan-2-2.0-tdi",
+              "label": "2.0 TDI 150",
+              "codeMoteur": "DFGA",
+              "anneeDebut": 2016,
+              "anneeFin": 2023,
+              "carburant": "diesel",
+              "cylindreeCm3": 1968,
+              "puissanceOrigineCh": 150,
+              "coupleOrigineNm": 340,
+              "consoOrigineL100": 5.4
+            },
+            {
+              "id": "tiguan-2-2.0-tsi-r",
+              "label": "2.0 TSI R 320",
+              "codeMoteur": "DNFB",
+              "anneeDebut": 2021,
+              "anneeFin": 2023,
+              "carburant": "essence",
+              "cylindreeCm3": 1984,
+              "puissanceOrigineCh": 320,
+              "coupleOrigineNm": 420,
+              "consoOrigineL100": 8.4
+            }
+          ]
+        },
+        {
+          "id": "passat-b8",
+          "name": "Passat B8",
+          "motorisations": [
+            {
+              "id": "passat-b8-2.0-tdi",
+              "label": "2.0 TDI 150",
+              "codeMoteur": "DFHB",
+              "anneeDebut": 2014,
+              "anneeFin": 2023,
+              "carburant": "diesel",
+              "cylindreeCm3": 1968,
+              "puissanceOrigineCh": 150,
+              "coupleOrigineNm": 340,
+              "consoOrigineL100": 4.5
+            },
+            {
+              "id": "passat-b8-2.0-tsi-gte",
+              "label": "GTE 2.0 TSI 218",
+              "codeMoteur": "CULC",
+              "anneeDebut": 2015,
+              "anneeFin": 2023,
+              "carburant": "hybride",
+              "cylindreeCm3": 1395,
+              "puissanceOrigineCh": 218,
+              "coupleOrigineNm": 400,
+              "consoOrigineL100": 1.6
+            }
+          ]
+        },
+        {
+          "id": "t-roc",
+          "name": "T-Roc",
+          "motorisations": [
+            {
+              "id": "t-roc-2.0-tsi-r",
+              "label": "2.0 TSI R 300",
+              "codeMoteur": "DNFC",
+              "anneeDebut": 2019,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 1984,
+              "puissanceOrigineCh": 300,
+              "coupleOrigineNm": 400,
+              "consoOrigineL100": 8
+            },
+            {
+              "id": "t-roc-1.5-tsi",
+              "label": "1.5 TSI 150",
+              "codeMoteur": "DPCB",
+              "anneeDebut": 2017,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 1498,
+              "puissanceOrigineCh": 150,
+              "coupleOrigineNm": 250,
+              "consoOrigineL100": 6.1
+            }
+          ]
+        },
+        {
+          "id": "up-gti",
+          "name": "up! GTI",
+          "motorisations": [
+            {
+              "id": "up-gti-1.0-tsi",
+              "label": "1.0 TSI GTI 115",
+              "codeMoteur": "DKLC",
+              "anneeDebut": 2018,
+              "anneeFin": 2023,
+              "carburant": "essence",
+              "cylindreeCm3": 999,
+              "puissanceOrigineCh": 115,
+              "coupleOrigineNm": 200,
+              "consoOrigineL100": 5.6
+            }
+          ]
+        },
+        {
+          "id": "passat-b7",
+          "name": "Passat B7",
+          "motorisations": [
+            {
+              "id": "passat-b7-2.0-tdi",
+              "label": "2.0 TDI 140",
+              "codeMoteur": "CFGB",
+              "anneeDebut": 2010,
+              "anneeFin": 2014,
+              "carburant": "diesel",
+              "cylindreeCm3": 1968,
+              "puissanceOrigineCh": 140,
+              "coupleOrigineNm": 320,
+              "consoOrigineL100": 4.9
+            }
+          ]
+        },
+        {
+          "id": "tiguan-1",
+          "name": "Tiguan 1",
+          "motorisations": [
+            {
+              "id": "tiguan-1-2.0-tsi",
+              "label": "2.0 TSI 200",
+              "codeMoteur": "CCZE",
+              "anneeDebut": 2007,
+              "anneeFin": 2016,
+              "carburant": "essence",
+              "cylindreeCm3": 1984,
+              "puissanceOrigineCh": 200,
+              "coupleOrigineNm": 280,
+              "consoOrigineL100": 8.6
+            }
+          ]
+        },
+        {
+          "id": "arteon",
+          "name": "Arteon",
+          "motorisations": [
+            {
+              "id": "arteon-2.0-tsi-r",
+              "label": "2.0 TSI R 320",
+              "codeMoteur": "DNFD",
+              "anneeDebut": 2020,
+              "anneeFin": 2023,
+              "carburant": "essence",
+              "cylindreeCm3": 1984,
+              "puissanceOrigineCh": 320,
+              "coupleOrigineNm": 420,
+              "consoOrigineL100": 8.5
+            }
           ]
         }
       ]
@@ -48,43 +495,420 @@
           "id": "a3-8y",
           "name": "A3 (8Y)",
           "motorisations": [
-            { "id": "a3-35-tdi", "label": "35 TDI 150", "codeMoteur": "DTSA" },
-            { "id": "a3-35-tfsi", "label": "35 TFSI 150", "codeMoteur": "DPCA" }
+            {
+              "id": "a3-35-tdi",
+              "label": "35 TDI 150",
+              "codeMoteur": "DTSC",
+              "anneeDebut": 2020,
+              "anneeFin": 2024,
+              "carburant": "diesel",
+              "cylindreeCm3": 1968,
+              "puissanceOrigineCh": 150,
+              "coupleOrigineNm": 360,
+              "consoOrigineL100": 4.5
+            },
+            {
+              "id": "a3-35-tfsi",
+              "label": "35 TFSI 150",
+              "codeMoteur": "DPCC",
+              "anneeDebut": 2020,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 1498,
+              "puissanceOrigineCh": 150,
+              "coupleOrigineNm": 250,
+              "consoOrigineL100": 5.7
+            },
+            {
+              "id": "a3-30-tfsi",
+              "label": "30 TFSI 110",
+              "codeMoteur": "DKRG",
+              "anneeDebut": 2020,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 999,
+              "puissanceOrigineCh": 110,
+              "coupleOrigineNm": 200,
+              "consoOrigineL100": 5.5
+            }
+          ]
+        },
+        {
+          "id": "a3-8v",
+          "name": "A3 (8V)",
+          "motorisations": [
+            {
+              "id": "a3-8v-2.0-tdi",
+              "label": "2.0 TDI 150",
+              "codeMoteur": "DFGB",
+              "anneeDebut": 2013,
+              "anneeFin": 2020,
+              "carburant": "diesel",
+              "cylindreeCm3": 1968,
+              "puissanceOrigineCh": 150,
+              "coupleOrigineNm": 320,
+              "consoOrigineL100": 4.3
+            },
+            {
+              "id": "a3-8v-1.8-tfsi",
+              "label": "1.8 TFSI 180",
+              "codeMoteur": "CJSA",
+              "anneeDebut": 2013,
+              "anneeFin": 2020,
+              "carburant": "essence",
+              "cylindreeCm3": 1798,
+              "puissanceOrigineCh": 180,
+              "coupleOrigineNm": 250,
+              "consoOrigineL100": 5.9
+            }
           ]
         },
         {
           "id": "s3-8y",
           "name": "S3 (8Y)",
           "motorisations": [
-            { "id": "s3-8y-2.0-tfsi", "label": "2.0 TFSI 310", "codeMoteur": "DNUE" }
+            {
+              "id": "s3-8y-2.0-tfsi",
+              "label": "2.0 TFSI 310",
+              "codeMoteur": "DNUE",
+              "anneeDebut": 2020,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 1984,
+              "puissanceOrigineCh": 310,
+              "coupleOrigineNm": 400,
+              "consoOrigineL100": 7.4
+            }
+          ]
+        },
+        {
+          "id": "s3-8v",
+          "name": "S3 (8V)",
+          "motorisations": [
+            {
+              "id": "s3-8v-2.0-tfsi",
+              "label": "2.0 TFSI 300",
+              "codeMoteur": "CJXG",
+              "anneeDebut": 2013,
+              "anneeFin": 2020,
+              "carburant": "essence",
+              "cylindreeCm3": 1984,
+              "puissanceOrigineCh": 300,
+              "coupleOrigineNm": 380,
+              "consoOrigineL100": 7.1
+            }
           ]
         },
         {
           "id": "rs3-8y",
           "name": "RS3 (8Y)",
           "motorisations": [
-            { "id": "rs3-8y-2.5-tfsi", "label": "2.5 TFSI 400", "codeMoteur": "DNUA" }
+            {
+              "id": "rs3-8y-2.5-tfsi",
+              "label": "2.5 TFSI 400",
+              "codeMoteur": "DNUA",
+              "anneeDebut": 2021,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 2480,
+              "puissanceOrigineCh": 400,
+              "coupleOrigineNm": 500,
+              "consoOrigineL100": 8.9
+            }
+          ]
+        },
+        {
+          "id": "rs3-8v",
+          "name": "RS3 (8V)",
+          "motorisations": [
+            {
+              "id": "rs3-8v-2.5-tfsi",
+              "label": "2.5 TFSI 367",
+              "codeMoteur": "DAZA",
+              "anneeDebut": 2015,
+              "anneeFin": 2020,
+              "carburant": "essence",
+              "cylindreeCm3": 2480,
+              "puissanceOrigineCh": 367,
+              "coupleOrigineNm": 465,
+              "consoOrigineL100": 8.4
+            }
           ]
         },
         {
           "id": "tt-rs-8s",
           "name": "TT RS (8S)",
           "motorisations": [
-            { "id": "tt-rs-2.5-tfsi", "label": "2.5 TFSI 400", "codeMoteur": "TFSA" }
+            {
+              "id": "tt-rs-2.5-tfsi",
+              "label": "2.5 TFSI 400",
+              "codeMoteur": "TFSA",
+              "anneeDebut": 2016,
+              "anneeFin": 2023,
+              "carburant": "essence",
+              "cylindreeCm3": 2480,
+              "puissanceOrigineCh": 400,
+              "coupleOrigineNm": 480,
+              "consoOrigineL100": 8.7
+            }
+          ]
+        },
+        {
+          "id": "tts-8j",
+          "name": "TTS (8J)",
+          "motorisations": [
+            {
+              "id": "tts-8j-2.0-tfsi",
+              "label": "2.0 TFSI 272",
+              "codeMoteur": "CDLA",
+              "anneeDebut": 2008,
+              "anneeFin": 2014,
+              "carburant": "essence",
+              "cylindreeCm3": 1984,
+              "puissanceOrigineCh": 272,
+              "coupleOrigineNm": 350,
+              "consoOrigineL100": 8.2
+            }
           ]
         },
         {
           "id": "rs4-b9",
           "name": "RS4 (B9)",
           "motorisations": [
-            { "id": "rs4-b9-2.9-tfsi", "label": "2.9 TFSI 450", "codeMoteur": "DECA" }
+            {
+              "id": "rs4-b9-2.9-tfsi",
+              "label": "2.9 TFSI 450",
+              "codeMoteur": "DECA",
+              "anneeDebut": 2017,
+              "anneeFin": 2023,
+              "carburant": "essence",
+              "cylindreeCm3": 2894,
+              "puissanceOrigineCh": 450,
+              "coupleOrigineNm": 600,
+              "consoOrigineL100": 9.6
+            }
+          ]
+        },
+        {
+          "id": "s4-b8",
+          "name": "S4 (B8)",
+          "motorisations": [
+            {
+              "id": "s4-b8-3.0-tfsi",
+              "label": "3.0 TFSI 333",
+              "codeMoteur": "CAKA",
+              "anneeDebut": 2009,
+              "anneeFin": 2015,
+              "carburant": "essence",
+              "cylindreeCm3": 2995,
+              "puissanceOrigineCh": 333,
+              "coupleOrigineNm": 440,
+              "consoOrigineL100": 9.6
+            }
+          ]
+        },
+        {
+          "id": "a4-b9",
+          "name": "A4 (B9)",
+          "motorisations": [
+            {
+              "id": "a4-b9-2.0-tdi",
+              "label": "2.0 TDI 190",
+              "codeMoteur": "DETA",
+              "anneeDebut": 2015,
+              "anneeFin": 2023,
+              "carburant": "diesel",
+              "cylindreeCm3": 1968,
+              "puissanceOrigineCh": 190,
+              "coupleOrigineNm": 400,
+              "consoOrigineL100": 4.6
+            },
+            {
+              "id": "a4-b9-2.0-tfsi",
+              "label": "2.0 TFSI 190",
+              "codeMoteur": "DKZA",
+              "anneeDebut": 2015,
+              "anneeFin": 2023,
+              "carburant": "essence",
+              "cylindreeCm3": 1984,
+              "puissanceOrigineCh": 190,
+              "coupleOrigineNm": 320,
+              "consoOrigineL100": 6.1
+            }
+          ]
+        },
+        {
+          "id": "a4-b8",
+          "name": "A4 (B8)",
+          "motorisations": [
+            {
+              "id": "a4-b8-2.0-tdi",
+              "label": "2.0 TDI 143",
+              "codeMoteur": "CAGB",
+              "anneeDebut": 2007,
+              "anneeFin": 2015,
+              "carburant": "diesel",
+              "cylindreeCm3": 1968,
+              "puissanceOrigineCh": 143,
+              "coupleOrigineNm": 320,
+              "consoOrigineL100": 4.9
+            },
+            {
+              "id": "a4-b8-1.8-tfsi",
+              "label": "1.8 TFSI 160",
+              "codeMoteur": "CDHB",
+              "anneeDebut": 2007,
+              "anneeFin": 2015,
+              "carburant": "essence",
+              "cylindreeCm3": 1798,
+              "puissanceOrigineCh": 160,
+              "coupleOrigineNm": 250,
+              "consoOrigineL100": 6.4
+            }
           ]
         },
         {
           "id": "rs6-c8",
           "name": "RS6 (C8)",
           "motorisations": [
-            { "id": "rs6-c8-4.0-tfsi", "label": "4.0 TFSI 600", "codeMoteur": "DNCB" }
+            {
+              "id": "rs6-c8-4.0-tfsi",
+              "label": "4.0 TFSI 600",
+              "codeMoteur": "DNCB",
+              "anneeDebut": 2019,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 3996,
+              "puissanceOrigineCh": 600,
+              "coupleOrigineNm": 800,
+              "consoOrigineL100": 11.8
+            }
+          ]
+        },
+        {
+          "id": "rs6-c7",
+          "name": "RS6 (C7)",
+          "motorisations": [
+            {
+              "id": "rs6-c7-4.0-tfsi",
+              "label": "4.0 TFSI 560",
+              "codeMoteur": "CEUC",
+              "anneeDebut": 2013,
+              "anneeFin": 2018,
+              "carburant": "essence",
+              "cylindreeCm3": 3993,
+              "puissanceOrigineCh": 560,
+              "coupleOrigineNm": 700,
+              "consoOrigineL100": 10.5
+            }
+          ]
+        },
+        {
+          "id": "q3-8u",
+          "name": "Q3 (8U)",
+          "motorisations": [
+            {
+              "id": "q3-8u-2.0-tdi",
+              "label": "2.0 TDI 150",
+              "codeMoteur": "CFFB",
+              "anneeDebut": 2011,
+              "anneeFin": 2018,
+              "carburant": "diesel",
+              "cylindreeCm3": 1968,
+              "puissanceOrigineCh": 150,
+              "coupleOrigineNm": 340,
+              "consoOrigineL100": 5.8
+            },
+            {
+              "id": "rsq3-8u-2.5-tfsi",
+              "label": "RS Q3 2.5 TFSI 340",
+              "codeMoteur": "CEPB",
+              "anneeDebut": 2013,
+              "anneeFin": 2018,
+              "carburant": "essence",
+              "cylindreeCm3": 2480,
+              "puissanceOrigineCh": 340,
+              "coupleOrigineNm": 450,
+              "consoOrigineL100": 9.3
+            }
+          ]
+        },
+        {
+          "id": "a1-8x",
+          "name": "A1 (8X)",
+          "motorisations": [
+            {
+              "id": "a1-8x-1.4-tfsi",
+              "label": "1.4 TFSI 122",
+              "codeMoteur": "CAVE",
+              "anneeDebut": 2010,
+              "anneeFin": 2018,
+              "carburant": "essence",
+              "cylindreeCm3": 1390,
+              "puissanceOrigineCh": 122,
+              "coupleOrigineNm": 200,
+              "consoOrigineL100": 5.5
+            },
+            {
+              "id": "s1-8x-2.0-tfsi",
+              "label": "S1 2.0 TFSI 231",
+              "codeMoteur": "CDLC",
+              "anneeDebut": 2014,
+              "anneeFin": 2018,
+              "carburant": "essence",
+              "cylindreeCm3": 1984,
+              "puissanceOrigineCh": 231,
+              "coupleOrigineNm": 380,
+              "consoOrigineL100": 7
+            }
+          ]
+        },
+        {
+          "id": "a5-8t",
+          "name": "A5 (8T)",
+          "motorisations": [
+            {
+              "id": "a5-8t-2.0-tdi",
+              "label": "2.0 TDI 177",
+              "codeMoteur": "CAHA",
+              "anneeDebut": 2007,
+              "anneeFin": 2016,
+              "carburant": "diesel",
+              "cylindreeCm3": 1968,
+              "puissanceOrigineCh": 177,
+              "coupleOrigineNm": 380,
+              "consoOrigineL100": 5.3
+            },
+            {
+              "id": "s5-8t-3.0-tfsi",
+              "label": "S5 3.0 TFSI 333",
+              "codeMoteur": "CAKA-S5",
+              "anneeDebut": 2011,
+              "anneeFin": 2016,
+              "carburant": "essence",
+              "cylindreeCm3": 2995,
+              "puissanceOrigineCh": 333,
+              "coupleOrigineNm": 440,
+              "consoOrigineL100": 8.7
+            }
+          ]
+        },
+        {
+          "id": "q5-8r",
+          "name": "Q5 (8R)",
+          "motorisations": [
+            {
+              "id": "q5-8r-2.0-tdi",
+              "label": "2.0 TDI 177",
+              "codeMoteur": "CAHA-Q5",
+              "anneeDebut": 2008,
+              "anneeFin": 2017,
+              "carburant": "diesel",
+              "cylindreeCm3": 1968,
+              "puissanceOrigineCh": 177,
+              "coupleOrigineNm": 380,
+              "consoOrigineL100": 5.9
+            }
           ]
         }
       ]
@@ -97,46 +921,354 @@
           "id": "serie-3-g20",
           "name": "Série 3 (G20)",
           "motorisations": [
-            { "id": "320d-g20", "label": "320d 190", "codeMoteur": "B47D20B" },
-            { "id": "330i-g20", "label": "330i 258", "codeMoteur": "B48B20B" },
-            { "id": "m340i-g20", "label": "M340i 374", "codeMoteur": "B58B30M0" }
+            {
+              "id": "320d-g20",
+              "label": "320d 190",
+              "codeMoteur": "B47D20B",
+              "anneeDebut": 2019,
+              "anneeFin": 2024,
+              "carburant": "diesel",
+              "cylindreeCm3": 1995,
+              "puissanceOrigineCh": 190,
+              "coupleOrigineNm": 400,
+              "consoOrigineL100": 4.5
+            },
+            {
+              "id": "330i-g20",
+              "label": "330i 258",
+              "codeMoteur": "B48B20B",
+              "anneeDebut": 2019,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 1998,
+              "puissanceOrigineCh": 258,
+              "coupleOrigineNm": 400,
+              "consoOrigineL100": 6.4
+            },
+            {
+              "id": "m340i-g20",
+              "label": "M340i 374",
+              "codeMoteur": "B58B30M0",
+              "anneeDebut": 2019,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 2998,
+              "puissanceOrigineCh": 374,
+              "coupleOrigineNm": 500,
+              "consoOrigineL100": 7.6
+            }
+          ]
+        },
+        {
+          "id": "serie-3-e90",
+          "name": "Série 3 (E90)",
+          "motorisations": [
+            {
+              "id": "320d-e90",
+              "label": "320d 177",
+              "codeMoteur": "N47D20A",
+              "anneeDebut": 2005,
+              "anneeFin": 2012,
+              "carburant": "diesel",
+              "cylindreeCm3": 1995,
+              "puissanceOrigineCh": 177,
+              "coupleOrigineNm": 350,
+              "consoOrigineL100": 4.9
+            },
+            {
+              "id": "335i-e90",
+              "label": "335i 306",
+              "codeMoteur": "N54B30A",
+              "anneeDebut": 2006,
+              "anneeFin": 2013,
+              "carburant": "essence",
+              "cylindreeCm3": 2979,
+              "puissanceOrigineCh": 306,
+              "coupleOrigineNm": 400,
+              "consoOrigineL100": 9.1
+            }
+          ]
+        },
+        {
+          "id": "serie-3-e46",
+          "name": "Série 3 (E46)",
+          "motorisations": [
+            {
+              "id": "m3-e46",
+              "label": "M3 3.2 343",
+              "codeMoteur": "S54B32",
+              "anneeDebut": 2000,
+              "anneeFin": 2006,
+              "carburant": "essence",
+              "cylindreeCm3": 3246,
+              "puissanceOrigineCh": 343,
+              "coupleOrigineNm": 365,
+              "consoOrigineL100": 12.9
+            }
+          ]
+        },
+        {
+          "id": "serie-3-e92",
+          "name": "Série 3 Coupé (E92)",
+          "motorisations": [
+            {
+              "id": "m3-e92",
+              "label": "M3 4.0 V8 420",
+              "codeMoteur": "S65B40",
+              "anneeDebut": 2007,
+              "anneeFin": 2013,
+              "carburant": "essence",
+              "cylindreeCm3": 3999,
+              "puissanceOrigineCh": 420,
+              "coupleOrigineNm": 400,
+              "consoOrigineL100": 13.4
+            }
           ]
         },
         {
           "id": "serie-1-f40",
           "name": "Série 1 (F40)",
           "motorisations": [
-            { "id": "118d-f40", "label": "118d 150", "codeMoteur": "B47D15A" },
-            { "id": "m135i-f40", "label": "M135i xDrive 306", "codeMoteur": "B48B20O1" }
+            {
+              "id": "118d-f40",
+              "label": "118d 150",
+              "codeMoteur": "B47D15A",
+              "anneeDebut": 2019,
+              "anneeFin": 2024,
+              "carburant": "diesel",
+              "cylindreeCm3": 1496,
+              "puissanceOrigineCh": 150,
+              "coupleOrigineNm": 350,
+              "consoOrigineL100": 4.3
+            },
+            {
+              "id": "m135i-f40",
+              "label": "M135i xDrive 306",
+              "codeMoteur": "B48B20O1",
+              "anneeDebut": 2019,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 1998,
+              "puissanceOrigineCh": 306,
+              "coupleOrigineNm": 450,
+              "consoOrigineL100": 7.1
+            },
+            {
+              "id": "128ti-f40",
+              "label": "128ti 265",
+              "codeMoteur": "B48B20O2",
+              "anneeDebut": 2020,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 1998,
+              "puissanceOrigineCh": 265,
+              "coupleOrigineNm": 400,
+              "consoOrigineL100": 6.7
+            }
+          ]
+        },
+        {
+          "id": "serie-1-e87",
+          "name": "Série 1 (E87)",
+          "motorisations": [
+            {
+              "id": "130i-e87",
+              "label": "130i 265",
+              "codeMoteur": "N52B30",
+              "anneeDebut": 2005,
+              "anneeFin": 2011,
+              "carburant": "essence",
+              "cylindreeCm3": 2996,
+              "puissanceOrigineCh": 265,
+              "coupleOrigineNm": 315,
+              "consoOrigineL100": 9.9
+            }
           ]
         },
         {
           "id": "m2-g87",
           "name": "M2 (G87)",
           "motorisations": [
-            { "id": "m2-g87-s58", "label": "S58 460", "codeMoteur": "S58B30B" }
+            {
+              "id": "m2-g87-s58",
+              "label": "S58 460",
+              "codeMoteur": "S58B30B",
+              "anneeDebut": 2022,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 2993,
+              "puissanceOrigineCh": 460,
+              "coupleOrigineNm": 550,
+              "consoOrigineL100": 10.2
+            }
+          ]
+        },
+        {
+          "id": "m2-f87",
+          "name": "M2 Competition (F87)",
+          "motorisations": [
+            {
+              "id": "m2-f87-s55",
+              "label": "S55 410",
+              "codeMoteur": "S55B30A0",
+              "anneeDebut": 2018,
+              "anneeFin": 2021,
+              "carburant": "essence",
+              "cylindreeCm3": 2979,
+              "puissanceOrigineCh": 410,
+              "coupleOrigineNm": 550,
+              "consoOrigineL100": 9.8
+            }
           ]
         },
         {
           "id": "m3-g80",
           "name": "M3 (G80)",
           "motorisations": [
-            { "id": "m3-g80-s58", "label": "S58 480", "codeMoteur": "S58B30A" },
-            { "id": "m3-g80-comp", "label": "Competition 510", "codeMoteur": "S58B30A" }
+            {
+              "id": "m3-g80-s58",
+              "label": "S58 480",
+              "codeMoteur": "S58B30O0",
+              "anneeDebut": 2020,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 2993,
+              "puissanceOrigineCh": 480,
+              "coupleOrigineNm": 550,
+              "consoOrigineL100": 10.2
+            },
+            {
+              "id": "m3-g80-comp",
+              "label": "Competition 510",
+              "codeMoteur": "S58B30M0",
+              "anneeDebut": 2020,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 2993,
+              "puissanceOrigineCh": 510,
+              "coupleOrigineNm": 650,
+              "consoOrigineL100": 10.4
+            }
           ]
         },
         {
           "id": "m4-g82",
           "name": "M4 (G82)",
           "motorisations": [
-            { "id": "m4-g82-s58", "label": "S58 480", "codeMoteur": "S58B30A" }
+            {
+              "id": "m4-g82-s58",
+              "label": "S58 480",
+              "codeMoteur": "S58B30O2",
+              "anneeDebut": 2020,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 2993,
+              "puissanceOrigineCh": 480,
+              "coupleOrigineNm": 550,
+              "consoOrigineL100": 10.2
+            }
           ]
         },
         {
           "id": "serie-4-g22",
           "name": "Série 4 (G22)",
           "motorisations": [
-            { "id": "430i-g22", "label": "430i 258", "codeMoteur": "B48B20B" }
+            {
+              "id": "430i-g22",
+              "label": "430i 258",
+              "codeMoteur": "B48B20B4",
+              "anneeDebut": 2020,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 1998,
+              "puissanceOrigineCh": 258,
+              "coupleOrigineNm": 400,
+              "consoOrigineL100": 6.7
+            }
+          ]
+        },
+        {
+          "id": "serie-5-g30",
+          "name": "Série 5 (G30)",
+          "motorisations": [
+            {
+              "id": "520d-g30",
+              "label": "520d 190",
+              "codeMoteur": "B47D20C",
+              "anneeDebut": 2017,
+              "anneeFin": 2023,
+              "carburant": "diesel",
+              "cylindreeCm3": 1995,
+              "puissanceOrigineCh": 190,
+              "coupleOrigineNm": 400,
+              "consoOrigineL100": 4.6
+            },
+            {
+              "id": "m5-f90",
+              "label": "M5 Competition 625",
+              "codeMoteur": "S63B44T4",
+              "anneeDebut": 2018,
+              "anneeFin": 2023,
+              "carburant": "essence",
+              "cylindreeCm3": 4395,
+              "puissanceOrigineCh": 625,
+              "coupleOrigineNm": 750,
+              "consoOrigineL100": 10.8
+            }
+          ]
+        },
+        {
+          "id": "x3-f97",
+          "name": "X3 M (F97)",
+          "motorisations": [
+            {
+              "id": "x3m-f97-s58",
+              "label": "Competition 510",
+              "codeMoteur": "S58B30M1",
+              "anneeDebut": 2019,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 2993,
+              "puissanceOrigineCh": 510,
+              "coupleOrigineNm": 600,
+              "consoOrigineL100": 11
+            }
+          ]
+        },
+        {
+          "id": "x5-f95",
+          "name": "X5 M (F95)",
+          "motorisations": [
+            {
+              "id": "x5m-f95-s63",
+              "label": "Competition 625",
+              "codeMoteur": "S63B44T3",
+              "anneeDebut": 2019,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 4395,
+              "puissanceOrigineCh": 625,
+              "coupleOrigineNm": 750,
+              "consoOrigineL100": 12.5
+            }
+          ]
+        },
+        {
+          "id": "z4-g29",
+          "name": "Z4 (G29)",
+          "motorisations": [
+            {
+              "id": "z4-m40i-g29",
+              "label": "M40i 340",
+              "codeMoteur": "B58B30M2",
+              "anneeDebut": 2018,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 2998,
+              "puissanceOrigineCh": 340,
+              "coupleOrigineNm": 500,
+              "consoOrigineL100": 7.4
+            }
           ]
         }
       ]
@@ -149,28 +1281,198 @@
           "id": "a45-amg-w177",
           "name": "A 45 AMG (W177)",
           "motorisations": [
-            { "id": "a45s-amg", "label": "A 45 S AMG 421", "codeMoteur": "M139" }
+            {
+              "id": "a45s-amg",
+              "label": "A 45 S AMG 421",
+              "codeMoteur": "M139",
+              "anneeDebut": 2019,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 1991,
+              "puissanceOrigineCh": 421,
+              "coupleOrigineNm": 500,
+              "consoOrigineL100": 8.6
+            }
+          ]
+        },
+        {
+          "id": "a45-amg-w176",
+          "name": "A 45 AMG (W176)",
+          "motorisations": [
+            {
+              "id": "a45-amg-w176",
+              "label": "A 45 AMG 381",
+              "codeMoteur": "M133",
+              "anneeDebut": 2013,
+              "anneeFin": 2018,
+              "carburant": "essence",
+              "cylindreeCm3": 1991,
+              "puissanceOrigineCh": 381,
+              "coupleOrigineNm": 475,
+              "consoOrigineL100": 7.5
+            }
           ]
         },
         {
           "id": "a35-amg-w177",
           "name": "A 35 AMG (W177)",
           "motorisations": [
-            { "id": "a35-amg", "label": "A 35 AMG 306", "codeMoteur": "M260" }
+            {
+              "id": "a35-amg",
+              "label": "A 35 AMG 306",
+              "codeMoteur": "M260",
+              "anneeDebut": 2019,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 1991,
+              "puissanceOrigineCh": 306,
+              "coupleOrigineNm": 400,
+              "consoOrigineL100": 7.4
+            }
+          ]
+        },
+        {
+          "id": "cla45-amg-c118",
+          "name": "CLA 45 AMG (C118)",
+          "motorisations": [
+            {
+              "id": "cla45s-amg",
+              "label": "CLA 45 S AMG 421",
+              "codeMoteur": "M139-CLA",
+              "anneeDebut": 2019,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 1991,
+              "puissanceOrigineCh": 421,
+              "coupleOrigineNm": 500,
+              "consoOrigineL100": 8.6
+            }
           ]
         },
         {
           "id": "c63-amg-w206",
           "name": "C 63 AMG (W206)",
           "motorisations": [
-            { "id": "c63-amg-w206", "label": "C 63 AMG 476", "codeMoteur": "M139L" }
+            {
+              "id": "c63-amg-w206",
+              "label": "C 63 AMG 476",
+              "codeMoteur": "M139L",
+              "anneeDebut": 2023,
+              "anneeFin": 2024,
+              "carburant": "hybride",
+              "cylindreeCm3": 1991,
+              "puissanceOrigineCh": 476,
+              "coupleOrigineNm": 545,
+              "consoOrigineL100": 8.6
+            }
+          ]
+        },
+        {
+          "id": "c63-amg-w205",
+          "name": "C 63 AMG (W205)",
+          "motorisations": [
+            {
+              "id": "c63-amg-w205",
+              "label": "C 63 S AMG 510",
+              "codeMoteur": "M177",
+              "anneeDebut": 2015,
+              "anneeFin": 2021,
+              "carburant": "essence",
+              "cylindreeCm3": 3982,
+              "puissanceOrigineCh": 510,
+              "coupleOrigineNm": 700,
+              "consoOrigineL100": 10.6
+            }
+          ]
+        },
+        {
+          "id": "c43-amg-w206",
+          "name": "C 43 AMG (W206)",
+          "motorisations": [
+            {
+              "id": "c43-amg-w206",
+              "label": "C 43 AMG 408",
+              "codeMoteur": "M139-C43",
+              "anneeDebut": 2022,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 1991,
+              "puissanceOrigineCh": 408,
+              "coupleOrigineNm": 500,
+              "consoOrigineL100": 8.4
+            }
           ]
         },
         {
           "id": "gla45-amg",
           "name": "GLA 45 AMG (H247)",
           "motorisations": [
-            { "id": "gla45s-amg", "label": "GLA 45 S AMG 421", "codeMoteur": "M139" }
+            {
+              "id": "gla45s-amg",
+              "label": "GLA 45 S AMG 421",
+              "codeMoteur": "M139-GLA",
+              "anneeDebut": 2020,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 1991,
+              "puissanceOrigineCh": 421,
+              "coupleOrigineNm": 500,
+              "consoOrigineL100": 8.8
+            }
+          ]
+        },
+        {
+          "id": "e63-amg-w213",
+          "name": "E 63 AMG (W213)",
+          "motorisations": [
+            {
+              "id": "e63s-amg-w213",
+              "label": "E 63 S AMG 612",
+              "codeMoteur": "M177-E63",
+              "anneeDebut": 2016,
+              "anneeFin": 2023,
+              "carburant": "essence",
+              "cylindreeCm3": 3982,
+              "puissanceOrigineCh": 612,
+              "coupleOrigineNm": 850,
+              "consoOrigineL100": 11.8
+            }
+          ]
+        },
+        {
+          "id": "g63-amg-w463",
+          "name": "G 63 AMG (W463)",
+          "motorisations": [
+            {
+              "id": "g63-amg-w463",
+              "label": "G 63 AMG 585",
+              "codeMoteur": "M177-G63",
+              "anneeDebut": 2018,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 3982,
+              "puissanceOrigineCh": 585,
+              "coupleOrigineNm": 850,
+              "consoOrigineL100": 13.1
+            }
+          ]
+        },
+        {
+          "id": "amg-gt-c190",
+          "name": "AMG GT (C190)",
+          "motorisations": [
+            {
+              "id": "amg-gt-s-c190",
+              "label": "AMG GT S 4.0 V8 510",
+              "codeMoteur": "M178-GT",
+              "anneeDebut": 2015,
+              "anneeFin": 2023,
+              "carburant": "essence",
+              "cylindreeCm3": 3982,
+              "puissanceOrigineCh": 510,
+              "coupleOrigineNm": 650,
+              "consoOrigineL100": 10.7
+            }
           ]
         }
       ]
@@ -183,23 +1485,240 @@
           "id": "megane-4-rs",
           "name": "Mégane 4 RS",
           "motorisations": [
-            { "id": "megane-4-rs-280", "label": "1.8 TCe 280", "codeMoteur": "M5MT" },
-            { "id": "megane-4-rs-trophy", "label": "1.8 TCe RS Trophy 300", "codeMoteur": "M5MT-300" }
+            {
+              "id": "megane-4-rs-280",
+              "label": "1.8 TCe 280",
+              "codeMoteur": "M5MT",
+              "anneeDebut": 2018,
+              "anneeFin": 2022,
+              "carburant": "essence",
+              "cylindreeCm3": 1798,
+              "puissanceOrigineCh": 280,
+              "coupleOrigineNm": 390,
+              "consoOrigineL100": 7.7
+            },
+            {
+              "id": "megane-4-rs-trophy",
+              "label": "1.8 TCe RS Trophy 300",
+              "codeMoteur": "M5MT-300",
+              "anneeDebut": 2019,
+              "anneeFin": 2022,
+              "carburant": "essence",
+              "cylindreeCm3": 1798,
+              "puissanceOrigineCh": 300,
+              "coupleOrigineNm": 420,
+              "consoOrigineL100": 7.8
+            }
+          ]
+        },
+        {
+          "id": "megane-3-rs",
+          "name": "Mégane 3 RS",
+          "motorisations": [
+            {
+              "id": "megane-3-rs-265",
+              "label": "2.0 TCe 265",
+              "codeMoteur": "F4RT-RS",
+              "anneeDebut": 2010,
+              "anneeFin": 2015,
+              "carburant": "essence",
+              "cylindreeCm3": 1998,
+              "puissanceOrigineCh": 265,
+              "coupleOrigineNm": 360,
+              "consoOrigineL100": 8.1
+            },
+            {
+              "id": "megane-3-rs-275-trophy",
+              "label": "2.0 TCe Trophy-R 275",
+              "codeMoteur": "F4RT-275",
+              "anneeDebut": 2014,
+              "anneeFin": 2015,
+              "carburant": "essence",
+              "cylindreeCm3": 1998,
+              "puissanceOrigineCh": 275,
+              "coupleOrigineNm": 360,
+              "consoOrigineL100": 8.2
+            }
+          ]
+        },
+        {
+          "id": "clio-5-rs-line",
+          "name": "Clio 5 TCe",
+          "motorisations": [
+            {
+              "id": "clio-5-tce-100",
+              "label": "TCe 100",
+              "codeMoteur": "H4D-C5",
+              "anneeDebut": 2019,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 999,
+              "puissanceOrigineCh": 100,
+              "coupleOrigineNm": 160,
+              "consoOrigineL100": 5.4
+            },
+            {
+              "id": "clio-5-tce-130",
+              "label": "TCe 130",
+              "codeMoteur": "H5H-C5",
+              "anneeDebut": 2019,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 1332,
+              "puissanceOrigineCh": 130,
+              "coupleOrigineNm": 240,
+              "consoOrigineL100": 5.8
+            }
           ]
         },
         {
           "id": "clio-4-rs",
           "name": "Clio 4 RS",
           "motorisations": [
-            { "id": "clio-4-rs-200", "label": "1.6 Turbo 200", "codeMoteur": "F4RT" }
+            {
+              "id": "clio-4-rs-200",
+              "label": "1.6 Turbo 200",
+              "codeMoteur": "F4RT",
+              "anneeDebut": 2013,
+              "anneeFin": 2019,
+              "carburant": "essence",
+              "cylindreeCm3": 1618,
+              "puissanceOrigineCh": 200,
+              "coupleOrigineNm": 240,
+              "consoOrigineL100": 6.3
+            }
+          ]
+        },
+        {
+          "id": "clio-2-rs",
+          "name": "Clio 2 RS",
+          "motorisations": [
+            {
+              "id": "clio-2-rs-172",
+              "label": "2.0 16V 172",
+              "codeMoteur": "F4R-172",
+              "anneeDebut": 1999,
+              "anneeFin": 2005,
+              "carburant": "essence",
+              "cylindreeCm3": 1998,
+              "puissanceOrigineCh": 172,
+              "coupleOrigineNm": 200,
+              "consoOrigineL100": 8.9
+            }
+          ]
+        },
+        {
+          "id": "twingo-2-rs",
+          "name": "Twingo 2 RS",
+          "motorisations": [
+            {
+              "id": "twingo-2-rs-133",
+              "label": "1.6 16V 133",
+              "codeMoteur": "K4M-RS",
+              "anneeDebut": 2007,
+              "anneeFin": 2012,
+              "carburant": "essence",
+              "cylindreeCm3": 1598,
+              "puissanceOrigineCh": 133,
+              "coupleOrigineNm": 160,
+              "consoOrigineL100": 7.2
+            }
           ]
         },
         {
           "id": "alpine-a110",
           "name": "Alpine A110",
           "motorisations": [
-            { "id": "a110-s-252", "label": "1.8 Turbo S 252", "codeMoteur": "H5Ht" },
-            { "id": "a110-gt-300", "label": "1.8 Turbo GT 300", "codeMoteur": "H5Ht-GT" }
+            {
+              "id": "a110-pure-252",
+              "label": "1.8 Turbo Pure 252",
+              "codeMoteur": "H5Ht",
+              "anneeDebut": 2017,
+              "anneeFin": 2023,
+              "carburant": "essence",
+              "cylindreeCm3": 1798,
+              "puissanceOrigineCh": 252,
+              "coupleOrigineNm": 320,
+              "consoOrigineL100": 6.1
+            },
+            {
+              "id": "a110-s-292",
+              "label": "1.8 Turbo S 292",
+              "codeMoteur": "H5Ht-S",
+              "anneeDebut": 2019,
+              "anneeFin": 2023,
+              "carburant": "essence",
+              "cylindreeCm3": 1798,
+              "puissanceOrigineCh": 292,
+              "coupleOrigineNm": 320,
+              "consoOrigineL100": 6.1
+            },
+            {
+              "id": "a110-gt-300",
+              "label": "1.8 Turbo GT 300",
+              "codeMoteur": "H5Ht-GT",
+              "anneeDebut": 2021,
+              "anneeFin": 2023,
+              "carburant": "essence",
+              "cylindreeCm3": 1798,
+              "puissanceOrigineCh": 300,
+              "coupleOrigineNm": 340,
+              "consoOrigineL100": 6.1
+            }
+          ]
+        },
+        {
+          "id": "captur-2",
+          "name": "Captur 2",
+          "motorisations": [
+            {
+              "id": "captur-2-tce-130",
+              "label": "TCe 130",
+              "codeMoteur": "H5H-CAP",
+              "anneeDebut": 2019,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 1332,
+              "puissanceOrigineCh": 130,
+              "coupleOrigineNm": 240,
+              "consoOrigineL100": 6
+            }
+          ]
+        },
+        {
+          "id": "scenic-3-rs",
+          "name": "Scénic III RS",
+          "motorisations": [
+            {
+              "id": "scenic-3-rs-2.0-tce",
+              "label": "2.0 TCe RS 220",
+              "codeMoteur": "F4RT-SCE",
+              "anneeDebut": 2010,
+              "anneeFin": 2015,
+              "carburant": "essence",
+              "cylindreeCm3": 1998,
+              "puissanceOrigineCh": 220,
+              "coupleOrigineNm": 290,
+              "consoOrigineL100": 8.5
+            }
+          ]
+        },
+        {
+          "id": "twingo-3-gt",
+          "name": "Twingo 3 GT",
+          "motorisations": [
+            {
+              "id": "twingo-3-gt-0.9-tce",
+              "label": "0.9 TCe GT 110",
+              "codeMoteur": "H4Bt400-GT",
+              "anneeDebut": 2016,
+              "anneeFin": 2019,
+              "carburant": "essence",
+              "cylindreeCm3": 898,
+              "puissanceOrigineCh": 110,
+              "coupleOrigineNm": 170,
+              "consoOrigineL100": 5
+            }
           ]
         }
       ]
@@ -212,28 +1731,210 @@
           "id": "focus-st-mk4",
           "name": "Focus ST Mk4",
           "motorisations": [
-            { "id": "focus-st-2.3-ecoboost", "label": "2.3 EcoBoost 280", "codeMoteur": "M2GA" }
+            {
+              "id": "focus-st-2.3-ecoboost",
+              "label": "2.3 EcoBoost 280",
+              "codeMoteur": "M2GA",
+              "anneeDebut": 2019,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 2261,
+              "puissanceOrigineCh": 280,
+              "coupleOrigineNm": 420,
+              "consoOrigineL100": 8.2
+            }
+          ]
+        },
+        {
+          "id": "focus-st-mk3",
+          "name": "Focus ST Mk3",
+          "motorisations": [
+            {
+              "id": "focus-st-2.0-ecoboost",
+              "label": "2.0 EcoBoost 250",
+              "codeMoteur": "M1GA",
+              "anneeDebut": 2012,
+              "anneeFin": 2018,
+              "carburant": "essence",
+              "cylindreeCm3": 1999,
+              "puissanceOrigineCh": 250,
+              "coupleOrigineNm": 360,
+              "consoOrigineL100": 7.9
+            }
           ]
         },
         {
           "id": "focus-rs-mk3",
           "name": "Focus RS Mk3",
           "motorisations": [
-            { "id": "focus-rs-2.3-ecoboost", "label": "2.3 EcoBoost 350", "codeMoteur": "M2DA" }
+            {
+              "id": "focus-rs-2.3-ecoboost",
+              "label": "2.3 EcoBoost 350",
+              "codeMoteur": "M2DA",
+              "anneeDebut": 2016,
+              "anneeFin": 2018,
+              "carburant": "essence",
+              "cylindreeCm3": 2261,
+              "puissanceOrigineCh": 350,
+              "coupleOrigineNm": 470,
+              "consoOrigineL100": 8.9
+            }
+          ]
+        },
+        {
+          "id": "focus-rs-mk2",
+          "name": "Focus RS Mk2",
+          "motorisations": [
+            {
+              "id": "focus-rs-mk2-2.5-turbo",
+              "label": "2.5 Turbo 305",
+              "codeMoteur": "G5G",
+              "anneeDebut": 2009,
+              "anneeFin": 2011,
+              "carburant": "essence",
+              "cylindreeCm3": 2521,
+              "puissanceOrigineCh": 305,
+              "coupleOrigineNm": 440,
+              "consoOrigineL100": 10.4
+            }
           ]
         },
         {
           "id": "fiesta-st-mk7",
           "name": "Fiesta ST Mk7",
           "motorisations": [
-            { "id": "fiesta-st-1.5-ecoboost", "label": "1.5 EcoBoost 200", "codeMoteur": "SFJA" }
+            {
+              "id": "fiesta-st-1.5-ecoboost",
+              "label": "1.5 EcoBoost 200",
+              "codeMoteur": "SFJA",
+              "anneeDebut": 2018,
+              "anneeFin": 2023,
+              "carburant": "essence",
+              "cylindreeCm3": 1497,
+              "puissanceOrigineCh": 200,
+              "coupleOrigineNm": 290,
+              "consoOrigineL100": 6.6
+            }
+          ]
+        },
+        {
+          "id": "fiesta-st-mk6",
+          "name": "Fiesta ST Mk6",
+          "motorisations": [
+            {
+              "id": "fiesta-st-1.6-ecoboost",
+              "label": "1.6 EcoBoost 182",
+              "codeMoteur": "JQMA",
+              "anneeDebut": 2013,
+              "anneeFin": 2017,
+              "carburant": "essence",
+              "cylindreeCm3": 1596,
+              "puissanceOrigineCh": 182,
+              "coupleOrigineNm": 240,
+              "consoOrigineL100": 6.6
+            }
+          ]
+        },
+        {
+          "id": "puma-st",
+          "name": "Puma ST",
+          "motorisations": [
+            {
+              "id": "puma-st-1.5-ecoboost",
+              "label": "1.5 EcoBoost 200",
+              "codeMoteur": "SFJB",
+              "anneeDebut": 2019,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 1497,
+              "puissanceOrigineCh": 200,
+              "coupleOrigineNm": 320,
+              "consoOrigineL100": 6.6
+            }
           ]
         },
         {
           "id": "mustang-s550",
           "name": "Mustang (S550)",
           "motorisations": [
-            { "id": "mustang-5.0-v8", "label": "5.0 V8 450", "codeMoteur": "GENF" }
+            {
+              "id": "mustang-5.0-v8",
+              "label": "5.0 V8 450",
+              "codeMoteur": "GENF",
+              "anneeDebut": 2017,
+              "anneeFin": 2023,
+              "carburant": "essence",
+              "cylindreeCm3": 4951,
+              "puissanceOrigineCh": 450,
+              "coupleOrigineNm": 529,
+              "consoOrigineL100": 12.8
+            },
+            {
+              "id": "mustang-2.3-ecoboost",
+              "label": "2.3 EcoBoost 290",
+              "codeMoteur": "M2GB",
+              "anneeDebut": 2015,
+              "anneeFin": 2023,
+              "carburant": "essence",
+              "cylindreeCm3": 2261,
+              "puissanceOrigineCh": 290,
+              "coupleOrigineNm": 440,
+              "consoOrigineL100": 9.1
+            }
+          ]
+        },
+        {
+          "id": "kuga-3",
+          "name": "Kuga 3",
+          "motorisations": [
+            {
+              "id": "kuga-3-2.0-tdci",
+              "label": "2.0 EcoBlue 150",
+              "codeMoteur": "T7BA",
+              "anneeDebut": 2019,
+              "anneeFin": 2024,
+              "carburant": "diesel",
+              "cylindreeCm3": 1997,
+              "puissanceOrigineCh": 150,
+              "coupleOrigineNm": 370,
+              "consoOrigineL100": 5.3
+            }
+          ]
+        },
+        {
+          "id": "sierra-cosworth",
+          "name": "Sierra RS Cosworth",
+          "motorisations": [
+            {
+              "id": "sierra-cosworth-2.0-turbo",
+              "label": "2.0 Turbo YB 204",
+              "codeMoteur": "YB",
+              "anneeDebut": 1986,
+              "anneeFin": 1992,
+              "carburant": "essence",
+              "cylindreeCm3": 1993,
+              "puissanceOrigineCh": 204,
+              "coupleOrigineNm": 279,
+              "consoOrigineL100": 10.9
+            }
+          ]
+        },
+        {
+          "id": "escort-rs-turbo",
+          "name": "Escort RS Turbo",
+          "motorisations": [
+            {
+              "id": "escort-rs-turbo-1.6",
+              "label": "1.6 Turbo 132",
+              "codeMoteur": "CVH-RS",
+              "anneeDebut": 1984,
+              "anneeFin": 1990,
+              "carburant": "essence",
+              "cylindreeCm3": 1597,
+              "puissanceOrigineCh": 132,
+              "coupleOrigineNm": 178,
+              "consoOrigineL100": 8.6
+            }
           ]
         }
       ]
@@ -246,21 +1947,180 @@
           "id": "civic-type-r-fk8",
           "name": "Civic Type R (FK8)",
           "motorisations": [
-            { "id": "civic-fk8-k20c1", "label": "2.0 VTEC Turbo 320", "codeMoteur": "K20C1" }
+            {
+              "id": "civic-fk8-k20c1",
+              "label": "2.0 VTEC Turbo 320",
+              "codeMoteur": "K20C1",
+              "anneeDebut": 2017,
+              "anneeFin": 2021,
+              "carburant": "essence",
+              "cylindreeCm3": 1996,
+              "puissanceOrigineCh": 320,
+              "coupleOrigineNm": 400,
+              "consoOrigineL100": 7.9
+            }
           ]
         },
         {
           "id": "civic-type-r-fl5",
           "name": "Civic Type R (FL5)",
           "motorisations": [
-            { "id": "civic-fl5-k20c1", "label": "2.0 VTEC Turbo 330", "codeMoteur": "K20C1-FL5" }
+            {
+              "id": "civic-fl5-k20c1",
+              "label": "2.0 VTEC Turbo 330",
+              "codeMoteur": "K20C1-FL5",
+              "anneeDebut": 2022,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 1996,
+              "puissanceOrigineCh": 330,
+              "coupleOrigineNm": 420,
+              "consoOrigineL100": 8.9
+            }
+          ]
+        },
+        {
+          "id": "civic-type-r-fn2",
+          "name": "Civic Type R (FN2)",
+          "motorisations": [
+            {
+              "id": "civic-fn2-k20z4",
+              "label": "2.0 VTEC 201",
+              "codeMoteur": "K20Z4",
+              "anneeDebut": 2006,
+              "anneeFin": 2010,
+              "carburant": "essence",
+              "cylindreeCm3": 1998,
+              "puissanceOrigineCh": 201,
+              "coupleOrigineNm": 193,
+              "consoOrigineL100": 8.7
+            }
+          ]
+        },
+        {
+          "id": "civic-type-r-fd2",
+          "name": "Civic Type R (FD2)",
+          "motorisations": [
+            {
+              "id": "civic-fd2-k20a",
+              "label": "2.0 VTEC 225",
+              "codeMoteur": "K20A-FD2",
+              "anneeDebut": 2007,
+              "anneeFin": 2010,
+              "carburant": "essence",
+              "cylindreeCm3": 1998,
+              "puissanceOrigineCh": 225,
+              "coupleOrigineNm": 216,
+              "consoOrigineL100": 9.5
+            }
+          ]
+        },
+        {
+          "id": "civic-type-r-ep3",
+          "name": "Civic Type R (EP3)",
+          "motorisations": [
+            {
+              "id": "civic-ep3-k20a2",
+              "label": "2.0 VTEC 200",
+              "codeMoteur": "K20A2",
+              "anneeDebut": 2001,
+              "anneeFin": 2006,
+              "carburant": "essence",
+              "cylindreeCm3": 1998,
+              "puissanceOrigineCh": 200,
+              "coupleOrigineNm": 196,
+              "consoOrigineL100": 8.6
+            }
           ]
         },
         {
           "id": "integra-type-r-dc5",
           "name": "Integra Type R (DC5)",
           "motorisations": [
-            { "id": "dc5-k20a", "label": "2.0 VTEC 220", "codeMoteur": "K20A" }
+            {
+              "id": "dc5-k20a",
+              "label": "2.0 VTEC 220",
+              "codeMoteur": "K20A",
+              "anneeDebut": 2001,
+              "anneeFin": 2006,
+              "carburant": "essence",
+              "cylindreeCm3": 1998,
+              "puissanceOrigineCh": 220,
+              "coupleOrigineNm": 206,
+              "consoOrigineL100": 8.5
+            }
+          ]
+        },
+        {
+          "id": "integra-type-r-dc2",
+          "name": "Integra Type R (DC2)",
+          "motorisations": [
+            {
+              "id": "dc2-b18c",
+              "label": "1.8 VTEC 190",
+              "codeMoteur": "B18C",
+              "anneeDebut": 1995,
+              "anneeFin": 2001,
+              "carburant": "essence",
+              "cylindreeCm3": 1797,
+              "puissanceOrigineCh": 190,
+              "coupleOrigineNm": 178,
+              "consoOrigineL100": 8.9
+            }
+          ]
+        },
+        {
+          "id": "s2000-ap1",
+          "name": "S2000 (AP1/AP2)",
+          "motorisations": [
+            {
+              "id": "s2000-f20c",
+              "label": "2.0 VTEC F20C 240",
+              "codeMoteur": "F20C",
+              "anneeDebut": 1999,
+              "anneeFin": 2009,
+              "carburant": "essence",
+              "cylindreeCm3": 1997,
+              "puissanceOrigineCh": 240,
+              "coupleOrigineNm": 208,
+              "consoOrigineL100": 9.7
+            }
+          ]
+        },
+        {
+          "id": "nsx-na1",
+          "name": "NSX (NA1/NA2)",
+          "motorisations": [
+            {
+              "id": "nsx-c30a",
+              "label": "3.0 V6 VTEC 274",
+              "codeMoteur": "C30A",
+              "anneeDebut": 1990,
+              "anneeFin": 2005,
+              "carburant": "essence",
+              "cylindreeCm3": 2977,
+              "puissanceOrigineCh": 274,
+              "coupleOrigineNm": 284,
+              "consoOrigineL100": 11
+            }
+          ]
+        },
+        {
+          "id": "accord-type-r-cl1",
+          "name": "Accord Type R (CL1)",
+          "motorisations": [
+            {
+              "id": "accord-tr-h22a",
+              "label": "2.2 VTEC H22A 220",
+              "codeMoteur": "H22A7",
+              "anneeDebut": 1998,
+              "anneeFin": 2002,
+              "carburant": "essence",
+              "cylindreeCm3": 2157,
+              "puissanceOrigineCh": 220,
+              "coupleOrigineNm": 216,
+              "consoOrigineL100": 9.9
+            }
           ]
         }
       ]
@@ -273,21 +2133,192 @@
           "id": "gr-yaris",
           "name": "GR Yaris",
           "motorisations": [
-            { "id": "gr-yaris-1.6-turbo", "label": "1.6 Turbo 261", "codeMoteur": "G16E-GTS" }
+            {
+              "id": "gr-yaris-1.6-turbo",
+              "label": "1.6 Turbo 261",
+              "codeMoteur": "G16E-GTS",
+              "anneeDebut": 2020,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 1618,
+              "puissanceOrigineCh": 261,
+              "coupleOrigineNm": 360,
+              "consoOrigineL100": 7.6
+            }
+          ]
+        },
+        {
+          "id": "gr-corolla",
+          "name": "GR Corolla",
+          "motorisations": [
+            {
+              "id": "gr-corolla-1.6-turbo",
+              "label": "1.6 Turbo 300",
+              "codeMoteur": "G16E-GTS-COR",
+              "anneeDebut": 2022,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 1618,
+              "puissanceOrigineCh": 300,
+              "coupleOrigineNm": 370,
+              "consoOrigineL100": 8.9
+            }
           ]
         },
         {
           "id": "gr86-2022",
           "name": "GR86 (2022)",
           "motorisations": [
-            { "id": "gr86-2.4-na", "label": "2.4 NA 234", "codeMoteur": "FA24" }
+            {
+              "id": "gr86-2.4-na",
+              "label": "2.4 NA 234",
+              "codeMoteur": "FA24",
+              "anneeDebut": 2021,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 2387,
+              "puissanceOrigineCh": 234,
+              "coupleOrigineNm": 250,
+              "consoOrigineL100": 9.1
+            }
+          ]
+        },
+        {
+          "id": "gt86",
+          "name": "GT86",
+          "motorisations": [
+            {
+              "id": "gt86-2.0-na",
+              "label": "2.0 NA 200",
+              "codeMoteur": "FA20",
+              "anneeDebut": 2012,
+              "anneeFin": 2020,
+              "carburant": "essence",
+              "cylindreeCm3": 1998,
+              "puissanceOrigineCh": 200,
+              "coupleOrigineNm": 205,
+              "consoOrigineL100": 7.8
+            }
           ]
         },
         {
           "id": "supra-a90",
           "name": "GR Supra (A90)",
           "motorisations": [
-            { "id": "supra-3.0-turbo", "label": "3.0 Turbo 340", "codeMoteur": "B58B30M0" }
+            {
+              "id": "supra-3.0-turbo",
+              "label": "3.0 Turbo 340",
+              "codeMoteur": "B58B30M1",
+              "anneeDebut": 2019,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 2998,
+              "puissanceOrigineCh": 340,
+              "coupleOrigineNm": 500,
+              "consoOrigineL100": 7.7
+            },
+            {
+              "id": "supra-2.0-turbo",
+              "label": "2.0 Turbo 258",
+              "codeMoteur": "B48B20M1",
+              "anneeDebut": 2020,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 1998,
+              "puissanceOrigineCh": 258,
+              "coupleOrigineNm": 400,
+              "consoOrigineL100": 6.6
+            }
+          ]
+        },
+        {
+          "id": "celica-t23",
+          "name": "Celica (T23)",
+          "motorisations": [
+            {
+              "id": "celica-t23-1.8-vvtli",
+              "label": "1.8 VVT-Li 192",
+              "codeMoteur": "2ZZ-GE",
+              "anneeDebut": 1999,
+              "anneeFin": 2005,
+              "carburant": "essence",
+              "cylindreeCm3": 1794,
+              "puissanceOrigineCh": 192,
+              "coupleOrigineNm": 180,
+              "consoOrigineL100": 8
+            }
+          ]
+        },
+        {
+          "id": "mr2-sw20",
+          "name": "MR2 (SW20)",
+          "motorisations": [
+            {
+              "id": "mr2-sw20-3sgte",
+              "label": "2.0 Turbo 3S-GTE 245",
+              "codeMoteur": "3S-GTE",
+              "anneeDebut": 1989,
+              "anneeFin": 1999,
+              "carburant": "essence",
+              "cylindreeCm3": 1998,
+              "puissanceOrigineCh": 245,
+              "coupleOrigineNm": 304,
+              "consoOrigineL100": 9.5
+            }
+          ]
+        },
+        {
+          "id": "yaris-xp210",
+          "name": "Yaris (XP210)",
+          "motorisations": [
+            {
+              "id": "yaris-1.5-hybrid",
+              "label": "1.5 Hybrid 116",
+              "codeMoteur": "M15A-FXE",
+              "anneeDebut": 2020,
+              "anneeFin": 2024,
+              "carburant": "hybride",
+              "cylindreeCm3": 1490,
+              "puissanceOrigineCh": 116,
+              "coupleOrigineNm": 141,
+              "consoOrigineL100": 3.8
+            }
+          ]
+        },
+        {
+          "id": "land-cruiser-j150",
+          "name": "Land Cruiser (J150)",
+          "motorisations": [
+            {
+              "id": "land-cruiser-j150-2.8-d4d",
+              "label": "2.8 D-4D 177",
+              "codeMoteur": "1GD-FTV",
+              "anneeDebut": 2015,
+              "anneeFin": 2024,
+              "carburant": "diesel",
+              "cylindreeCm3": 2755,
+              "puissanceOrigineCh": 177,
+              "coupleOrigineNm": 450,
+              "consoOrigineL100": 7.9
+            }
+          ]
+        },
+        {
+          "id": "avensis-3",
+          "name": "Avensis III",
+          "motorisations": [
+            {
+              "id": "avensis-3-2.0-d4d",
+              "label": "2.0 D-4D 143",
+              "codeMoteur": "1AD-FTV",
+              "anneeDebut": 2009,
+              "anneeFin": 2018,
+              "carburant": "diesel",
+              "cylindreeCm3": 1998,
+              "puissanceOrigineCh": 143,
+              "coupleOrigineNm": 320,
+              "consoOrigineL100": 4.9
+            }
           ]
         }
       ]
@@ -300,14 +2331,108 @@
           "id": "wrx-sti",
           "name": "WRX STI",
           "motorisations": [
-            { "id": "wrx-sti-ej257", "label": "2.5 Turbo EJ257 300", "codeMoteur": "EJ257" }
+            {
+              "id": "wrx-sti-ej257",
+              "label": "2.5 Turbo EJ257 300",
+              "codeMoteur": "EJ257",
+              "anneeDebut": 2005,
+              "anneeFin": 2021,
+              "carburant": "essence",
+              "cylindreeCm3": 2457,
+              "puissanceOrigineCh": 300,
+              "coupleOrigineNm": 407,
+              "consoOrigineL100": 11
+            }
           ]
         },
         {
           "id": "impreza-wrx",
           "name": "Impreza WRX",
           "motorisations": [
-            { "id": "wrx-ej205", "label": "2.0 Turbo EJ205 224", "codeMoteur": "EJ205" }
+            {
+              "id": "wrx-ej205",
+              "label": "2.0 Turbo EJ205 224",
+              "codeMoteur": "EJ205",
+              "anneeDebut": 2000,
+              "anneeFin": 2007,
+              "carburant": "essence",
+              "cylindreeCm3": 1994,
+              "puissanceOrigineCh": 224,
+              "coupleOrigineNm": 300,
+              "consoOrigineL100": 10.5
+            }
+          ]
+        },
+        {
+          "id": "brz-zc6",
+          "name": "BRZ (ZC6)",
+          "motorisations": [
+            {
+              "id": "brz-zc6-fa20",
+              "label": "2.0 NA 200",
+              "codeMoteur": "FA20-BRZ",
+              "anneeDebut": 2012,
+              "anneeFin": 2021,
+              "carburant": "essence",
+              "cylindreeCm3": 1998,
+              "puissanceOrigineCh": 200,
+              "coupleOrigineNm": 205,
+              "consoOrigineL100": 7.8
+            }
+          ]
+        },
+        {
+          "id": "forester-sti",
+          "name": "Forester STI",
+          "motorisations": [
+            {
+              "id": "forester-sti-ej20",
+              "label": "2.0 Turbo EJ20 320",
+              "codeMoteur": "EJ20-SF",
+              "anneeDebut": 2003,
+              "anneeFin": 2005,
+              "carburant": "essence",
+              "cylindreeCm3": 1994,
+              "puissanceOrigineCh": 320,
+              "coupleOrigineNm": 400,
+              "consoOrigineL100": 12
+            }
+          ]
+        },
+        {
+          "id": "levorg-sti-sport",
+          "name": "Levorg STI Sport",
+          "motorisations": [
+            {
+              "id": "levorg-fa20dit",
+              "label": "1.6 Turbo FA20 170",
+              "codeMoteur": "FA20DIT",
+              "anneeDebut": 2015,
+              "anneeFin": 2020,
+              "carburant": "essence",
+              "cylindreeCm3": 1998,
+              "puissanceOrigineCh": 170,
+              "coupleOrigineNm": 250,
+              "consoOrigineL100": 7.2
+            }
+          ]
+        },
+        {
+          "id": "legacy-gt-bl-bp",
+          "name": "Legacy GT (BL/BP)",
+          "motorisations": [
+            {
+              "id": "legacy-gt-ej255",
+              "label": "2.5 Turbo EJ255 260",
+              "codeMoteur": "EJ255",
+              "anneeDebut": 2003,
+              "anneeFin": 2009,
+              "carburant": "essence",
+              "cylindreeCm3": 2457,
+              "puissanceOrigineCh": 260,
+              "coupleOrigineNm": 350,
+              "consoOrigineL100": 10.6
+            }
           ]
         }
       ]
@@ -320,22 +2445,186 @@
           "id": "308-iii",
           "name": "308 III",
           "motorisations": [
-            { "id": "308-1.2-puretech", "label": "1.2 PureTech 130", "codeMoteur": "HNZ" },
-            { "id": "308-1.5-bluehdi", "label": "1.5 BlueHDi 130", "codeMoteur": "YHZ" }
+            {
+              "id": "308-1.2-puretech",
+              "label": "1.2 PureTech 130",
+              "codeMoteur": "HNZ",
+              "anneeDebut": 2021,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 1199,
+              "puissanceOrigineCh": 130,
+              "coupleOrigineNm": 230,
+              "consoOrigineL100": 5.3
+            },
+            {
+              "id": "308-1.5-bluehdi",
+              "label": "1.5 BlueHDi 130",
+              "codeMoteur": "YHZ",
+              "anneeDebut": 2021,
+              "anneeFin": 2024,
+              "carburant": "diesel",
+              "cylindreeCm3": 1499,
+              "puissanceOrigineCh": 130,
+              "coupleOrigineNm": 300,
+              "consoOrigineL100": 4.1
+            }
           ]
         },
         {
           "id": "208-gti",
           "name": "208 GTi",
           "motorisations": [
-            { "id": "208-gti-1.6-thp", "label": "1.6 THP 208", "codeMoteur": "EP6CDTX" }
+            {
+              "id": "208-gti-1.6-thp",
+              "label": "1.6 THP 208",
+              "codeMoteur": "EP6CDTX",
+              "anneeDebut": 2013,
+              "anneeFin": 2015,
+              "carburant": "essence",
+              "cylindreeCm3": 1598,
+              "puissanceOrigineCh": 208,
+              "coupleOrigineNm": 300,
+              "consoOrigineL100": 6.7
+            }
+          ]
+        },
+        {
+          "id": "e208",
+          "name": "208 II",
+          "motorisations": [
+            {
+              "id": "e208-1.2-puretech",
+              "label": "1.2 PureTech 100",
+              "codeMoteur": "HN05",
+              "anneeDebut": 2019,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 1199,
+              "puissanceOrigineCh": 100,
+              "coupleOrigineNm": 205,
+              "consoOrigineL100": 5.2
+            }
           ]
         },
         {
           "id": "308-gti",
           "name": "308 GTi",
           "motorisations": [
-            { "id": "308-gti-1.6-thp", "label": "1.6 THP 270", "codeMoteur": "5FX" }
+            {
+              "id": "308-gti-1.6-thp",
+              "label": "1.6 THP 270",
+              "codeMoteur": "5FX",
+              "anneeDebut": 2015,
+              "anneeFin": 2017,
+              "carburant": "essence",
+              "cylindreeCm3": 1598,
+              "puissanceOrigineCh": 270,
+              "coupleOrigineNm": 330,
+              "consoOrigineL100": 6.9
+            }
+          ]
+        },
+        {
+          "id": "205-gti",
+          "name": "205 GTI",
+          "motorisations": [
+            {
+              "id": "205-gti-1.9",
+              "label": "1.9 GTI 130",
+              "codeMoteur": "XU9JA",
+              "anneeDebut": 1986,
+              "anneeFin": 1994,
+              "carburant": "essence",
+              "cylindreeCm3": 1905,
+              "puissanceOrigineCh": 130,
+              "coupleOrigineNm": 165,
+              "consoOrigineL100": 8.7
+            },
+            {
+              "id": "205-gti-1.6",
+              "label": "1.6 GTI 115",
+              "codeMoteur": "XU5JA",
+              "anneeDebut": 1984,
+              "anneeFin": 1992,
+              "carburant": "essence",
+              "cylindreeCm3": 1580,
+              "puissanceOrigineCh": 115,
+              "coupleOrigineNm": 137,
+              "consoOrigineL100": 7.9
+            }
+          ]
+        },
+        {
+          "id": "306-gti6",
+          "name": "306 GTI-6",
+          "motorisations": [
+            {
+              "id": "306-gti6-2.0",
+              "label": "2.0 16V 167",
+              "codeMoteur": "XU10J4",
+              "anneeDebut": 1996,
+              "anneeFin": 2001,
+              "carburant": "essence",
+              "cylindreeCm3": 1998,
+              "puissanceOrigineCh": 167,
+              "coupleOrigineNm": 190,
+              "consoOrigineL100": 9.5
+            }
+          ]
+        },
+        {
+          "id": "106-gti",
+          "name": "106 GTI / Rallye",
+          "motorisations": [
+            {
+              "id": "106-gti-1.6",
+              "label": "1.6 GTI 120",
+              "codeMoteur": "TU5J2",
+              "anneeDebut": 1996,
+              "anneeFin": 2003,
+              "carburant": "essence",
+              "cylindreeCm3": 1587,
+              "puissanceOrigineCh": 120,
+              "coupleOrigineNm": 148,
+              "consoOrigineL100": 7.5
+            }
+          ]
+        },
+        {
+          "id": "rcz-r",
+          "name": "RCZ R",
+          "motorisations": [
+            {
+              "id": "rcz-r-1.6-thp",
+              "label": "1.6 THP 270",
+              "codeMoteur": "5FW",
+              "anneeDebut": 2013,
+              "anneeFin": 2015,
+              "carburant": "essence",
+              "cylindreeCm3": 1598,
+              "puissanceOrigineCh": 270,
+              "coupleOrigineNm": 330,
+              "consoOrigineL100": 7
+            }
+          ]
+        },
+        {
+          "id": "508-ii",
+          "name": "508 II",
+          "motorisations": [
+            {
+              "id": "508-ii-1.5-bluehdi",
+              "label": "1.5 BlueHDi 130",
+              "codeMoteur": "YHZ-508",
+              "anneeDebut": 2018,
+              "anneeFin": 2024,
+              "carburant": "diesel",
+              "cylindreeCm3": 1499,
+              "puissanceOrigineCh": 130,
+              "coupleOrigineNm": 300,
+              "consoOrigineL100": 4.4
+            }
           ]
         }
       ]
@@ -348,21 +2637,124 @@
           "id": "leon-cupra",
           "name": "Leon Cupra 300",
           "motorisations": [
-            { "id": "leon-cupra-2.0-tsi", "label": "2.0 TSI Cupra 300", "codeMoteur": "CHHB" }
+            {
+              "id": "leon-cupra-2.0-tsi",
+              "label": "2.0 TSI Cupra 300",
+              "codeMoteur": "CJXD",
+              "anneeDebut": 2016,
+              "anneeFin": 2020,
+              "carburant": "essence",
+              "cylindreeCm3": 1984,
+              "puissanceOrigineCh": 300,
+              "coupleOrigineNm": 380,
+              "consoOrigineL100": 7.2
+            }
+          ]
+        },
+        {
+          "id": "leon-fr",
+          "name": "Leon FR (5F)",
+          "motorisations": [
+            {
+              "id": "leon-fr-1.5-tsi",
+              "label": "1.5 TSI FR 150",
+              "codeMoteur": "DPCD",
+              "anneeDebut": 2017,
+              "anneeFin": 2020,
+              "carburant": "essence",
+              "cylindreeCm3": 1498,
+              "puissanceOrigineCh": 150,
+              "coupleOrigineNm": 250,
+              "consoOrigineL100": 5.8
+            }
+          ]
+        },
+        {
+          "id": "ibiza-cupra",
+          "name": "Ibiza Cupra (6J)",
+          "motorisations": [
+            {
+              "id": "ibiza-cupra-1.4-tsi",
+              "label": "1.4 TSI Cupra 180",
+              "codeMoteur": "CAVD",
+              "anneeDebut": 2009,
+              "anneeFin": 2015,
+              "carburant": "essence",
+              "cylindreeCm3": 1390,
+              "puissanceOrigineCh": 180,
+              "coupleOrigineNm": 250,
+              "consoOrigineL100": 6.5
+            }
           ]
         },
         {
           "id": "formentor-vz",
-          "name": "Formentor VZ",
+          "name": "Cupra Formentor VZ",
           "motorisations": [
-            { "id": "formentor-2.0-tsi", "label": "2.0 TSI VZ 310", "codeMoteur": "DNFA" }
+            {
+              "id": "formentor-2.0-tsi",
+              "label": "2.0 TSI VZ 310",
+              "codeMoteur": "DNFC-VZ",
+              "anneeDebut": 2020,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 1984,
+              "puissanceOrigineCh": 310,
+              "coupleOrigineNm": 420,
+              "consoOrigineL100": 8
+            }
           ]
         },
         {
           "id": "cupra-ateca",
           "name": "Cupra Ateca",
           "motorisations": [
-            { "id": "ateca-2.0-tsi", "label": "2.0 TSI 300", "codeMoteur": "CJXC" }
+            {
+              "id": "ateca-2.0-tsi",
+              "label": "2.0 TSI 300",
+              "codeMoteur": "CJXC",
+              "anneeDebut": 2018,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 1984,
+              "puissanceOrigineCh": 300,
+              "coupleOrigineNm": 400,
+              "consoOrigineL100": 8.1
+            }
+          ]
+        },
+        {
+          "id": "cupra-leon-vz5",
+          "name": "Cupra Leon VZ5",
+          "motorisations": [
+            {
+              "id": "leon-vz5-2.5-tsi",
+              "label": "2.5 TSI 390",
+              "codeMoteur": "DNUB",
+              "anneeDebut": 2021,
+              "anneeFin": 2022,
+              "carburant": "essence",
+              "cylindreeCm3": 2480,
+              "puissanceOrigineCh": 390,
+              "coupleOrigineNm": 480,
+              "consoOrigineL100": 9
+            }
+          ]
+        },
+        {
+          "id": "cupra-born",
+          "name": "Cupra Born",
+          "motorisations": [
+            {
+              "id": "born-electrique-204",
+              "label": "Électrique 204",
+              "codeMoteur": "EASB",
+              "anneeDebut": 2021,
+              "anneeFin": 2024,
+              "carburant": "electrique",
+              "puissanceOrigineCh": 204,
+              "coupleOrigineNm": 310
+            }
           ]
         }
       ]
@@ -375,14 +2767,90 @@
           "id": "lancer-evo-x",
           "name": "Lancer Evo X",
           "motorisations": [
-            { "id": "evo-x-4b11", "label": "2.0 Turbo 4B11 295", "codeMoteur": "4B11" }
+            {
+              "id": "evo-x-4b11",
+              "label": "2.0 Turbo 4B11 295",
+              "codeMoteur": "4B11",
+              "anneeDebut": 2007,
+              "anneeFin": 2016,
+              "carburant": "essence",
+              "cylindreeCm3": 1998,
+              "puissanceOrigineCh": 295,
+              "coupleOrigineNm": 366,
+              "consoOrigineL100": 10.6
+            }
           ]
         },
         {
           "id": "lancer-evo-ix",
           "name": "Lancer Evo IX",
           "motorisations": [
-            { "id": "evo-ix-4g63t", "label": "2.0 Turbo 4G63T 280", "codeMoteur": "4G63T" }
+            {
+              "id": "evo-ix-4g63t",
+              "label": "2.0 Turbo 4G63T 280",
+              "codeMoteur": "4G63T",
+              "anneeDebut": 2005,
+              "anneeFin": 2007,
+              "carburant": "essence",
+              "cylindreeCm3": 1997,
+              "puissanceOrigineCh": 280,
+              "coupleOrigineNm": 363,
+              "consoOrigineL100": 10.9
+            }
+          ]
+        },
+        {
+          "id": "lancer-evo-vi",
+          "name": "Lancer Evo VI",
+          "motorisations": [
+            {
+              "id": "evo-vi-4g63t",
+              "label": "2.0 Turbo 4G63T 280",
+              "codeMoteur": "4G63T-VI",
+              "anneeDebut": 1999,
+              "anneeFin": 2001,
+              "carburant": "essence",
+              "cylindreeCm3": 1997,
+              "puissanceOrigineCh": 280,
+              "coupleOrigineNm": 355,
+              "consoOrigineL100": 11.2
+            }
+          ]
+        },
+        {
+          "id": "eclipse-gsx",
+          "name": "Eclipse GSX",
+          "motorisations": [
+            {
+              "id": "eclipse-4g63t",
+              "label": "2.0 Turbo 4G63T 205",
+              "codeMoteur": "4G63T-ECL",
+              "anneeDebut": 1990,
+              "anneeFin": 1994,
+              "carburant": "essence",
+              "cylindreeCm3": 1997,
+              "puissanceOrigineCh": 205,
+              "coupleOrigineNm": 274,
+              "consoOrigineL100": 10.8
+            }
+          ]
+        },
+        {
+          "id": "asx",
+          "name": "ASX",
+          "motorisations": [
+            {
+              "id": "asx-1.6-di-d",
+              "label": "1.6 DI-D 114",
+              "codeMoteur": "4N13",
+              "anneeDebut": 2012,
+              "anneeFin": 2020,
+              "carburant": "diesel",
+              "cylindreeCm3": 1598,
+              "puissanceOrigineCh": 114,
+              "coupleOrigineNm": 300,
+              "consoOrigineL100": 4.5
+            }
           ]
         }
       ]
@@ -395,15 +2863,138 @@
           "id": "cayman-gt4-992",
           "name": "718 Cayman GT4",
           "motorisations": [
-            { "id": "gt4-4.0-na", "label": "4.0 NA 420", "codeMoteur": "9A2.2" }
+            {
+              "id": "gt4-4.0-na",
+              "label": "4.0 NA 420",
+              "codeMoteur": "9A2.2",
+              "anneeDebut": 2019,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 3995,
+              "puissanceOrigineCh": 420,
+              "coupleOrigineNm": 420,
+              "consoOrigineL100": 11.6
+            }
+          ]
+        },
+        {
+          "id": "cayman-s-981",
+          "name": "Cayman S (981)",
+          "motorisations": [
+            {
+              "id": "cayman-s-981-3.4",
+              "label": "3.4 NA 325",
+              "codeMoteur": "MA1.75",
+              "anneeDebut": 2012,
+              "anneeFin": 2016,
+              "carburant": "essence",
+              "cylindreeCm3": 3436,
+              "puissanceOrigineCh": 325,
+              "coupleOrigineNm": 370,
+              "consoOrigineL100": 8.9
+            }
+          ]
+        },
+        {
+          "id": "boxster-s-987",
+          "name": "Boxster S (987)",
+          "motorisations": [
+            {
+              "id": "boxster-s-987-3.4",
+              "label": "3.4 NA 310",
+              "codeMoteur": "M97.21",
+              "anneeDebut": 2004,
+              "anneeFin": 2008,
+              "carburant": "essence",
+              "cylindreeCm3": 3387,
+              "puissanceOrigineCh": 295,
+              "coupleOrigineNm": 340,
+              "consoOrigineL100": 10.6
+            }
           ]
         },
         {
           "id": "911-992",
           "name": "911 (992)",
           "motorisations": [
-            { "id": "911-carrera-s", "label": "Carrera S 3.0 Biturbo 450", "codeMoteur": "9A2-S" },
-            { "id": "911-gt3", "label": "GT3 4.0 NA 510", "codeMoteur": "9A2-GT3" }
+            {
+              "id": "911-carrera-s",
+              "label": "Carrera S 3.0 Biturbo 450",
+              "codeMoteur": "9A2-S",
+              "anneeDebut": 2019,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 2981,
+              "puissanceOrigineCh": 450,
+              "coupleOrigineNm": 530,
+              "consoOrigineL100": 10
+            },
+            {
+              "id": "911-gt3",
+              "label": "GT3 4.0 NA 510",
+              "codeMoteur": "9A2-GT3",
+              "anneeDebut": 2021,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 3996,
+              "puissanceOrigineCh": 510,
+              "coupleOrigineNm": 470,
+              "consoOrigineL100": 13.3
+            }
+          ]
+        },
+        {
+          "id": "911-997",
+          "name": "911 (997) Turbo",
+          "motorisations": [
+            {
+              "id": "911-997-turbo",
+              "label": "Turbo 3.6 Biturbo 480",
+              "codeMoteur": "M97.75",
+              "anneeDebut": 2006,
+              "anneeFin": 2009,
+              "carburant": "essence",
+              "cylindreeCm3": 3600,
+              "puissanceOrigineCh": 480,
+              "coupleOrigineNm": 620,
+              "consoOrigineL100": 12.4
+            }
+          ]
+        },
+        {
+          "id": "macan",
+          "name": "Macan",
+          "motorisations": [
+            {
+              "id": "macan-s-3.0-v6",
+              "label": "S 3.0 V6 Biturbo 354",
+              "codeMoteur": "9AA",
+              "anneeDebut": 2014,
+              "anneeFin": 2023,
+              "carburant": "essence",
+              "cylindreeCm3": 2995,
+              "puissanceOrigineCh": 354,
+              "coupleOrigineNm": 480,
+              "consoOrigineL100": 9
+            }
+          ]
+        },
+        {
+          "id": "panamera-970",
+          "name": "Panamera (970) Turbo",
+          "motorisations": [
+            {
+              "id": "panamera-turbo-970",
+              "label": "Turbo 4.8 V8 500",
+              "codeMoteur": "M48.50",
+              "anneeDebut": 2009,
+              "anneeFin": 2016,
+              "carburant": "essence",
+              "cylindreeCm3": 4806,
+              "puissanceOrigineCh": 500,
+              "coupleOrigineNm": 700,
+              "consoOrigineL100": 11.5
+            }
           ]
         }
       ]
@@ -416,14 +3007,90 @@
           "id": "gt-r-r35",
           "name": "GT-R (R35)",
           "motorisations": [
-            { "id": "gtr-vr38dett", "label": "3.8 V6 Biturbo 570", "codeMoteur": "VR38DETT" }
+            {
+              "id": "gtr-vr38dett",
+              "label": "3.8 V6 Biturbo 570",
+              "codeMoteur": "VR38DETT",
+              "anneeDebut": 2007,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 3799,
+              "puissanceOrigineCh": 570,
+              "coupleOrigineNm": 637,
+              "consoOrigineL100": 11.7
+            }
+          ]
+        },
+        {
+          "id": "skyline-r34-gtr",
+          "name": "Skyline GT-R (R34)",
+          "motorisations": [
+            {
+              "id": "r34-gtr-rb26dett",
+              "label": "2.6 RB26DETT Biturbo 280",
+              "codeMoteur": "RB26DETT",
+              "anneeDebut": 1999,
+              "anneeFin": 2002,
+              "carburant": "essence",
+              "cylindreeCm3": 2568,
+              "puissanceOrigineCh": 280,
+              "coupleOrigineNm": 392,
+              "consoOrigineL100": 12.5
+            }
+          ]
+        },
+        {
+          "id": "silvia-s15",
+          "name": "Silvia (S15)",
+          "motorisations": [
+            {
+              "id": "s15-sr20det",
+              "label": "2.0 Turbo SR20DET 250",
+              "codeMoteur": "SR20DET",
+              "anneeDebut": 1999,
+              "anneeFin": 2002,
+              "carburant": "essence",
+              "cylindreeCm3": 1998,
+              "puissanceOrigineCh": 250,
+              "coupleOrigineNm": 275,
+              "consoOrigineL100": 9.8
+            }
           ]
         },
         {
           "id": "370z-z34",
           "name": "370Z (Z34)",
           "motorisations": [
-            { "id": "370z-vq37vhr", "label": "3.7 V6 328", "codeMoteur": "VQ37VHR" }
+            {
+              "id": "370z-vq37vhr",
+              "label": "3.7 V6 328",
+              "codeMoteur": "VQ37VHR",
+              "anneeDebut": 2009,
+              "anneeFin": 2020,
+              "carburant": "essence",
+              "cylindreeCm3": 3696,
+              "puissanceOrigineCh": 328,
+              "coupleOrigineNm": 366,
+              "consoOrigineL100": 10.3
+            }
+          ]
+        },
+        {
+          "id": "juke-nismo-rs",
+          "name": "Juke Nismo RS",
+          "motorisations": [
+            {
+              "id": "juke-nismo-rs-1.6-turbo",
+              "label": "1.6 DIG-T Nismo RS 218",
+              "codeMoteur": "MR16DDT",
+              "anneeDebut": 2014,
+              "anneeFin": 2019,
+              "carburant": "essence",
+              "cylindreeCm3": 1618,
+              "puissanceOrigineCh": 218,
+              "coupleOrigineNm": 280,
+              "consoOrigineL100": 7.4
+            }
           ]
         }
       ]
@@ -436,21 +3103,126 @@
           "id": "corsa-e-opc",
           "name": "Corsa E OPC",
           "motorisations": [
-            { "id": "corsa-opc-1.6-turbo", "label": "1.6 Turbo 207", "codeMoteur": "Z16LER" }
+            {
+              "id": "corsa-opc-1.6-turbo",
+              "label": "1.6 Turbo 207",
+              "codeMoteur": "Z16LER",
+              "anneeDebut": 2007,
+              "anneeFin": 2014,
+              "carburant": "essence",
+              "cylindreeCm3": 1598,
+              "puissanceOrigineCh": 207,
+              "coupleOrigineNm": 265,
+              "consoOrigineL100": 7.9
+            }
+          ]
+        },
+        {
+          "id": "corsa-f-gsi",
+          "name": "Corsa F GSi",
+          "motorisations": [
+            {
+              "id": "corsa-f-gsi-1.4-turbo",
+              "label": "1.4 Turbo GSi 150",
+              "codeMoteur": "B14XFT",
+              "anneeDebut": 2018,
+              "anneeFin": 2023,
+              "carburant": "essence",
+              "cylindreeCm3": 1399,
+              "puissanceOrigineCh": 150,
+              "coupleOrigineNm": 220,
+              "consoOrigineL100": 6.4
+            }
           ]
         },
         {
           "id": "astra-j-opc",
           "name": "Astra J OPC",
           "motorisations": [
-            { "id": "astra-opc-2.0-turbo", "label": "2.0 Turbo 280", "codeMoteur": "Z20LEH" }
+            {
+              "id": "astra-opc-2.0-turbo",
+              "label": "2.0 Turbo 280",
+              "codeMoteur": "Z20LEH",
+              "anneeDebut": 2012,
+              "anneeFin": 2018,
+              "carburant": "essence",
+              "cylindreeCm3": 1998,
+              "puissanceOrigineCh": 280,
+              "coupleOrigineNm": 400,
+              "consoOrigineL100": 8.9
+            }
+          ]
+        },
+        {
+          "id": "astra-h-gsi",
+          "name": "Astra H GSI",
+          "motorisations": [
+            {
+              "id": "astra-h-gsi-2.0-turbo",
+              "label": "2.0 Turbo 240",
+              "codeMoteur": "Z20LEH-H",
+              "anneeDebut": 2004,
+              "anneeFin": 2010,
+              "carburant": "essence",
+              "cylindreeCm3": 1998,
+              "puissanceOrigineCh": 240,
+              "coupleOrigineNm": 320,
+              "consoOrigineL100": 9.5
+            }
           ]
         },
         {
           "id": "insignia-a-opc",
           "name": "Insignia A OPC",
           "motorisations": [
-            { "id": "insignia-opc-2.8-v6", "label": "2.8 V6 Biturbo 325", "codeMoteur": "A28NET" }
+            {
+              "id": "insignia-opc-2.8-v6",
+              "label": "2.8 V6 Biturbo 325",
+              "codeMoteur": "A28NET",
+              "anneeDebut": 2009,
+              "anneeFin": 2017,
+              "carburant": "essence",
+              "cylindreeCm3": 2792,
+              "puissanceOrigineCh": 325,
+              "coupleOrigineNm": 435,
+              "consoOrigineL100": 10.9
+            }
+          ]
+        },
+        {
+          "id": "adam-s",
+          "name": "Adam S",
+          "motorisations": [
+            {
+              "id": "adam-s-1.4-turbo",
+              "label": "1.4 Turbo 150",
+              "codeMoteur": "B14NET",
+              "anneeDebut": 2015,
+              "anneeFin": 2019,
+              "carburant": "essence",
+              "cylindreeCm3": 1398,
+              "puissanceOrigineCh": 150,
+              "coupleOrigineNm": 220,
+              "consoOrigineL100": 6.3
+            }
+          ]
+        },
+        {
+          "id": "manta-b-gsi",
+          "name": "Manta B GSi",
+          "motorisations": [
+            {
+              "id": "manta-b-gsi-2.0",
+              "label": "2.0i 115",
+              "codeMoteur": "20NE",
+              "anneeDebut": 1986,
+              "anneeFin": 1988,
+              "carburant": "essence",
+              "cylindreeCm3": 1998,
+              "puissanceOrigineCh": 115,
+              "coupleOrigineNm": 165,
+              "consoOrigineL100": 9.5
+            }
           ]
         }
       ]
@@ -463,14 +3235,102 @@
           "id": "mx-5-nd",
           "name": "MX-5 (ND)",
           "motorisations": [
-            { "id": "mx5-nd-2.0-skyactiv", "label": "2.0 SkyActiv-G 184", "codeMoteur": "PEVPS" }
+            {
+              "id": "mx5-nd-2.0-skyactiv",
+              "label": "2.0 SkyActiv-G 184",
+              "codeMoteur": "PEVPS",
+              "anneeDebut": 2015,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 1998,
+              "puissanceOrigineCh": 184,
+              "coupleOrigineNm": 205,
+              "consoOrigineL100": 6.8
+            },
+            {
+              "id": "mx5-nd-1.5-skyactiv",
+              "label": "1.5 SkyActiv-G 132",
+              "codeMoteur": "P5VPS",
+              "anneeDebut": 2015,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 1496,
+              "puissanceOrigineCh": 132,
+              "coupleOrigineNm": 152,
+              "consoOrigineL100": 6
+            }
+          ]
+        },
+        {
+          "id": "mx-5-nc",
+          "name": "MX-5 (NC)",
+          "motorisations": [
+            {
+              "id": "mx5-nc-2.0-mzr",
+              "label": "2.0 MZR 160",
+              "codeMoteur": "LF-VE",
+              "anneeDebut": 2005,
+              "anneeFin": 2015,
+              "carburant": "essence",
+              "cylindreeCm3": 1999,
+              "puissanceOrigineCh": 160,
+              "coupleOrigineNm": 188,
+              "consoOrigineL100": 7.9
+            }
+          ]
+        },
+        {
+          "id": "mx-5-nb",
+          "name": "MX-5 (NB)",
+          "motorisations": [
+            {
+              "id": "mx5-nb-1.8-b6",
+              "label": "1.8 B6 146",
+              "codeMoteur": "B6-NB",
+              "anneeDebut": 1998,
+              "anneeFin": 2005,
+              "carburant": "essence",
+              "cylindreeCm3": 1839,
+              "puissanceOrigineCh": 146,
+              "coupleOrigineNm": 165,
+              "consoOrigineL100": 8.1
+            }
           ]
         },
         {
           "id": "3-mps-bl",
           "name": "3 MPS (BL)",
           "motorisations": [
-            { "id": "mazda3-mps-2.3-turbo", "label": "2.3 MZR DISI Turbo 260", "codeMoteur": "L3VDT" }
+            {
+              "id": "mazda3-mps-2.3-turbo",
+              "label": "2.3 MZR DISI Turbo 260",
+              "codeMoteur": "L3VDT",
+              "anneeDebut": 2009,
+              "anneeFin": 2013,
+              "carburant": "essence",
+              "cylindreeCm3": 2261,
+              "puissanceOrigineCh": 260,
+              "coupleOrigineNm": 380,
+              "consoOrigineL100": 9.7
+            }
+          ]
+        },
+        {
+          "id": "cx-5-2",
+          "name": "CX-5 II",
+          "motorisations": [
+            {
+              "id": "cx5-ii-2.2-skyactiv-d",
+              "label": "2.2 SkyActiv-D 184",
+              "codeMoteur": "SH-VPTS",
+              "anneeDebut": 2017,
+              "anneeFin": 2024,
+              "carburant": "diesel",
+              "cylindreeCm3": 2191,
+              "puissanceOrigineCh": 184,
+              "coupleOrigineNm": 445,
+              "consoOrigineL100": 5.7
+            }
           ]
         }
       ]
@@ -483,7 +3343,72 @@
           "id": "swift-sport-zc33s",
           "name": "Swift Sport (ZC33S)",
           "motorisations": [
-            { "id": "swift-sport-1.4-boosterjet", "label": "1.4 Boosterjet 140", "codeMoteur": "K14C" }
+            {
+              "id": "swift-sport-1.4-boosterjet",
+              "label": "1.4 Boosterjet 140",
+              "codeMoteur": "K14C",
+              "anneeDebut": 2017,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 1373,
+              "puissanceOrigineCh": 140,
+              "coupleOrigineNm": 230,
+              "consoOrigineL100": 5.3
+            }
+          ]
+        },
+        {
+          "id": "swift-sport-zc32s",
+          "name": "Swift Sport (ZC32S)",
+          "motorisations": [
+            {
+              "id": "swift-sport-zc32s-1.6",
+              "label": "1.6 M16A 136",
+              "codeMoteur": "M16A",
+              "anneeDebut": 2011,
+              "anneeFin": 2017,
+              "carburant": "essence",
+              "cylindreeCm3": 1586,
+              "puissanceOrigineCh": 136,
+              "coupleOrigineNm": 160,
+              "consoOrigineL100": 6.6
+            }
+          ]
+        },
+        {
+          "id": "swift-sport-zc31s",
+          "name": "Swift Sport (ZC31S)",
+          "motorisations": [
+            {
+              "id": "swift-sport-zc31s-1.6",
+              "label": "1.6 M16A 125",
+              "codeMoteur": "M16A-31S",
+              "anneeDebut": 2005,
+              "anneeFin": 2011,
+              "carburant": "essence",
+              "cylindreeCm3": 1586,
+              "puissanceOrigineCh": 125,
+              "coupleOrigineNm": 148,
+              "consoOrigineL100": 7.1
+            }
+          ]
+        },
+        {
+          "id": "vitara-4",
+          "name": "Vitara IV",
+          "motorisations": [
+            {
+              "id": "vitara-4-1.4-boosterjet",
+              "label": "1.4 Boosterjet 140",
+              "codeMoteur": "K14C-VIT",
+              "anneeDebut": 2015,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 1373,
+              "puissanceOrigineCh": 140,
+              "coupleOrigineNm": 220,
+              "consoOrigineL100": 5.9
+            }
           ]
         }
       ]
@@ -496,7 +3421,54 @@
           "id": "rc-f-usc10",
           "name": "RC F (USC10)",
           "motorisations": [
-            { "id": "rcf-5.0-v8", "label": "5.0 V8 477", "codeMoteur": "2URGSE" }
+            {
+              "id": "rcf-5.0-v8",
+              "label": "5.0 V8 477",
+              "codeMoteur": "2URGSE",
+              "anneeDebut": 2014,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 4969,
+              "puissanceOrigineCh": 477,
+              "coupleOrigineNm": 530,
+              "consoOrigineL100": 11.4
+            }
+          ]
+        },
+        {
+          "id": "is-f-use20",
+          "name": "IS-F (USE20)",
+          "motorisations": [
+            {
+              "id": "isf-5.0-v8",
+              "label": "5.0 V8 423",
+              "codeMoteur": "2UR-GSE",
+              "anneeDebut": 2007,
+              "anneeFin": 2014,
+              "carburant": "essence",
+              "cylindreeCm3": 4969,
+              "puissanceOrigineCh": 423,
+              "coupleOrigineNm": 505,
+              "consoOrigineL100": 11.7
+            }
+          ]
+        },
+        {
+          "id": "gs-f-uzs190",
+          "name": "GS F",
+          "motorisations": [
+            {
+              "id": "gsf-5.0-v8",
+              "label": "5.0 V8 477",
+              "codeMoteur": "2URGSE-GS",
+              "anneeDebut": 2015,
+              "anneeFin": 2020,
+              "carburant": "essence",
+              "cylindreeCm3": 4969,
+              "puissanceOrigineCh": 477,
+              "coupleOrigineNm": 530,
+              "consoOrigineL100": 11.5
+            }
           ]
         }
       ]
@@ -509,14 +3481,942 @@
           "id": "ds3-racing",
           "name": "DS3 Racing",
           "motorisations": [
-            { "id": "ds3-racing-1.6-thp", "label": "1.6 THP 207", "codeMoteur": "EP6DTS" }
+            {
+              "id": "ds3-racing-1.6-thp",
+              "label": "1.6 THP 207",
+              "codeMoteur": "EP6DTS",
+              "anneeDebut": 2011,
+              "anneeFin": 2015,
+              "carburant": "essence",
+              "cylindreeCm3": 1598,
+              "puissanceOrigineCh": 207,
+              "coupleOrigineNm": 275,
+              "consoOrigineL100": 7.4
+            }
           ]
         },
         {
           "id": "c2-vts",
           "name": "C2 VTS",
           "motorisations": [
-            { "id": "c2-vts-1.6-16v", "label": "1.6 16v 125", "codeMoteur": "NFU" }
+            {
+              "id": "c2-vts-1.6-16v",
+              "label": "1.6 16v 125",
+              "codeMoteur": "NFU",
+              "anneeDebut": 2005,
+              "anneeFin": 2009,
+              "carburant": "essence",
+              "cylindreeCm3": 1587,
+              "puissanceOrigineCh": 125,
+              "coupleOrigineNm": 152,
+              "consoOrigineL100": 7.3
+            }
+          ]
+        },
+        {
+          "id": "saxo-vts",
+          "name": "Saxo VTS",
+          "motorisations": [
+            {
+              "id": "saxo-vts-1.6-16v",
+              "label": "1.6 16V 118",
+              "codeMoteur": "TU5J4",
+              "anneeDebut": 1996,
+              "anneeFin": 2003,
+              "carburant": "essence",
+              "cylindreeCm3": 1587,
+              "puissanceOrigineCh": 118,
+              "coupleOrigineNm": 145,
+              "consoOrigineL100": 7.6
+            }
+          ]
+        },
+        {
+          "id": "ax-gt",
+          "name": "AX GT",
+          "motorisations": [
+            {
+              "id": "ax-gt-1.4",
+              "label": "1.4 GT 85",
+              "codeMoteur": "TU3",
+              "anneeDebut": 1987,
+              "anneeFin": 1996,
+              "carburant": "essence",
+              "cylindreeCm3": 1360,
+              "puissanceOrigineCh": 85,
+              "coupleOrigineNm": 115,
+              "consoOrigineL100": 6.4
+            }
+          ]
+        },
+        {
+          "id": "c4-picasso-2",
+          "name": "C4 Picasso II",
+          "motorisations": [
+            {
+              "id": "c4-picasso-2-bluehdi",
+              "label": "1.6 BlueHDi 120",
+              "codeMoteur": "BH01",
+              "anneeDebut": 2013,
+              "anneeFin": 2020,
+              "carburant": "diesel",
+              "cylindreeCm3": 1560,
+              "puissanceOrigineCh": 120,
+              "coupleOrigineNm": 300,
+              "consoOrigineL100": 4.1
+            }
+          ]
+        },
+        {
+          "id": "xsara-vts",
+          "name": "Xsara VTS",
+          "motorisations": [
+            {
+              "id": "xsara-vts-2.0-16v",
+              "label": "2.0 16V 167",
+              "codeMoteur": "XU10J4-XSA",
+              "anneeDebut": 2000,
+              "anneeFin": 2003,
+              "carburant": "essence",
+              "cylindreeCm3": 1998,
+              "puissanceOrigineCh": 167,
+              "coupleOrigineNm": 190,
+              "consoOrigineL100": 9.4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "skoda",
+      "name": "Skoda",
+      "models": [
+        {
+          "id": "octavia-3-rs",
+          "name": "Octavia III RS",
+          "motorisations": [
+            {
+              "id": "octavia-3-rs-2.0-tsi",
+              "label": "2.0 TSI RS 230",
+              "codeMoteur": "CHHC-OCT",
+              "anneeDebut": 2017,
+              "anneeFin": 2020,
+              "carburant": "essence",
+              "cylindreeCm3": 1984,
+              "puissanceOrigineCh": 230,
+              "coupleOrigineNm": 350,
+              "consoOrigineL100": 6.6
+            },
+            {
+              "id": "octavia-3-rs-2.0-tdi",
+              "label": "2.0 TDI RS 184",
+              "codeMoteur": "DFGC",
+              "anneeDebut": 2017,
+              "anneeFin": 2020,
+              "carburant": "diesel",
+              "cylindreeCm3": 1968,
+              "puissanceOrigineCh": 184,
+              "coupleOrigineNm": 380,
+              "consoOrigineL100": 4.5
+            }
+          ]
+        },
+        {
+          "id": "octavia-4-rs",
+          "name": "Octavia IV RS",
+          "motorisations": [
+            {
+              "id": "octavia-4-rs-2.0-tsi",
+              "label": "2.0 TSI RS 245",
+              "codeMoteur": "DLAB",
+              "anneeDebut": 2020,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 1984,
+              "puissanceOrigineCh": 245,
+              "coupleOrigineNm": 370,
+              "consoOrigineL100": 7
+            }
+          ]
+        },
+        {
+          "id": "fabia-2-rs",
+          "name": "Fabia II RS",
+          "motorisations": [
+            {
+              "id": "fabia-2-rs-1.4-tsi",
+              "label": "1.4 TSI RS 180",
+              "codeMoteur": "CAVF",
+              "anneeDebut": 2010,
+              "anneeFin": 2014,
+              "carburant": "essence",
+              "cylindreeCm3": 1390,
+              "puissanceOrigineCh": 180,
+              "coupleOrigineNm": 250,
+              "consoOrigineL100": 6
+            }
+          ]
+        },
+        {
+          "id": "kodiaq-rs",
+          "name": "Kodiaq RS",
+          "motorisations": [
+            {
+              "id": "kodiaq-rs-2.0-biturbo-tdi",
+              "label": "2.0 Biturbo TDI RS 240",
+              "codeMoteur": "DTVA",
+              "anneeDebut": 2019,
+              "anneeFin": 2024,
+              "carburant": "diesel",
+              "cylindreeCm3": 1968,
+              "puissanceOrigineCh": 240,
+              "coupleOrigineNm": 500,
+              "consoOrigineL100": 6.8
+            }
+          ]
+        },
+        {
+          "id": "superb-3",
+          "name": "Superb III",
+          "motorisations": [
+            {
+              "id": "superb-3-2.0-tdi",
+              "label": "2.0 TDI 190",
+              "codeMoteur": "DFHC",
+              "anneeDebut": 2015,
+              "anneeFin": 2024,
+              "carburant": "diesel",
+              "cylindreeCm3": 1968,
+              "puissanceOrigineCh": 190,
+              "coupleOrigineNm": 400,
+              "consoOrigineL100": 4.9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "alfa-romeo",
+      "name": "Alfa Romeo",
+      "models": [
+        {
+          "id": "giulia-quadrifoglio",
+          "name": "Giulia Quadrifoglio",
+          "motorisations": [
+            {
+              "id": "giulia-qv-2.9-v6",
+              "label": "2.9 V6 Biturbo 510",
+              "codeMoteur": "690T",
+              "anneeDebut": 2016,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 2891,
+              "puissanceOrigineCh": 510,
+              "coupleOrigineNm": 600,
+              "consoOrigineL100": 9.4
+            }
+          ]
+        },
+        {
+          "id": "156-gta",
+          "name": "156 GTA",
+          "motorisations": [
+            {
+              "id": "156-gta-3.2-v6",
+              "label": "3.2 V6 250",
+              "codeMoteur": "AR32304",
+              "anneeDebut": 2002,
+              "anneeFin": 2005,
+              "carburant": "essence",
+              "cylindreeCm3": 3179,
+              "puissanceOrigineCh": 250,
+              "coupleOrigineNm": 300,
+              "consoOrigineL100": 12.5
+            }
+          ]
+        },
+        {
+          "id": "giulietta-qv",
+          "name": "Giulietta QV",
+          "motorisations": [
+            {
+              "id": "giulietta-qv-1.75-tbi",
+              "label": "1.75 TBi 240",
+              "codeMoteur": "940A2000",
+              "anneeDebut": 2010,
+              "anneeFin": 2020,
+              "carburant": "essence",
+              "cylindreeCm3": 1742,
+              "puissanceOrigineCh": 240,
+              "coupleOrigineNm": 340,
+              "consoOrigineL100": 7.8
+            }
+          ]
+        },
+        {
+          "id": "4c",
+          "name": "4C",
+          "motorisations": [
+            {
+              "id": "4c-1.75-tbi",
+              "label": "1.75 TBi 240",
+              "codeMoteur": "940A2000-4C",
+              "anneeDebut": 2013,
+              "anneeFin": 2020,
+              "carburant": "essence",
+              "cylindreeCm3": 1742,
+              "puissanceOrigineCh": 240,
+              "coupleOrigineNm": 350,
+              "consoOrigineL100": 6.8
+            }
+          ]
+        },
+        {
+          "id": "stelvio-quadrifoglio",
+          "name": "Stelvio Quadrifoglio",
+          "motorisations": [
+            {
+              "id": "stelvio-qv-2.9-v6",
+              "label": "2.9 V6 Biturbo 510",
+              "codeMoteur": "690T-STE",
+              "anneeDebut": 2018,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 2891,
+              "puissanceOrigineCh": 510,
+              "coupleOrigineNm": 600,
+              "consoOrigineL100": 10.7
+            }
+          ]
+        },
+        {
+          "id": "giulietta-veloce",
+          "name": "Giulietta Veloce",
+          "motorisations": [
+            {
+              "id": "giulietta-veloce-1.75-tbi",
+              "label": "1.75 TBi Veloce 240",
+              "codeMoteur": "940A2000-VEL",
+              "anneeDebut": 2016,
+              "anneeFin": 2020,
+              "carburant": "essence",
+              "cylindreeCm3": 1742,
+              "puissanceOrigineCh": 240,
+              "coupleOrigineNm": 340,
+              "consoOrigineL100": 7.9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fiat",
+      "name": "Fiat",
+      "models": [
+        {
+          "id": "500-abarth",
+          "name": "500 Abarth",
+          "motorisations": [
+            {
+              "id": "500-abarth-595",
+              "label": "1.4 T-Jet 595 145",
+              "codeMoteur": "312A3000-595",
+              "anneeDebut": 2016,
+              "anneeFin": 2023,
+              "carburant": "essence",
+              "cylindreeCm3": 1368,
+              "puissanceOrigineCh": 145,
+              "coupleOrigineNm": 206,
+              "consoOrigineL100": 6.5
+            },
+            {
+              "id": "500-abarth-695",
+              "label": "1.4 T-Jet 695 180",
+              "codeMoteur": "312A3000-695",
+              "anneeDebut": 2018,
+              "anneeFin": 2023,
+              "carburant": "essence",
+              "cylindreeCm3": 1368,
+              "puissanceOrigineCh": 180,
+              "coupleOrigineNm": 250,
+              "consoOrigineL100": 6.7
+            }
+          ]
+        },
+        {
+          "id": "punto-abarth",
+          "name": "Grande Punto Abarth",
+          "motorisations": [
+            {
+              "id": "punto-abarth-1.4",
+              "label": "1.4 T-Jet 155",
+              "codeMoteur": "198A4000",
+              "anneeDebut": 2008,
+              "anneeFin": 2012,
+              "carburant": "essence",
+              "cylindreeCm3": 1368,
+              "puissanceOrigineCh": 155,
+              "coupleOrigineNm": 230,
+              "consoOrigineL100": 6.9
+            }
+          ]
+        },
+        {
+          "id": "panda-100hp",
+          "name": "Panda 100HP",
+          "motorisations": [
+            {
+              "id": "panda-100hp-1.4",
+              "label": "1.4 16V 100",
+              "codeMoteur": "350A1000",
+              "anneeDebut": 2006,
+              "anneeFin": 2010,
+              "carburant": "essence",
+              "cylindreeCm3": 1368,
+              "puissanceOrigineCh": 100,
+              "coupleOrigineNm": 131,
+              "consoOrigineL100": 6.8
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hyundai",
+      "name": "Hyundai",
+      "models": [
+        {
+          "id": "i20-n",
+          "name": "i20 N",
+          "motorisations": [
+            {
+              "id": "i20n-1.6-turbo",
+              "label": "1.6 T-GDi N 204",
+              "codeMoteur": "G4FJ",
+              "anneeDebut": 2020,
+              "anneeFin": 2023,
+              "carburant": "essence",
+              "cylindreeCm3": 1591,
+              "puissanceOrigineCh": 204,
+              "coupleOrigineNm": 275,
+              "consoOrigineL100": 6.7
+            }
+          ]
+        },
+        {
+          "id": "i30-n",
+          "name": "i30 N",
+          "motorisations": [
+            {
+              "id": "i30n-2.0-turbo",
+              "label": "2.0 T-GDi N 250",
+              "codeMoteur": "G4KH",
+              "anneeDebut": 2017,
+              "anneeFin": 2023,
+              "carburant": "essence",
+              "cylindreeCm3": 1998,
+              "puissanceOrigineCh": 250,
+              "coupleOrigineNm": 353,
+              "consoOrigineL100": 7.5
+            },
+            {
+              "id": "i30n-performance",
+              "label": "2.0 T-GDi N Performance 275",
+              "codeMoteur": "G4KH-P",
+              "anneeDebut": 2019,
+              "anneeFin": 2023,
+              "carburant": "essence",
+              "cylindreeCm3": 1998,
+              "puissanceOrigineCh": 275,
+              "coupleOrigineNm": 378,
+              "consoOrigineL100": 7.7
+            }
+          ]
+        },
+        {
+          "id": "kona-n",
+          "name": "Kona N",
+          "motorisations": [
+            {
+              "id": "kona-n-2.0-turbo",
+              "label": "2.0 T-GDi N 280",
+              "codeMoteur": "G4KH-KONA",
+              "anneeDebut": 2021,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 1998,
+              "puissanceOrigineCh": 280,
+              "coupleOrigineNm": 392,
+              "consoOrigineL100": 8.5
+            }
+          ]
+        },
+        {
+          "id": "tucson-3",
+          "name": "Tucson III",
+          "motorisations": [
+            {
+              "id": "tucson-3-1.6-crdi",
+              "label": "1.6 CRDi 136",
+              "codeMoteur": "D4FN",
+              "anneeDebut": 2020,
+              "anneeFin": 2024,
+              "carburant": "diesel",
+              "cylindreeCm3": 1598,
+              "puissanceOrigineCh": 136,
+              "coupleOrigineNm": 320,
+              "consoOrigineL100": 5.3
+            }
+          ]
+        },
+        {
+          "id": "veloster-n",
+          "name": "Veloster N",
+          "motorisations": [
+            {
+              "id": "veloster-n-2.0-turbo",
+              "label": "2.0 T-GDi N 275",
+              "codeMoteur": "G4KH-VEL",
+              "anneeDebut": 2018,
+              "anneeFin": 2022,
+              "carburant": "essence",
+              "cylindreeCm3": 1998,
+              "puissanceOrigineCh": 275,
+              "coupleOrigineNm": 378,
+              "consoOrigineL100": 8
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "kia",
+      "name": "Kia",
+      "models": [
+        {
+          "id": "stinger-gt",
+          "name": "Stinger GT",
+          "motorisations": [
+            {
+              "id": "stinger-gt-3.3-v6",
+              "label": "3.3 T-GDi V6 370",
+              "codeMoteur": "G6DH",
+              "anneeDebut": 2017,
+              "anneeFin": 2023,
+              "carburant": "essence",
+              "cylindreeCm3": 3342,
+              "puissanceOrigineCh": 370,
+              "coupleOrigineNm": 510,
+              "consoOrigineL100": 10.2
+            }
+          ]
+        },
+        {
+          "id": "ceed-gt",
+          "name": "Ceed GT",
+          "motorisations": [
+            {
+              "id": "ceed-gt-1.6-turbo",
+              "label": "1.6 T-GDi 204",
+              "codeMoteur": "G4FJ-CEED",
+              "anneeDebut": 2018,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 1591,
+              "puissanceOrigineCh": 204,
+              "coupleOrigineNm": 265,
+              "consoOrigineL100": 7.1
+            }
+          ]
+        },
+        {
+          "id": "proceed-gt",
+          "name": "Proceed GT",
+          "motorisations": [
+            {
+              "id": "proceed-gt-1.6-turbo",
+              "label": "1.6 T-GDi 204",
+              "codeMoteur": "G4FJ-PRO",
+              "anneeDebut": 2019,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 1591,
+              "puissanceOrigineCh": 204,
+              "coupleOrigineNm": 265,
+              "consoOrigineL100": 7.2
+            }
+          ]
+        },
+        {
+          "id": "rio-4",
+          "name": "Rio IV",
+          "motorisations": [
+            {
+              "id": "rio-4-1.0-t-gdi",
+              "label": "1.0 T-GDi 100",
+              "codeMoteur": "G3LC",
+              "anneeDebut": 2017,
+              "anneeFin": 2023,
+              "carburant": "essence",
+              "cylindreeCm3": 998,
+              "puissanceOrigineCh": 100,
+              "coupleOrigineNm": 172,
+              "consoOrigineL100": 5.4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "volvo",
+      "name": "Volvo",
+      "models": [
+        {
+          "id": "v60-polestar",
+          "name": "V60 Polestar",
+          "motorisations": [
+            {
+              "id": "v60-polestar-2.0-t6",
+              "label": "2.0 T6 Polestar 367",
+              "codeMoteur": "B4204T39",
+              "anneeDebut": 2019,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 1969,
+              "puissanceOrigineCh": 367,
+              "coupleOrigineNm": 470,
+              "consoOrigineL100": 8.1
+            }
+          ]
+        },
+        {
+          "id": "s60-polestar",
+          "name": "S60 Polestar",
+          "motorisations": [
+            {
+              "id": "s60-polestar-2.0-t6",
+              "label": "2.0 T6 Polestar 367",
+              "codeMoteur": "B4204T39-S",
+              "anneeDebut": 2019,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 1969,
+              "puissanceOrigineCh": 367,
+              "coupleOrigineNm": 470,
+              "consoOrigineL100": 8
+            }
+          ]
+        },
+        {
+          "id": "xc60-t8",
+          "name": "XC60 T8",
+          "motorisations": [
+            {
+              "id": "xc60-t8-2.0-hybrid",
+              "label": "2.0 T8 Twin Engine 390",
+              "codeMoteur": "B4204T31",
+              "anneeDebut": 2017,
+              "anneeFin": 2024,
+              "carburant": "hybride",
+              "cylindreeCm3": 1969,
+              "puissanceOrigineCh": 390,
+              "coupleOrigineNm": 640,
+              "consoOrigineL100": 2.1
+            }
+          ]
+        },
+        {
+          "id": "240-turbo",
+          "name": "240 Turbo",
+          "motorisations": [
+            {
+              "id": "240-turbo-2.1",
+              "label": "2.1 Turbo 155",
+              "codeMoteur": "B21FT",
+              "anneeDebut": 1981,
+              "anneeFin": 1990,
+              "carburant": "essence",
+              "cylindreeCm3": 2127,
+              "puissanceOrigineCh": 155,
+              "coupleOrigineNm": 240,
+              "consoOrigineL100": 10.5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mini",
+      "name": "Mini",
+      "models": [
+        {
+          "id": "cooper-s-f56",
+          "name": "Cooper S (F56)",
+          "motorisations": [
+            {
+              "id": "cooper-s-f56-2.0-turbo",
+              "label": "2.0 Turbo 192",
+              "codeMoteur": "B48A20A",
+              "anneeDebut": 2014,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 1998,
+              "puissanceOrigineCh": 192,
+              "coupleOrigineNm": 280,
+              "consoOrigineL100": 6.1
+            }
+          ]
+        },
+        {
+          "id": "jcw-f56",
+          "name": "John Cooper Works (F56)",
+          "motorisations": [
+            {
+              "id": "jcw-f56-2.0-turbo",
+              "label": "2.0 Turbo 231",
+              "codeMoteur": "B48A20O1",
+              "anneeDebut": 2015,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 1998,
+              "puissanceOrigineCh": 231,
+              "coupleOrigineNm": 320,
+              "consoOrigineL100": 6.5
+            }
+          ]
+        },
+        {
+          "id": "cooper-s-r56",
+          "name": "Cooper S (R56)",
+          "motorisations": [
+            {
+              "id": "cooper-s-r56-1.6-turbo",
+              "label": "1.6 Turbo 175",
+              "codeMoteur": "N14B16A",
+              "anneeDebut": 2006,
+              "anneeFin": 2013,
+              "carburant": "essence",
+              "cylindreeCm3": 1598,
+              "puissanceOrigineCh": 175,
+              "coupleOrigineNm": 240,
+              "consoOrigineL100": 6.4
+            }
+          ]
+        },
+        {
+          "id": "jcw-r53",
+          "name": "John Cooper Works (R53)",
+          "motorisations": [
+            {
+              "id": "jcw-r53-1.6-sc",
+              "label": "1.6 Compresseur 210",
+              "codeMoteur": "W11B16A",
+              "anneeDebut": 2004,
+              "anneeFin": 2006,
+              "carburant": "essence",
+              "cylindreeCm3": 1598,
+              "puissanceOrigineCh": 210,
+              "coupleOrigineNm": 245,
+              "consoOrigineL100": 8.1
+            }
+          ]
+        },
+        {
+          "id": "countryman-jcw-f60",
+          "name": "Countryman JCW (F60)",
+          "motorisations": [
+            {
+              "id": "countryman-jcw-f60-2.0-turbo",
+              "label": "2.0 Turbo ALL4 306",
+              "codeMoteur": "B48A20O2",
+              "anneeDebut": 2020,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 1998,
+              "puissanceOrigineCh": 306,
+              "coupleOrigineNm": 450,
+              "consoOrigineL100": 8
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "jaguar",
+      "name": "Jaguar",
+      "models": [
+        {
+          "id": "f-type-r",
+          "name": "F-Type R",
+          "motorisations": [
+            {
+              "id": "f-type-r-5.0-v8",
+              "label": "5.0 V8 Compresseur 575",
+              "codeMoteur": "AJ133",
+              "anneeDebut": 2013,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 5000,
+              "puissanceOrigineCh": 575,
+              "coupleOrigineNm": 700,
+              "consoOrigineL100": 11.9
+            }
+          ]
+        },
+        {
+          "id": "xe-sv-project8",
+          "name": "XE SV Project 8",
+          "motorisations": [
+            {
+              "id": "xe-sv-project8-5.0-v8",
+              "label": "5.0 V8 Compresseur 600",
+              "codeMoteur": "AJ133-P8",
+              "anneeDebut": 2018,
+              "anneeFin": 2019,
+              "carburant": "essence",
+              "cylindreeCm3": 5000,
+              "puissanceOrigineCh": 600,
+              "coupleOrigineNm": 700,
+              "consoOrigineL100": 12.1
+            }
+          ]
+        },
+        {
+          "id": "xkr-x150",
+          "name": "XKR (X150)",
+          "motorisations": [
+            {
+              "id": "xkr-x150-5.0-v8",
+              "label": "5.0 V8 Compresseur 510",
+              "codeMoteur": "AJ133-XKR",
+              "anneeDebut": 2009,
+              "anneeFin": 2014,
+              "carburant": "essence",
+              "cylindreeCm3": 5000,
+              "puissanceOrigineCh": 510,
+              "coupleOrigineNm": 625,
+              "consoOrigineL100": 12.6
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "land-rover",
+      "name": "Land Rover",
+      "models": [
+        {
+          "id": "defender-p400",
+          "name": "Defender P400",
+          "motorisations": [
+            {
+              "id": "defender-p400-3.0-turbo",
+              "label": "3.0 I6 Turbo MHEV 400",
+              "codeMoteur": "AJ300P",
+              "anneeDebut": 2020,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 2996,
+              "puissanceOrigineCh": 400,
+              "coupleOrigineNm": 550,
+              "consoOrigineL100": 10.6
+            }
+          ]
+        },
+        {
+          "id": "range-rover-sport-svr",
+          "name": "Range Rover Sport SVR",
+          "motorisations": [
+            {
+              "id": "rrs-svr-5.0-v8",
+              "label": "5.0 V8 Compresseur 575",
+              "codeMoteur": "AJ133-SVR",
+              "anneeDebut": 2014,
+              "anneeFin": 2022,
+              "carburant": "essence",
+              "cylindreeCm3": 5000,
+              "puissanceOrigineCh": 575,
+              "coupleOrigineNm": 700,
+              "consoOrigineL100": 13.5
+            }
+          ]
+        },
+        {
+          "id": "evoque-2",
+          "name": "Range Rover Evoque II",
+          "motorisations": [
+            {
+              "id": "evoque-2-2.0-d180",
+              "label": "2.0 D180 180",
+              "codeMoteur": "204DTD",
+              "anneeDebut": 2019,
+              "anneeFin": 2024,
+              "carburant": "diesel",
+              "cylindreeCm3": 1999,
+              "puissanceOrigineCh": 180,
+              "coupleOrigineNm": 430,
+              "consoOrigineL100": 5.9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dacia",
+      "name": "Dacia",
+      "models": [
+        {
+          "id": "sandero-3",
+          "name": "Sandero III",
+          "motorisations": [
+            {
+              "id": "sandero-3-tce-90",
+              "label": "TCe 90",
+              "codeMoteur": "H4D-SAN",
+              "anneeDebut": 2020,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 999,
+              "puissanceOrigineCh": 90,
+              "coupleOrigineNm": 160,
+              "consoOrigineL100": 5.3
+            }
+          ]
+        },
+        {
+          "id": "duster-2",
+          "name": "Duster II",
+          "motorisations": [
+            {
+              "id": "duster-2-tce-130",
+              "label": "TCe 130 4x2",
+              "codeMoteur": "H5H-DUS",
+              "anneeDebut": 2018,
+              "anneeFin": 2024,
+              "carburant": "essence",
+              "cylindreeCm3": 1332,
+              "puissanceOrigineCh": 130,
+              "coupleOrigineNm": 240,
+              "consoOrigineL100": 6.2
+            }
+          ]
+        },
+        {
+          "id": "logan-2",
+          "name": "Logan II",
+          "motorisations": [
+            {
+              "id": "logan-2-dci-90",
+              "label": "dCi 90",
+              "codeMoteur": "K9K-LOG",
+              "anneeDebut": 2012,
+              "anneeFin": 2020,
+              "carburant": "diesel",
+              "cylindreeCm3": 1461,
+              "puissanceOrigineCh": 90,
+              "coupleOrigineNm": 220,
+              "consoOrigineL100": 3.6
+            }
           ]
         }
       ]

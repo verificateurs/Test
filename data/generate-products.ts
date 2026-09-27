@@ -35,6 +35,7 @@ import { template as echappementTpl } from "./templates/echappement-sport";
 import { template as coveringTpl } from "./templates/covering-vitres-teintees";
 import { template as prepMoteurTpl } from "./templates/preparation-moteur";
 import { template as outilsTpl } from "./templates/outils-detailing";
+import { template as entretienMoteurTpl } from "./templates/entretien-moteur";
 
 const DATA_DIR = __dirname;
 const SEED = 20260910; // fixe en dur : deux exécutions produisent le même résultat.
@@ -49,6 +50,7 @@ const TEMPLATES: Record<string, CategoryTemplate> = {
   "covering-vitres-teintees": coveringTpl,
   "preparation-moteur": prepMoteurTpl,
   "outils-detailing": outilsTpl,
+  "entretien-moteur": entretienMoteurTpl,
 };
 
 // ─── PRNG déterministe (mulberry32) ───────────────────────────────────────
@@ -622,6 +624,25 @@ const CATEGORY_REVIEW_COMMENTS: Record<string, { positive: string[]; mixed: stri
       "Consommable efficace mais qui s'use un peu plus vite qu'annoncé.",
       "Bonne prise en main, juste un peu lourd pour les longues sessions.",
       "Fait le travail sans plus, rien d'exceptionnel comparé à d'autres marques testées.",
+    ],
+  },
+  "entretien-moteur": {
+    positive: [
+      "Utilisation simple, dosage clair et effet perceptible dès le plein suivant.",
+      "Bon produit d'entretien préventif, je l'utilise désormais à chaque vidange.",
+      "Flacon bien dosé pour la taille du réservoir, aucune difficulté d'utilisation.",
+      "Résultat conforme aux attentes, le moteur tourne plus rond après traitement.",
+      "Produit efficace en entretien régulier, je n'ai plus les à-coups que j'avais avant.",
+      "Facile à intégrer dans ma routine d'entretien, notice claire et complète.",
+      "Bon rapport qualité/prix pour un entretien préventif entre deux révisions.",
+      "Produit sérieux, conforme à ce qu'utilise mon garagiste habituel.",
+    ],
+    mixed: [
+      "Correct mais l'effet reste difficile à mesurer sans passage au diagnostic.",
+      "Bon produit dans l'ensemble, le dosage demande d'être précis pour un petit réservoir.",
+      "Fait le travail mais plusieurs applications semblent nécessaires pour un résultat net.",
+      "Efficace sur un encrassement léger, moins convaincant sur un cas plus avancé.",
+      "Produit satisfaisant, juste un peu cher pour le format proposé.",
     ],
   },
 };
