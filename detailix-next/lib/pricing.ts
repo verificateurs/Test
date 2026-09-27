@@ -7,7 +7,7 @@ function getMargin(): number {
   if (_margin !== null) return _margin;
   try {
     const cfg = JSON.parse(
-      readFileSync(join(process.cwd(), "../data/pricing-config.json"), "utf8")
+      readFileSync(join(process.cwd(), "data/pricing-config.json"), "utf8")
     );
     _margin = cfg.marginPercent ?? 30;
   } catch {

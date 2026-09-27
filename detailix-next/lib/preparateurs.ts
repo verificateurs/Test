@@ -12,7 +12,7 @@ export function getPreparateurCentres(): PreparateurCentre[] {
   if (_centres !== null) return _centres;
   try {
     const raw = JSON.parse(
-      readFileSync(join(process.cwd(), "../data/preparateurs.json"), "utf8")
+      readFileSync(join(process.cwd(), "data/preparateurs.json"), "utf8")
     );
     const centres: PreparateurCentre[] = [];
     for (const reseau of raw.reseaux ?? []) {
