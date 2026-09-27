@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Rajdhani, Inter } from "next/font/google";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { SiteHeader } from "@/components/SiteHeader";
 import { RevealObserver } from "@/components/RevealObserver";
@@ -66,6 +67,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
         </main>
         <Footer />
+        <SpeedInsights />
       </body>
     </html>
   );

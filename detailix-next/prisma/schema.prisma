@@ -22,6 +22,13 @@ enum Homologation {
   non_applicable
 }
 
+enum Carburant {
+  essence
+  diesel
+  hybride
+  electrique
+}
+
 // ─── Catalogue ───────────────────────────────────────────────────────────────
 
 model Category {
@@ -58,10 +65,47 @@ model BrandReview {
 }
 
 model Vehicle {
-  codeMoteur   String  @id
-  marque       String
-  modele       String
-  motorisation String
+  codeMoteur         String     @id
+  marque             String
+  modele             String
+  motorisation       String
+  anneeDebut         Int?
+  anneeFin           Int?
+  carburant          Carburant?
+  cylindreeCm3       Int?
+  puissanceOrigineCh Int?
+  coupleOrigineNm    Int?
+  consoOrigineL100   Float?     // consommation mixte WLTP indicative, L/100km
+  stagePacks         StagePack[]
+
+  @@index([marque, modele])
+}
+
+// Packs de préparation moteur (Stage 1/2/3) rattachés à un code moteur précis.
+// Gains indicatifs uniquement — dépendent du véhicule réel, à valider sur banc
+// par un préparateur avant toute installation. `homologation` reprend
+// l'enum déjà utilisée sur Product : les stages impliquant une cartographie
+// moteur non réceptionnée doivent être `usage_piste`, jamais `route_ouverte`.
+model StagePack {
+  id                String       @id @default(cuid())
+  codeMoteur        String
+  vehicle           Vehicle      @relation(fields: [codeMoteur], references: [codeMoteur])
+  stage             Int          // 1, 2, 3
+  label             String
+  description       String
+  gainChMin         Int
+  gainChMax         Int
+  gainNmMin         Int
+  gainNmMax         Int
+  consoDeltaL100    Float        // variation de conso estimée, L/100km (positif = surconsommation)
+  prixIndicatif     Float
+  homologation      Homologation
+  // JSON: string[] d'id Product inclus dans le pack (même convention que
+  // Product.compatibilite : JSON encodé en String plutôt qu'une table de
+  // jointure, pour rester cohérent avec le reste du schéma).
+  includedProductIds String
+
+  @@index([codeMoteur])
 }
 
 model Product {
