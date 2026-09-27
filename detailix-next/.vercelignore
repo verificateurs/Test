@@ -1,0 +1,10 @@
+# `vercel deploy` uploads the local working tree, not `.gitignore`-filtered git
+# content — without this, secrets and local artifacts get shipped to Vercel.
+.env
+.env.*
+!.env.example
+prisma/*.db
+prisma/*.db-journal
+app/generated
+node_modules
+.next

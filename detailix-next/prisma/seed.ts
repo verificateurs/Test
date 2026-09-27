@@ -1,5 +1,5 @@
 import "dotenv/config";
-import { PrismaClient, Homologation } from "../app/generated/prisma/client";
+import { PrismaClient, Homologation } from "@prisma/client";
 import { readFileSync } from "fs";
 import { join } from "path";
 

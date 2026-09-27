@@ -2,7 +2,7 @@ import { randomBytes, createHash } from "node:crypto";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
-import type { Role } from "@/app/generated/prisma/client";
+import type { Role } from "@prisma/client";
 
 const COOKIE = "detailix_session";
 const TTL_MS = 30 * 24 * 60 * 60 * 1000; // 30 days

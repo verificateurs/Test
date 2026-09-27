@@ -1,6 +1,6 @@
 "use client";
 
-import type { Brand, Category, Product } from "@/app/generated/prisma/client";
+import type { Brand, Category, Product } from "@prisma/client";
 import { ProductForm } from "../ProductForm";
 import { updateProductAction } from "../actions";
 

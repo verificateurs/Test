@@ -1,20 +1,28 @@
+import "dotenv/config";
 import { describe, it, expect, vi, beforeAll, beforeEach, afterEach, afterAll } from "vitest";
 import { execSync } from "node:child_process";
 import { randomUUID } from "node:crypto";
 import path from "node:path";
-import fs from "node:fs";
-import os from "node:os";
 import { computePrice } from "@/lib/pricing";
 
-// ─── Isolated, disposable SQLite database for this test file only ────────────
-// NEVER points at prisma/dev.db (the real seeded data). A fresh temp file is
-// created, schema-pushed, exercised, then deleted.
-
+// ─── Isolated, disposable Postgres schema for this test file only ────────────
+// Since the migration to Postgres (Neon), there's no local disposable SQLite
+// file to spin up per run — the datasource provider is hardcoded postgresql.
+// Instead, this pushes the schema into its own throwaway `schema=` on the
+// SAME database (via the `schema` connection-string param Prisma supports for
+// Postgres), exercises it, then drops that schema. NEVER touches the
+// `public` schema (the real seeded data).
 const PROJECT_ROOT = path.resolve(__dirname, "../..");
-const TEST_DB_PATH = path
-  .join(os.tmpdir(), `detailix-checkout-test-${randomUUID()}.db`)
-  .replace(/\\/g, "/");
-const DATABASE_URL = `file:${TEST_DB_PATH}`;
+const BASE_DATABASE_URL = process.env.DATABASE_URL;
+if (!BASE_DATABASE_URL) {
+  throw new Error(
+    "DATABASE_URL is not set — checkout.test.ts needs a real Postgres connection string (see .env.example) to push an isolated test schema into."
+  );
+}
+const TEST_SCHEMA = `test_checkout_${randomUUID().replace(/-/g, "_")}`;
+const testUrl = new URL(BASE_DATABASE_URL);
+testUrl.searchParams.set("schema", TEST_SCHEMA);
+const DATABASE_URL = testUrl.toString();
 
 // ─── Mocks ────────────────────────────────────────────────────────────────────
 // redirect() throws a special "NEXT_REDIRECT" error on success; we intercept it
@@ -132,14 +140,8 @@ afterEach(async () => {
 });
 
 afterAll(async () => {
+  await db.$executeRawUnsafe(`DROP SCHEMA IF EXISTS "${TEST_SCHEMA}" CASCADE`);
   await db.$disconnect();
-  for (const suffix of ["", "-journal", "-wal", "-shm"]) {
-    try {
-      fs.unlinkSync(TEST_DB_PATH + suffix);
-    } catch {
-      // best-effort cleanup
-    }
-  }
 });
 
 describe("createOrderAction — nominal path", () => {

@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
-import type { Homologation } from "@/app/generated/prisma/client";
+import type { Homologation } from "@prisma/client";
 
 type Brand = { id: string; name: string };
 type Category = { id: string; label: string };

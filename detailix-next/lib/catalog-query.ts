@@ -1,5 +1,5 @@
 import { z } from "zod";
-import type { Prisma } from "@/app/generated/prisma/client";
+import type { Prisma } from "@prisma/client";
 import { computePrixAchatFromPrice } from "@/lib/pricing";
 
 export const PAGE_SIZE = 24;
