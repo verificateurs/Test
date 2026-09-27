@@ -92,10 +92,10 @@ function slugify(s: string): string {
 // turbo ; "NA" et V8/V6 atmosphériques identifiés explicitement => atmo).
 // Un code absent de cette table fait échouer le script (voir validation
 // plus bas) plutôt que de tomber silencieusement dans "any-performance".
-type MotorClass = "diesel" | "turbo-petrol" | "atmo";
+type MotorClass = "diesel" | "turbo-petrol" | "atmo" | "electric";
 
 const MOTOR_PROFILE: Record<string, MotorClass> = {
-  DFHA: "diesel", CHHB: "turbo-petrol", CJXB: "turbo-petrol", DTSA: "diesel",
+  DFHA: "diesel", CHHB: "turbo-petrol", CJXB: "turbo-petrol", DTSA: "diesel", DGDA: "diesel",
   DPCA: "turbo-petrol", DLAA: "turbo-petrol", DNFA: "turbo-petrol", DKZB: "turbo-petrol",
   CCZB: "turbo-petrol",
   DNUE: "turbo-petrol", DNUA: "turbo-petrol", TFSA: "turbo-petrol", DECA: "turbo-petrol",
@@ -119,6 +119,69 @@ const MOTOR_PROFILE: Record<string, MotorClass> = {
   K14C: "turbo-petrol",
   "2URGSE": "atmo",
   EP6DTS: "turbo-petrol", NFU: "atmo",
+
+  // Codes ajoutés lors de l'extension du catalogue vehicles.json (191 codes
+  // manquants au moment de la génération, classés par mots-clés du label
+  // — TDI/dCi/BlueHDi/CRDi/D-4D => diesel, TSI/TFSI/Turbo/EcoBoost/TCe/T-GDi
+  // /THP/Compresseur => turbo-petrol, VTEC/16V/NA/SkyActiv-G => atmo — puis
+  // manuellement pour les codes sans mot-clé explicite dans le label, ex.
+  // familles moteur BMW N5x/S5x/S6x turbo, M3 E46/E90 atmo, AMG M13x/M17x
+  // turbo. "Compresseur" (suralimentation mécanique) classé turbo-petrol.
+  // XU9JA/XU5JA/TU5J2 (Peugeot GTI 8v des années 80-90) classés atmo malgré
+  // le mot "GTI" dans le label, qui ne désigne pas un moteur suralimenté
+  // sur ces blocs. "electric" ajouté à MotorClass pour EASB (moteur 100%
+  // électrique, exclu des pools turbo/atmo par construction).
+  "DDAA": "diesel", "CUSA": "diesel", "CBDC": "diesel", "DFGA": "diesel",
+  "DFHB": "diesel", "CFGB": "diesel", "DTSC": "diesel", "DFGB": "diesel",
+  "DETA": "diesel", "CAGB": "diesel", "CFFB": "diesel", "CAHA": "diesel",
+  "CAHA-Q5": "diesel", "N47D20A": "diesel", "B47D20C": "diesel", "T7BA": "diesel",
+  "1GD-FTV": "diesel", "1AD-FTV": "diesel", "YHZ-508": "diesel", "4N13": "diesel",
+  "SH-VPTS": "diesel", "BH01": "diesel", "DFGC": "diesel", "DTVA": "diesel",
+  "DFHC": "diesel", "D4FN": "diesel", "204DTD": "diesel", "K9K-LOG": "diesel",
+  "CZDA": "turbo-petrol", "CHHC": "turbo-petrol", "DKRF": "turbo-petrol", "DKRA": "turbo-petrol",
+  "CJZC": "turbo-petrol", "CCZA": "turbo-petrol", "CCZD": "turbo-petrol", "CCZB-R": "turbo-petrol",
+  "AXX": "turbo-petrol", "DNFB": "turbo-petrol", "CULC": "turbo-petrol", "DNFC": "turbo-petrol",
+  "DPCB": "turbo-petrol", "DKLC": "turbo-petrol", "CCZE": "turbo-petrol", "DNFD": "turbo-petrol",
+  "DPCC": "turbo-petrol", "DKRG": "turbo-petrol", "CJSA": "turbo-petrol", "CJXG": "turbo-petrol",
+  "DAZA": "turbo-petrol", "CDLA": "turbo-petrol", "CAKA": "turbo-petrol", "DKZA": "turbo-petrol",
+  "CDHB": "turbo-petrol", "CEUC": "turbo-petrol", "CEPB": "turbo-petrol", "CAVE": "turbo-petrol",
+  "CDLC": "turbo-petrol", "CAKA-S5": "turbo-petrol", "F4RT-RS": "turbo-petrol", "F4RT-275": "turbo-petrol",
+  "H4D-C5": "turbo-petrol", "H5H-C5": "turbo-petrol", "H5Ht-S": "turbo-petrol", "H5H-CAP": "turbo-petrol",
+  "F4RT-SCE": "turbo-petrol", "H4Bt400-GT": "turbo-petrol", "M1GA": "turbo-petrol", "G5G": "turbo-petrol",
+  "JQMA": "turbo-petrol", "SFJB": "turbo-petrol", "M2GB": "turbo-petrol", "YB": "turbo-petrol",
+  "CVH-RS": "turbo-petrol", "G16E-GTS-COR": "turbo-petrol", "B58B30M1": "turbo-petrol", "B48B20M1": "turbo-petrol",
+  "3S-GTE": "turbo-petrol", "EJ20-SF": "turbo-petrol", "FA20DIT": "turbo-petrol", "EJ255": "turbo-petrol",
+  "5FW": "turbo-petrol",
+  "CJXD": "turbo-petrol", "DPCD": "turbo-petrol", "CAVD": "turbo-petrol", "DNFC-VZ": "turbo-petrol",
+  "DNUB": "turbo-petrol", "4G63T-VI": "turbo-petrol", "4G63T-ECL": "turbo-petrol", "M97.75": "turbo-petrol",
+  "9AA": "turbo-petrol", "M48.50": "turbo-petrol", "RB26DETT": "turbo-petrol", "SR20DET": "turbo-petrol",
+  "MR16DDT": "turbo-petrol", "B14XFT": "turbo-petrol", "Z20LEH-H": "turbo-petrol", "B14NET": "turbo-petrol",
+  "K14C-VIT": "turbo-petrol", "CHHC-OCT": "turbo-petrol", "DLAB": "turbo-petrol", "CAVF": "turbo-petrol",
+  "690T": "turbo-petrol", "940A2000": "turbo-petrol", "940A2000-4C": "turbo-petrol", "690T-STE": "turbo-petrol",
+  "940A2000-VEL": "turbo-petrol", "312A3000-595": "turbo-petrol", "312A3000-695": "turbo-petrol", "198A4000": "turbo-petrol",
+  "G4FJ": "turbo-petrol", "G4KH": "turbo-petrol", "G4KH-P": "turbo-petrol", "G4KH-KONA": "turbo-petrol",
+  "G4KH-VEL": "turbo-petrol", "G6DH": "turbo-petrol", "G4FJ-CEED": "turbo-petrol", "G4FJ-PRO": "turbo-petrol",
+  "G3LC": "turbo-petrol", "B4204T39": "turbo-petrol", "B4204T39-S": "turbo-petrol", "B4204T31": "turbo-petrol",
+  "B21FT": "turbo-petrol", "B48A20A": "turbo-petrol", "B48A20O1": "turbo-petrol", "N14B16A": "turbo-petrol",
+  "W11B16A": "turbo-petrol", "B48A20O2": "turbo-petrol", "AJ133": "turbo-petrol", "AJ133-P8": "turbo-petrol",
+  "AJ133-XKR": "turbo-petrol", "AJ133-SVR": "turbo-petrol", "H4D-SAN": "turbo-petrol", "H5H-DUS": "turbo-petrol",
+  "AJ300P": "turbo-petrol", "N54B30A": "turbo-petrol", "B48B20O2": "turbo-petrol", "S55B30A0": "turbo-petrol",
+  "S58B30O0": "turbo-petrol", "S58B30M0": "turbo-petrol", "S58B30O2": "turbo-petrol", "B48B20B4": "turbo-petrol",
+  "S63B44T4": "turbo-petrol", "S58B30M1": "turbo-petrol", "S63B44T3": "turbo-petrol", "B58B30M2": "turbo-petrol",
+  "M133": "turbo-petrol", "M139-CLA": "turbo-petrol", "M177": "turbo-petrol", "M139-C43": "turbo-petrol",
+  "M139-GLA": "turbo-petrol", "M177-E63": "turbo-petrol", "M177-G63": "turbo-petrol", "M178-GT": "turbo-petrol",
+  "HN05": "turbo-petrol",
+  "F4R-172": "atmo", "K4M-RS": "atmo", "K20Z4": "atmo", "K20A-FD2": "atmo",
+  "K20A2": "atmo", "B18C": "atmo", "F20C": "atmo", "C30A": "atmo",
+  "H22A7": "atmo", "FA20": "atmo", "2ZZ-GE": "atmo", "FA20-BRZ": "atmo",
+  "XU10J4": "atmo", "MA1.75": "atmo", "M97.21": "atmo", "P5VPS": "atmo",
+  "XU9JA": "atmo", "XU5JA": "atmo", "TU5J2": "atmo",
+  "LF-VE": "atmo", "TU5J4": "atmo", "XU10J4-XSA": "atmo", "350A1000": "atmo",
+  "BUB": "atmo", "S54B32": "atmo", "S65B40": "atmo", "N52B30": "atmo",
+  "M15A-FXE": "atmo", "20NE": "atmo", "B6-NB": "atmo", "M16A": "atmo",
+  "M16A-31S": "atmo", "2UR-GSE": "atmo", "2URGSE-GS": "atmo", "TU3": "atmo",
+  "AR32304": "atmo",
+  "EASB": "electric",
 };
 
 // ─── Barème de gamme (data/brands.json) ───────────────────────────────────

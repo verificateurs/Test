@@ -74,7 +74,9 @@ export function SiteHeader() {
         </button>
 
         <Link href="/" className="logo" aria-label="Retour à l'accueil">
-          <Image src="/logo.svg" alt="" width={32} height={32} priority />
+          <span className="logo-emblem">
+            <Image src="/logo.svg" alt="" width={32} height={32} priority />
+          </span>
           <span className="logo-wordmark">Detailix</span>
         </Link>
 
@@ -104,6 +106,19 @@ export function SiteHeader() {
           align-items: center;
           gap: var(--space-sm);
           flex-shrink: 0;
+        }
+        /* Écrin "emblème" autour du logo (SVG figé en dur, non régénéré) :
+           halo rouge doux au survol/focus pour un traitement plus premium
+           sans toucher au fichier SVG lui-même. */
+        .logo-emblem {
+          display: inline-flex;
+          border-radius: var(--radius-sm);
+          transition: filter 0.2s var(--ease), transform 0.2s var(--ease);
+        }
+        .logo:hover .logo-emblem,
+        .logo:focus-visible .logo-emblem {
+          filter: drop-shadow(0 0 10px var(--accent-soft));
+          transform: translateY(-1px);
         }
         .logo-wordmark {
           font-family: var(--font-heading);
