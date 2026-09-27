@@ -26,12 +26,16 @@ export function CartButton() {
         Panier
         {count > 0 && (
           <span
+            key={count}
+            className="cart-count-badge"
             style={{
               position: "absolute",
               top: -6,
               right: -6,
               background: "var(--accent)",
-              color: "#fff",
+              /* Texte quasi-noir : #fff sur --accent échoue au contraste AA
+                 (voir même traitement sur .btn-primary dans globals.css). */
+              color: "var(--bg)",
               borderRadius: "99px",
               fontSize: "0.65rem",
               fontWeight: 700,

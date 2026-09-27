@@ -19,3 +19,8 @@ function getMargin(): number {
 export function computePrice(prixAchat: number): number {
   return Math.round(prixAchat * (1 + getMargin() / 100) * 100) / 100;
 }
+
+/** Inverse of computePrice: converts a displayed sale price back to a prixAchat bound. */
+export function computePrixAchatFromPrice(price: number): number {
+  return price / (1 + getMargin() / 100);
+}

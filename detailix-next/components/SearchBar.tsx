@@ -18,11 +18,7 @@ export function SearchBar() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (query.length < 2) {
-      setResults([]);
-      setOpen(false);
-      return;
-    }
+    if (query.length < 2) return;
 
     if (debounceRef.current) clearTimeout(debounceRef.current);
     debounceRef.current = setTimeout(async () => {
@@ -51,26 +47,24 @@ export function SearchBar() {
     return () => document.removeEventListener("mousedown", onClickOutside);
   }, []);
 
+  function handleQueryChange(value: string) {
+    setQuery(value);
+    if (value.length < 2) {
+      setResults([]);
+      setOpen(false);
+    }
+  }
+
   return (
-    <div ref={containerRef} style={{ position: "relative", flex: 1, maxWidth: 320 }}>
+    <div ref={containerRef} className="search-bar">
       <input
         type="search"
         placeholder="Rechercher un produit, une marque…"
         value={query}
-        onChange={(e) => setQuery(e.target.value)}
+        onChange={(e) => handleQueryChange(e.target.value)}
         onFocus={() => results.length > 0 && setOpen(true)}
         aria-label="Recherche"
-        style={{
-          width: "100%",
-          background: "var(--bg-card)",
-          border: "1px solid var(--border)",
-          borderRadius: "var(--radius-sm)",
-          color: "var(--text)",
-          fontFamily: "var(--font-body)",
-          fontSize: "var(--text-sm)",
-          padding: "8px 14px",
-          outline: "none",
-        }}
+        className="search-input"
       />
 
       <div className={`search-dropdown${open ? " open" : ""}`} role="listbox">
@@ -78,26 +72,56 @@ export function SearchBar() {
           <Link
             key={`${r.type}-${r.id}`}
             href={r.type === "product" ? `/produits/${r.id}` : `/marques/${r.id}`}
-            onClick={() => { setOpen(false); setQuery(""); }}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "var(--space-sm)",
-              padding: "10px 14px",
-              borderBottom: "1px solid var(--border)",
-              fontSize: "var(--text-sm)",
-              transition: "background 0.1s",
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.background = "var(--bg-card)")}
-            onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+            onClick={() => handleQueryChange("")}
+            className="search-result"
           >
-            <span style={{ color: "var(--text-muted)", fontSize: "var(--text-xs)" }}>
+            <span className="search-result-type">
               {r.type === "product" ? "Produit" : "Marque"}
             </span>
             <span>{r.name}</span>
           </Link>
         ))}
       </div>
+
+      <style jsx>{`
+        .search-bar {
+          position: relative;
+          flex: 1;
+          max-width: 320px;
+        }
+        .search-input {
+          width: 100%;
+          background: var(--bg-card);
+          border: 1px solid var(--border);
+          border-radius: var(--radius-sm);
+          color: var(--text);
+          font-family: var(--font-body);
+          font-size: var(--text-sm);
+          padding: 8px 14px;
+          transition: border-color 0.15s;
+        }
+        .search-input:focus-visible {
+          border-color: var(--accent-2);
+          box-shadow: 0 0 0 3px rgba(255, 212, 0, 0.15);
+        }
+        .search-result {
+          display: flex;
+          align-items: center;
+          gap: var(--space-sm);
+          padding: 10px 14px;
+          border-bottom: 1px solid var(--border);
+          font-size: var(--text-sm);
+          transition: background 0.1s;
+        }
+        .search-result:hover,
+        .search-result:focus-visible {
+          background: var(--bg-card);
+        }
+        .search-result-type {
+          color: var(--text-muted);
+          font-size: var(--text-xs);
+        }
+      `}</style>
     </div>
   );
 }

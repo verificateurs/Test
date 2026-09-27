@@ -19,6 +19,16 @@ const productSchema = z.object({
   homologation: z.enum(["route_ouverte", "usage_piste", "non_applicable"]).optional(),
 });
 
+// Matches the shape lib/compat.ts::parseCompatCodes expects — anything else
+// (e.g. a bare "universel" string, or an object missing/mis-typed `codes`)
+// must be rejected here rather than silently stored.
+const compatSchema = z.discriminatedUnion("type", [
+  z.object({ type: z.literal("universel") }).strict(),
+  z.object({ type: z.literal("codesMoteurs"), codes: z.array(z.string().min(1)).min(1) }).strict(),
+]);
+
+const COMPAT_ERROR = 'Format compatibilité invalide : attendu {"type":"universel"} ou {"type":"codesMoteurs","codes":["..."]}.';
+
 type State = { error?: string; success?: string } | null;
 
 export async function createProductAction(_prev: State, fd: FormData): Promise<State> {
@@ -28,11 +38,13 @@ export async function createProductAction(_prev: State, fd: FormData): Promise<S
   if (!parsed.success) return { error: parsed.error.issues[0]?.message ?? "Données invalides." };
 
   const { compatibilite, ...rest } = parsed.data;
-  let compatJson: unknown;
-  try { compatJson = JSON.parse(compatibilite); } catch { return { error: "Format compatibilité invalide (JSON)." }; }
+  let compatRaw: unknown;
+  try { compatRaw = JSON.parse(compatibilite); } catch { return { error: "Format compatibilité invalide (JSON)." }; }
+  const compatParsed = compatSchema.safeParse(compatRaw);
+  if (!compatParsed.success) return { error: COMPAT_ERROR };
 
   try {
-    await db.product.create({ data: { ...rest, compatibilite: JSON.stringify(compatJson) } });
+    await db.product.create({ data: { ...rest, compatibilite: JSON.stringify(compatParsed.data) } });
   } catch (e: unknown) {
     if ((e as { code?: string }).code === "P2002") return { error: "Un produit avec cet ID existe déjà." };
     throw e;
@@ -49,10 +61,12 @@ export async function updateProductAction(_prev: State, fd: FormData): Promise<S
   if (!parsed.success) return { error: parsed.error.issues[0]?.message ?? "Données invalides." };
 
   const { id, compatibilite, ...rest } = parsed.data;
-  let compatJson: unknown;
-  try { compatJson = JSON.parse(compatibilite); } catch { return { error: "Format compatibilité invalide (JSON)." }; }
+  let compatRaw: unknown;
+  try { compatRaw = JSON.parse(compatibilite); } catch { return { error: "Format compatibilité invalide (JSON)." }; }
+  const compatParsed = compatSchema.safeParse(compatRaw);
+  if (!compatParsed.success) return { error: COMPAT_ERROR };
 
-  await db.product.update({ where: { id }, data: { ...rest, compatibilite: JSON.stringify(compatJson) } });
+  await db.product.update({ where: { id }, data: { ...rest, compatibilite: JSON.stringify(compatParsed.data) } });
   revalidatePath("/admin/produits");
   revalidatePath(`/produits/${id}`);
   return { success: "Produit mis à jour." };
@@ -64,7 +78,15 @@ export async function deleteProductAction(fd: FormData): Promise<void> {
   const id = fd.get("id");
   if (typeof id !== "string" || !id) return;
 
-  await db.product.delete({ where: { id } });
+  try {
+    await db.product.delete({ where: { id } });
+  } catch (e: unknown) {
+    if ((e as { code?: string }).code === "P2003") {
+      redirect(`/admin/produits?error=${encodeURIComponent("Produit déjà commandé ou en favoris — impossible de le supprimer.")}`);
+    }
+    throw e;
+  }
+
   revalidatePath("/admin/produits");
   redirect("/admin/produits");
 }

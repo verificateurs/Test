@@ -10,7 +10,7 @@ Ce prototype couvre :
 - **Sélecteur de véhicule & "mon garage"** (§5) : sélection en cascade marque → modèle → motorisation → code moteur, un ou plusieurs véhicules enregistrés (localStorage), et un badge de compatibilité sur les produits liés au véhicule (kits carrosserie, éclairage, échappement sport). Naviguer sans véhicule sélectionné reste toujours possible.
 - **Recherche interne avec autocomplétion** : recherche en direct sur les marques et les produits depuis le header.
 - **Compte client simulé & historique de commandes** : connexion par simple pseudo (aucune vraie authentification), historique des commandes passées conservé en local.
-- **Préparateurs partenaires** (§3) : réseaux Shiftech et BR Performance, avec leurs centres par ville, sélectionnables via un menu déroulant, et les avis clients associés.
+- **Préparateurs partenaires** (§3) : réseaux fictifs de démonstration (TorqueLine Performance, RexLine Performance, Néo Détailing, CarreLoop Jantes & Carrosserie), recherche par département avec rayon extensible (50 à 200 km), et les avis clients associés.
 - Une passe de polish visuel (police Sora/Inter, animations d'apparition au scroll, micro-interactions, panneaux et modales animés) — `prefers-reduced-motion` respecté pour l'accessibilité.
 
 ## Données modifiables

@@ -1,20 +1,20 @@
 "use client";
 
-import { useActionState, useEffect, useState } from "react";
+import { useActionState, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { CartStore } from "@/components/cart/CartStore";
-import type { CartItem } from "@/components/cart/CartStore";
 import { createOrderAction } from "./actions";
 
+const EMPTY_CART: ReturnType<typeof CartStore.getItems> = [];
+
 export default function CommandePage() {
-  const [items, setItems] = useState<CartItem[]>([]);
+  const items = useSyncExternalStore(
+    CartStore.subscribe,
+    CartStore.getItems,
+    () => EMPTY_CART
+  );
   const [promo, setPromo] = useState("");
   const [state, dispatch, pending] = useActionState(createOrderAction, null);
-
-  useEffect(() => {
-    setItems(CartStore.getItems());
-    return CartStore.subscribe(() => setItems(CartStore.getItems()));
-  }, []);
 
   const total = items.reduce((s, i) => s + i.price * i.qty, 0);
 

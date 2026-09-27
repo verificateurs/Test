@@ -1,0 +1,5 @@
+# Transcriptions de sessions Claude Code / notes de travail personnelles —
+# jamais destinées au dépôt (voir audit architecture du 2026-09-22)
+siteweb.txt
+*.session.txt
+.local/

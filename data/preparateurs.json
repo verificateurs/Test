@@ -1,15 +1,22 @@
 {
-  "_note": "Données d'exemple pour prototypage. Les centres, notes et avis ci-dessous sont des contenus d'exemple à valider/remplacer par les données réelles des réseaux partenaires avant mise en production (voir cahier des charges §3, §4.1).",
+  "_note": "Données d'exemple pour prototypage. Les centres, coordonnées, contacts et avis ci-dessous sont des contenus d'exemple à valider/remplacer par les données réelles des réseaux partenaires avant mise en production (voir cahier des charges §3, §4.1). Les numéros de téléphone utilisent le bloc 0X 99 00 XX XX réservé par l'ARCEP aux œuvres de fiction (jamais attribué à un abonné réel). Les sites web et adresses sont fictifs.",
   "reseaux": [
     {
-      "id": "shiftech",
-      "name": "Shiftech",
+      "id": "torqueline",
+      "name": "TorqueLine Performance",
       "specialite": "Reprogrammation moteur & gestion électronique",
       "description": "Réseau de centres spécialisés dans l'optimisation moteur (reprogrammation, gestion électronique) avec suivi personnalisé par véhicule.",
+      "siteWeb": "torqueline-demo.fr",
       "centres": [
         {
-          "id": "shiftech-paris",
+          "id": "torqueline-paris",
           "ville": "Paris",
+          "departement": "75",
+          "latitude": 48.8566,
+          "longitude": 2.3522,
+          "adresse": "14 rue de la Roquette, 75011 Paris",
+          "telephone": "01 99 00 00 01",
+          "siteWeb": "torqueline-demo.fr",
           "rating": 4.8,
           "reviewCount": 64,
           "reviews": [
@@ -18,8 +25,14 @@
           ]
         },
         {
-          "id": "shiftech-lyon",
+          "id": "torqueline-lyon",
           "ville": "Lyon",
+          "departement": "69",
+          "latitude": 45.764,
+          "longitude": 4.8357,
+          "adresse": "22 rue de Marseille, 69007 Lyon",
+          "telephone": "04 99 00 00 02",
+          "siteWeb": "torqueline-demo.fr",
           "rating": 4.7,
           "reviewCount": 41,
           "reviews": [
@@ -28,8 +41,14 @@
           ]
         },
         {
-          "id": "shiftech-marseille",
+          "id": "torqueline-marseille",
           "ville": "Marseille",
+          "departement": "13",
+          "latitude": 43.2965,
+          "longitude": 5.3698,
+          "adresse": "9 boulevard National, 13001 Marseille",
+          "telephone": "04 99 00 00 03",
+          "siteWeb": "torqueline-demo.fr",
           "rating": 4.6,
           "reviewCount": 29,
           "reviews": [
@@ -37,8 +56,14 @@
           ]
         },
         {
-          "id": "shiftech-bordeaux",
+          "id": "torqueline-bordeaux",
           "ville": "Bordeaux",
+          "departement": "33",
+          "latitude": 44.8378,
+          "longitude": -0.5792,
+          "adresse": "5 rue du Docteur Charles Nancel Pénard, 33300 Bordeaux",
+          "telephone": "05 99 00 00 04",
+          "siteWeb": "torqueline-demo.fr",
           "rating": 4.7,
           "reviewCount": 22,
           "reviews": [
@@ -46,8 +71,14 @@
           ]
         },
         {
-          "id": "shiftech-lille",
+          "id": "torqueline-lille",
           "ville": "Lille",
+          "departement": "59",
+          "latitude": 50.6292,
+          "longitude": 3.0573,
+          "adresse": "31 rue du Faubourg des Postes, 59000 Lille",
+          "telephone": "02 99 00 00 05",
+          "siteWeb": "torqueline-demo.fr",
           "rating": 4.5,
           "reviewCount": 18,
           "reviews": [
@@ -55,25 +86,83 @@
           ]
         },
         {
-          "id": "shiftech-nantes",
+          "id": "torqueline-nantes",
           "ville": "Nantes",
+          "departement": "44",
+          "latitude": 47.2184,
+          "longitude": -1.5536,
+          "adresse": "18 rue de la Tour d'Auvergne, 44000 Nantes",
+          "telephone": "02 99 00 00 06",
+          "siteWeb": "torqueline-demo.fr",
           "rating": 4.8,
           "reviewCount": 25,
           "reviews": [
             { "author": "Victor S.", "rating": 5, "date": "2026-03-01", "comment": "Excellent accueil, reprogrammation réversible bien expliquée avant intervention." }
           ]
+        },
+        {
+          "id": "torqueline-toulouse",
+          "ville": "Toulouse",
+          "departement": "31",
+          "latitude": 43.6047,
+          "longitude": 1.4442,
+          "adresse": "47 avenue des Minimes, 31200 Toulouse",
+          "telephone": "05 99 00 00 07",
+          "siteWeb": "torqueline-demo.fr",
+          "rating": 4.6,
+          "reviewCount": 16,
+          "reviews": [
+            { "author": "Hugo B.", "rating": 5, "date": "2026-01-12", "comment": "Créneau obtenu rapidement, passage sur banc filmé et remis sur clé USB, très pro." }
+          ]
+        },
+        {
+          "id": "torqueline-strasbourg",
+          "ville": "Strasbourg",
+          "departement": "67",
+          "latitude": 48.5734,
+          "longitude": 7.7521,
+          "adresse": "12 route du Rhin, 67100 Strasbourg",
+          "telephone": "03 99 00 00 08",
+          "siteWeb": "torqueline-demo.fr",
+          "rating": 4.5,
+          "reviewCount": 13,
+          "reviews": [
+            { "author": "Camille R.", "rating": 4, "date": "2025-12-28", "comment": "Bonne prestation, atelier un peu excentré mais parking facile." }
+          ]
+        },
+        {
+          "id": "torqueline-rennes",
+          "ville": "Rennes",
+          "departement": "35",
+          "latitude": 48.1173,
+          "longitude": -1.6778,
+          "adresse": "3 rue de la Robiquette, 35000 Rennes",
+          "telephone": "02 99 00 00 09",
+          "siteWeb": "torqueline-demo.fr",
+          "rating": 4.7,
+          "reviewCount": 11,
+          "reviews": [
+            { "author": "Thomas L.", "rating": 5, "date": "2026-02-08", "comment": "Suivi sérieux, cartographie adaptée à mon usage quotidien sans compromis sur la fiabilité." }
+          ]
         }
       ]
     },
     {
-      "id": "br-performance",
-      "name": "BR Performance",
+      "id": "rexline-perf",
+      "name": "RexLine Performance",
       "specialite": "Échappements sport & préparation moteur",
       "description": "Réseau spécialisé dans la conception et l'installation de lignes d'échappement sport et de préparations moteur associées.",
+      "siteWeb": "rexline-demo.fr",
       "centres": [
         {
-          "id": "brperf-paris",
+          "id": "rexline-paris",
           "ville": "Paris",
+          "departement": "75",
+          "latitude": 48.8566,
+          "longitude": 2.3522,
+          "adresse": "2 avenue de la Porte de Vincennes, 75012 Paris",
+          "telephone": "01 99 00 00 10",
+          "siteWeb": "rexline-demo.fr",
           "rating": 4.6,
           "reviewCount": 37,
           "reviews": [
@@ -82,8 +171,14 @@
           ]
         },
         {
-          "id": "brperf-lyon",
+          "id": "rexline-lyon",
           "ville": "Lyon",
+          "departement": "69",
+          "latitude": 45.764,
+          "longitude": 4.8357,
+          "adresse": "56 rue de Gerland, 69007 Lyon",
+          "telephone": "04 99 00 00 11",
+          "siteWeb": "rexline-demo.fr",
           "rating": 4.5,
           "reviewCount": 26,
           "reviews": [
@@ -91,8 +186,14 @@
           ]
         },
         {
-          "id": "brperf-toulouse",
+          "id": "rexline-toulouse",
           "ville": "Toulouse",
+          "departement": "31",
+          "latitude": 43.6047,
+          "longitude": 1.4442,
+          "adresse": "8 avenue de Lardenne, 31100 Toulouse",
+          "telephone": "05 99 00 00 12",
+          "siteWeb": "rexline-demo.fr",
           "rating": 4.7,
           "reviewCount": 19,
           "reviews": [
@@ -100,8 +201,14 @@
           ]
         },
         {
-          "id": "brperf-strasbourg",
+          "id": "rexline-strasbourg",
           "ville": "Strasbourg",
+          "departement": "67",
+          "latitude": 48.5734,
+          "longitude": 7.7521,
+          "adresse": "27 route de Brumath, 67200 Strasbourg",
+          "telephone": "03 99 00 00 13",
+          "siteWeb": "rexline-demo.fr",
           "rating": 4.4,
           "reviewCount": 14,
           "reviews": [
@@ -109,12 +216,292 @@
           ]
         },
         {
-          "id": "brperf-marseille",
+          "id": "rexline-marseille",
           "ville": "Marseille",
+          "departement": "13",
+          "latitude": 43.2965,
+          "longitude": 5.3698,
+          "adresse": "41 boulevard de la Valbarelle, 13011 Marseille",
+          "telephone": "04 99 00 00 14",
+          "siteWeb": "rexline-demo.fr",
           "rating": 4.6,
           "reviewCount": 21,
           "reviews": [
             { "author": "Simon D.", "rating": 5, "date": "2026-01-30", "comment": "Ligne titane montée nickel, gain de poids ressenti, bruit homologué route confirmé." }
+          ]
+        },
+        {
+          "id": "rexline-nantes",
+          "ville": "Nantes",
+          "departement": "44",
+          "latitude": 47.2184,
+          "longitude": -1.5536,
+          "adresse": "9 rue de la Bourgeonnière, 44300 Nantes",
+          "telephone": "02 99 00 00 15",
+          "siteWeb": "rexline-demo.fr",
+          "rating": 4.5,
+          "reviewCount": 12,
+          "reviews": [
+            { "author": "Antoine V.", "rating": 4, "date": "2025-10-19", "comment": "Bon montage, quelques semaines d'attente pour la ligne titane sur-mesure." }
+          ]
+        },
+        {
+          "id": "rexline-lille",
+          "ville": "Lille",
+          "departement": "59",
+          "latitude": 50.6292,
+          "longitude": 3.0573,
+          "adresse": "63 rue du Molinel, 59800 Lille",
+          "telephone": "02 99 00 00 16",
+          "siteWeb": "rexline-demo.fr",
+          "rating": 4.6,
+          "reviewCount": 9,
+          "reviews": [
+            { "author": "Fabien K.", "rating": 5, "date": "2026-02-14", "comment": "Écoute attentive sur le rendu sonore souhaité, installation propre et rapide." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "neo-detailing",
+      "name": "Néo Détailing",
+      "specialite": "Detailing haut de gamme, protection PPF & coating céramique",
+      "description": "Réseau de centres spécialisés dans la protection et l'esthétique automobile haut de gamme : films de protection (PPF), traitements céramiques et remise en état carrosserie.",
+      "siteWeb": "neo-detailing-demo.fr",
+      "centres": [
+        {
+          "id": "neo-nice",
+          "ville": "Nice",
+          "departement": "06",
+          "latitude": 43.7102,
+          "longitude": 7.262,
+          "adresse": "17 avenue Sainte-Marguerite, 06200 Nice",
+          "telephone": "04 99 00 00 17",
+          "siteWeb": "neo-detailing-demo.fr",
+          "rating": 4.9,
+          "reviewCount": 31,
+          "reviews": [
+            { "author": "Céline A.", "rating": 5, "date": "2026-03-20", "comment": "Coating céramique impeccable, effet miroir garanti, très satisfaite du rendu final." },
+            { "author": "Bastien O.", "rating": 5, "date": "2026-02-11", "comment": "Pose de PPF sans aucun défaut visible, bulles ou raccords, travail minutieux." }
+          ]
+        },
+        {
+          "id": "neo-montpellier",
+          "ville": "Montpellier",
+          "departement": "34",
+          "latitude": 43.6108,
+          "longitude": 3.8767,
+          "adresse": "4 rue de la Métairie de Saysset, 34070 Montpellier",
+          "telephone": "04 99 00 00 18",
+          "siteWeb": "neo-detailing-demo.fr",
+          "rating": 4.7,
+          "reviewCount": 17,
+          "reviews": [
+            { "author": "Manon T.", "rating": 5, "date": "2026-01-27", "comment": "Rénovation phares et polish carrosserie au top, véhicule rendu comme neuf." }
+          ]
+        },
+        {
+          "id": "neo-grenoble",
+          "ville": "Grenoble",
+          "departement": "38",
+          "latitude": 45.1885,
+          "longitude": 5.7245,
+          "adresse": "22 cours de la Libération, 38000 Grenoble",
+          "telephone": "04 99 00 00 19",
+          "siteWeb": "neo-detailing-demo.fr",
+          "rating": 4.6,
+          "reviewCount": 14,
+          "reviews": [
+            { "author": "Yanis F.", "rating": 4, "date": "2025-12-05", "comment": "Bon rapport qualité-prix, prise de rendez-vous un peu longue en haute saison." }
+          ]
+        },
+        {
+          "id": "neo-rouen",
+          "ville": "Rouen",
+          "departement": "76",
+          "latitude": 49.4431,
+          "longitude": 1.0993,
+          "adresse": "38 rue Saint-Julien, 76000 Rouen",
+          "telephone": "02 99 00 00 20",
+          "siteWeb": "neo-detailing-demo.fr",
+          "rating": 4.8,
+          "reviewCount": 20,
+          "reviews": [
+            { "author": "Inès D.", "rating": 5, "date": "2026-02-17", "comment": "Traitement céramique tenu dans le temps, très bon conseil sur l'entretien à suivre." }
+          ]
+        },
+        {
+          "id": "neo-reims",
+          "ville": "Reims",
+          "departement": "51",
+          "latitude": 49.2583,
+          "longitude": 4.0317,
+          "adresse": "11 rue Gambetta, 51100 Reims",
+          "telephone": "03 99 00 00 21",
+          "siteWeb": "neo-detailing-demo.fr",
+          "rating": 4.5,
+          "reviewCount": 9,
+          "reviews": [
+            { "author": "Damien G.", "rating": 4, "date": "2025-11-22", "comment": "Bon travail sur la sellerie, léger retard sur le créneau initialement prévu." }
+          ]
+        },
+        {
+          "id": "neo-clermont",
+          "ville": "Clermont-Ferrand",
+          "departement": "63",
+          "latitude": 45.7772,
+          "longitude": 3.087,
+          "adresse": "6 avenue Julien, 63000 Clermont-Ferrand",
+          "telephone": "04 99 00 00 22",
+          "siteWeb": "neo-detailing-demo.fr",
+          "rating": 4.7,
+          "reviewCount": 13,
+          "reviews": [
+            { "author": "Chloé M.", "rating": 5, "date": "2026-01-15", "comment": "Accueil très pro, explication détaillée des différentes gammes de coating proposées." }
+          ]
+        },
+        {
+          "id": "neo-dijon",
+          "ville": "Dijon",
+          "departement": "21",
+          "latitude": 47.322,
+          "longitude": 5.0415,
+          "adresse": "29 rue d'Auxonne, 21000 Dijon",
+          "telephone": "03 99 00 00 23",
+          "siteWeb": "neo-detailing-demo.fr",
+          "rating": 4.6,
+          "reviewCount": 11,
+          "reviews": [
+            { "author": "Nicolas E.", "rating": 4, "date": "2025-10-08", "comment": "Bon résultat sur la protection PPF, quelques finitions à peaufiner sur les contours." }
+          ]
+        },
+        {
+          "id": "neo-tours",
+          "ville": "Tours",
+          "departement": "37",
+          "latitude": 47.3941,
+          "longitude": 0.6848,
+          "adresse": "15 rue Michelet, 37000 Tours",
+          "telephone": "02 99 00 00 24",
+          "siteWeb": "neo-detailing-demo.fr",
+          "rating": 4.8,
+          "reviewCount": 16,
+          "reviews": [
+            { "author": "Julie R.", "rating": 5, "date": "2026-03-09", "comment": "Très belle finition, atelier propre et équipe passionnée, je recommande." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "carreloop",
+      "name": "CarreLoop Jantes & Carrosserie",
+      "specialite": "Rénovation de jantes, carrosserie & habillage esthétique",
+      "description": "Réseau d'ateliers dédiés à la rénovation de jantes alu, aux réparations de carrosserie et à l'habillage esthétique (covering, kits carrosserie).",
+      "siteWeb": "carreloop-demo.fr",
+      "centres": [
+        {
+          "id": "carreloop-angers",
+          "ville": "Angers",
+          "departement": "49",
+          "latitude": 47.4784,
+          "longitude": -0.5632,
+          "adresse": "7 rue Paul Bert, 49000 Angers",
+          "telephone": "02 99 00 00 25",
+          "siteWeb": "carreloop-demo.fr",
+          "rating": 4.6,
+          "reviewCount": 12,
+          "reviews": [
+            { "author": "Baptiste H.", "rating": 5, "date": "2026-02-03", "comment": "Jantes rénovées comme neuves, couleur exactement conforme au nuancier choisi." }
+          ]
+        },
+        {
+          "id": "carreloop-orleans",
+          "ville": "Orléans",
+          "departement": "45",
+          "latitude": 47.9029,
+          "longitude": 1.9093,
+          "adresse": "19 rue de Bourgogne, 45000 Orléans",
+          "telephone": "02 99 00 00 26",
+          "siteWeb": "carreloop-demo.fr",
+          "rating": 4.5,
+          "reviewCount": 8,
+          "reviews": [
+            { "author": "Sandra P.", "rating": 4, "date": "2025-12-14", "comment": "Bon travail sur le covering, quelques jours d'attente supplémentaires sur le planning." }
+          ]
+        },
+        {
+          "id": "carreloop-metz",
+          "ville": "Metz",
+          "departement": "57",
+          "latitude": 49.1193,
+          "longitude": 6.1757,
+          "adresse": "24 avenue de Strasbourg, 57000 Metz",
+          "telephone": "03 99 00 00 27",
+          "siteWeb": "carreloop-demo.fr",
+          "rating": 4.7,
+          "reviewCount": 15,
+          "reviews": [
+            { "author": "Louis B.", "rating": 5, "date": "2026-01-19", "comment": "Réparation de choc de bordure impeccable, jante quasi indétectable après passage." }
+          ]
+        },
+        {
+          "id": "carreloop-caen",
+          "ville": "Caen",
+          "departement": "14",
+          "latitude": 49.1829,
+          "longitude": -0.3707,
+          "adresse": "33 rue de Falaise, 14000 Caen",
+          "telephone": "02 99 00 00 28",
+          "siteWeb": "carreloop-demo.fr",
+          "rating": 4.4,
+          "reviewCount": 7,
+          "reviews": [
+            { "author": "Élise N.", "rating": 4, "date": "2025-11-27", "comment": "Résultat satisfaisant sur la carrosserie, devis clair et respecté." }
+          ]
+        },
+        {
+          "id": "carreloop-limoges",
+          "ville": "Limoges",
+          "departement": "87",
+          "latitude": 45.8336,
+          "longitude": 1.2611,
+          "adresse": "10 avenue Garibaldi, 87000 Limoges",
+          "telephone": "05 99 00 00 29",
+          "siteWeb": "carreloop-demo.fr",
+          "rating": 4.6,
+          "reviewCount": 9,
+          "reviews": [
+            { "author": "Théo C.", "rating": 5, "date": "2026-02-22", "comment": "Kit carrosserie posé avec précision, jointures parfaitement alignées." }
+          ]
+        },
+        {
+          "id": "carreloop-pau",
+          "ville": "Pau",
+          "departement": "64",
+          "latitude": 43.2951,
+          "longitude": -0.3708,
+          "adresse": "5 rue Carnot, 64000 Pau",
+          "telephone": "05 99 00 00 30",
+          "siteWeb": "carreloop-demo.fr",
+          "rating": 4.5,
+          "reviewCount": 6,
+          "reviews": [
+            { "author": "Marine D.", "rating": 4, "date": "2025-10-25", "comment": "Bonne prestation sur la rénovation de jantes, accueil convivial." }
+          ]
+        },
+        {
+          "id": "carreloop-amiens",
+          "ville": "Amiens",
+          "departement": "80",
+          "latitude": 49.8942,
+          "longitude": 2.2957,
+          "adresse": "12 rue de Noyon, 80000 Amiens",
+          "telephone": "02 99 00 00 31",
+          "siteWeb": "carreloop-demo.fr",
+          "rating": 4.7,
+          "reviewCount": 10,
+          "reviews": [
+            { "author": "Adrien K.", "rating": 5, "date": "2026-03-11", "comment": "Excellent suivi, jantes et pare-chocs remis à neuf dans les délais annoncés." }
           ]
         }
       ]

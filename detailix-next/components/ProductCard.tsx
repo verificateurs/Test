@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { GarageStore } from "./garage/GarageStore";
+import { WishlistButton } from "./wishlist/WishlistButton";
 
 interface ProductCardProps {
   id: string;
@@ -14,6 +15,8 @@ interface ProductCardProps {
   stockQty: number;
   /** "universel" or array of compatible engine codes */
   compatCodes?: string[] | "universel";
+  /** Whether the current visitor already has this product in their wishlist (absent = not saved; for an anonymous visitor, clicking the button redirects to /connexion). */
+  wishlisted?: boolean;
 }
 
 function ProductImagePlaceholder() {
@@ -26,10 +29,10 @@ function ProductImagePlaceholder() {
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden
     >
-      <rect width="400" height="300" fill="#14171c" />
-      <rect x="170" y="110" width="60" height="80" rx="8" fill="#262b33" />
-      <circle cx="200" cy="100" r="20" fill="#262b33" />
-      <path d="M140 220 C140 180 260 180 260 220" stroke="#262b33" strokeWidth="3" fill="none" />
+      <rect width="400" height="300" fill="var(--bg-elevated)" />
+      <rect x="170" y="110" width="60" height="80" rx="8" fill="var(--border)" />
+      <circle cx="200" cy="100" r="20" fill="var(--border)" />
+      <path d="M140 220 C140 180 260 180 260 220" stroke="var(--border)" strokeWidth="3" fill="none" />
     </svg>
   );
 }
@@ -42,6 +45,7 @@ export function ProductCard({
   price,
   stockQty,
   compatCodes,
+  wishlisted,
 }: ProductCardProps) {
   const inStock = stockQty > 0;
   const [compatible, setCompatible] = useState<boolean | null>(null);
@@ -62,7 +66,7 @@ export function ProductCard({
     <Link href={`/produits/${id}`} className="tile" aria-label={`${name} — ${brandName}`}>
       <div className="tile-media">
         <Image
-          src={`/products/${id}.webp`}
+          src={`/api/product-image/${id}`}
           alt={name}
           fill
           sizes="(max-width: 600px) 50vw, (max-width: 1200px) 33vw, 25vw"
@@ -79,10 +83,14 @@ export function ProductCard({
           </span>
         )}
         {compatible === false && (
-          <span className="badge badge-no-stock" style={{ position: "absolute", top: 8, left: 8, opacity: 0.8 }}>
+          <span className="badge badge-incompat" style={{ position: "absolute", top: 8, left: 8 }}>
             ✗ Non compatible
           </span>
         )}
+
+        <div style={{ position: "absolute", top: 8, right: 8 }}>
+          <WishlistButton productId={id} initialSaved={wishlisted ?? false} />
+        </div>
       </div>
 
       <div className="tile-body">

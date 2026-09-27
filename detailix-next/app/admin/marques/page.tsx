@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { db } from "@/lib/db";
 import { requireAdmin } from "@/lib/auth/session";
+import { updateBrandRatingAction, toggleBrandRecommendedAction } from "./actions";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Marques" };
@@ -26,6 +27,7 @@ export default async function AdminBrands() {
             <th>Origine</th>
             <th>Gamme</th>
             <th>Note</th>
+            <th>Recommandée</th>
             <th>Produits</th>
             <th>Actions</th>
           </tr>
@@ -40,7 +42,20 @@ export default async function AdminBrands() {
               <td style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)" }}>{b.origine}</td>
               <td style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)" }}>{b.gamme}</td>
               <td>
-                <span style={{ color: "var(--star)", fontWeight: 600 }}>★ {b.rating}</span>
+                <form action={updateBrandRatingAction} style={{ display: "flex", gap: 4, alignItems: "center" }}>
+                  <input type="hidden" name="id" value={b.id} />
+                  <input type="number" name="rating" defaultValue={b.rating} min={0} max={5} step={0.1} aria-label="Note"
+                    style={{ width: 56, background: "var(--bg-card)", color: "var(--text)", border: "1px solid var(--border)", borderRadius: "var(--radius)", padding: "4px 6px", fontSize: "var(--text-xs)" }} />
+                  <button type="submit" className="btn btn-ghost btn-sm">Modifier</button>
+                </form>
+              </td>
+              <td>
+                <form action={toggleBrandRecommendedAction}>
+                  <input type="hidden" name="id" value={b.id} />
+                  <button type="submit" className={`badge ${b.recommended ? "badge-stock" : "badge-no-stock"}`} style={{ border: "none", cursor: "pointer" }}>
+                    {b.recommended ? "Oui" : "Non"}
+                  </button>
+                </form>
               </td>
               <td>
                 <span className="badge badge-compat">{b._count.products}</span>

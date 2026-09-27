@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { SearchBar } from "./SearchBar";
 import { CartButton } from "./cart/CartButton";
@@ -73,13 +74,8 @@ export function SiteHeader() {
         </button>
 
         <Link href="/" className="logo" aria-label="Retour à l'accueil">
-          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden>
-            <rect width="32" height="32" rx="8" fill="var(--accent)" />
-            <path d="M8 22L14 10L20 18L24 14" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-          <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.15rem", letterSpacing: "-0.02em" }}>
-            Detailix
-          </span>
+          <Image src="/logo.svg" alt="" width={32} height={32} priority />
+          <span className="logo-wordmark">Detailix</span>
         </Link>
 
         <nav id="main-nav" className="main-nav" aria-label="Navigation principale">
@@ -109,6 +105,13 @@ export function SiteHeader() {
           gap: var(--space-sm);
           flex-shrink: 0;
         }
+        .logo-wordmark {
+          font-family: var(--font-heading);
+          font-weight: 700;
+          font-size: 1.2rem;
+          letter-spacing: 0.01em;
+          text-transform: uppercase;
+        }
         .main-nav {
           display: flex;
           align-items: center;
@@ -118,10 +121,29 @@ export function SiteHeader() {
           white-space: nowrap;
         }
         .main-nav a {
+          position: relative;
           color: var(--text-muted);
+          padding-bottom: 2px;
           transition: color 0.15s;
         }
-        .main-nav a:hover { color: var(--text); }
+        .main-nav a:hover,
+        .main-nav a:focus-visible { color: var(--text); }
+        .main-nav a::after {
+          content: "";
+          display: block;
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: -2px;
+          height: 2px;
+          border-radius: 2px;
+          background: var(--accent);
+          transform: scaleX(0);
+          transform-origin: left;
+          transition: transform 0.2s var(--ease);
+        }
+        .main-nav a:hover::after,
+        .main-nav a:focus-visible::after { transform: scaleX(1); }
 
         .header-actions {
           display: flex;

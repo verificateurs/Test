@@ -1,10 +1,12 @@
 "use server";
 
 import { z } from "zod";
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
 import { getSession } from "@/lib/auth/session";
 import { computePrice } from "@/lib/pricing";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 const lineSchema = z.object({
   productId: z.string().min(1).max(100),
@@ -22,6 +24,16 @@ export async function createOrderAction(
   _prev: CheckoutState,
   fd: FormData
 ): Promise<CheckoutState> {
+  // This action requires no authentication (guest checkout), so it is only
+  // protected by rate limiting. x-forwarded-for is client-controlled unless
+  // a trusted proxy rewrites it (see lib/rate-limit.ts).
+  const headerList = await headers();
+  const ip = headerList.get("x-forwarded-for") ?? "unknown";
+  const { allowed } = checkRateLimit(`checkout:${ip}`);
+  if (!allowed) {
+    return { error: "Trop de tentatives. Réessayez dans 1 minute." };
+  }
+
   const session = await getSession();
   const userId = session?.userId ?? null;
 
@@ -40,19 +52,38 @@ export async function createOrderAction(
 
   const { items, promo } = parsed.data;
 
-  // Validate promo code if provided
-  let discountPercent = 0;
-  if (promo) {
-    const promoRecord = await db.promo.findUnique({ where: { code: promo } });
-    if (!promoRecord || !promoRecord.active) return { error: "Code promo invalide ou expiré." };
-    discountPercent = promoRecord.discountPercent;
+  // Aggregate quantities by productId first: two cart lines for the same
+  // product must not each pass an independent stock check and each
+  // decrement stock separately, which could drive stock negative.
+  const qtyByProductId = new Map<string, number>();
+  for (const item of items) {
+    qtyByProductId.set(item.productId, (qtyByProductId.get(item.productId) ?? 0) + item.qty);
   }
 
-  // Atomic transaction: check stock, decrement, create order
+  // Fast-fail promo validation outside the transaction. The actual usedCount
+  // increment is done atomically inside the transaction below (conditional
+  // updateMany) to avoid a race between concurrent checkouts exhausting
+  // maxUses.
+  let promoRecord: { id: string; discountPercent: number; maxUses: number } | null = null;
+  if (promo) {
+    const record = await db.promo.findUnique({ where: { code: promo } });
+    const now = new Date();
+    if (
+      !record ||
+      !record.active ||
+      (record.expiresAt && record.expiresAt <= now) ||
+      record.usedCount >= record.maxUses
+    ) {
+      return { error: "Code promo invalide ou expiré." };
+    }
+    promoRecord = { id: record.id, discountPercent: record.discountPercent, maxUses: record.maxUses };
+  }
+
+  // Atomic transaction: check stock, decrement, reserve promo use, create order
   let orderId: string;
   try {
     const order = await db.$transaction(async (tx) => {
-      const productIds = items.map((i) => i.productId);
+      const productIds = [...qtyByProductId.keys()];
       const products = await tx.product.findMany({
         where: { id: { in: productIds } },
         select: { id: true, name: true, prixAchat: true, stockQty: true },
@@ -60,24 +91,43 @@ export async function createOrderAction(
 
       const productMap = new Map(products.map((p) => [p.id, p]));
 
-      // Validate all items before any write
-      for (const item of items) {
-        const product = productMap.get(item.productId);
-        if (!product) throw new Error(`Produit introuvable: ${item.productId}`);
-        if (product.stockQty < item.qty) throw new Error(`Stock insuffisant: ${product.name}`);
+      // Validate stock against the aggregated (per-product) quantities
+      // before any write.
+      for (const [productId, qty] of qtyByProductId) {
+        const product = productMap.get(productId);
+        if (!product) throw new Error(`Produit introuvable: ${productId}`);
+        if (product.stockQty < qty) throw new Error(`Stock insuffisant: ${product.name}`);
       }
 
-      // Decrement stock for all items
-      await Promise.all(
-        items.map((item) =>
-          tx.product.update({
-            where: { id: item.productId },
-            data: { stockQty: { decrement: item.qty } },
-          })
-        )
-      );
+      // Decrement stock once per product with the aggregated quantity. Uses
+      // a conditional update (rather than check-then-write) so concurrent
+      // checkouts can't both pass the check above and both decrement.
+      for (const [productId, qty] of qtyByProductId) {
+        const product = productMap.get(productId)!;
+        const { count } = await tx.product.updateMany({
+          where: { id: productId, stockQty: { gte: qty } },
+          data: { stockQty: { decrement: qty } },
+        });
+        if (count !== 1) throw new Error(`Stock insuffisant: ${product.name}`);
+      }
 
-      // Compute total
+      let discountPercent = 0;
+      if (promoRecord) {
+        const { count } = await tx.promo.updateMany({
+          where: {
+            id: promoRecord.id,
+            active: true,
+            usedCount: { lt: promoRecord.maxUses },
+            OR: [{ expiresAt: null }, { expiresAt: { gt: new Date() } }],
+          },
+          data: { usedCount: { increment: 1 } },
+        });
+        if (count !== 1) throw new Error("Code promo invalide ou expiré.");
+        discountPercent = promoRecord.discountPercent;
+      }
+
+      // Compute total from the original (non-aggregated) line items so the
+      // order keeps one OrderItem row per submitted cart line.
       const total = items.reduce((sum, item) => {
         const product = productMap.get(item.productId)!;
         const price = computePrice(product.prixAchat);
@@ -114,5 +164,8 @@ export async function createOrderAction(
     return { error: msg };
   }
 
-  redirect(`/commande/confirmation/${orderId}`);
+  // `fresh=1` tells the confirmation page this is a just-placed order (as
+  // opposed to a past order viewed from /compte), so it knows it's safe to
+  // clear the client-side cart.
+  redirect(`/commande/confirmation/${orderId}?fresh=1`);
 }

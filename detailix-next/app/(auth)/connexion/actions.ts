@@ -19,9 +19,20 @@ type State = { error: string } | null;
 export async function loginAction(_prev: State, fd: FormData): Promise<State> {
   const headerList = await headers();
   const ip = headerList.get("x-forwarded-for") ?? "unknown";
-  const { allowed } = checkRateLimit(`login:${ip}`);
-  if (!allowed) {
+  const { allowed: ipAllowed } = checkRateLimit(`login:${ip}`);
+  if (!ipAllowed) {
     return { error: "Trop de tentatives. Réessayez dans 1 minute." };
+  }
+
+  // Account-based lock in addition to the IP lock: x-forwarded-for is
+  // client-controlled unless a trusted proxy rewrites it (see lib/rate-limit.ts).
+  const rawEmail = fd.get("email");
+  if (typeof rawEmail === "string" && rawEmail.trim() !== "") {
+    const accountKey = rawEmail.trim().toLowerCase().slice(0, 255);
+    const { allowed: accountAllowed } = checkRateLimit(`login-account:${accountKey}`);
+    if (!accountAllowed) {
+      return { error: "Trop de tentatives. Réessayez dans 1 minute." };
+    }
   }
 
   const parsed = schema.safeParse({

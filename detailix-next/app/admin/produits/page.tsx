@@ -7,8 +7,10 @@ import { deleteProductAction } from "./actions";
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Produits" };
 
-export default async function AdminProducts() {
+export default async function AdminProducts({ searchParams }: { searchParams: Promise<{ error?: string }> }) {
   await requireAdmin();
+
+  const { error } = await searchParams;
 
   const products = await db.product.findMany({
     include: { brand: { select: { name: true } }, category: { select: { label: true } } },
@@ -21,6 +23,10 @@ export default async function AdminProducts() {
         <h1>Produits ({products.length})</h1>
         <Link href="/admin/produits/nouveau" className="btn btn-primary btn-sm">+ Ajouter</Link>
       </div>
+
+      {error && (
+        <div className="alert alert-error" style={{ marginBottom: "var(--space-lg)" }}>{error}</div>
+      )}
 
       <div className="admin-table-scroll">
       <table className="admin-table">

@@ -148,8 +148,8 @@ export function ProductForm({ action, brands, categories, initialPriceTTC, produ
             name="compatibilite"
             required
             rows={3}
-            defaultValue={product?.compatibilite ?? '"universel"'}
-            placeholder='"universel" ou {"type":"codesMoteurs","codes":["ABC","DEF"]}'
+            defaultValue={product?.compatibilite ?? '{"type":"universel"}'}
+            placeholder='{"type":"universel"} ou {"type":"codesMoteurs","codes":["ABC","DEF"]}'
           />
         </div>
 

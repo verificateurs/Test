@@ -60,7 +60,7 @@ export default function ConnexionPage() {
 
         <p style={{ marginTop: "var(--space-sm)", textAlign: "center", fontSize: "var(--text-sm)", color: "var(--text-muted)" }}>
           Pas encore de compte ?{" "}
-          <Link href="/inscription" style={{ color: "var(--accent)" }}>S'inscrire</Link>
+          <Link href="/inscription" style={{ color: "var(--accent)" }}>S&apos;inscrire</Link>
         </p>
       </div>
     </div>

@@ -1,33 +1,36 @@
 /* ═══════════════════════════════════════════════════════
    Detailix — Design System CSS
-   Thème : dark premium automobile
+   Thème : racing haut contraste (sombre, agressif, compétition)
    ═══════════════════════════════════════════════════════ */
-
-@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Inter:wght@400;500;600&display=swap');
 
 :root {
   /* Couleurs */
-  --bg: #0b0d10;
-  --bg-elevated: #14171c;
-  --bg-card: #191d24;
-  --border: #262b33;
-  --text: #e8eaed;
-  --text-muted: #9aa1ab;
-  --accent: #ff5a1f;
-  --accent-soft: rgba(255, 90, 31, 0.14);
-  --accent-hover: #e04d18;
-  --star: #ffb100;
+  --bg: #0a0a0c;
+  --bg-elevated: #131316;
+  --bg-card: #18181c;
+  --border: #2a2a30;
+  --text: #f2f2f0;
+  --text-muted: #9a9aa2;
+  --accent: #ff1e2d;
+  --accent-soft: rgba(255, 30, 45, 0.14);
+  --accent-hover: #d4121f;
+  /* Extrémité "claire" du dégradé .btn-primary : luminance ≥ --accent, reste
+     lisible avec le même texte quasi-noir (--bg) tout au long du dégradé. */
+  --accent-bright: #ff3b46;
+  --accent-2: #ffd400;
+  --star: #ffd400;
   --success: #2ecc71;
-  --danger: #ff5252;
+  --danger: #ff3b3b;
 
   /* Ombres */
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.25);
   --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.35);
   --shadow-lg: 0 24px 64px rgba(0, 0, 0, 0.45);
 
-  /* Typo */
-  --font-heading: "Sora", system-ui, sans-serif;
-  --font-body: "Inter", system-ui, sans-serif;
+  /* Typo — polices chargées via next/font/google dans app/layout.tsx,
+     exposées en variables CSS sur <html> (--font-heading-face / --font-body-face) */
+  --font-heading: var(--font-heading-face, "Rajdhani"), system-ui, sans-serif;
+  --font-body: var(--font-body-face, "Inter"), system-ui, sans-serif;
 
   /* Espacement */
   --space-xs: 4px;
@@ -110,10 +113,20 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.2;
 }
 
-h1 { font-size: var(--text-3xl); }
-h2 { font-size: var(--text-2xl); }
+h1 { font-size: var(--text-3xl); letter-spacing: -0.01em; }
+h2 { font-size: var(--text-2xl); letter-spacing: -0.01em; }
 h3 { font-size: var(--text-xl); }
 h4 { font-size: var(--text-lg); }
+
+/* ── Accessibilité clavier ──────────────────────────────────
+   L'accent rouge sur bouton rouge (ou sur fond sombre) manque de
+   visibilité en anneau de focus : le jaune racing (--accent-2) sert
+   de couleur de focus unique, à contraste élevé sur toute la palette. */
+:focus-visible {
+  outline: 2px solid var(--accent-2);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
 
 /* ── Layout utilitaires ─────────────────────────────────── */
 .container {
@@ -134,24 +147,77 @@ h4 { font-size: var(--text-lg); }
   font-size: var(--text-sm);
   font-weight: 600;
   border: none;
-  transition: background 0.2s var(--ease), transform 0.1s, box-shadow 0.2s;
+  transition: background 0.2s var(--ease), border-color 0.2s var(--ease),
+    color 0.2s var(--ease), transform 0.15s var(--ease), box-shadow 0.25s var(--ease);
   cursor: pointer;
 }
 
-.btn:active { transform: scale(0.97); }
-
 .btn-primary {
-  background: var(--accent);
-  color: #fff;
+  position: relative;
+  overflow: hidden;
+  /* Dégradé composé uniquement de rouges "clairs" (luminance ≥ --accent) :
+     les deux extrémités doivent rester du même côté du seuil de contraste
+     que le texte --bg, sinon un ton plus sombre traversé par le dégradé
+     ferait échouer l'AA sur une partie du bouton (vérifié : #ff3b46 → 5.4:1
+     et --accent → 5.1:1 sur --bg). La couleur de texte ne change donc PAS
+     au survol (contrairement à avant, qui passait par --accent-hover, trop
+     sombre pour rester lisible avec du texte clair OU la même teinte de
+     dégradé) : #fff sur --accent ne tient qu'~3.8:1, sous les 4.5:1 requis
+     en WCAG AA pour ce corps/cette graisse de texte. Noir quasi (--bg) sur
+     rouge vif reste la solution la plus sûre et la plus lisible.
+     Ce n'est pas les couleurs de bouton qui changent au survol/au clic mais
+     le glow (box-shadow), le sens du dégradé et un léger lift/scale. */
+  background: linear-gradient(135deg, var(--accent-bright) 0%, var(--accent) 100%);
+  color: var(--bg);
+  box-shadow: 0 2px 14px rgba(255, 30, 45, 0.25);
 }
-.btn-primary:hover { background: var(--accent-hover); }
+
+/* Sheen : balayage lumineux diagonal au survol. translateX plutôt que
+   `left` pour rester sur la GPU (transform), pas de repaint/reflow à
+   chaque frame. La transition n'est déclarée QUE sur :hover : si elle
+   restait sur l'état de repos, le retour -120% se rejouerait en 0.5s à
+   chaque sortie de curseur (balayage inverse visible à chaque mouseleave)
+   au lieu de se réinitialiser instantanément. */
+.btn-primary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 40%, rgba(255, 255, 255, 0.35) 50%, transparent 60%);
+  transform: translateX(-120%);
+  pointer-events: none;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-bright) 100%);
+  box-shadow: 0 6px 22px rgba(255, 30, 45, 0.45);
+  transform: translateY(-1px);
+}
+.btn-primary:hover::after {
+  transform: translateX(120%);
+  transition: transform 0.5s var(--ease);
+}
+
+/* Doit rester déclaré après :hover — même spécificité (0,2,0), l'ordre
+   source tranche, et l'écrasement du feedback de clic par le hover n'est
+   pas satisfaisant. */
+.btn-primary:active {
+  transform: translateY(0) scale(0.96);
+  box-shadow: 0 2px 10px rgba(255, 30, 45, 0.3);
+}
 
 .btn-ghost {
   background: transparent;
   color: var(--text);
   border: 1px solid var(--border);
 }
-.btn-ghost:hover { background: var(--bg-elevated); }
+.btn-ghost:hover {
+  background: var(--bg-elevated);
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+.btn-ghost:active {
+  transform: translateY(0) scale(0.97);
+}
 
 .btn-sm {
   padding: 6px var(--space-md);
@@ -200,7 +266,7 @@ h4 { font-size: var(--text-lg); }
   top: 0;
   z-index: 100;
   height: var(--header-h);
-  background: rgba(11, 13, 16, 0.92);
+  background: rgba(10, 10, 12, 0.92);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   border-bottom: 1px solid var(--border);
@@ -229,6 +295,15 @@ h4 { font-size: var(--text-lg); }
   border-radius: 99px;
   font-size: var(--text-xs);
   font-weight: 600;
+  transition: transform 0.15s var(--ease), filter 0.15s var(--ease);
+}
+
+/* Badges cliquables (ex. pastilles marque en Link sur la page catégorie) :
+   feedback hover/focus cohérent avec le reste des éléments interactifs. */
+a.badge:hover,
+a.badge:focus-visible {
+  transform: translateY(-1px);
+  filter: brightness(1.15);
 }
 
 .badge-compat {
@@ -238,8 +313,9 @@ h4 { font-size: var(--text-lg); }
 }
 
 .badge-incompat {
-  background: rgba(255, 82, 82, 0.1);
+  background: rgba(255, 59, 59, 0.1);
   color: var(--danger);
+  border: 1px solid rgba(255, 59, 59, 0.3);
 }
 
 .badge-stock {
@@ -250,6 +326,20 @@ h4 { font-size: var(--text-lg); }
 .badge-no-stock {
   background: rgba(154, 161, 171, 0.1);
   color: var(--text-muted);
+}
+
+/* Badges de compatibilité posés sur une photo produit (ProductCard) : le
+   fond très transparent des variantes ci-dessus est pensé pour reposer sur
+   --bg-card, pas sur une image arbitraire (parfois claire), ce qui peut
+   faire chuter le contraste sous l'AA. On assombrit fortement le fond
+   uniquement dans ce contexte pour un contraste stable quelle que soit la
+   photo (~6.6:1 pour badge-compat même sur fond blanc). */
+.tile-media .badge-compat {
+  background: rgba(11, 38, 24, 0.92);
+  border-color: rgba(46, 204, 113, 0.5);
+}
+.tile-media .badge-no-stock {
+  background: rgba(10, 10, 12, 0.85);
 }
 
 /* ── Étoiles ────────────────────────────────────────────── */
@@ -271,6 +361,20 @@ h4 { font-size: var(--text-lg); }
   animation: pulse 1.5s ease-in-out infinite;
 }
 
+/* Pastille de comptage du panier (CartButton) : `key={count}` sur le span
+   force un remount à chaque changement de quantité, ce qui rejoue cette
+   animation à chaque ajout/retrait — signal visuel clair sans logique JS
+   supplémentaire. */
+@keyframes cartBump {
+  0%   { transform: scale(0.5); opacity: 0; }
+  60%  { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.cart-count-badge {
+  animation: cartBump 0.35s var(--ease) both;
+}
+
 /* ── Scroll reveal ──────────────────────────────────────── */
 .reveal {
   opacity: 0;
@@ -284,6 +388,33 @@ h4 { font-size: var(--text-lg); }
   transform: translateY(0);
 }
 
+/* Cascade légère pour les grilles d'accueil qui utilisent déjà .reveal
+   (catégories, bandeau de confiance) : décalage de la transition existante
+   par position, sans nouveau mécanisme JS — chaque tuile ".reveal" continue
+   d'être révélée par RevealObserver, seul le délai diffère. */
+.category-grid .reveal:nth-child(1) { transition-delay: 0ms; }
+.category-grid .reveal:nth-child(2) { transition-delay: 60ms; }
+.category-grid .reveal:nth-child(3) { transition-delay: 120ms; }
+.category-grid .reveal:nth-child(4) { transition-delay: 180ms; }
+.category-grid .reveal:nth-child(5) { transition-delay: 240ms; }
+.category-grid .reveal:nth-child(6) { transition-delay: 300ms; }
+.category-grid .reveal:nth-child(n + 7) { transition-delay: 340ms; }
+
+/* `transition-delay` reste posé sur l'élément une fois la révélation jouée
+   et s'appliquerait sinon à toute transition ultérieure sur la même
+   propriété — y compris le lift au survol (.tile:hover anime aussi
+   `transform`), ce qui retarderait le feedback hover de jusqu'à 340ms sur
+   les dernières tuiles. On le remet à 0 dès l'interaction (même
+   spécificité que les règles nth-child ci-dessus : doit rester déclaré
+   après pour gagner sur l'ordre source). */
+.category-grid .reveal:hover,
+.category-grid .reveal:focus-visible { transition-delay: 0ms; }
+
+.trust-grid .reveal:nth-child(1) { transition-delay: 0ms; }
+.trust-grid .reveal:nth-child(2) { transition-delay: 80ms; }
+.trust-grid .reveal:nth-child(3) { transition-delay: 160ms; }
+.trust-grid .reveal:nth-child(4) { transition-delay: 240ms; }
+
 /* ── Drawer (panier) ────────────────────────────────────── */
 .drawer-overlay {
   position: fixed;
@@ -291,10 +422,14 @@ h4 { font-size: var(--text-lg); }
   background: rgba(0, 0, 0, 0.6);
   z-index: 200;
   opacity: 0;
+  pointer-events: none;
   transition: opacity 0.25s;
 }
 
-.drawer-overlay.open { opacity: 1; }
+.drawer-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
 
 .drawer {
   position: fixed;
@@ -367,8 +502,22 @@ h4 { font-size: var(--text-lg); }
 .form-field input:focus,
 .form-field select:focus,
 .form-field textarea:focus {
-  outline: none;
   border-color: var(--accent);
+}
+
+/* `outline: none` inconditionnel sur `:focus` (retiré ci-dessus) supprimait
+   l'anneau de focus clavier (:focus-visible global défini plus haut) pour
+   TOUS les champs de formulaire, y compris au clavier — régression a11y. Le
+   `:focus` restant ne fait plus que le changement de bordure (actif souris
+   ET clavier) ; on ajoute ici un anneau + halo doux, cohérent avec le reste
+   des micro-interactions, spécifiquement quand `:focus-visible` matche
+   (clavier, ou souris sur certains navigateurs pour les champs texte). */
+.form-field input:focus-visible,
+.form-field select:focus-visible,
+.form-field textarea:focus-visible {
+  outline: 2px solid var(--accent-2);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 3px rgba(255, 212, 0, 0.15);
 }
 
 .form-error {
@@ -388,6 +537,157 @@ h4 { font-size: var(--text-lg); }
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: var(--space-md);
+}
+
+/* Apparition en cascade des cartes produit (ProductCard n'a pas la classe
+   .reveal — composant hors périmètre, on ne peut pas l'y ajouter). On passe
+   par une animation CSS pure ciblant .tile existant plutôt que par le
+   système .reveal/IntersectionObserver, qui nécessite une classe absente
+   ici. `animation-fill-mode: backwards` (et non `both`) : l'état de départ
+   ne s'applique que pendant le délai, puis l'animation cesse de "tenir" la
+   propriété une fois terminée — la cascade normale (et donc `.tile:hover`
+   qui anime aussi `transform`) reprend la main normalement au lieu de rester
+   figée par l'animation. */
+@keyframes tileIn {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.product-grid > .tile {
+  animation: tileIn 0.4s var(--ease) backwards;
+}
+.product-grid > .tile:nth-child(1) { animation-delay: 0ms; }
+.product-grid > .tile:nth-child(2) { animation-delay: 40ms; }
+.product-grid > .tile:nth-child(3) { animation-delay: 80ms; }
+.product-grid > .tile:nth-child(4) { animation-delay: 120ms; }
+.product-grid > .tile:nth-child(5) { animation-delay: 160ms; }
+.product-grid > .tile:nth-child(6) { animation-delay: 200ms; }
+.product-grid > .tile:nth-child(7) { animation-delay: 240ms; }
+.product-grid > .tile:nth-child(8) { animation-delay: 280ms; }
+.product-grid > .tile:nth-child(n + 9) { animation-delay: 320ms; }
+
+/* ── Texture carbone (discrète, décorative) ─────────────────
+   Utilisable sur n'importe quelle section sombre sans nuire à la
+   lisibilité du texte posé dessus (contraste ~2% seulement). */
+.carbon-texture {
+  background-image:
+    repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.025) 0, rgba(255, 255, 255, 0.025) 1px, transparent 1px, transparent 6px),
+    repeating-linear-gradient(-45deg, rgba(255, 255, 255, 0.02) 0, rgba(255, 255, 255, 0.02) 1px, transparent 1px, transparent 6px);
+}
+
+/* ── Accueil : hero ─────────────────────────────────────── */
+.hero-section {
+  background: linear-gradient(160deg, var(--bg-elevated) 0%, var(--bg) 100%);
+  border-bottom: 1px solid var(--border);
+  padding: var(--space-3xl) 0;
+  text-align: center;
+}
+
+.hero-title {
+  font-size: clamp(2.1rem, 5vw, 3.4rem);
+  margin-bottom: var(--space-md);
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.hero-title .accent {
+  color: var(--accent);
+}
+
+.hero-lead {
+  color: var(--text-muted);
+  font-size: var(--text-lg);
+  max-width: 520px;
+  margin: 0 auto var(--space-xl);
+}
+
+.hero-actions {
+  display: flex;
+  gap: var(--space-md);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Le hero est le contenu principal au-dessus de la ligne de flottaison (LCP,
+   titre, CTA). Le système .reveal masque en opacity:0 tant que l'observer
+   client (RevealObserver) n'a pas tourné : inacceptable ici en cas de JS lent
+   ou désactivé. Ce modificateur garde le texte visible immédiatement et ne
+   réserve l'animation qu'au léger déplacement vertical. */
+.reveal.reveal--hero {
+  opacity: 1;
+  transform: translateY(14px);
+}
+.reveal.reveal--hero.visible,
+.reveal.reveal--hero.revealed {
+  transform: translateY(0);
+}
+
+/* ── Accueil : catégories ───────────────────────────────── */
+.categories-section {
+  padding: var(--space-3xl) 0;
+}
+
+.section-title {
+  margin-bottom: var(--space-xl);
+  font-size: var(--text-2xl);
+}
+
+.category-tile {
+  padding: var(--space-lg);
+  display: block;
+}
+
+.category-tile-icon {
+  margin-bottom: var(--space-sm);
+  display: inline-flex;
+  transition: transform 0.25s var(--ease);
+}
+
+.tile:hover .category-tile-icon {
+  transform: translateY(-2px) scale(1.05);
+}
+
+.category-tile-label {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  margin-bottom: var(--space-xs);
+  letter-spacing: 0.01em;
+}
+
+.category-tile-meta {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ── Accueil : bandeau de confiance ─────────────────────── */
+.trust-section {
+  background: var(--bg-elevated);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: var(--space-xl) 0;
+}
+
+.trust-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--space-lg);
+  text-align: center;
+}
+
+.trust-icon {
+  margin-bottom: var(--space-xs);
+  display: inline-flex;
+}
+
+.trust-item-title {
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.trust-item-desc {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
 }
 
 /* ── Fiche produit ──────────────────────────────────────── */
@@ -417,9 +717,9 @@ h4 { font-size: var(--text-lg); }
 }
 
 .alert-error {
-  background: rgba(255, 82, 82, 0.1);
-  border-color: rgba(255, 82, 82, 0.3);
-  color: #ff7070;
+  background: rgba(255, 59, 59, 0.1);
+  border-color: rgba(255, 59, 59, 0.3);
+  color: #ff7a7a;
 }
 
 .alert-success {
@@ -545,6 +845,145 @@ h4 { font-size: var(--text-lg); }
   .admin-table {
     min-width: 560px;
   }
+}
+
+/* ═══════════════════════════════════════════════════════
+   Additions SEO/perf/UX (audit) — footer, état disabled des
+   boutons, badge d'incompatibilité sur photo, pages légales.
+   ═══════════════════════════════════════════════════════ */
+
+/* ── Boutons désactivés ─────────────────────────────────── */
+.btn:disabled,
+.btn[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Neutralise le dégradé animé/lift/sheen de .btn-primary au repos comme au
+   survol quand le bouton est désactivé : sans ça, .btn-primary:hover (même
+   spécificité, déclaré avant) continue de piloter fond/ombre/transform. */
+.btn-primary:disabled,
+.btn-primary[disabled] {
+  transform: none;
+}
+.btn-primary:disabled:hover,
+.btn-primary[disabled]:hover {
+  background: linear-gradient(135deg, var(--accent-bright) 0%, var(--accent) 100%);
+  box-shadow: none;
+  transform: none;
+}
+.btn-primary:disabled:active,
+.btn-primary[disabled]:active {
+  transform: none;
+  box-shadow: none;
+}
+.btn-primary:disabled::after,
+.btn-primary[disabled]::after {
+  display: none;
+}
+
+/* ── Badge incompatible posé sur une photo produit ──────────
+   Même traitement de contraste que .tile-media .badge-compat, décliné en
+   rouge (--danger) pour rester lisible quelle que soit la photo derrière. */
+.tile-media .badge-incompat {
+  background: rgba(43, 10, 10, 0.92);
+  border-color: rgba(255, 59, 59, 0.5);
+}
+
+/* ── Footer ─────────────────────────────────────────────── */
+.site-footer {
+  border-top: 1px solid var(--border);
+  background: var(--bg-elevated);
+  margin-top: var(--space-3xl);
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: var(--space-xl);
+  padding-block: var(--space-2xl);
+}
+
+.footer-trust {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.footer-trust-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+
+.footer-heading {
+  font-size: var(--text-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text);
+  margin-bottom: var(--space-md);
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  list-style: none;
+}
+
+.footer-links a {
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+  transition: color 0.15s var(--ease);
+}
+.footer-links a:hover,
+.footer-links a:focus-visible {
+  color: var(--text);
+}
+
+.footer-bottom {
+  border-top: 1px solid var(--border);
+  padding-block: var(--space-md);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+}
+
+/* ── Pages légales (mentions, CGV, confidentialité) ─────── */
+.legal-page {
+  max-width: 760px;
+  padding-block: var(--space-2xl) var(--space-3xl);
+}
+
+.legal-page h1 {
+  margin-bottom: var(--space-xl);
+}
+
+.legal-page section + section {
+  margin-top: var(--space-xl);
+}
+
+.legal-page h2 {
+  font-size: var(--text-lg);
+  margin-bottom: var(--space-sm);
+}
+
+.legal-page p {
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+.legal-page p + p {
+  margin-top: var(--space-sm);
 }
 
 /* ── Responsive ─────────────────────────────────────────── */

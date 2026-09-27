@@ -5,8 +5,16 @@ import Link from "next/link";
 import Image from "next/image";
 import { db } from "@/lib/db";
 import { computePrice } from "@/lib/pricing";
+import { parseCompatCodes } from "@/lib/compat";
+import { getGarageVehicle } from "@/lib/garage";
+import { getWishlistedProductIds } from "@/lib/wishlist";
+import { ProductCard } from "@/components/ProductCard";
+import { WishlistButton } from "@/components/wishlist/WishlistButton";
+import { Breadcrumb, JsonLd, breadcrumbJsonLd } from "@/components/Breadcrumb";
 import { AddToCartButton } from "./AddToCartButton";
 import type { Metadata } from "next";
+
+const BASE_URL = (process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000").replace(/\/$/, "");
 
 export async function generateStaticParams() {
   const products = await db.product.findMany({ select: { id: true } });
@@ -18,8 +26,17 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const p = await db.product.findUnique({ where: { id }, include: { brand: true } });
   if (!p) return { title: "Produit introuvable" };
   return {
-    title: `${p.name} — ${p.brand.name}`,
+    title: `${p.name} — ${p.format} | ${p.brand.name}`,
     description: p.description,
+    alternates: { canonical: `/produits/${p.id}` },
+    openGraph: {
+      siteName: "Detailix",
+      locale: "fr_FR",
+      type: "website",
+      title: `${p.name} — ${p.format}`,
+      description: p.description,
+      images: [{ url: `/api/product-image/${p.id}`, width: 800, height: 600 }],
+    },
   };
 }
 
@@ -38,29 +55,54 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
   const price = computePrice(product.prixAchat);
   const inStock = product.stockQty > 0;
 
-  let compatMakes: string[] = [];
-  try {
-    const c = typeof product.compatibilite === "string"
-      ? JSON.parse(product.compatibilite)
-      : product.compatibilite;
-    if (c && c.type === "codesMoteurs" && Array.isArray(c.codes)) {
-      compatMakes = c.codes;
-    }
-  } catch {}
+  const compatCodes = parseCompatCodes(product.compatibilite);
+  const vehicle = await getGarageVehicle();
+  const compatible: boolean | null =
+    compatCodes === "universel"
+      ? true
+      : Array.isArray(compatCodes) && vehicle
+        ? compatCodes.includes(vehicle.codeMoteur)
+        : null;
+
+  const sameBrandProducts = await db.product.findMany({
+    where: { brandId: product.brandId, id: { not: product.id } },
+    take: 4,
+    select: { id: true, name: true, prixAchat: true, stockQty: true, categoryId: true, compatibilite: true },
+  });
+
+  const wishlistedIds = await getWishlistedProductIds([product.id, ...sameBrandProducts.map((p) => p.id)]);
+
+  const breadcrumbItems = [
+    { label: "Accueil", href: "/" },
+    { label: product.brand.category.label, href: `/categories/${product.brand.categoryId}` },
+    { label: product.brand.name, href: `/marques/${product.brandId}` },
+    { label: product.name },
+  ];
+
+  const productJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    description: product.description,
+    image: `${BASE_URL}/api/product-image/${product.id}`,
+    brand: { "@type": "Brand", name: product.brand.name },
+    offers: {
+      "@type": "Offer",
+      price: price.toFixed(2),
+      priceCurrency: "EUR",
+      availability: inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+      url: `${BASE_URL}/produits/${product.id}`,
+    },
+  };
 
   return (
     <div className="page-enter">
+      <JsonLd data={productJsonLd} />
+      <JsonLd data={breadcrumbJsonLd(breadcrumbItems, BASE_URL)} />
+
       {/* Breadcrumb */}
       <div className="container" style={{ paddingTop: "var(--space-lg)", paddingBottom: "var(--space-sm)" }}>
-        <nav style={{ fontSize: "var(--text-sm)", color: "var(--text-muted)" }}>
-          <Link href="/">Accueil</Link>
-          {" / "}
-          <Link href={`/categories/${product.brand.categoryId}`}>{product.brand.category.label}</Link>
-          {" / "}
-          <Link href={`/marques/${product.brandId}`}>{product.brand.name}</Link>
-          {" / "}
-          <span style={{ color: "var(--text)" }}>{product.name}</span>
-        </nav>
+        <Breadcrumb items={breadcrumbItems} />
       </div>
 
       <div className="container" style={{ paddingBottom: "var(--space-3xl)" }}>
@@ -69,7 +111,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
           {/* Image */}
           <div style={{ position: "relative", aspectRatio: "4/3", borderRadius: "var(--radius-lg)", overflow: "hidden", background: "var(--bg-card)" }}>
             <Image
-              src={`/products/${product.id}.webp`}
+              src={`/api/product-image/${product.id}`}
               alt={product.name}
               fill
               priority
@@ -98,13 +140,20 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
                 {price.toLocaleString("fr-FR", { style: "currency", currency: "EUR" })}
               </span>
               <span style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)" }}>TTC</span>
+              <WishlistButton productId={product.id} initialSaved={wishlistedIds.has(product.id)} />
             </div>
 
             {/* Stock */}
-            <div style={{ marginBottom: "var(--space-lg)" }}>
+            <div style={{ marginBottom: "var(--space-md)", display: "flex", gap: "var(--space-sm)", flexWrap: "wrap" }}>
               <span className={`badge ${inStock ? "badge-stock" : "badge-no-stock"}`}>
                 {inStock ? `En stock (${product.stockQty})` : "Rupture de stock"}
               </span>
+              {compatible === true && (
+                <span className="badge badge-compat">✓ Compatible avec votre véhicule</span>
+              )}
+              {compatible === false && (
+                <span className="badge badge-incompat">✗ Non compatible avec votre véhicule</span>
+              )}
             </div>
 
             {/* CTA */}
@@ -128,13 +177,18 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
             )}
 
             {/* Compatibilité */}
-            {compatMakes.length > 0 && (
+            {compatCodes === "universel" && (
+              <div style={{ marginTop: "var(--space-md)", fontSize: "var(--text-sm)", color: "var(--text-muted)" }}>
+                Compatible avec tous véhicules
+              </div>
+            )}
+            {Array.isArray(compatCodes) && compatCodes.length > 0 && (
               <div style={{ marginTop: "var(--space-lg)", padding: "var(--space-md)", background: "var(--bg-card)", borderRadius: "var(--radius)", border: "1px solid var(--border)" }}>
                 <div style={{ fontWeight: 600, marginBottom: "var(--space-sm)", fontSize: "var(--text-sm)" }}>
                   Codes moteur compatibles
                 </div>
                 <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--space-sm)" }}>
-                  {compatMakes.map((code) => (
+                  {compatCodes.map((code) => (
                     <span key={code} className="badge" style={{ background: "var(--accent-soft)", color: "var(--accent)", fontSize: "var(--text-xs)" }}>
                       {code}
                     </span>
@@ -142,15 +196,33 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
                 </div>
               </div>
             )}
-            {compatMakes.length === 0 && (
-              <div style={{ marginTop: "var(--space-md)", fontSize: "var(--text-sm)", color: "var(--text-muted)" }}>
-                Compatible avec tous véhicules
-              </div>
-            )}
           </div>
         </div>
-      </div>
 
+        {/* Produits de la même marque */}
+        {sameBrandProducts.length > 0 && (
+          <section style={{ marginTop: "var(--space-3xl)" }}>
+            <h2 style={{ fontSize: "var(--text-xl)", marginBottom: "var(--space-lg)" }}>
+              Autres produits {product.brand.name}
+            </h2>
+            <div className="product-grid">
+              {sameBrandProducts.map((p) => (
+                <ProductCard
+                  key={p.id}
+                  id={p.id}
+                  name={p.name}
+                  brandName={product.brand.name}
+                  categoryId={p.categoryId}
+                  price={computePrice(p.prixAchat)}
+                  stockQty={p.stockQty}
+                  compatCodes={parseCompatCodes(p.compatibilite)}
+                  wishlisted={wishlistedIds.has(p.id)}
+                />
+              ))}
+            </div>
+          </section>
+        )}
+      </div>
     </div>
   );
 }

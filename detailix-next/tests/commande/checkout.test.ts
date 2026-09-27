@@ -29,13 +29,26 @@ vi.mock("next/navigation", () => ({
 
 // getSession() calls cookies() from next/headers; simulate an anonymous
 // visitor (no session cookie) since createOrderAction accepts userId: null.
-vi.mock("next/headers", () => ({
-  cookies: async () => ({
-    get: (_name: string) => undefined,
-    set: () => {},
-    delete: () => {},
-  }),
-}));
+//
+// headers() is used for the checkout action's rate limiting: each call
+// returns a fresh, unique x-forwarded-for value so that the many
+// createOrderAction() calls made across this file (well within the same
+// 1-minute rate-limit window) don't trip each other's limiter bucket. The
+// counter lives inside the factory (not in outer module scope) because
+// vi.mock factories are hoisted above other top-level statements.
+vi.mock("next/headers", () => {
+  let headersCallCount = 0;
+  return {
+    cookies: async () => ({
+      get: () => undefined,
+      set: () => {},
+      delete: () => {},
+    }),
+    headers: async () => ({
+      get: (name: string) => (name === "x-forwarded-for" ? `test-ip-${headersCallCount++}` : null),
+    }),
+  };
+});
 
 type Db = typeof import("@/lib/db")["db"];
 type CreateOrderAction = typeof import("@/app/commande/actions")["createOrderAction"];
@@ -249,12 +262,7 @@ describe("createOrderAction — promo codes", () => {
     expect(product.stockQty).toBe(5); // unchanged
   });
 
-  it("[bug reported, not fixed] currently APPLIES the discount for an active-but-expired promo", async () => {
-    // app/commande/actions.ts only checks `!promoRecord.active`; it never
-    // reads `expiresAt`, even though the schema models it and the error
-    // message says "invalide ou expiré". This test documents actual current
-    // behavior; see final report for details — this is a real bug, not a
-    // spec for correct behavior.
+  it("rejects a promo code that is active but has expired, without creating an order", async () => {
     await db.promo.create({
       data: {
         id: "promo-expired",
@@ -267,6 +275,40 @@ describe("createOrderAction — promo codes", () => {
 
     const fd = makeFormData([{ productId: "prod-test", qty: 1 }], "EXPIRED10");
 
+    const result = await createOrderAction(null, fd);
+    expect(result).toEqual({ error: "Code promo invalide ou expiré." });
+    expect(await db.order.count()).toBe(0);
+
+    const product = await db.product.findUniqueOrThrow({ where: { id: "prod-test" } });
+    expect(product.stockQty).toBe(5); // unchanged
+  });
+
+  it("rejects a promo code that has reached its maxUses, without creating an order", async () => {
+    await db.promo.create({
+      data: {
+        id: "promo-exhausted",
+        code: "EXHAUSTED10",
+        discountPercent: 10,
+        active: true,
+        maxUses: 3,
+        usedCount: 3,
+      },
+    });
+
+    const fd = makeFormData([{ productId: "prod-test", qty: 1 }], "EXHAUSTED10");
+
+    const result = await createOrderAction(null, fd);
+    expect(result).toEqual({ error: "Code promo invalide ou expiré." });
+    expect(await db.order.count()).toBe(0);
+  });
+
+  it("increments usedCount by exactly 1 on a successful order", async () => {
+    await db.promo.create({
+      data: { id: "promo-usage", code: "USAGE10", discountPercent: 10, active: true, maxUses: 5, usedCount: 2 },
+    });
+
+    const fd = makeFormData([{ productId: "prod-test", qty: 1 }], "USAGE10");
+
     let redirectErr: unknown;
     try {
       await createOrderAction(null, fd);
@@ -275,9 +317,62 @@ describe("createOrderAction — promo codes", () => {
     }
     expect(isRedirectError(redirectErr)).toBe(true);
 
-    const order = await db.order.findFirstOrThrow();
-    const expectedTotal = Math.round(computePrice(100) * 0.9 * 100) / 100;
-    expect(order.total).toBe(expectedTotal); // discount was applied despite expiry
+    const promo = await db.promo.findUniqueOrThrow({ where: { id: "promo-usage" } });
+    expect(promo.usedCount).toBe(3);
+  });
+
+  it("does not increment usedCount when the order fails after promo validation (insufficient stock)", async () => {
+    await db.promo.create({
+      data: { id: "promo-rollback", code: "ROLLBACK10", discountPercent: 10, active: true, maxUses: 5, usedCount: 0 },
+    });
+
+    const fd = makeFormData([{ productId: "prod-test", qty: 10 }], "ROLLBACK10"); // stock is 5
+
+    const result = await createOrderAction(null, fd);
+    expect(result).toEqual({ error: expect.stringContaining("Stock insuffisant") });
+
+    const promo = await db.promo.findUniqueOrThrow({ where: { id: "promo-rollback" } });
+    expect(promo.usedCount).toBe(0);
+  });
+});
+
+describe("createOrderAction — duplicate cart lines", () => {
+  it("aggregates duplicate lines for the same product before checking stock, rejecting when the total exceeds stock", async () => {
+    // stock is 5; two lines of 3 each pass an independent per-line check but
+    // must fail once aggregated (3 + 3 = 6 > 5).
+    const fd = makeFormData([
+      { productId: "prod-test", qty: 3 },
+      { productId: "prod-test", qty: 3 },
+    ]);
+
+    const result = await createOrderAction(null, fd);
+    expect(result).toEqual({ error: expect.stringContaining("Stock insuffisant") });
+
+    const product = await db.product.findUniqueOrThrow({ where: { id: "prod-test" } });
+    expect(product.stockQty).toBe(5); // unchanged, never went negative
+
+    expect(await db.order.count()).toBe(0);
+  });
+
+  it("decrements stock by the aggregated total exactly once when duplicate lines fit within stock", async () => {
+    const fd = makeFormData([
+      { productId: "prod-test", qty: 2 },
+      { productId: "prod-test", qty: 3 },
+    ]);
+
+    let redirectErr: unknown;
+    try {
+      await createOrderAction(null, fd);
+    } catch (err) {
+      redirectErr = err;
+    }
+    expect(isRedirectError(redirectErr)).toBe(true);
+
+    const product = await db.product.findUniqueOrThrow({ where: { id: "prod-test" } });
+    expect(product.stockQty).toBe(0); // 5 - (2 + 3), decremented exactly once
+
+    const order = await db.order.findFirstOrThrow({ include: { items: true } });
+    expect(order.items).toHaveLength(2); // one OrderItem row per submitted line
   });
 });
 

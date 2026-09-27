@@ -1,6 +1,7 @@
 export const dynamic = "force-dynamic";
 
 import Link from "next/link";
+import Image from "next/image";
 import { db } from "@/lib/db";
 
 export default async function HomePage() {
@@ -12,34 +13,37 @@ export default async function HomePage() {
   });
 
   const ICONS: Record<string, string> = {
-    "cosmetique-carrosserie": "🧴",
-    "polish-protection-ceramique": "✨",
-    "jantes-pneus": "🔩",
-    "kits-carrosserie": "🏎️",
-    "eclairage": "💡",
-    "echappement-sport": "🔊",
-    "covering-vitres-teintees": "🎨",
-    "preparation-moteur": "⚡",
-    "outils-detailing": "🔧",
+    "cosmetique-carrosserie": "/icons/icon-cosmetique-carrosserie.svg",
+    "polish-protection-ceramique": "/icons/icon-polish-protection-ceramique.svg",
+    "jantes-pneus": "/icons/icon-jantes-pneus.svg",
+    "kits-carrosserie": "/icons/icon-kits-carrosserie.svg",
+    "eclairage": "/icons/icon-eclairage.svg",
+    "echappement-sport": "/icons/icon-echappement-sport.svg",
+    "covering-vitres-teintees": "/icons/icon-covering-vitres-teintees.svg",
+    "preparation-moteur": "/icons/icon-preparation-moteur.svg",
+    "outils-detailing": "/icons/icon-outils-detailing.svg",
   };
+
+  const TRUST_ITEMS = [
+    { icon: "/icons/icon-lock.svg", title: "Paiement sécurisé", desc: "SSL · 3D Secure" },
+    { icon: "/icons/icon-truck.svg", title: "Livraison rapide", desc: "48h à 5 jours" },
+    { icon: "/icons/icon-return.svg", title: "Retours 30 jours", desc: "Satisfait ou remboursé" },
+    { icon: "/icons/icon-trophy.svg", title: "Marques premium", desc: "60 marques sélectionnées" },
+  ];
 
   return (
     <>
       {/* Hero */}
-      <section style={{
-        background: "linear-gradient(160deg, var(--bg-elevated) 0%, var(--bg) 100%)",
-        borderBottom: "1px solid var(--border)",
-        padding: "var(--space-3xl) 0",
-      }}>
-        <div className="container" style={{ textAlign: "center" }}>
-          <h1 style={{ fontSize: "clamp(2rem, 5vw, 3.2rem)", marginBottom: "var(--space-md)", letterSpacing: "-0.03em" }}>
+      <section className="hero-section carbon-texture">
+        <div className="container">
+          <h1 className="hero-title reveal reveal--hero">
             La préparation auto,<br />
-            <span style={{ color: "var(--accent)" }}>sans compromis.</span>
+            <span className="accent">sans compromis.</span>
           </h1>
-          <p style={{ color: "var(--text-muted)", fontSize: "var(--text-lg)", maxWidth: 520, margin: "0 auto var(--space-xl)" }}>
+          <p className="hero-lead reveal reveal--hero">
             Cosmétique, préparation moteur, carrosserie, jantes — les meilleures marques mondiales avec filtrage par code moteur.
           </p>
-          <div style={{ display: "flex", gap: "var(--space-md)", justifyContent: "center", flexWrap: "wrap" }}>
+          <div className="hero-actions reveal reveal--hero">
             <Link href="/categories/preparation-moteur" className="btn btn-primary">
               Découvrir la préparation moteur
             </Link>
@@ -51,26 +55,26 @@ export default async function HomePage() {
       </section>
 
       {/* Catégories */}
-      <section style={{ padding: "var(--space-3xl) 0" }}>
+      <section className="categories-section">
         <div className="container">
-          <h2 style={{ marginBottom: "var(--space-xl)", fontSize: "var(--text-2xl)" }}>
-            Toutes les catégories
-          </h2>
+          <h2 className="section-title">Toutes les catégories</h2>
           <div className="category-grid">
             {categories.map((cat) => (
               <Link
                 key={cat.id}
                 href={`/categories/${cat.id}`}
-                className="tile reveal"
-                style={{ padding: "var(--space-lg)", display: "block" }}
+                className="tile reveal category-tile"
               >
-                <div style={{ fontSize: "2rem", marginBottom: "var(--space-sm)" }}>
-                  {ICONS[cat.id] ?? "📦"}
+                <div className="category-tile-icon">
+                  <Image
+                    src={ICONS[cat.id] ?? "/icons/icon-default.svg"}
+                    alt=""
+                    width={28}
+                    height={28}
+                  />
                 </div>
-                <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, marginBottom: "var(--space-xs)" }}>
-                  {cat.label}
-                </div>
-                <div style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)", lineHeight: 1.5 }}>
+                <div className="category-tile-label">{cat.label}</div>
+                <div className="category-tile-meta">
                   {cat._count.brands} marques · {cat._count.products} produits
                 </div>
               </Link>
@@ -80,24 +84,16 @@ export default async function HomePage() {
       </section>
 
       {/* Bandeau confiance */}
-      <section style={{
-        background: "var(--bg-elevated)",
-        borderTop: "1px solid var(--border)",
-        borderBottom: "1px solid var(--border)",
-        padding: "var(--space-xl) 0",
-      }}>
+      <section className="trust-section">
         <div className="container">
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "var(--space-lg)", textAlign: "center" }}>
-            {[
-              { icon: "🔒", title: "Paiement sécurisé", desc: "SSL · 3D Secure" },
-              { icon: "📦", title: "Livraison rapide", desc: "48h à 5 jours" },
-              { icon: "↩️", title: "Retours 30 jours", desc: "Satisfait ou remboursé" },
-              { icon: "🏆", title: "Marques premium", desc: "60 marques sélectionnées" },
-            ].map((item) => (
-              <div key={item.title}>
-                <div style={{ fontSize: "1.8rem", marginBottom: "var(--space-xs)" }}>{item.icon}</div>
-                <div style={{ fontWeight: 700, marginBottom: 2 }}>{item.title}</div>
-                <div style={{ fontSize: "var(--text-sm)", color: "var(--text-muted)" }}>{item.desc}</div>
+          <div className="trust-grid">
+            {TRUST_ITEMS.map((item) => (
+              <div key={item.title} className="reveal">
+                <div className="trust-icon">
+                  <Image src={item.icon} alt="" width={26} height={26} />
+                </div>
+                <div className="trust-item-title">{item.title}</div>
+                <div className="trust-item-desc">{item.desc}</div>
               </div>
             ))}
           </div>

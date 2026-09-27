@@ -17,4 +17,5 @@ export async function updateOrderStatusAction(fd: FormData): Promise<void> {
 
   await db.order.update({ where: { id: parsed.data.id }, data: { status: parsed.data.status } });
   revalidatePath("/admin/commandes");
+  revalidatePath(`/admin/commandes/${parsed.data.id}`);
 }

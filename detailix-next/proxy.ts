@@ -2,8 +2,14 @@ import { type NextRequest, NextResponse } from "next/server";
 
 const CSP = [
   "default-src 'self'",
-  // Google Fonts via CSS @import — requires styles/fonts.googleapis.com
-  "style-src 'self' https://fonts.googleapis.com",
+  // 'unsafe-inline' here is a deliberate, scoped tradeoff: the whole UI is built with
+  // styled-jsx (<style jsx> in every component), which Next.js's App Router injects as
+  // plain <style> tags with no CSP nonce support — a nonce-only policy silently drops
+  // every one of them (confirmed in the browser: style tags present in the DOM but
+  // `.sheet` is null, no rule ever attached), breaking all layout/spacing/theme CSS.
+  // Risk stays low because style-src inline content is developer-authored at build time,
+  // never user input — script-src below stays nonce-only with no 'unsafe-inline'.
+  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' https://fonts.gstatic.com",
   // Images: self + data: (placeholder SVG)
   "img-src 'self' data:",
@@ -22,8 +28,7 @@ const CSP = [
 export function proxy(req: NextRequest) {
   // Next.js needs a per-request nonce for its inline hydration payload.
   const nonce = btoa(crypto.randomUUID());
-  const csp = CSP.replace("style-src 'self' https://fonts.googleapis.com", `style-src 'self' https://fonts.googleapis.com 'nonce-${nonce}'`)
-    .replace("script-src 'self'", `script-src 'self' 'nonce-${nonce}'`);
+  const csp = CSP.replace("script-src 'self'", `script-src 'self' 'nonce-${nonce}'`);
   const requestHeaders = new Headers(req.headers);
   requestHeaders.set("x-nonce", nonce);
   requestHeaders.set("Content-Security-Policy", csp);

@@ -2,11 +2,19 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
 import { getSession } from "@/lib/auth/session";
+import { ClearCart } from "./ClearCart";
 
 export const dynamic = "force-dynamic";
 
-export default async function ConfirmationPage({ params }: { params: Promise<{ id: string }> }) {
+export default async function ConfirmationPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ id: string }>;
+  searchParams: Promise<{ fresh?: string }>;
+}) {
   const { id } = await params;
+  const { fresh } = await searchParams;
   const session = await getSession();
 
   const order = await db.order.findUnique({
@@ -23,6 +31,7 @@ export default async function ConfirmationPage({ params }: { params: Promise<{ i
 
   return (
     <div className="page-enter container" style={{ paddingTop: "var(--space-2xl)", paddingBottom: "var(--space-3xl)", maxWidth: 640 }}>
+      {fresh === "1" && <ClearCart />}
       <div style={{ textAlign: "center", marginBottom: "var(--space-2xl)" }}>
         <div style={{ fontSize: "3rem", marginBottom: "var(--space-md)" }}>✅</div>
         <h1 style={{ marginBottom: "var(--space-sm)" }}>Commande confirmée !</h1>

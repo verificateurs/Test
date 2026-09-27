@@ -427,6 +427,99 @@
           ]
         }
       ]
+    },
+    {
+      "id": "opel",
+      "name": "Opel",
+      "models": [
+        {
+          "id": "corsa-e-opc",
+          "name": "Corsa E OPC",
+          "motorisations": [
+            { "id": "corsa-opc-1.6-turbo", "label": "1.6 Turbo 207", "codeMoteur": "Z16LER" }
+          ]
+        },
+        {
+          "id": "astra-j-opc",
+          "name": "Astra J OPC",
+          "motorisations": [
+            { "id": "astra-opc-2.0-turbo", "label": "2.0 Turbo 280", "codeMoteur": "Z20LEH" }
+          ]
+        },
+        {
+          "id": "insignia-a-opc",
+          "name": "Insignia A OPC",
+          "motorisations": [
+            { "id": "insignia-opc-2.8-v6", "label": "2.8 V6 Biturbo 325", "codeMoteur": "A28NET" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mazda",
+      "name": "Mazda",
+      "models": [
+        {
+          "id": "mx-5-nd",
+          "name": "MX-5 (ND)",
+          "motorisations": [
+            { "id": "mx5-nd-2.0-skyactiv", "label": "2.0 SkyActiv-G 184", "codeMoteur": "PEVPS" }
+          ]
+        },
+        {
+          "id": "3-mps-bl",
+          "name": "3 MPS (BL)",
+          "motorisations": [
+            { "id": "mazda3-mps-2.3-turbo", "label": "2.3 MZR DISI Turbo 260", "codeMoteur": "L3VDT" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "suzuki",
+      "name": "Suzuki",
+      "models": [
+        {
+          "id": "swift-sport-zc33s",
+          "name": "Swift Sport (ZC33S)",
+          "motorisations": [
+            { "id": "swift-sport-1.4-boosterjet", "label": "1.4 Boosterjet 140", "codeMoteur": "K14C" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lexus",
+      "name": "Lexus",
+      "models": [
+        {
+          "id": "rc-f-usc10",
+          "name": "RC F (USC10)",
+          "motorisations": [
+            { "id": "rcf-5.0-v8", "label": "5.0 V8 477", "codeMoteur": "2URGSE" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "citroen",
+      "name": "Citroën",
+      "models": [
+        {
+          "id": "ds3-racing",
+          "name": "DS3 Racing",
+          "motorisations": [
+            { "id": "ds3-racing-1.6-thp", "label": "1.6 THP 207", "codeMoteur": "EP6DTS" }
+          ]
+        },
+        {
+          "id": "c2-vts",
+          "name": "C2 VTS",
+          "motorisations": [
+            { "id": "c2-vts-1.6-16v", "label": "1.6 16v 125", "codeMoteur": "NFU" }
+          ]
+        }
+      ]
     }
   ]
 }

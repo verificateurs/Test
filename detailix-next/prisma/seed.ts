@@ -20,6 +20,7 @@ async function main() {
   // BrandReview/ProductReview rows have no natural unique key in the source JSON,
   // so re-seeding would duplicate them indefinitely without this reset.
   await prisma.brandReview.deleteMany({});
+  await prisma.productReview.deleteMany({});
 
   for (const cat of categories) {
     await prisma.category.upsert({
@@ -94,6 +95,7 @@ async function main() {
     description: string; prixAchat: number; stock: boolean;
     compatibilite: string | object;
     homologation?: string;
+    reviews?: Array<{ author: string; rating: number; date: string; comment: string }>;
   }> = productsData.products;
 
   for (const p of products) {
@@ -102,21 +104,28 @@ async function main() {
     // Normalize to the {type:"universel"} | {type:"codesMoteurs",codes:[...]} JSON
     // shape expected by lib/compat.ts::parseCompatCodes — legacy source data stores
     // "universel" as a bare (non-JSON-encoded) string, which JSON.parse() rejects.
-    let compatObj: unknown;
+    // Anything else that is neither "universel" nor valid JSON is malformed
+    // source data: it is logged and stored as-is (NOT silently rewritten to
+    // "universel"), so the bug is visible instead of masked.
+    let compatJson: string;
     if (typeof p.compatibilite === "string") {
       if (p.compatibilite === "universel") {
-        compatObj = { type: "universel" };
+        compatJson = JSON.stringify({ type: "universel" });
       } else {
         try {
-          compatObj = JSON.parse(p.compatibilite);
+          JSON.parse(p.compatibilite);
+          compatJson = p.compatibilite;
         } catch {
-          compatObj = { type: "universel" };
+          console.warn(
+            `[seed] Produit "${p.id}": compatibilite n'est ni "universel" ni du JSON valide ` +
+            `(valeur reçue : ${JSON.stringify(p.compatibilite)}). Valeur conservée telle quelle.`
+          );
+          compatJson = p.compatibilite;
         }
       }
     } else {
-      compatObj = p.compatibilite;
+      compatJson = JSON.stringify(p.compatibilite);
     }
-    const compatJson = JSON.stringify(compatObj);
 
     let homologation: Homologation | undefined;
     if (p.homologation === "route-ouverte") homologation = Homologation.route_ouverte;
@@ -136,6 +145,18 @@ async function main() {
         stockQty, compatibilite: compatJson, homologation,
       },
     });
+
+    for (const rv of p.reviews ?? []) {
+      await prisma.productReview.create({
+        data: {
+          productId: p.id,
+          author: rv.author,
+          rating: rv.rating,
+          date: rv.date,
+          comment: rv.comment,
+        },
+      });
+    }
   }
 
   console.log("Seed termine.");
@@ -145,6 +166,8 @@ async function main() {
   const vehicleCount = makes.reduce((n, mk) => n + mk.models.reduce((nn, mo) => nn + mo.motorisations.length, 0), 0);
   console.log(`   ${vehicleCount} vehicules`);
   console.log(`   ${products.length} produits`);
+  const productReviewCount = products.reduce((n, p) => n + (p.reviews?.length ?? 0), 0);
+  console.log(`   ${productReviewCount} avis produits`);
 }
 
 main()

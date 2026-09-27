@@ -18,9 +18,20 @@ const GENERIC_MESSAGE = "Si ce compte existe, un e-mail de réinitialisation a �
 export async function requestResetAction(_prev: State, fd: FormData): Promise<State> {
   const headerList = await headers();
   const ip = headerList.get("x-forwarded-for") ?? "unknown";
-  const { allowed } = checkRateLimit(`reset-request:${ip}`);
-  if (!allowed) {
+  const { allowed: ipAllowed } = checkRateLimit(`reset-request:${ip}`);
+  if (!ipAllowed) {
     return { message: "Trop de tentatives. Réessayez dans 1 minute." };
+  }
+
+  // Account-based lock in addition to the IP lock: x-forwarded-for is
+  // client-controlled unless a trusted proxy rewrites it (see lib/rate-limit.ts).
+  const rawEmail = fd.get("email");
+  if (typeof rawEmail === "string" && rawEmail.trim() !== "") {
+    const accountKey = rawEmail.trim().toLowerCase().slice(0, 255);
+    const { allowed: accountAllowed } = checkRateLimit(`reset-request-account:${accountKey}`);
+    if (!accountAllowed) {
+      return { message: "Trop de tentatives. Réessayez dans 1 minute." };
+    }
   }
 
   const parsed = schema.safeParse({ email: fd.get("email") });

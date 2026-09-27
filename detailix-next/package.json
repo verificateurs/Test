@@ -9,9 +9,11 @@
     "lint": "eslint",
     "test": "vitest run",
     "test:watch": "vitest",
+    "admin:create": "tsx scripts/create-local-admin.ts",
     "db:push": "prisma db push",
     "db:seed": "tsx prisma/seed.ts",
-    "db:studio": "prisma studio"
+    "db:studio": "prisma studio",
+    "setup": "prisma generate && prisma db push && tsx prisma/seed.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.0.0",
