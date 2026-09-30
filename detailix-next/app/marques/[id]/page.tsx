@@ -32,15 +32,6 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   };
 }
 
-function Stars({ rating }: { rating: number }) {
-  const full = Math.floor(rating);
-  return (
-    <span className="stars" aria-label={`Note : ${rating} sur 5`}>
-      {"★".repeat(full)}{"☆".repeat(5 - full)}
-    </span>
-  );
-}
-
 export default async function BrandPage({
   params,
   searchParams,
@@ -51,12 +42,10 @@ export default async function BrandPage({
   const { id } = await params;
   const resolvedSearchParams = await searchParams;
 
+  // reviews: non chargées — voir note plus bas (avis générés, pas affichés publiquement).
   const brand = await db.brand.findUnique({
     where: { id },
-    include: {
-      category: true,
-      reviews: { orderBy: { id: "desc" } },
-    },
+    include: { category: true },
   });
   if (!brand) notFound();
 
@@ -114,11 +103,6 @@ export default async function BrandPage({
             <div style={{ display: "flex", flexWrap: "wrap", rowGap: "var(--space-sm)", gap: "var(--space-lg)", fontSize: "var(--text-sm)", color: "var(--text-muted)" }}>
               <span>Origine : <strong style={{ color: "var(--text)" }}>{brand.origine}</strong></span>
               <span>Gamme : <strong style={{ color: "var(--text)" }}>{brand.gamme}</strong></span>
-              <span>
-                <Stars rating={brand.rating} />
-                <strong style={{ color: "var(--text)", marginLeft: 4 }}>{brand.rating}</strong>
-                <span style={{ marginLeft: 4 }}>({brand.reviewCount} avis)</span>
-              </span>
             </div>
           </div>
         </div>
@@ -170,26 +154,9 @@ export default async function BrandPage({
         </section>
       )}
 
-      {/* Avis clients */}
-      {brand.reviews.length > 0 && (
-        <section style={{ padding: "var(--space-xl) 0", background: "var(--bg-elevated)", borderTop: "1px solid var(--border)" }}>
-          <div className="container">
-            <h2 style={{ marginBottom: "var(--space-lg)", fontSize: "var(--text-xl)" }}>Avis clients</h2>
-            <div style={{ display: "grid", gap: "var(--space-md)", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))" }}>
-              {brand.reviews.map((rv) => (
-                <div key={rv.id} style={{ background: "var(--bg-card)", borderRadius: "var(--radius)", padding: "var(--space-lg)", border: "1px solid var(--border)" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "var(--space-sm)" }}>
-                    <strong>{rv.author}</strong>
-                    <Stars rating={rv.rating} />
-                  </div>
-                  <p style={{ fontSize: "var(--text-sm)", color: "var(--text-muted)", lineHeight: 1.6 }}>{rv.comment}</p>
-                  <div style={{ marginTop: "var(--space-sm)", fontSize: "var(--text-xs)", color: "var(--text-muted)" }}>{rv.date}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
+      {/* Avis clients : masqués côté public — données 100% générées (voir data/generate-products.ts),
+          les afficher comme de vrais avis serait une pratique commerciale trompeuse. Les lignes
+          restent en base (BrandReview) pour un usage interne/futur, simplement pas rendues ici. */}
     </div>
   );
 }
