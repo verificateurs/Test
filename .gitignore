@@ -3,3 +3,4 @@
 siteweb.txt
 *.session.txt
 .local/
+.vercel

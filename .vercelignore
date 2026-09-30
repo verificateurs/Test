@@ -1,0 +1,15 @@
+# `vercel deploy` uploads the local working tree, not `.gitignore`-filtered git
+# content — without this, secrets and local artifacts get shipped to Vercel.
+# Mirrors detailix-next/.vercelignore; needed here too now that deploys run
+# from the repo root (Root Directory = detailix-next on the Vercel project).
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+detailix-next/prisma/*.db
+detailix-next/prisma/*.db-journal
+detailix-next/app/generated
+node_modules
+.next
