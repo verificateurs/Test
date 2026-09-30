@@ -14,13 +14,19 @@
 // dépend de l'ordre et du volume choisi pour CHAQUE marque précédente, donc
 // modifier une cible change aussi les combos tirés pour les marques
 // suivantes. Après un changement de template, repartir d'un data/products.json
-// propre (ex. `git checkout -- data/products.json`) avant de relancer, sous
-// peine d'accumuler d'anciennes variantes générées comme "produits existants"
-// non nettoyés (voir le filtre par id dans legacyProducts ci-dessous, qui ne
-// retire que les id STRICTEMENT identiques à ceux regénérés par CETTE
-// exécution). Les avis produits, eux, sont dérivés d'un hash de l'id (voir
-// reviewsFor()) : ils restent stables indépendamment de ce flux et du choix
-// des cibles.
+// propre contenant UNIQUEMENT les 153 produits d'origine avant de relancer,
+// sous peine d'accumuler d'anciennes variantes générées comme "produits
+// existants" non nettoyés (voir le filtre par id dans legacyProducts
+// ci-dessous, qui ne retire que les id STRICTEMENT identiques à ceux
+// regénérés par CETTE exécution). ATTENTION : un simple
+// `git checkout -- data/products.json` ne suffit PAS si products.json a déjà
+// été commité avec des variantes générées (ce qui est le cas depuis le
+// commit "Refonte visuelle premium..." au 2026-09) — il faut alors récupérer
+// la version d'origine à 153 produits via
+// `git show <commit-ajout-du-script>^:data/products.json` (voir le premier
+// commit listé par `git log --diff-filter=A -- data/generate-products.ts`).
+// Les avis produits, eux, sont dérivés d'un hash de l'id (voir reviewsFor()) :
+// ils restent stables indépendamment de ce flux et du choix des cibles.
 
 import { readFileSync, writeFileSync } from "fs";
 import { join } from "path";
@@ -182,6 +188,16 @@ const MOTOR_PROFILE: Record<string, MotorClass> = {
   "M16A-31S": "atmo", "2UR-GSE": "atmo", "2URGSE-GS": "atmo", "TU3": "atmo",
   "AR32304": "atmo",
   "EASB": "electric",
+
+  // Ajouts culture tuning (Honda EG6/EK4/EJ1, Audi TT 8J, Volvo 740/940
+  // Turbo, BMW E30/E36/E46, Nissan Skyline R32/R33 & Silvia S13/S14, Toyota
+  // AE86 & Supra A80, Mazda RX-7 FD3S, Renault 5 GT Turbo). B16A/4A-GE
+  // (VTEC/twin-cam atmosphériques) et RB26DETT/SR20DET (déjà classés
+  // ci-dessus) restent cohérents avec leur classification d'origine.
+  "B16A": "atmo", "BWA": "turbo-petrol", "B230FT": "turbo-petrol",
+  "M20B25": "atmo", "S50B30": "atmo", "M54B30": "atmo",
+  "4A-GE": "atmo", "2JZ-GTE": "turbo-petrol", "13B-REW": "turbo-petrol",
+  "C1J": "turbo-petrol",
 };
 
 // ─── Barème de gamme (data/brands.json) ───────────────────────────────────
@@ -241,6 +257,7 @@ interface MotorisationJson {
   id: string;
   label: string;
   codeMoteur: string;
+  platform?: string;
 }
 interface ModelJson {
   id: string;
@@ -271,7 +288,11 @@ interface ProductJson {
   description: string;
   prixAchat: number;
   stock: boolean;
-  compatibilite: string | { type: "universel" } | { type: "codesMoteurs"; codes: string[] };
+  compatibilite:
+    | string
+    | { type: "universel" }
+    | { type: "codesMoteurs"; codes: string[] }
+    | { type: "plateformes"; codes: string[] };
   homologation?: string;
   reviews?: ReviewJson[];
 }
@@ -309,13 +330,42 @@ function motorPool(profile: "turbo-petrol" | "atmo" | "any-performance" | undefi
   return anyPerfPool;
 }
 
-type Compat = { type: "universel" } | { type: "codesMoteurs"; codes: string[] };
+// ─── Pool de plateformes/châssis (data/vehicles.json, champ Vehicle.platform) ──
+// Contrairement au codeMoteur, la plateforme identifie la forme de caisse
+// (ex: "EK", "E36", "FD3S") plutôt que la motorisation : c'est le critère
+// pertinent pour les pièces dont la compatibilité dépend de la carrosserie
+// (kits carrosserie, films découpés sur mesure) et non du moteur. Seule une
+// partie des motorisations de vehicles.json a un champ platform renseigné à
+// ce jour (principalement les classiques tuning JDM/euro ajoutés récemment) :
+// le pool est donc plus restreint que le pool codeMoteur, mais entièrement
+// composé de codes réels.
+const platformPool = [
+  ...new Set(
+    vehiclesData.makes.flatMap((make) =>
+      make.models.flatMap((model) => model.motorisations.flatMap((m) => (m.platform ? [m.platform] : [])))
+    )
+  ),
+].sort();
+if (platformPool.length === 0) {
+  throw new Error("Aucune plateforme (Vehicle.platform) trouvée dans vehicles.json — impossible de générer des compats plateformes.");
+}
+
+type Compat =
+  | { type: "universel" }
+  | { type: "codesMoteurs"; codes: string[] }
+  | { type: "plateformes"; codes: string[] };
 
 function pickCodesMoteurs(profile: "turbo-petrol" | "atmo" | "any-performance" | undefined, rng: () => number): Compat {
   const pool = motorPool(profile);
   const n = Math.min(pool.length, 1 + Math.floor(rng() * 5));
   const codes = shuffle([...pool], rng).slice(0, n).sort();
   return { type: "codesMoteurs", codes };
+}
+
+function pickPlatforms(rng: () => number): Compat {
+  const n = Math.min(platformPool.length, 1 + Math.floor(rng() * 5));
+  const codes = shuffle([...platformPool], rng).slice(0, n).sort();
+  return { type: "plateformes", codes };
 }
 
 function resolveCompat(
@@ -327,7 +377,9 @@ function resolveCompat(
   if (baseName.forceUniversel) return { type: "universel" };
   if (format.compat === "universel") return { type: "universel" };
   if (format.compat === "codesMoteurs") return pickCodesMoteurs(baseName.motorProfile, rng);
+  if (format.compat === "plateformes") return pickPlatforms(rng);
   if (tpl.compatStrategy === "universel") return { type: "universel" };
+  if (tpl.compatStrategy === "plateforme-plausible") return pickPlatforms(rng);
   return pickCodesMoteurs(baseName.motorProfile, rng);
 }
 
@@ -399,16 +451,34 @@ for (const cat of brandsData.categories) {
   const descCombos = shuffle(buildDescriptionCombos(tpl), mulberry32((SEED ^ hashId(cat.id)) >>> 0));
   let descIndex = 0;
 
+  // Catégorie à plausibilité marque × produit : au moins un BaseNameEntry
+  // restreint ses marques éligibles (ex: preparation-moteur — "Bobines
+  // d'allumage renforcées" ne doit être vendu que sous une marque qui en
+  // fabrique réellement, cf. BaseNameEntry.eligibleBrandIds). Pour ces
+  // catégories, le pool par marque est déjà naturellement restreint par la
+  // plausibilité : on n'applique donc PAS le second filtre "/3" (pensé pour
+  // répartir un pool large et homogène entre marques) qui écraserait deux
+  // fois la taille du catalogue d'une marque spécialiste.
+  const hasBrandEligibility = tpl.baseNames.some((bn) => bn.eligibleBrandIds);
+
   for (const brand of cat.brands) {
     const tier = tierFor(brand.gamme);
-    const available = combos.length;
-    const upperBound = Math.min(30, Math.floor(available / 3));
+    const brandCombos = hasBrandEligibility
+      ? combos.filter((c) => !c.baseName.eligibleBrandIds || c.baseName.eligibleBrandIds.includes(brand.id))
+      : combos;
+    const available = brandCombos.length;
+    if (available === 0) {
+      throw new Error(
+        `Marque "${brand.id}" (catégorie "${cat.id}") n'a aucun produit éligible — vérifiez eligibleBrandIds dans data/templates/${cat.id}.ts.`
+      );
+    }
+    const upperBound = hasBrandEligibility ? Math.min(30, available) : Math.min(30, Math.floor(available / 3));
     const lowerBound = Math.min(15, upperBound);
     const jitter = Math.floor(rng() * 5) - 2; // -2..+2
     const desired = tpl.variantsPerBrandTarget + jitter;
     const count = Math.max(lowerBound, Math.min(upperBound, desired));
 
-    const chosen = shuffle(combos.slice(), rng).slice(0, count);
+    const chosen = shuffle(brandCombos.slice(), rng).slice(0, count);
 
     for (const combo of chosen) {
       const { baseName, format, finish } = combo;
@@ -472,12 +542,35 @@ if (generatedIds.size !== generated.length) {
   throw new Error("Collision d'id détectée au sein des produits générés.");
 }
 
+// ─── Corrections ponctuelles des 153 produits d'origine ───────────────────
+// Ces produits sont écrits à la main (hors génération procédurale) et donc
+// hors de portée des correctifs MOTOR_PROFILE/eligibleBrandIds ci-dessus.
+// Deux d'entre eux présentaient les mêmes incohérences que celles corrigées
+// dans les templates et sont corrigés ici explicitement plutôt que dans le
+// JSON (qui est régénéré à chaque exécution) :
+// - hks-ssqv4-bov : une blow-off valve HKS SSQV4 n'a de sens que sur un
+//   moteur turbo essence, jamais "tous véhicules".
+// - voltex-front-bumper-fd3s : un pare-chocs Voltex taillé pour la RX-7
+//   FD3S dépend du châssis, pas du moteur ni de "tous véhicules" — utilise
+//   désormais le mode plateformes avec le code châssis réel FD3S.
+const LEGACY_COMPAT_OVERRIDES: Record<string, Compat> = {
+  "hks-ssqv4-bov": { type: "codesMoteurs", codes: ["4B11", "EJ257", "K20C1", "VR38DETT"] },
+  "voltex-front-bumper-fd3s": { type: "plateformes", codes: ["FD3S"] },
+};
+for (const id of Object.keys(LEGACY_COMPAT_OVERRIDES)) {
+  if (!productsData.products.some((p) => p.id === id)) {
+    throw new Error(`LEGACY_COMPAT_OVERRIDES référence l'id "${id}" introuvable dans data/products.json.`);
+  }
+}
+
 // ─── Écriture — idempotente ────────────────────────────────────────────────
 // legacyProducts retire du fichier existant tout produit dont l'id est aussi
 // produit par CETTE exécution (donc, sur une relance, les entrées générées
 // au tour précédent — mêmes ids car déterministe — sont retirées puis
 // régénérées à l'identique : pas de duplication).
-const legacyProducts = productsData.products.filter((p) => !generatedIds.has(p.id));
+const legacyProducts = productsData.products
+  .filter((p) => !generatedIds.has(p.id))
+  .map((p) => (LEGACY_COMPAT_OVERRIDES[p.id] ? { ...p, compatibilite: LEGACY_COMPAT_OVERRIDES[p.id] } : p));
 const finalProducts = [...legacyProducts, ...generated];
 
 const finalIdSet = new Set(finalProducts.map((p) => p.id));
@@ -751,6 +844,9 @@ function formatCompat(c: ProductJson["compatibilite"]): string {
   if (c.type === "universel") return `{ "type": "universel" }`;
   if (c.type === "codesMoteurs") {
     return `{ "type": "codesMoteurs", "codes": [${c.codes.map((x) => JSON.stringify(x)).join(", ")}] }`;
+  }
+  if (c.type === "plateformes") {
+    return `{ "type": "plateformes", "codes": [${c.codes.map((x) => JSON.stringify(x)).join(", ")}] }`;
   }
   throw new Error(`compatibilite invalide: ${JSON.stringify(c)}`);
 }

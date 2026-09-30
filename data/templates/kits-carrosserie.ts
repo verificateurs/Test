@@ -1,38 +1,47 @@
 import type { CategoryTemplate } from "./types";
 
+// Une pièce de carrosserie (splitter, pare-chocs, capot, kit widebody...)
+// épouse la forme de la caisse : sa compatibilité dépend donc du châssis
+// (Vehicle.platform, ex "EK", "E36", "FD3S"), pas du moteur qui l'équipe —
+// une même caisse peut recevoir plusieurs motorisations différentes tout en
+// gardant le même kit carrosserie. compatStrategy "plateforme-plausible" fait
+// donc tirer des codes de plateforme réels (data/vehicles.json) au lieu de
+// codeMoteur pour tous les BaseNameEntry qui n'imposent pas déjà
+// forceUniversel (ex: aileron biplan réglable, cache batterie, ouïes
+// d'ailes — accessoires génériques qui ne dépendent pas d'un châssis précis).
 export const template: CategoryTemplate = {
   baseNames: [
-    { name: "Splitter avant", group: "single", motorProfile: "any-performance" },
-    { name: "Diffuseur arrière", group: "single", motorProfile: "any-performance" },
-    { name: "Lame de pare-chocs avant", group: "single", motorProfile: "any-performance" },
-    { name: "Spoiler de toit", group: "single", motorProfile: "any-performance" },
-    { name: "Aileron de coffre", group: "single", motorProfile: "any-performance" },
+    { name: "Splitter avant", group: "single" },
+    { name: "Diffuseur arrière", group: "single" },
+    { name: "Lame de pare-chocs avant", group: "single" },
+    { name: "Spoiler de toit", group: "single" },
+    { name: "Aileron de coffre", group: "single" },
     { name: "Aileron biplan réglable", group: "single", forceUniversel: true },
-    { name: "Capot allégé", group: "single", motorProfile: "any-performance" },
-    { name: "Coffre allégé", group: "single", motorProfile: "any-performance" },
-    { name: "Grille de calandre sport", group: "single", motorProfile: "any-performance" },
-    { name: "Prise d'air de capot", group: "single", motorProfile: "any-performance" },
-    { name: "Pare-chocs avant complet", group: "single", motorProfile: "any-performance" },
-    { name: "Pare-chocs arrière complet", group: "single", motorProfile: "any-performance" },
-    { name: "Jupes latérales", group: "pair", motorProfile: "any-performance" },
-    { name: "Canards avant", group: "pair", motorProfile: "any-performance" },
-    { name: "Becquet de custode", group: "pair", motorProfile: "any-performance" },
-    { name: "Extensions d'ailes", group: "set4", motorProfile: "any-performance" },
-    { name: "Élargisseurs d'ailes larges", group: "bigkit", motorProfile: "any-performance" },
-    { name: "Kit widebody", group: "bigkit", motorProfile: "any-performance" },
-    { name: "Becquet de vitre arrière", group: "single", motorProfile: "any-performance" },
-    { name: "Grille de soubassement sport", group: "single", motorProfile: "any-performance" },
-    { name: "Protection sous-moteur carbone", group: "single", motorProfile: "any-performance" },
-    { name: "Calandre agressive full black", group: "single", motorProfile: "any-performance" },
-    { name: "Renfort de bas de caisse structurel", group: "single", motorProfile: "any-performance" },
-    { name: "Extension de pare-chocs arrière", group: "single", motorProfile: "any-performance" },
-    { name: "Capot carbone ajouré", group: "single", motorProfile: "any-performance" },
-    { name: "Hayon carbone allégé", group: "single", motorProfile: "any-performance" },
-    { name: "Becquet de lunette arrière", group: "single", motorProfile: "any-performance" },
-    { name: "Grille de diffuseur inférieur", group: "single", motorProfile: "any-performance" },
+    { name: "Capot allégé", group: "single" },
+    { name: "Coffre allégé", group: "single" },
+    { name: "Grille de calandre sport", group: "single" },
+    { name: "Prise d'air de capot", group: "single" },
+    { name: "Pare-chocs avant complet", group: "single" },
+    { name: "Pare-chocs arrière complet", group: "single" },
+    { name: "Jupes latérales", group: "pair" },
+    { name: "Canards avant", group: "pair" },
+    { name: "Becquet de custode", group: "pair" },
+    { name: "Extensions d'ailes", group: "set4" },
+    { name: "Élargisseurs d'ailes larges", group: "bigkit" },
+    { name: "Kit widebody", group: "bigkit" },
+    { name: "Becquet de vitre arrière", group: "single" },
+    { name: "Grille de soubassement sport", group: "single" },
+    { name: "Protection sous-moteur carbone", group: "single" },
+    { name: "Calandre agressive full black", group: "single" },
+    { name: "Renfort de bas de caisse structurel", group: "single" },
+    { name: "Extension de pare-chocs arrière", group: "single" },
+    { name: "Capot carbone ajouré", group: "single" },
+    { name: "Hayon carbone allégé", group: "single" },
+    { name: "Becquet de lunette arrière", group: "single" },
+    { name: "Grille de diffuseur inférieur", group: "single" },
     { name: "Cache batterie carbone", group: "single", forceUniversel: true },
-    { name: "Extracteurs d'air d'ailes avant", group: "pair", motorProfile: "any-performance" },
-    { name: "Prise d'air latérale", group: "pair", motorProfile: "any-performance" },
+    { name: "Extracteurs d'air d'ailes avant", group: "pair" },
+    { name: "Prise d'air latérale", group: "pair" },
     { name: "Ouïes d'ailes latérales", group: "pair", forceUniversel: true },
   ],
   formatVariants: [
@@ -78,6 +87,6 @@ export const template: CategoryTemplate = {
     "Recommandé pour parachever une préparation extérieure cohérente du splitter à l'aileron.",
   ],
   priceRangeHT: [140, 900],
-  compatStrategy: "moteur-plausible",
+  compatStrategy: "plateforme-plausible",
   variantsPerBrandTarget: 32,
 };

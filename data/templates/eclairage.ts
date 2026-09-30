@@ -1,5 +1,11 @@
 import type { CategoryTemplate } from "./types";
 
+// Contrairement aux kits carrosserie ou aux films de covering découpés sur
+// mesure, l'éclairage (ampoules, barres LED...) se fixe sur des douilles et
+// supports standardisés (H7, H4, W5W, grille calandre générique...) qui ne
+// dépendent ni du châssis ni du moteur : rester en "universel" est donc
+// correct ici, contrairement à kits-carrosserie/covering-vitres-teintees qui
+// utilisent désormais "plateforme-plausible".
 export const template: CategoryTemplate = {
   baseNames: [
     { name: "Kit ampoules LED H7 homologuées", group: "bulb", forceUniversel: true },

@@ -1,12 +1,20 @@
 import type { CategoryTemplate } from "./types";
 
+// La plupart des accessoires roues (nettoyants, brosses, capuchons de
+// valve...) sont génériques et donc forceUniversel. Quatre d'entre eux
+// dépendent en réalité de l'entraxe/filetage/alésage du moyeu, propres au
+// châssis (Vehicle.platform) et non au moteur : entretoises, boulons/écrous
+// antivol coniques et anneaux centreurs. compatStrategy
+// "plateforme-plausible" au niveau catégorie ne s'applique donc qu'à ces
+// quatre BaseNameEntry (les autres forcent déjà "universel" via
+// forceUniversel, qui reste prioritaire dans resolveCompat()).
 export const template: CategoryTemplate = {
   baseNames: [
     { name: "Centre de roue logoté (jeu de 4)", forceUniversel: true, group: "accessory" },
     { name: "Capuchons de valve logotés (jeu de 4)", forceUniversel: true, group: "accessory" },
-    { name: "Kit boulons antivol coniques", forceUniversel: true, group: "accessory" },
-    { name: "Kit écrous antivol coniques", forceUniversel: true, group: "accessory" },
-    { name: "Entretoises de roue", forceUniversel: true, group: "accessory" },
+    { name: "Kit boulons antivol coniques", group: "accessory" },
+    { name: "Kit écrous antivol coniques", group: "accessory" },
+    { name: "Entretoises de roue", group: "accessory" },
     { name: "Capteurs de valve TPMS (jeu de 4)", forceUniversel: true, group: "accessory" },
     { name: "Brosse jantes multi-têtes", forceUniversel: true, group: "accessory", noFinish: true },
     { name: "Kit brosses jantes (3 pièces)", forceUniversel: true, group: "accessory", noFinish: true },
@@ -16,7 +24,7 @@ export const template: CategoryTemplate = {
     { name: "Adaptateur de clé antivol", forceUniversel: true, group: "accessory", noFinish: true },
     { name: "Kit de retouche peinture jante", forceUniversel: true, group: "accessory" },
     { name: "Vis de fixation calandre jante", forceUniversel: true, group: "accessory" },
-    { name: "Boulons de roue sport (jeu de 20)", forceUniversel: true, group: "accessory" },
+    { name: "Boulons de roue sport (jeu de 20)", group: "accessory" },
     { name: "Nettoyant jantes réaction colorée", forceUniversel: true, group: "liquid", noFinish: true },
     { name: "Nettoyant jantes formule douce", forceUniversel: true, group: "liquid", noFinish: true },
     { name: "Protectant céramique jantes", forceUniversel: true, group: "liquid", noFinish: true },
@@ -32,7 +40,7 @@ export const template: CategoryTemplate = {
     { name: "Pistolet à graisse moyeu", forceUniversel: true, group: "accessory", noFinish: true },
     { name: "Peinture étrier de frein", forceUniversel: true, group: "accessory" },
     { name: "Cache-écrous jante décoratifs (jeu de 20)", forceUniversel: true, group: "accessory" },
-    { name: "Anneaux centreurs de jante", forceUniversel: true, group: "accessory", noFinish: true },
+    { name: "Anneaux centreurs de jante", group: "accessory", noFinish: true },
     { name: "Sangles de fixation roue transport", forceUniversel: true, group: "accessory", noFinish: true },
     { name: "Adaptateur de gonflage azote", forceUniversel: true, group: "accessory", noFinish: true },
     { name: "Brosse pneus poils longs", forceUniversel: true, group: "accessory", noFinish: true },
@@ -83,6 +91,6 @@ export const template: CategoryTemplate = {
     "Un choix pratique pour préserver l'aspect et la longévité des jantes au quotidien.",
   ],
   priceRangeHT: [10, 60],
-  compatStrategy: "universel",
+  compatStrategy: "plateforme-plausible",
   variantsPerBrandTarget: 32,
 };

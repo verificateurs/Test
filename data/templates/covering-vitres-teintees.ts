@@ -1,32 +1,38 @@
 import type { CategoryTemplate } from "./types";
 
+// Un film/PPF "kit découpe sur mesure" est prédécoupé pour épouser la forme
+// d'un élément de carrosserie précis (capot, toit, pare-chocs...) : sa
+// compatibilité dépend donc du châssis (Vehicle.platform), pas du moteur —
+// d'où formatVariants "kit" en compat "plateformes" ci-dessous. Les rouleaux
+// bruts (non découpés) et l'outillage de pose restent "universel" : ils ne
+// sont liés à aucun véhicule précis.
 export const template: CategoryTemplate = {
   baseNames: [
     { name: "Film de covering cast (rouleau)", group: "roll" },
     { name: "Film de covering calandré (rouleau)", group: "roll" },
     { name: "PPF protection peinture (rouleau)", group: "roll", forceUniversel: true, noFinish: true },
     { name: "PPF anti-gravillons haute épaisseur (rouleau)", group: "roll", forceUniversel: true, noFinish: true },
-    { name: "Film teinte vitrage avant conforme", group: "kit", motorProfile: "any-performance", noFinish: true },
-    { name: "Film teinte vitrage complet", group: "kit", motorProfile: "any-performance", noFinish: true },
-    { name: "PPF capot et boucliers (kit découpe)", group: "kit", motorProfile: "any-performance", noFinish: true },
-    { name: "PPF intégral carrosserie (kit découpe)", group: "kit", motorProfile: "any-performance", noFinish: true },
-    { name: "Film de protection phares (kit découpe)", group: "kit", motorProfile: "any-performance", noFinish: true },
-    { name: "Film covering toit (kit découpe)", group: "kit", motorProfile: "any-performance" },
-    { name: "Film covering rétroviseurs (kit découpe)", group: "kit", motorProfile: "any-performance" },
-    { name: "Film anti-gravillons bas de caisse (kit découpe)", group: "kit", motorProfile: "any-performance", noFinish: true },
-    { name: "Film covering montants de toit (kit découpe)", group: "kit", motorProfile: "any-performance" },
-    { name: "Film covering poignées de portes (kit découpe)", group: "kit", motorProfile: "any-performance" },
+    { name: "Film teinte vitrage avant conforme", group: "kit", noFinish: true },
+    { name: "Film teinte vitrage complet", group: "kit", noFinish: true },
+    { name: "PPF capot et boucliers (kit découpe)", group: "kit", noFinish: true },
+    { name: "PPF intégral carrosserie (kit découpe)", group: "kit", noFinish: true },
+    { name: "Film de protection phares (kit découpe)", group: "kit", noFinish: true },
+    { name: "Film covering toit (kit découpe)", group: "kit" },
+    { name: "Film covering rétroviseurs (kit découpe)", group: "kit" },
+    { name: "Film anti-gravillons bas de caisse (kit découpe)", group: "kit", noFinish: true },
+    { name: "Film covering montants de toit (kit découpe)", group: "kit" },
+    { name: "Film covering poignées de portes (kit découpe)", group: "kit" },
     { name: "Outillage de pose (racle + cutter)", group: "tool", forceUniversel: true, noFinish: true },
     { name: "Primer d'adhérence covering", group: "tool", forceUniversel: true, noFinish: true },
     { name: "Solution de pose humide (spray)", group: "tool", forceUniversel: true, noFinish: true },
-    { name: "Film covering bas de pare-chocs (kit découpe)", group: "kit", motorProfile: "any-performance", noFinish: true },
-    { name: "Film covering calandre (kit découpe)", group: "kit", motorProfile: "any-performance", noFinish: true },
-    { name: "Film teinte lunette arrière (kit)", group: "kit", motorProfile: "any-performance", noFinish: true },
-    { name: "Film teinte custode arrière (kit)", group: "kit", motorProfile: "any-performance", noFinish: true },
+    { name: "Film covering bas de pare-chocs (kit découpe)", group: "kit", noFinish: true },
+    { name: "Film covering calandre (kit découpe)", group: "kit", noFinish: true },
+    { name: "Film teinte lunette arrière (kit)", group: "kit", noFinish: true },
+    { name: "Film teinte custode arrière (kit)", group: "kit", noFinish: true },
     { name: "PPF jantes (kit découpe)", group: "kit", forceUniversel: true, noFinish: true },
-    { name: "PPF seuils de porte (kit découpe)", group: "kit", motorProfile: "any-performance", noFinish: true },
-    { name: "Film covering plage arrière (kit découpe)", group: "kit", motorProfile: "any-performance" },
-    { name: "Film covering tableau de bord (kit découpe)", group: "kit", motorProfile: "any-performance" },
+    { name: "PPF seuils de porte (kit découpe)", group: "kit", noFinish: true },
+    { name: "Film covering plage arrière (kit découpe)", group: "kit" },
+    { name: "Film covering tableau de bord (kit découpe)", group: "kit" },
     { name: "Kit de nettoyage pré-pose vitrage", group: "tool", forceUniversel: true, noFinish: true },
     { name: "Raclette de pose professionnelle", group: "hardware", forceUniversel: true, noFinish: true },
     { name: "Cutter de précision lame céramique", group: "hardware", forceUniversel: true, noFinish: true },
@@ -39,9 +45,9 @@ export const template: CategoryTemplate = {
     { label: "Rouleau 1,52 x 5 m", sizeMultiplier: 1.0, compat: "universel", group: "roll" },
     { label: "Rouleau 1,52 x 10 m", sizeMultiplier: 1.85, compat: "universel", group: "roll" },
     { label: "Rouleau 0,61 x 4,5 m", sizeMultiplier: 1.15, compat: "universel", group: "roll" },
-    { label: "Kit véhicule complet", sizeMultiplier: 2.6, compat: "codesMoteurs", group: "kit" },
-    { label: "Kit avant", sizeMultiplier: 0.9, compat: "codesMoteurs", group: "kit" },
-    { label: "Kit découpe sur mesure", sizeMultiplier: 2.2, compat: "codesMoteurs", group: "kit" },
+    { label: "Kit véhicule complet", sizeMultiplier: 2.6, compat: "plateformes", group: "kit" },
+    { label: "Kit avant", sizeMultiplier: 0.9, compat: "plateformes", group: "kit" },
+    { label: "Kit découpe sur mesure", sizeMultiplier: 2.2, compat: "plateformes", group: "kit" },
     { label: "Flacon 500 ml", sizeMultiplier: 0.35, compat: "universel", group: "tool" },
     { label: "Outil seul", sizeMultiplier: 0.5, compat: "universel", group: "tool" },
     { label: "Outil seul", sizeMultiplier: 0.5, compat: "universel", group: "hardware" },
@@ -83,6 +89,10 @@ export const template: CategoryTemplate = {
     "Pensé pour accompagner aussi bien une protection ponctuelle qu'une personnalisation complète.",
   ],
   priceRangeHT: [70, 340],
-  compatStrategy: "moteur-plausible",
+  // Jamais atteint en pratique : chaque FormatVariant force déjà un mode
+  // ("universel" pour roll/tool/hardware, "plateformes" pour kit) — gardé à
+  // "plateforme-plausible" par cohérence documentaire avec le reste de la
+  // catégorie plutôt que "moteur-plausible", qui ne serait plus pertinent.
+  compatStrategy: "plateforme-plausible",
   variantsPerBrandTarget: 32,
 };

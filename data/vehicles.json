@@ -19,7 +19,8 @@
               "cylindreeCm3": 1968,
               "puissanceOrigineCh": 150,
               "coupleOrigineNm": 340,
-              "consoOrigineL100": 4.2
+              "consoOrigineL100": 4.2,
+              "platform": "golf-7"
             },
             {
               "id": "golf-7-1.6-tdi",
@@ -31,7 +32,8 @@
               "cylindreeCm3": 1598,
               "puissanceOrigineCh": 110,
               "coupleOrigineNm": 250,
-              "consoOrigineL100": 3.8
+              "consoOrigineL100": 3.8,
+              "platform": "golf-7"
             },
             {
               "id": "golf-7-1.4-tsi",
@@ -43,7 +45,8 @@
               "cylindreeCm3": 1395,
               "puissanceOrigineCh": 125,
               "coupleOrigineNm": 200,
-              "consoOrigineL100": 5.3
+              "consoOrigineL100": 5.3,
+              "platform": "golf-7"
             },
             {
               "id": "golf-7-2.0-tsi-gti",
@@ -55,7 +58,8 @@
               "cylindreeCm3": 1984,
               "puissanceOrigineCh": 230,
               "coupleOrigineNm": 350,
-              "consoOrigineL100": 6.9
+              "consoOrigineL100": 6.9,
+              "platform": "golf-7"
             },
             {
               "id": "golf-7-2.0-tsi-gti-clubsport",
@@ -67,7 +71,8 @@
               "cylindreeCm3": 1984,
               "puissanceOrigineCh": 265,
               "coupleOrigineNm": 350,
-              "consoOrigineL100": 7.1
+              "consoOrigineL100": 7.1,
+              "platform": "golf-7"
             },
             {
               "id": "golf-7-2.0-tsi-r",
@@ -79,7 +84,8 @@
               "cylindreeCm3": 1984,
               "puissanceOrigineCh": 300,
               "coupleOrigineNm": 380,
-              "consoOrigineL100": 7.7
+              "consoOrigineL100": 7.7,
+              "platform": "golf-7"
             }
           ]
         },
@@ -97,7 +103,8 @@
               "cylindreeCm3": 1968,
               "puissanceOrigineCh": 150,
               "coupleOrigineNm": 360,
-              "consoOrigineL100": 4.4
+              "consoOrigineL100": 4.4,
+              "platform": "golf-8"
             },
             {
               "id": "golf-8-1.5-tsi",
@@ -109,7 +116,8 @@
               "cylindreeCm3": 1498,
               "puissanceOrigineCh": 150,
               "coupleOrigineNm": 250,
-              "consoOrigineL100": 5.6
+              "consoOrigineL100": 5.6,
+              "platform": "golf-8"
             },
             {
               "id": "golf-8-1.0-tsi",
@@ -121,7 +129,8 @@
               "cylindreeCm3": 999,
               "puissanceOrigineCh": 110,
               "coupleOrigineNm": 200,
-              "consoOrigineL100": 5.4
+              "consoOrigineL100": 5.4,
+              "platform": "golf-8"
             },
             {
               "id": "golf-8-2.0-tsi-gti",
@@ -133,7 +142,8 @@
               "cylindreeCm3": 1984,
               "puissanceOrigineCh": 245,
               "coupleOrigineNm": 370,
-              "consoOrigineL100": 7.2
+              "consoOrigineL100": 7.2,
+              "platform": "golf-8"
             },
             {
               "id": "golf-8-2.0-tsi-r",
@@ -145,7 +155,8 @@
               "cylindreeCm3": 1984,
               "puissanceOrigineCh": 320,
               "coupleOrigineNm": 420,
-              "consoOrigineL100": 8
+              "consoOrigineL100": 8,
+              "platform": "golf-8"
             }
           ]
         },
@@ -163,7 +174,8 @@
               "cylindreeCm3": 999,
               "puissanceOrigineCh": 95,
               "coupleOrigineNm": 175,
-              "consoOrigineL100": 5.1
+              "consoOrigineL100": 5.1,
+              "platform": "AW"
             },
             {
               "id": "polo-6-1.6-tdi",
@@ -175,7 +187,8 @@
               "cylindreeCm3": 1598,
               "puissanceOrigineCh": 95,
               "coupleOrigineNm": 250,
-              "consoOrigineL100": 4
+              "consoOrigineL100": 4,
+              "platform": "AW"
             },
             {
               "id": "polo-6-2.0-tsi-gti",
@@ -187,7 +200,8 @@
               "cylindreeCm3": 1984,
               "puissanceOrigineCh": 207,
               "coupleOrigineNm": 320,
-              "consoOrigineL100": 6.6
+              "consoOrigineL100": 6.6,
+              "platform": "AW"
             }
           ]
         },
@@ -205,7 +219,8 @@
               "cylindreeCm3": 1422,
               "puissanceOrigineCh": 90,
               "coupleOrigineNm": 230,
-              "consoOrigineL100": 4.1
+              "consoOrigineL100": 4.1,
+              "platform": "6R/6C"
             },
             {
               "id": "polo-5-1.8-tsi-gti",
@@ -217,7 +232,8 @@
               "cylindreeCm3": 1798,
               "puissanceOrigineCh": 192,
               "coupleOrigineNm": 250,
-              "consoOrigineL100": 6.5
+              "consoOrigineL100": 6.5,
+              "platform": "6R/6C"
             }
           ]
         },
@@ -235,7 +251,8 @@
               "cylindreeCm3": 1984,
               "puissanceOrigineCh": 200,
               "coupleOrigineNm": 280,
-              "consoOrigineL100": 7.8
+              "consoOrigineL100": 7.8,
+              "platform": "13"
             },
             {
               "id": "scirocco-2.0-tsi-r",
@@ -247,7 +264,8 @@
               "cylindreeCm3": 1984,
               "puissanceOrigineCh": 265,
               "coupleOrigineNm": 350,
-              "consoOrigineL100": 8
+              "consoOrigineL100": 8,
+              "platform": "13"
             }
           ]
         },
@@ -265,7 +283,8 @@
               "cylindreeCm3": 1968,
               "puissanceOrigineCh": 140,
               "coupleOrigineNm": 320,
-              "consoOrigineL100": 4.9
+              "consoOrigineL100": 4.9,
+              "platform": "golf-6"
             },
             {
               "id": "golf-6-2.0-tsi-gti",
@@ -277,7 +296,8 @@
               "cylindreeCm3": 1984,
               "puissanceOrigineCh": 210,
               "coupleOrigineNm": 280,
-              "consoOrigineL100": 7.6
+              "consoOrigineL100": 7.6,
+              "platform": "golf-6"
             },
             {
               "id": "golf-6-2.0-tsi-r",
@@ -289,7 +309,8 @@
               "cylindreeCm3": 1984,
               "puissanceOrigineCh": 270,
               "coupleOrigineNm": 350,
-              "consoOrigineL100": 8.6
+              "consoOrigineL100": 8.6,
+              "platform": "golf-6"
             }
           ]
         },
@@ -307,7 +328,8 @@
               "cylindreeCm3": 1984,
               "puissanceOrigineCh": 200,
               "coupleOrigineNm": 280,
-              "consoOrigineL100": 8
+              "consoOrigineL100": 8,
+              "platform": "golf-5"
             },
             {
               "id": "golf-5-3.2-r32",
@@ -319,7 +341,8 @@
               "cylindreeCm3": 3189,
               "puissanceOrigineCh": 250,
               "coupleOrigineNm": 320,
-              "consoOrigineL100": 11
+              "consoOrigineL100": 11,
+              "platform": "golf-5"
             }
           ]
         },
@@ -337,7 +360,8 @@
               "cylindreeCm3": 1968,
               "puissanceOrigineCh": 150,
               "coupleOrigineNm": 340,
-              "consoOrigineL100": 5.4
+              "consoOrigineL100": 5.4,
+              "platform": "AD1"
             },
             {
               "id": "tiguan-2-2.0-tsi-r",
@@ -349,7 +373,8 @@
               "cylindreeCm3": 1984,
               "puissanceOrigineCh": 320,
               "coupleOrigineNm": 420,
-              "consoOrigineL100": 8.4
+              "consoOrigineL100": 8.4,
+              "platform": "AD1"
             }
           ]
         },
@@ -367,7 +392,8 @@
               "cylindreeCm3": 1968,
               "puissanceOrigineCh": 150,
               "coupleOrigineNm": 340,
-              "consoOrigineL100": 4.5
+              "consoOrigineL100": 4.5,
+              "platform": "passat-b8"
             },
             {
               "id": "passat-b8-2.0-tsi-gte",
@@ -379,7 +405,8 @@
               "cylindreeCm3": 1395,
               "puissanceOrigineCh": 218,
               "coupleOrigineNm": 400,
-              "consoOrigineL100": 1.6
+              "consoOrigineL100": 1.6,
+              "platform": "passat-b8"
             }
           ]
         },
@@ -397,7 +424,8 @@
               "cylindreeCm3": 1984,
               "puissanceOrigineCh": 300,
               "coupleOrigineNm": 400,
-              "consoOrigineL100": 8
+              "consoOrigineL100": 8,
+              "platform": "t-roc"
             },
             {
               "id": "t-roc-1.5-tsi",
@@ -409,7 +437,8 @@
               "cylindreeCm3": 1498,
               "puissanceOrigineCh": 150,
               "coupleOrigineNm": 250,
-              "consoOrigineL100": 6.1
+              "consoOrigineL100": 6.1,
+              "platform": "t-roc"
             }
           ]
         },
@@ -427,7 +456,8 @@
               "cylindreeCm3": 999,
               "puissanceOrigineCh": 115,
               "coupleOrigineNm": 200,
-              "consoOrigineL100": 5.6
+              "consoOrigineL100": 5.6,
+              "platform": "up-gti"
             }
           ]
         },
@@ -445,7 +475,8 @@
               "cylindreeCm3": 1968,
               "puissanceOrigineCh": 140,
               "coupleOrigineNm": 320,
-              "consoOrigineL100": 4.9
+              "consoOrigineL100": 4.9,
+              "platform": "passat-b7"
             }
           ]
         },
@@ -463,7 +494,8 @@
               "cylindreeCm3": 1984,
               "puissanceOrigineCh": 200,
               "coupleOrigineNm": 280,
-              "consoOrigineL100": 8.6
+              "consoOrigineL100": 8.6,
+              "platform": "tiguan-1"
             }
           ]
         },
@@ -481,7 +513,8 @@
               "cylindreeCm3": 1984,
               "puissanceOrigineCh": 320,
               "coupleOrigineNm": 420,
-              "consoOrigineL100": 8.5
+              "consoOrigineL100": 8.5,
+              "platform": "arteon"
             }
           ]
         }
@@ -505,7 +538,8 @@
               "cylindreeCm3": 1968,
               "puissanceOrigineCh": 150,
               "coupleOrigineNm": 360,
-              "consoOrigineL100": 4.5
+              "consoOrigineL100": 4.5,
+              "platform": "8Y"
             },
             {
               "id": "a3-35-tfsi",
@@ -517,7 +551,8 @@
               "cylindreeCm3": 1498,
               "puissanceOrigineCh": 150,
               "coupleOrigineNm": 250,
-              "consoOrigineL100": 5.7
+              "consoOrigineL100": 5.7,
+              "platform": "8Y"
             },
             {
               "id": "a3-30-tfsi",
@@ -529,7 +564,8 @@
               "cylindreeCm3": 999,
               "puissanceOrigineCh": 110,
               "coupleOrigineNm": 200,
-              "consoOrigineL100": 5.5
+              "consoOrigineL100": 5.5,
+              "platform": "8Y"
             }
           ]
         },
@@ -547,7 +583,8 @@
               "cylindreeCm3": 1968,
               "puissanceOrigineCh": 150,
               "coupleOrigineNm": 320,
-              "consoOrigineL100": 4.3
+              "consoOrigineL100": 4.3,
+              "platform": "8V"
             },
             {
               "id": "a3-8v-1.8-tfsi",
@@ -559,7 +596,8 @@
               "cylindreeCm3": 1798,
               "puissanceOrigineCh": 180,
               "coupleOrigineNm": 250,
-              "consoOrigineL100": 5.9
+              "consoOrigineL100": 5.9,
+              "platform": "8V"
             }
           ]
         },
@@ -577,7 +615,8 @@
               "cylindreeCm3": 1984,
               "puissanceOrigineCh": 310,
               "coupleOrigineNm": 400,
-              "consoOrigineL100": 7.4
+              "consoOrigineL100": 7.4,
+              "platform": "8Y"
             }
           ]
         },
@@ -595,7 +634,8 @@
               "cylindreeCm3": 1984,
               "puissanceOrigineCh": 300,
               "coupleOrigineNm": 380,
-              "consoOrigineL100": 7.1
+              "consoOrigineL100": 7.1,
+              "platform": "8V"
             }
           ]
         },
@@ -613,7 +653,8 @@
               "cylindreeCm3": 2480,
               "puissanceOrigineCh": 400,
               "coupleOrigineNm": 500,
-              "consoOrigineL100": 8.9
+              "consoOrigineL100": 8.9,
+              "platform": "8Y"
             }
           ]
         },
@@ -631,7 +672,8 @@
               "cylindreeCm3": 2480,
               "puissanceOrigineCh": 367,
               "coupleOrigineNm": 465,
-              "consoOrigineL100": 8.4
+              "consoOrigineL100": 8.4,
+              "platform": "8V"
             }
           ]
         },
@@ -649,7 +691,8 @@
               "cylindreeCm3": 2480,
               "puissanceOrigineCh": 400,
               "coupleOrigineNm": 480,
-              "consoOrigineL100": 8.7
+              "consoOrigineL100": 8.7,
+              "platform": "8S"
             }
           ]
         },
@@ -667,7 +710,27 @@
               "cylindreeCm3": 1984,
               "puissanceOrigineCh": 272,
               "coupleOrigineNm": 350,
-              "consoOrigineL100": 8.2
+              "consoOrigineL100": 8.2,
+              "platform": "8J"
+            }
+          ]
+        },
+        {
+          "id": "tt-8j",
+          "name": "TT (8J)",
+          "motorisations": [
+            {
+              "id": "tt-8j-2.0-tfsi",
+              "label": "2.0 TFSI 200",
+              "codeMoteur": "BWA",
+              "platform": "8J",
+              "anneeDebut": 2006,
+              "anneeFin": 2010,
+              "carburant": "essence",
+              "cylindreeCm3": 1984,
+              "puissanceOrigineCh": 200,
+              "coupleOrigineNm": 280,
+              "consoOrigineL100": 7.5
             }
           ]
         },
@@ -685,7 +748,8 @@
               "cylindreeCm3": 2894,
               "puissanceOrigineCh": 450,
               "coupleOrigineNm": 600,
-              "consoOrigineL100": 9.6
+              "consoOrigineL100": 9.6,
+              "platform": "B9"
             }
           ]
         },
@@ -703,7 +767,8 @@
               "cylindreeCm3": 2995,
               "puissanceOrigineCh": 333,
               "coupleOrigineNm": 440,
-              "consoOrigineL100": 9.6
+              "consoOrigineL100": 9.6,
+              "platform": "B8"
             }
           ]
         },
@@ -721,7 +786,8 @@
               "cylindreeCm3": 1968,
               "puissanceOrigineCh": 190,
               "coupleOrigineNm": 400,
-              "consoOrigineL100": 4.6
+              "consoOrigineL100": 4.6,
+              "platform": "B9"
             },
             {
               "id": "a4-b9-2.0-tfsi",
@@ -733,7 +799,8 @@
               "cylindreeCm3": 1984,
               "puissanceOrigineCh": 190,
               "coupleOrigineNm": 320,
-              "consoOrigineL100": 6.1
+              "consoOrigineL100": 6.1,
+              "platform": "B9"
             }
           ]
         },
@@ -751,7 +818,8 @@
               "cylindreeCm3": 1968,
               "puissanceOrigineCh": 143,
               "coupleOrigineNm": 320,
-              "consoOrigineL100": 4.9
+              "consoOrigineL100": 4.9,
+              "platform": "B8"
             },
             {
               "id": "a4-b8-1.8-tfsi",
@@ -763,7 +831,8 @@
               "cylindreeCm3": 1798,
               "puissanceOrigineCh": 160,
               "coupleOrigineNm": 250,
-              "consoOrigineL100": 6.4
+              "consoOrigineL100": 6.4,
+              "platform": "B8"
             }
           ]
         },
@@ -781,7 +850,8 @@
               "cylindreeCm3": 3996,
               "puissanceOrigineCh": 600,
               "coupleOrigineNm": 800,
-              "consoOrigineL100": 11.8
+              "consoOrigineL100": 11.8,
+              "platform": "C8"
             }
           ]
         },
@@ -799,7 +869,8 @@
               "cylindreeCm3": 3993,
               "puissanceOrigineCh": 560,
               "coupleOrigineNm": 700,
-              "consoOrigineL100": 10.5
+              "consoOrigineL100": 10.5,
+              "platform": "C7"
             }
           ]
         },
@@ -817,7 +888,8 @@
               "cylindreeCm3": 1968,
               "puissanceOrigineCh": 150,
               "coupleOrigineNm": 340,
-              "consoOrigineL100": 5.8
+              "consoOrigineL100": 5.8,
+              "platform": "8U"
             },
             {
               "id": "rsq3-8u-2.5-tfsi",
@@ -829,7 +901,8 @@
               "cylindreeCm3": 2480,
               "puissanceOrigineCh": 340,
               "coupleOrigineNm": 450,
-              "consoOrigineL100": 9.3
+              "consoOrigineL100": 9.3,
+              "platform": "8U"
             }
           ]
         },
@@ -847,7 +920,8 @@
               "cylindreeCm3": 1390,
               "puissanceOrigineCh": 122,
               "coupleOrigineNm": 200,
-              "consoOrigineL100": 5.5
+              "consoOrigineL100": 5.5,
+              "platform": "8X"
             },
             {
               "id": "s1-8x-2.0-tfsi",
@@ -859,7 +933,8 @@
               "cylindreeCm3": 1984,
               "puissanceOrigineCh": 231,
               "coupleOrigineNm": 380,
-              "consoOrigineL100": 7
+              "consoOrigineL100": 7,
+              "platform": "8X"
             }
           ]
         },
@@ -877,7 +952,8 @@
               "cylindreeCm3": 1968,
               "puissanceOrigineCh": 177,
               "coupleOrigineNm": 380,
-              "consoOrigineL100": 5.3
+              "consoOrigineL100": 5.3,
+              "platform": "8T"
             },
             {
               "id": "s5-8t-3.0-tfsi",
@@ -889,7 +965,8 @@
               "cylindreeCm3": 2995,
               "puissanceOrigineCh": 333,
               "coupleOrigineNm": 440,
-              "consoOrigineL100": 8.7
+              "consoOrigineL100": 8.7,
+              "platform": "8T"
             }
           ]
         },
@@ -907,7 +984,8 @@
               "cylindreeCm3": 1968,
               "puissanceOrigineCh": 177,
               "coupleOrigineNm": 380,
-              "consoOrigineL100": 5.9
+              "consoOrigineL100": 5.9,
+              "platform": "8R"
             }
           ]
         }
@@ -931,7 +1009,8 @@
               "cylindreeCm3": 1995,
               "puissanceOrigineCh": 190,
               "coupleOrigineNm": 400,
-              "consoOrigineL100": 4.5
+              "consoOrigineL100": 4.5,
+              "platform": "G20"
             },
             {
               "id": "330i-g20",
@@ -943,7 +1022,8 @@
               "cylindreeCm3": 1998,
               "puissanceOrigineCh": 258,
               "coupleOrigineNm": 400,
-              "consoOrigineL100": 6.4
+              "consoOrigineL100": 6.4,
+              "platform": "G20"
             },
             {
               "id": "m340i-g20",
@@ -955,7 +1035,8 @@
               "cylindreeCm3": 2998,
               "puissanceOrigineCh": 374,
               "coupleOrigineNm": 500,
-              "consoOrigineL100": 7.6
+              "consoOrigineL100": 7.6,
+              "platform": "G20"
             }
           ]
         },
@@ -973,7 +1054,8 @@
               "cylindreeCm3": 1995,
               "puissanceOrigineCh": 177,
               "coupleOrigineNm": 350,
-              "consoOrigineL100": 4.9
+              "consoOrigineL100": 4.9,
+              "platform": "E90"
             },
             {
               "id": "335i-e90",
@@ -985,7 +1067,8 @@
               "cylindreeCm3": 2979,
               "puissanceOrigineCh": 306,
               "coupleOrigineNm": 400,
-              "consoOrigineL100": 9.1
+              "consoOrigineL100": 9.1,
+              "platform": "E90"
             }
           ]
         },
@@ -997,6 +1080,7 @@
               "id": "m3-e46",
               "label": "M3 3.2 343",
               "codeMoteur": "S54B32",
+              "platform": "E46",
               "anneeDebut": 2000,
               "anneeFin": 2006,
               "carburant": "essence",
@@ -1004,6 +1088,57 @@
               "puissanceOrigineCh": 343,
               "coupleOrigineNm": 365,
               "consoOrigineL100": 12.9
+            },
+            {
+              "id": "330i-e46",
+              "label": "330i 231",
+              "codeMoteur": "M54B30",
+              "platform": "E46",
+              "anneeDebut": 2000,
+              "anneeFin": 2005,
+              "carburant": "essence",
+              "cylindreeCm3": 2979,
+              "puissanceOrigineCh": 231,
+              "coupleOrigineNm": 300,
+              "consoOrigineL100": 9.5
+            }
+          ]
+        },
+        {
+          "id": "serie-3-e30",
+          "name": "Série 3 (E30)",
+          "motorisations": [
+            {
+              "id": "325i-e30",
+              "label": "325i 171",
+              "codeMoteur": "M20B25",
+              "platform": "E30",
+              "anneeDebut": 1985,
+              "anneeFin": 1991,
+              "carburant": "essence",
+              "cylindreeCm3": 2494,
+              "puissanceOrigineCh": 171,
+              "coupleOrigineNm": 245,
+              "consoOrigineL100": 10.5
+            }
+          ]
+        },
+        {
+          "id": "serie-3-e36",
+          "name": "Série 3 (E36)",
+          "motorisations": [
+            {
+              "id": "m3-e36",
+              "label": "M3 3.0 286",
+              "codeMoteur": "S50B30",
+              "platform": "E36",
+              "anneeDebut": 1992,
+              "anneeFin": 1995,
+              "carburant": "essence",
+              "cylindreeCm3": 2990,
+              "puissanceOrigineCh": 286,
+              "coupleOrigineNm": 320,
+              "consoOrigineL100": 12
             }
           ]
         },
@@ -1021,7 +1156,8 @@
               "cylindreeCm3": 3999,
               "puissanceOrigineCh": 420,
               "coupleOrigineNm": 400,
-              "consoOrigineL100": 13.4
+              "consoOrigineL100": 13.4,
+              "platform": "E92"
             }
           ]
         },
@@ -1039,7 +1175,8 @@
               "cylindreeCm3": 1496,
               "puissanceOrigineCh": 150,
               "coupleOrigineNm": 350,
-              "consoOrigineL100": 4.3
+              "consoOrigineL100": 4.3,
+              "platform": "F40"
             },
             {
               "id": "m135i-f40",
@@ -1051,7 +1188,8 @@
               "cylindreeCm3": 1998,
               "puissanceOrigineCh": 306,
               "coupleOrigineNm": 450,
-              "consoOrigineL100": 7.1
+              "consoOrigineL100": 7.1,
+              "platform": "F40"
             },
             {
               "id": "128ti-f40",
@@ -1063,7 +1201,8 @@
               "cylindreeCm3": 1998,
               "puissanceOrigineCh": 265,
               "coupleOrigineNm": 400,
-              "consoOrigineL100": 6.7
+              "consoOrigineL100": 6.7,
+              "platform": "F40"
             }
           ]
         },
@@ -1081,7 +1220,8 @@
               "cylindreeCm3": 2996,
               "puissanceOrigineCh": 265,
               "coupleOrigineNm": 315,
-              "consoOrigineL100": 9.9
+              "consoOrigineL100": 9.9,
+              "platform": "E87"
             }
           ]
         },
@@ -1099,7 +1239,8 @@
               "cylindreeCm3": 2993,
               "puissanceOrigineCh": 460,
               "coupleOrigineNm": 550,
-              "consoOrigineL100": 10.2
+              "consoOrigineL100": 10.2,
+              "platform": "G87"
             }
           ]
         },
@@ -1117,7 +1258,8 @@
               "cylindreeCm3": 2979,
               "puissanceOrigineCh": 410,
               "coupleOrigineNm": 550,
-              "consoOrigineL100": 9.8
+              "consoOrigineL100": 9.8,
+              "platform": "F87"
             }
           ]
         },
@@ -1135,7 +1277,8 @@
               "cylindreeCm3": 2993,
               "puissanceOrigineCh": 480,
               "coupleOrigineNm": 550,
-              "consoOrigineL100": 10.2
+              "consoOrigineL100": 10.2,
+              "platform": "G80"
             },
             {
               "id": "m3-g80-comp",
@@ -1147,7 +1290,8 @@
               "cylindreeCm3": 2993,
               "puissanceOrigineCh": 510,
               "coupleOrigineNm": 650,
-              "consoOrigineL100": 10.4
+              "consoOrigineL100": 10.4,
+              "platform": "G80"
             }
           ]
         },
@@ -1165,7 +1309,8 @@
               "cylindreeCm3": 2993,
               "puissanceOrigineCh": 480,
               "coupleOrigineNm": 550,
-              "consoOrigineL100": 10.2
+              "consoOrigineL100": 10.2,
+              "platform": "G82"
             }
           ]
         },
@@ -1183,7 +1328,8 @@
               "cylindreeCm3": 1998,
               "puissanceOrigineCh": 258,
               "coupleOrigineNm": 400,
-              "consoOrigineL100": 6.7
+              "consoOrigineL100": 6.7,
+              "platform": "G22"
             }
           ]
         },
@@ -1201,7 +1347,8 @@
               "cylindreeCm3": 1995,
               "puissanceOrigineCh": 190,
               "coupleOrigineNm": 400,
-              "consoOrigineL100": 4.6
+              "consoOrigineL100": 4.6,
+              "platform": "G30"
             },
             {
               "id": "m5-f90",
@@ -1213,7 +1360,8 @@
               "cylindreeCm3": 4395,
               "puissanceOrigineCh": 625,
               "coupleOrigineNm": 750,
-              "consoOrigineL100": 10.8
+              "consoOrigineL100": 10.8,
+              "platform": "G30"
             }
           ]
         },
@@ -1231,7 +1379,8 @@
               "cylindreeCm3": 2993,
               "puissanceOrigineCh": 510,
               "coupleOrigineNm": 600,
-              "consoOrigineL100": 11
+              "consoOrigineL100": 11,
+              "platform": "F97"
             }
           ]
         },
@@ -1249,7 +1398,8 @@
               "cylindreeCm3": 4395,
               "puissanceOrigineCh": 625,
               "coupleOrigineNm": 750,
-              "consoOrigineL100": 12.5
+              "consoOrigineL100": 12.5,
+              "platform": "F95"
             }
           ]
         },
@@ -1267,7 +1417,8 @@
               "cylindreeCm3": 2998,
               "puissanceOrigineCh": 340,
               "coupleOrigineNm": 500,
-              "consoOrigineL100": 7.4
+              "consoOrigineL100": 7.4,
+              "platform": "G29"
             }
           ]
         }
@@ -1291,7 +1442,8 @@
               "cylindreeCm3": 1991,
               "puissanceOrigineCh": 421,
               "coupleOrigineNm": 500,
-              "consoOrigineL100": 8.6
+              "consoOrigineL100": 8.6,
+              "platform": "W177"
             }
           ]
         },
@@ -1309,7 +1461,8 @@
               "cylindreeCm3": 1991,
               "puissanceOrigineCh": 381,
               "coupleOrigineNm": 475,
-              "consoOrigineL100": 7.5
+              "consoOrigineL100": 7.5,
+              "platform": "W176"
             }
           ]
         },
@@ -1327,7 +1480,8 @@
               "cylindreeCm3": 1991,
               "puissanceOrigineCh": 306,
               "coupleOrigineNm": 400,
-              "consoOrigineL100": 7.4
+              "consoOrigineL100": 7.4,
+              "platform": "W177"
             }
           ]
         },
@@ -1345,7 +1499,8 @@
               "cylindreeCm3": 1991,
               "puissanceOrigineCh": 421,
               "coupleOrigineNm": 500,
-              "consoOrigineL100": 8.6
+              "consoOrigineL100": 8.6,
+              "platform": "C118"
             }
           ]
         },
@@ -1363,7 +1518,8 @@
               "cylindreeCm3": 1991,
               "puissanceOrigineCh": 476,
               "coupleOrigineNm": 545,
-              "consoOrigineL100": 8.6
+              "consoOrigineL100": 8.6,
+              "platform": "W206"
             }
           ]
         },
@@ -1381,7 +1537,8 @@
               "cylindreeCm3": 3982,
               "puissanceOrigineCh": 510,
               "coupleOrigineNm": 700,
-              "consoOrigineL100": 10.6
+              "consoOrigineL100": 10.6,
+              "platform": "W205"
             }
           ]
         },
@@ -1399,7 +1556,8 @@
               "cylindreeCm3": 1991,
               "puissanceOrigineCh": 408,
               "coupleOrigineNm": 500,
-              "consoOrigineL100": 8.4
+              "consoOrigineL100": 8.4,
+              "platform": "W206"
             }
           ]
         },
@@ -1417,7 +1575,8 @@
               "cylindreeCm3": 1991,
               "puissanceOrigineCh": 421,
               "coupleOrigineNm": 500,
-              "consoOrigineL100": 8.8
+              "consoOrigineL100": 8.8,
+              "platform": "H247"
             }
           ]
         },
@@ -1435,7 +1594,8 @@
               "cylindreeCm3": 3982,
               "puissanceOrigineCh": 612,
               "coupleOrigineNm": 850,
-              "consoOrigineL100": 11.8
+              "consoOrigineL100": 11.8,
+              "platform": "W213"
             }
           ]
         },
@@ -1453,7 +1613,8 @@
               "cylindreeCm3": 3982,
               "puissanceOrigineCh": 585,
               "coupleOrigineNm": 850,
-              "consoOrigineL100": 13.1
+              "consoOrigineL100": 13.1,
+              "platform": "W463"
             }
           ]
         },
@@ -1471,7 +1632,8 @@
               "cylindreeCm3": 3982,
               "puissanceOrigineCh": 510,
               "coupleOrigineNm": 650,
-              "consoOrigineL100": 10.7
+              "consoOrigineL100": 10.7,
+              "platform": "C190"
             }
           ]
         }
@@ -1495,7 +1657,8 @@
               "cylindreeCm3": 1798,
               "puissanceOrigineCh": 280,
               "coupleOrigineNm": 390,
-              "consoOrigineL100": 7.7
+              "consoOrigineL100": 7.7,
+              "platform": "megane-4-rs"
             },
             {
               "id": "megane-4-rs-trophy",
@@ -1507,7 +1670,8 @@
               "cylindreeCm3": 1798,
               "puissanceOrigineCh": 300,
               "coupleOrigineNm": 420,
-              "consoOrigineL100": 7.8
+              "consoOrigineL100": 7.8,
+              "platform": "megane-4-rs"
             }
           ]
         },
@@ -1525,7 +1689,8 @@
               "cylindreeCm3": 1998,
               "puissanceOrigineCh": 265,
               "coupleOrigineNm": 360,
-              "consoOrigineL100": 8.1
+              "consoOrigineL100": 8.1,
+              "platform": "megane-3-rs"
             },
             {
               "id": "megane-3-rs-275-trophy",
@@ -1537,7 +1702,8 @@
               "cylindreeCm3": 1998,
               "puissanceOrigineCh": 275,
               "coupleOrigineNm": 360,
-              "consoOrigineL100": 8.2
+              "consoOrigineL100": 8.2,
+              "platform": "megane-3-rs"
             }
           ]
         },
@@ -1555,7 +1721,8 @@
               "cylindreeCm3": 999,
               "puissanceOrigineCh": 100,
               "coupleOrigineNm": 160,
-              "consoOrigineL100": 5.4
+              "consoOrigineL100": 5.4,
+              "platform": "clio-5-tce"
             },
             {
               "id": "clio-5-tce-130",
@@ -1567,7 +1734,8 @@
               "cylindreeCm3": 1332,
               "puissanceOrigineCh": 130,
               "coupleOrigineNm": 240,
-              "consoOrigineL100": 5.8
+              "consoOrigineL100": 5.8,
+              "platform": "clio-5-tce"
             }
           ]
         },
@@ -1585,7 +1753,8 @@
               "cylindreeCm3": 1618,
               "puissanceOrigineCh": 200,
               "coupleOrigineNm": 240,
-              "consoOrigineL100": 6.3
+              "consoOrigineL100": 6.3,
+              "platform": "clio-4-rs"
             }
           ]
         },
@@ -1603,7 +1772,8 @@
               "cylindreeCm3": 1998,
               "puissanceOrigineCh": 172,
               "coupleOrigineNm": 200,
-              "consoOrigineL100": 8.9
+              "consoOrigineL100": 8.9,
+              "platform": "clio-2-rs"
             }
           ]
         },
@@ -1621,7 +1791,8 @@
               "cylindreeCm3": 1598,
               "puissanceOrigineCh": 133,
               "coupleOrigineNm": 160,
-              "consoOrigineL100": 7.2
+              "consoOrigineL100": 7.2,
+              "platform": "twingo-2-rs"
             }
           ]
         },
@@ -1639,7 +1810,8 @@
               "cylindreeCm3": 1798,
               "puissanceOrigineCh": 252,
               "coupleOrigineNm": 320,
-              "consoOrigineL100": 6.1
+              "consoOrigineL100": 6.1,
+              "platform": "alpine-a110"
             },
             {
               "id": "a110-s-292",
@@ -1651,7 +1823,8 @@
               "cylindreeCm3": 1798,
               "puissanceOrigineCh": 292,
               "coupleOrigineNm": 320,
-              "consoOrigineL100": 6.1
+              "consoOrigineL100": 6.1,
+              "platform": "alpine-a110"
             },
             {
               "id": "a110-gt-300",
@@ -1663,7 +1836,8 @@
               "cylindreeCm3": 1798,
               "puissanceOrigineCh": 300,
               "coupleOrigineNm": 340,
-              "consoOrigineL100": 6.1
+              "consoOrigineL100": 6.1,
+              "platform": "alpine-a110"
             }
           ]
         },
@@ -1681,7 +1855,8 @@
               "cylindreeCm3": 1332,
               "puissanceOrigineCh": 130,
               "coupleOrigineNm": 240,
-              "consoOrigineL100": 6
+              "consoOrigineL100": 6,
+              "platform": "captur-2"
             }
           ]
         },
@@ -1699,7 +1874,8 @@
               "cylindreeCm3": 1998,
               "puissanceOrigineCh": 220,
               "coupleOrigineNm": 290,
-              "consoOrigineL100": 8.5
+              "consoOrigineL100": 8.5,
+              "platform": "scenic-iii-rs"
             }
           ]
         },
@@ -1717,7 +1893,27 @@
               "cylindreeCm3": 898,
               "puissanceOrigineCh": 110,
               "coupleOrigineNm": 170,
-              "consoOrigineL100": 5
+              "consoOrigineL100": 5,
+              "platform": "twingo-3-gt"
+            }
+          ]
+        },
+        {
+          "id": "r5-gt-turbo",
+          "name": "R5 GT Turbo",
+          "motorisations": [
+            {
+              "id": "r5-gt-turbo-1.4",
+              "label": "1.4 Turbo C1J 115",
+              "codeMoteur": "C1J",
+              "platform": "R5",
+              "anneeDebut": 1985,
+              "anneeFin": 1991,
+              "carburant": "essence",
+              "cylindreeCm3": 1397,
+              "puissanceOrigineCh": 115,
+              "coupleOrigineNm": 152,
+              "consoOrigineL100": 8.5
             }
           ]
         }
@@ -1741,7 +1937,8 @@
               "cylindreeCm3": 2261,
               "puissanceOrigineCh": 280,
               "coupleOrigineNm": 420,
-              "consoOrigineL100": 8.2
+              "consoOrigineL100": 8.2,
+              "platform": "focus-st-mk4"
             }
           ]
         },
@@ -1759,7 +1956,8 @@
               "cylindreeCm3": 1999,
               "puissanceOrigineCh": 250,
               "coupleOrigineNm": 360,
-              "consoOrigineL100": 7.9
+              "consoOrigineL100": 7.9,
+              "platform": "focus-st-mk3"
             }
           ]
         },
@@ -1777,7 +1975,8 @@
               "cylindreeCm3": 2261,
               "puissanceOrigineCh": 350,
               "coupleOrigineNm": 470,
-              "consoOrigineL100": 8.9
+              "consoOrigineL100": 8.9,
+              "platform": "focus-rs-mk3"
             }
           ]
         },
@@ -1795,7 +1994,8 @@
               "cylindreeCm3": 2521,
               "puissanceOrigineCh": 305,
               "coupleOrigineNm": 440,
-              "consoOrigineL100": 10.4
+              "consoOrigineL100": 10.4,
+              "platform": "focus-rs-mk2"
             }
           ]
         },
@@ -1813,7 +2013,8 @@
               "cylindreeCm3": 1497,
               "puissanceOrigineCh": 200,
               "coupleOrigineNm": 290,
-              "consoOrigineL100": 6.6
+              "consoOrigineL100": 6.6,
+              "platform": "fiesta-st-mk7"
             }
           ]
         },
@@ -1831,7 +2032,8 @@
               "cylindreeCm3": 1596,
               "puissanceOrigineCh": 182,
               "coupleOrigineNm": 240,
-              "consoOrigineL100": 6.6
+              "consoOrigineL100": 6.6,
+              "platform": "fiesta-st-mk6"
             }
           ]
         },
@@ -1849,7 +2051,8 @@
               "cylindreeCm3": 1497,
               "puissanceOrigineCh": 200,
               "coupleOrigineNm": 320,
-              "consoOrigineL100": 6.6
+              "consoOrigineL100": 6.6,
+              "platform": "puma-st"
             }
           ]
         },
@@ -1867,7 +2070,8 @@
               "cylindreeCm3": 4951,
               "puissanceOrigineCh": 450,
               "coupleOrigineNm": 529,
-              "consoOrigineL100": 12.8
+              "consoOrigineL100": 12.8,
+              "platform": "S550"
             },
             {
               "id": "mustang-2.3-ecoboost",
@@ -1879,7 +2083,8 @@
               "cylindreeCm3": 2261,
               "puissanceOrigineCh": 290,
               "coupleOrigineNm": 440,
-              "consoOrigineL100": 9.1
+              "consoOrigineL100": 9.1,
+              "platform": "S550"
             }
           ]
         },
@@ -1897,7 +2102,8 @@
               "cylindreeCm3": 1997,
               "puissanceOrigineCh": 150,
               "coupleOrigineNm": 370,
-              "consoOrigineL100": 5.3
+              "consoOrigineL100": 5.3,
+              "platform": "kuga-3"
             }
           ]
         },
@@ -1915,7 +2121,8 @@
               "cylindreeCm3": 1993,
               "puissanceOrigineCh": 204,
               "coupleOrigineNm": 279,
-              "consoOrigineL100": 10.9
+              "consoOrigineL100": 10.9,
+              "platform": "sierra-rs-cosworth"
             }
           ]
         },
@@ -1933,7 +2140,8 @@
               "cylindreeCm3": 1597,
               "puissanceOrigineCh": 132,
               "coupleOrigineNm": 178,
-              "consoOrigineL100": 8.6
+              "consoOrigineL100": 8.6,
+              "platform": "escort-rs-turbo"
             }
           ]
         }
@@ -1957,7 +2165,8 @@
               "cylindreeCm3": 1996,
               "puissanceOrigineCh": 320,
               "coupleOrigineNm": 400,
-              "consoOrigineL100": 7.9
+              "consoOrigineL100": 7.9,
+              "platform": "FK8"
             }
           ]
         },
@@ -1975,7 +2184,8 @@
               "cylindreeCm3": 1996,
               "puissanceOrigineCh": 330,
               "coupleOrigineNm": 420,
-              "consoOrigineL100": 8.9
+              "consoOrigineL100": 8.9,
+              "platform": "FL5"
             }
           ]
         },
@@ -1993,7 +2203,8 @@
               "cylindreeCm3": 1998,
               "puissanceOrigineCh": 201,
               "coupleOrigineNm": 193,
-              "consoOrigineL100": 8.7
+              "consoOrigineL100": 8.7,
+              "platform": "FN2"
             }
           ]
         },
@@ -2011,7 +2222,8 @@
               "cylindreeCm3": 1998,
               "puissanceOrigineCh": 225,
               "coupleOrigineNm": 216,
-              "consoOrigineL100": 9.5
+              "consoOrigineL100": 9.5,
+              "platform": "FD2"
             }
           ]
         },
@@ -2029,7 +2241,8 @@
               "cylindreeCm3": 1998,
               "puissanceOrigineCh": 200,
               "coupleOrigineNm": 196,
-              "consoOrigineL100": 8.6
+              "consoOrigineL100": 8.6,
+              "platform": "EP3"
             }
           ]
         },
@@ -2047,7 +2260,8 @@
               "cylindreeCm3": 1998,
               "puissanceOrigineCh": 220,
               "coupleOrigineNm": 206,
-              "consoOrigineL100": 8.5
+              "consoOrigineL100": 8.5,
+              "platform": "DC5"
             }
           ]
         },
@@ -2065,7 +2279,8 @@
               "cylindreeCm3": 1797,
               "puissanceOrigineCh": 190,
               "coupleOrigineNm": 178,
-              "consoOrigineL100": 8.9
+              "consoOrigineL100": 8.9,
+              "platform": "DC2"
             }
           ]
         },
@@ -2083,7 +2298,8 @@
               "cylindreeCm3": 1997,
               "puissanceOrigineCh": 240,
               "coupleOrigineNm": 208,
-              "consoOrigineL100": 9.7
+              "consoOrigineL100": 9.7,
+              "platform": "AP1/AP2"
             }
           ]
         },
@@ -2101,7 +2317,8 @@
               "cylindreeCm3": 2977,
               "puissanceOrigineCh": 274,
               "coupleOrigineNm": 284,
-              "consoOrigineL100": 11
+              "consoOrigineL100": 11,
+              "platform": "NA1/NA2"
             }
           ]
         },
@@ -2119,7 +2336,65 @@
               "cylindreeCm3": 2157,
               "puissanceOrigineCh": 220,
               "coupleOrigineNm": 216,
-              "consoOrigineL100": 9.9
+              "consoOrigineL100": 9.9,
+              "platform": "CL1"
+            }
+          ]
+        },
+        {
+          "id": "civic-eg6",
+          "name": "Civic EG6 SiR",
+          "motorisations": [
+            {
+              "id": "civic-eg6-b16a",
+              "label": "1.6 VTEC B16A 170",
+              "codeMoteur": "B16A",
+              "platform": "EG",
+              "anneeDebut": 1991,
+              "anneeFin": 1995,
+              "carburant": "essence",
+              "cylindreeCm3": 1595,
+              "puissanceOrigineCh": 170,
+              "coupleOrigineNm": 160,
+              "consoOrigineL100": 8.5
+            }
+          ]
+        },
+        {
+          "id": "civic-ek4",
+          "name": "Civic EK4 SiR",
+          "motorisations": [
+            {
+              "id": "civic-ek4-b16a",
+              "label": "1.6 VTEC B16A 170",
+              "codeMoteur": "B16A",
+              "platform": "EK",
+              "anneeDebut": 1995,
+              "anneeFin": 2000,
+              "carburant": "essence",
+              "cylindreeCm3": 1595,
+              "puissanceOrigineCh": 170,
+              "coupleOrigineNm": 160,
+              "consoOrigineL100": 8.5
+            }
+          ]
+        },
+        {
+          "id": "civic-ej1",
+          "name": "Civic EJ1 SiR",
+          "motorisations": [
+            {
+              "id": "civic-ej1-b16a",
+              "label": "1.6 VTEC B16A 170",
+              "codeMoteur": "B16A",
+              "platform": "EJ",
+              "anneeDebut": 1995,
+              "anneeFin": 2000,
+              "carburant": "essence",
+              "cylindreeCm3": 1595,
+              "puissanceOrigineCh": 170,
+              "coupleOrigineNm": 160,
+              "consoOrigineL100": 8.5
             }
           ]
         }
@@ -2143,7 +2418,8 @@
               "cylindreeCm3": 1618,
               "puissanceOrigineCh": 261,
               "coupleOrigineNm": 360,
-              "consoOrigineL100": 7.6
+              "consoOrigineL100": 7.6,
+              "platform": "gr-yaris"
             }
           ]
         },
@@ -2161,7 +2437,8 @@
               "cylindreeCm3": 1618,
               "puissanceOrigineCh": 300,
               "coupleOrigineNm": 370,
-              "consoOrigineL100": 8.9
+              "consoOrigineL100": 8.9,
+              "platform": "gr-corolla"
             }
           ]
         },
@@ -2179,7 +2456,8 @@
               "cylindreeCm3": 2387,
               "puissanceOrigineCh": 234,
               "coupleOrigineNm": 250,
-              "consoOrigineL100": 9.1
+              "consoOrigineL100": 9.1,
+              "platform": "2022"
             }
           ]
         },
@@ -2197,7 +2475,8 @@
               "cylindreeCm3": 1998,
               "puissanceOrigineCh": 200,
               "coupleOrigineNm": 205,
-              "consoOrigineL100": 7.8
+              "consoOrigineL100": 7.8,
+              "platform": "gt86"
             }
           ]
         },
@@ -2215,7 +2494,8 @@
               "cylindreeCm3": 2998,
               "puissanceOrigineCh": 340,
               "coupleOrigineNm": 500,
-              "consoOrigineL100": 7.7
+              "consoOrigineL100": 7.7,
+              "platform": "A90"
             },
             {
               "id": "supra-2.0-turbo",
@@ -2227,7 +2507,8 @@
               "cylindreeCm3": 1998,
               "puissanceOrigineCh": 258,
               "coupleOrigineNm": 400,
-              "consoOrigineL100": 6.6
+              "consoOrigineL100": 6.6,
+              "platform": "A90"
             }
           ]
         },
@@ -2245,7 +2526,8 @@
               "cylindreeCm3": 1794,
               "puissanceOrigineCh": 192,
               "coupleOrigineNm": 180,
-              "consoOrigineL100": 8
+              "consoOrigineL100": 8,
+              "platform": "T23"
             }
           ]
         },
@@ -2263,7 +2545,8 @@
               "cylindreeCm3": 1998,
               "puissanceOrigineCh": 245,
               "coupleOrigineNm": 304,
-              "consoOrigineL100": 9.5
+              "consoOrigineL100": 9.5,
+              "platform": "SW20"
             }
           ]
         },
@@ -2281,7 +2564,8 @@
               "cylindreeCm3": 1490,
               "puissanceOrigineCh": 116,
               "coupleOrigineNm": 141,
-              "consoOrigineL100": 3.8
+              "consoOrigineL100": 3.8,
+              "platform": "XP210"
             }
           ]
         },
@@ -2299,7 +2583,8 @@
               "cylindreeCm3": 2755,
               "puissanceOrigineCh": 177,
               "coupleOrigineNm": 450,
-              "consoOrigineL100": 7.9
+              "consoOrigineL100": 7.9,
+              "platform": "J150"
             }
           ]
         },
@@ -2317,7 +2602,46 @@
               "cylindreeCm3": 1998,
               "puissanceOrigineCh": 143,
               "coupleOrigineNm": 320,
-              "consoOrigineL100": 4.9
+              "consoOrigineL100": 4.9,
+              "platform": "avensis-iii"
+            }
+          ]
+        },
+        {
+          "id": "corolla-ae86",
+          "name": "Corolla Levin/Trueno (AE86)",
+          "motorisations": [
+            {
+              "id": "ae86-4age",
+              "label": "1.6 Twin-Cam 4A-GE 130",
+              "codeMoteur": "4A-GE",
+              "platform": "AE86",
+              "anneeDebut": 1983,
+              "anneeFin": 1987,
+              "carburant": "essence",
+              "cylindreeCm3": 1587,
+              "puissanceOrigineCh": 130,
+              "coupleOrigineNm": 149,
+              "consoOrigineL100": 8
+            }
+          ]
+        },
+        {
+          "id": "supra-a80",
+          "name": "Supra (A80)",
+          "motorisations": [
+            {
+              "id": "supra-a80-2jzgte",
+              "label": "3.0 Twin Turbo 2JZ-GTE 330",
+              "codeMoteur": "2JZ-GTE",
+              "platform": "A80",
+              "anneeDebut": 1993,
+              "anneeFin": 2002,
+              "carburant": "essence",
+              "cylindreeCm3": 2997,
+              "puissanceOrigineCh": 330,
+              "coupleOrigineNm": 440,
+              "consoOrigineL100": 11.5
             }
           ]
         }
@@ -2341,7 +2665,8 @@
               "cylindreeCm3": 2457,
               "puissanceOrigineCh": 300,
               "coupleOrigineNm": 407,
-              "consoOrigineL100": 11
+              "consoOrigineL100": 11,
+              "platform": "wrx-sti"
             }
           ]
         },
@@ -2359,7 +2684,8 @@
               "cylindreeCm3": 1994,
               "puissanceOrigineCh": 224,
               "coupleOrigineNm": 300,
-              "consoOrigineL100": 10.5
+              "consoOrigineL100": 10.5,
+              "platform": "impreza-wrx"
             }
           ]
         },
@@ -2377,7 +2703,8 @@
               "cylindreeCm3": 1998,
               "puissanceOrigineCh": 200,
               "coupleOrigineNm": 205,
-              "consoOrigineL100": 7.8
+              "consoOrigineL100": 7.8,
+              "platform": "ZC6"
             }
           ]
         },
@@ -2395,7 +2722,8 @@
               "cylindreeCm3": 1994,
               "puissanceOrigineCh": 320,
               "coupleOrigineNm": 400,
-              "consoOrigineL100": 12
+              "consoOrigineL100": 12,
+              "platform": "forester-sti"
             }
           ]
         },
@@ -2413,7 +2741,8 @@
               "cylindreeCm3": 1998,
               "puissanceOrigineCh": 170,
               "coupleOrigineNm": 250,
-              "consoOrigineL100": 7.2
+              "consoOrigineL100": 7.2,
+              "platform": "levorg-sti-sport"
             }
           ]
         },
@@ -2431,7 +2760,8 @@
               "cylindreeCm3": 2457,
               "puissanceOrigineCh": 260,
               "coupleOrigineNm": 350,
-              "consoOrigineL100": 10.6
+              "consoOrigineL100": 10.6,
+              "platform": "BL/BP"
             }
           ]
         }
@@ -2455,7 +2785,8 @@
               "cylindreeCm3": 1199,
               "puissanceOrigineCh": 130,
               "coupleOrigineNm": 230,
-              "consoOrigineL100": 5.3
+              "consoOrigineL100": 5.3,
+              "platform": "308-iii"
             },
             {
               "id": "308-1.5-bluehdi",
@@ -2467,7 +2798,8 @@
               "cylindreeCm3": 1499,
               "puissanceOrigineCh": 130,
               "coupleOrigineNm": 300,
-              "consoOrigineL100": 4.1
+              "consoOrigineL100": 4.1,
+              "platform": "308-iii"
             }
           ]
         },
@@ -2485,7 +2817,8 @@
               "cylindreeCm3": 1598,
               "puissanceOrigineCh": 208,
               "coupleOrigineNm": 300,
-              "consoOrigineL100": 6.7
+              "consoOrigineL100": 6.7,
+              "platform": "208-gti"
             }
           ]
         },
@@ -2503,7 +2836,8 @@
               "cylindreeCm3": 1199,
               "puissanceOrigineCh": 100,
               "coupleOrigineNm": 205,
-              "consoOrigineL100": 5.2
+              "consoOrigineL100": 5.2,
+              "platform": "208-ii"
             }
           ]
         },
@@ -2521,7 +2855,8 @@
               "cylindreeCm3": 1598,
               "puissanceOrigineCh": 270,
               "coupleOrigineNm": 330,
-              "consoOrigineL100": 6.9
+              "consoOrigineL100": 6.9,
+              "platform": "308-gti"
             }
           ]
         },
@@ -2539,7 +2874,8 @@
               "cylindreeCm3": 1905,
               "puissanceOrigineCh": 130,
               "coupleOrigineNm": 165,
-              "consoOrigineL100": 8.7
+              "consoOrigineL100": 8.7,
+              "platform": "205-gti"
             },
             {
               "id": "205-gti-1.6",
@@ -2551,7 +2887,8 @@
               "cylindreeCm3": 1580,
               "puissanceOrigineCh": 115,
               "coupleOrigineNm": 137,
-              "consoOrigineL100": 7.9
+              "consoOrigineL100": 7.9,
+              "platform": "205-gti"
             }
           ]
         },
@@ -2569,7 +2906,8 @@
               "cylindreeCm3": 1998,
               "puissanceOrigineCh": 167,
               "coupleOrigineNm": 190,
-              "consoOrigineL100": 9.5
+              "consoOrigineL100": 9.5,
+              "platform": "306-gti-6"
             }
           ]
         },
@@ -2587,7 +2925,8 @@
               "cylindreeCm3": 1587,
               "puissanceOrigineCh": 120,
               "coupleOrigineNm": 148,
-              "consoOrigineL100": 7.5
+              "consoOrigineL100": 7.5,
+              "platform": "106-gti-rallye"
             }
           ]
         },
@@ -2605,7 +2944,8 @@
               "cylindreeCm3": 1598,
               "puissanceOrigineCh": 270,
               "coupleOrigineNm": 330,
-              "consoOrigineL100": 7
+              "consoOrigineL100": 7,
+              "platform": "rcz-r"
             }
           ]
         },
@@ -2623,7 +2963,8 @@
               "cylindreeCm3": 1499,
               "puissanceOrigineCh": 130,
               "coupleOrigineNm": 300,
-              "consoOrigineL100": 4.4
+              "consoOrigineL100": 4.4,
+              "platform": "508-ii"
             }
           ]
         }
@@ -2647,7 +2988,8 @@
               "cylindreeCm3": 1984,
               "puissanceOrigineCh": 300,
               "coupleOrigineNm": 380,
-              "consoOrigineL100": 7.2
+              "consoOrigineL100": 7.2,
+              "platform": "leon-cupra-300"
             }
           ]
         },
@@ -2665,7 +3007,8 @@
               "cylindreeCm3": 1498,
               "puissanceOrigineCh": 150,
               "coupleOrigineNm": 250,
-              "consoOrigineL100": 5.8
+              "consoOrigineL100": 5.8,
+              "platform": "5F"
             }
           ]
         },
@@ -2683,7 +3026,8 @@
               "cylindreeCm3": 1390,
               "puissanceOrigineCh": 180,
               "coupleOrigineNm": 250,
-              "consoOrigineL100": 6.5
+              "consoOrigineL100": 6.5,
+              "platform": "6J"
             }
           ]
         },
@@ -2701,7 +3045,8 @@
               "cylindreeCm3": 1984,
               "puissanceOrigineCh": 310,
               "coupleOrigineNm": 420,
-              "consoOrigineL100": 8
+              "consoOrigineL100": 8,
+              "platform": "cupra-formentor-vz"
             }
           ]
         },
@@ -2719,7 +3064,8 @@
               "cylindreeCm3": 1984,
               "puissanceOrigineCh": 300,
               "coupleOrigineNm": 400,
-              "consoOrigineL100": 8.1
+              "consoOrigineL100": 8.1,
+              "platform": "cupra-ateca"
             }
           ]
         },
@@ -2737,7 +3083,8 @@
               "cylindreeCm3": 2480,
               "puissanceOrigineCh": 390,
               "coupleOrigineNm": 480,
-              "consoOrigineL100": 9
+              "consoOrigineL100": 9,
+              "platform": "cupra-leon-vz5"
             }
           ]
         },
@@ -2753,7 +3100,8 @@
               "anneeFin": 2024,
               "carburant": "electrique",
               "puissanceOrigineCh": 204,
-              "coupleOrigineNm": 310
+              "coupleOrigineNm": 310,
+              "platform": "cupra-born"
             }
           ]
         }
@@ -2777,7 +3125,8 @@
               "cylindreeCm3": 1998,
               "puissanceOrigineCh": 295,
               "coupleOrigineNm": 366,
-              "consoOrigineL100": 10.6
+              "consoOrigineL100": 10.6,
+              "platform": "lancer-evo-x"
             }
           ]
         },
@@ -2795,7 +3144,8 @@
               "cylindreeCm3": 1997,
               "puissanceOrigineCh": 280,
               "coupleOrigineNm": 363,
-              "consoOrigineL100": 10.9
+              "consoOrigineL100": 10.9,
+              "platform": "lancer-evo-ix"
             }
           ]
         },
@@ -2813,7 +3163,8 @@
               "cylindreeCm3": 1997,
               "puissanceOrigineCh": 280,
               "coupleOrigineNm": 355,
-              "consoOrigineL100": 11.2
+              "consoOrigineL100": 11.2,
+              "platform": "lancer-evo-vi"
             }
           ]
         },
@@ -2831,7 +3182,8 @@
               "cylindreeCm3": 1997,
               "puissanceOrigineCh": 205,
               "coupleOrigineNm": 274,
-              "consoOrigineL100": 10.8
+              "consoOrigineL100": 10.8,
+              "platform": "eclipse-gsx"
             }
           ]
         },
@@ -2849,7 +3201,8 @@
               "cylindreeCm3": 1598,
               "puissanceOrigineCh": 114,
               "coupleOrigineNm": 300,
-              "consoOrigineL100": 4.5
+              "consoOrigineL100": 4.5,
+              "platform": "asx"
             }
           ]
         }
@@ -2873,7 +3226,8 @@
               "cylindreeCm3": 3995,
               "puissanceOrigineCh": 420,
               "coupleOrigineNm": 420,
-              "consoOrigineL100": 11.6
+              "consoOrigineL100": 11.6,
+              "platform": "718-cayman-gt4"
             }
           ]
         },
@@ -2891,7 +3245,8 @@
               "cylindreeCm3": 3436,
               "puissanceOrigineCh": 325,
               "coupleOrigineNm": 370,
-              "consoOrigineL100": 8.9
+              "consoOrigineL100": 8.9,
+              "platform": "981"
             }
           ]
         },
@@ -2909,7 +3264,8 @@
               "cylindreeCm3": 3387,
               "puissanceOrigineCh": 295,
               "coupleOrigineNm": 340,
-              "consoOrigineL100": 10.6
+              "consoOrigineL100": 10.6,
+              "platform": "987"
             }
           ]
         },
@@ -2927,7 +3283,8 @@
               "cylindreeCm3": 2981,
               "puissanceOrigineCh": 450,
               "coupleOrigineNm": 530,
-              "consoOrigineL100": 10
+              "consoOrigineL100": 10,
+              "platform": "992"
             },
             {
               "id": "911-gt3",
@@ -2939,7 +3296,8 @@
               "cylindreeCm3": 3996,
               "puissanceOrigineCh": 510,
               "coupleOrigineNm": 470,
-              "consoOrigineL100": 13.3
+              "consoOrigineL100": 13.3,
+              "platform": "992"
             }
           ]
         },
@@ -2957,7 +3315,8 @@
               "cylindreeCm3": 3600,
               "puissanceOrigineCh": 480,
               "coupleOrigineNm": 620,
-              "consoOrigineL100": 12.4
+              "consoOrigineL100": 12.4,
+              "platform": "911-997-turbo"
             }
           ]
         },
@@ -2975,7 +3334,8 @@
               "cylindreeCm3": 2995,
               "puissanceOrigineCh": 354,
               "coupleOrigineNm": 480,
-              "consoOrigineL100": 9
+              "consoOrigineL100": 9,
+              "platform": "macan"
             }
           ]
         },
@@ -2993,7 +3353,8 @@
               "cylindreeCm3": 4806,
               "puissanceOrigineCh": 500,
               "coupleOrigineNm": 700,
-              "consoOrigineL100": 11.5
+              "consoOrigineL100": 11.5,
+              "platform": "panamera-970-turbo"
             }
           ]
         }
@@ -3017,7 +3378,8 @@
               "cylindreeCm3": 3799,
               "puissanceOrigineCh": 570,
               "coupleOrigineNm": 637,
-              "consoOrigineL100": 11.7
+              "consoOrigineL100": 11.7,
+              "platform": "R35"
             }
           ]
         },
@@ -3029,6 +3391,7 @@
               "id": "r34-gtr-rb26dett",
               "label": "2.6 RB26DETT Biturbo 280",
               "codeMoteur": "RB26DETT",
+              "platform": "R34",
               "anneeDebut": 1999,
               "anneeFin": 2002,
               "carburant": "essence",
@@ -3040,6 +3403,44 @@
           ]
         },
         {
+          "id": "skyline-r32-gtr",
+          "name": "Skyline GT-R (R32)",
+          "motorisations": [
+            {
+              "id": "r32-gtr-rb26dett",
+              "label": "2.6 RB26DETT Biturbo 280",
+              "codeMoteur": "RB26DETT",
+              "platform": "R32",
+              "anneeDebut": 1989,
+              "anneeFin": 1994,
+              "carburant": "essence",
+              "cylindreeCm3": 2568,
+              "puissanceOrigineCh": 280,
+              "coupleOrigineNm": 353,
+              "consoOrigineL100": 12
+            }
+          ]
+        },
+        {
+          "id": "skyline-r33-gtr",
+          "name": "Skyline GT-R (R33)",
+          "motorisations": [
+            {
+              "id": "r33-gtr-rb26dett",
+              "label": "2.6 RB26DETT Biturbo 280",
+              "codeMoteur": "RB26DETT",
+              "platform": "R33",
+              "anneeDebut": 1995,
+              "anneeFin": 1998,
+              "carburant": "essence",
+              "cylindreeCm3": 2568,
+              "puissanceOrigineCh": 280,
+              "coupleOrigineNm": 368,
+              "consoOrigineL100": 12.2
+            }
+          ]
+        },
+        {
           "id": "silvia-s15",
           "name": "Silvia (S15)",
           "motorisations": [
@@ -3047,6 +3448,7 @@
               "id": "s15-sr20det",
               "label": "2.0 Turbo SR20DET 250",
               "codeMoteur": "SR20DET",
+              "platform": "S15",
               "anneeDebut": 1999,
               "anneeFin": 2002,
               "carburant": "essence",
@@ -3054,6 +3456,44 @@
               "puissanceOrigineCh": 250,
               "coupleOrigineNm": 275,
               "consoOrigineL100": 9.8
+            }
+          ]
+        },
+        {
+          "id": "silvia-s13",
+          "name": "Silvia (S13)",
+          "motorisations": [
+            {
+              "id": "s13-sr20det",
+              "label": "2.0 Turbo SR20DET 205",
+              "codeMoteur": "SR20DET",
+              "platform": "S13",
+              "anneeDebut": 1988,
+              "anneeFin": 1994,
+              "carburant": "essence",
+              "cylindreeCm3": 1998,
+              "puissanceOrigineCh": 205,
+              "coupleOrigineNm": 270,
+              "consoOrigineL100": 9.5
+            }
+          ]
+        },
+        {
+          "id": "silvia-s14",
+          "name": "Silvia (S14)",
+          "motorisations": [
+            {
+              "id": "s14-sr20det",
+              "label": "2.0 Turbo SR20DET 220",
+              "codeMoteur": "SR20DET",
+              "platform": "S14",
+              "anneeDebut": 1993,
+              "anneeFin": 1998,
+              "carburant": "essence",
+              "cylindreeCm3": 1998,
+              "puissanceOrigineCh": 220,
+              "coupleOrigineNm": 275,
+              "consoOrigineL100": 9.6
             }
           ]
         },
@@ -3071,7 +3511,8 @@
               "cylindreeCm3": 3696,
               "puissanceOrigineCh": 328,
               "coupleOrigineNm": 366,
-              "consoOrigineL100": 10.3
+              "consoOrigineL100": 10.3,
+              "platform": "Z34"
             }
           ]
         },
@@ -3089,7 +3530,8 @@
               "cylindreeCm3": 1618,
               "puissanceOrigineCh": 218,
               "coupleOrigineNm": 280,
-              "consoOrigineL100": 7.4
+              "consoOrigineL100": 7.4,
+              "platform": "juke-nismo-rs"
             }
           ]
         }
@@ -3113,7 +3555,8 @@
               "cylindreeCm3": 1598,
               "puissanceOrigineCh": 207,
               "coupleOrigineNm": 265,
-              "consoOrigineL100": 7.9
+              "consoOrigineL100": 7.9,
+              "platform": "corsa-e-opc"
             }
           ]
         },
@@ -3131,7 +3574,8 @@
               "cylindreeCm3": 1399,
               "puissanceOrigineCh": 150,
               "coupleOrigineNm": 220,
-              "consoOrigineL100": 6.4
+              "consoOrigineL100": 6.4,
+              "platform": "corsa-f-gsi"
             }
           ]
         },
@@ -3149,7 +3593,8 @@
               "cylindreeCm3": 1998,
               "puissanceOrigineCh": 280,
               "coupleOrigineNm": 400,
-              "consoOrigineL100": 8.9
+              "consoOrigineL100": 8.9,
+              "platform": "astra-j-opc"
             }
           ]
         },
@@ -3167,7 +3612,8 @@
               "cylindreeCm3": 1998,
               "puissanceOrigineCh": 240,
               "coupleOrigineNm": 320,
-              "consoOrigineL100": 9.5
+              "consoOrigineL100": 9.5,
+              "platform": "astra-h-gsi"
             }
           ]
         },
@@ -3185,7 +3631,8 @@
               "cylindreeCm3": 2792,
               "puissanceOrigineCh": 325,
               "coupleOrigineNm": 435,
-              "consoOrigineL100": 10.9
+              "consoOrigineL100": 10.9,
+              "platform": "insignia-a-opc"
             }
           ]
         },
@@ -3203,7 +3650,8 @@
               "cylindreeCm3": 1398,
               "puissanceOrigineCh": 150,
               "coupleOrigineNm": 220,
-              "consoOrigineL100": 6.3
+              "consoOrigineL100": 6.3,
+              "platform": "adam-s"
             }
           ]
         },
@@ -3221,7 +3669,8 @@
               "cylindreeCm3": 1998,
               "puissanceOrigineCh": 115,
               "coupleOrigineNm": 165,
-              "consoOrigineL100": 9.5
+              "consoOrigineL100": 9.5,
+              "platform": "manta-b-gsi"
             }
           ]
         }
@@ -3245,7 +3694,8 @@
               "cylindreeCm3": 1998,
               "puissanceOrigineCh": 184,
               "coupleOrigineNm": 205,
-              "consoOrigineL100": 6.8
+              "consoOrigineL100": 6.8,
+              "platform": "ND"
             },
             {
               "id": "mx5-nd-1.5-skyactiv",
@@ -3257,7 +3707,8 @@
               "cylindreeCm3": 1496,
               "puissanceOrigineCh": 132,
               "coupleOrigineNm": 152,
-              "consoOrigineL100": 6
+              "consoOrigineL100": 6,
+              "platform": "ND"
             }
           ]
         },
@@ -3275,7 +3726,8 @@
               "cylindreeCm3": 1999,
               "puissanceOrigineCh": 160,
               "coupleOrigineNm": 188,
-              "consoOrigineL100": 7.9
+              "consoOrigineL100": 7.9,
+              "platform": "NC"
             }
           ]
         },
@@ -3293,7 +3745,8 @@
               "cylindreeCm3": 1839,
               "puissanceOrigineCh": 146,
               "coupleOrigineNm": 165,
-              "consoOrigineL100": 8.1
+              "consoOrigineL100": 8.1,
+              "platform": "NB"
             }
           ]
         },
@@ -3311,7 +3764,27 @@
               "cylindreeCm3": 2261,
               "puissanceOrigineCh": 260,
               "coupleOrigineNm": 380,
-              "consoOrigineL100": 9.7
+              "consoOrigineL100": 9.7,
+              "platform": "BL"
+            }
+          ]
+        },
+        {
+          "id": "rx-7-fd3s",
+          "name": "RX-7 (FD3S)",
+          "motorisations": [
+            {
+              "id": "rx7-fd3s-13b-rew",
+              "label": "1.3 Twin Turbo 13B-REW 255",
+              "codeMoteur": "13B-REW",
+              "platform": "FD3S",
+              "anneeDebut": 1991,
+              "anneeFin": 2002,
+              "carburant": "essence",
+              "cylindreeCm3": 1308,
+              "puissanceOrigineCh": 255,
+              "coupleOrigineNm": 294,
+              "consoOrigineL100": 12
             }
           ]
         },
@@ -3329,7 +3802,8 @@
               "cylindreeCm3": 2191,
               "puissanceOrigineCh": 184,
               "coupleOrigineNm": 445,
-              "consoOrigineL100": 5.7
+              "consoOrigineL100": 5.7,
+              "platform": "cx-5-ii"
             }
           ]
         }
@@ -3353,7 +3827,8 @@
               "cylindreeCm3": 1373,
               "puissanceOrigineCh": 140,
               "coupleOrigineNm": 230,
-              "consoOrigineL100": 5.3
+              "consoOrigineL100": 5.3,
+              "platform": "ZC33S"
             }
           ]
         },
@@ -3371,7 +3846,8 @@
               "cylindreeCm3": 1586,
               "puissanceOrigineCh": 136,
               "coupleOrigineNm": 160,
-              "consoOrigineL100": 6.6
+              "consoOrigineL100": 6.6,
+              "platform": "ZC32S"
             }
           ]
         },
@@ -3389,7 +3865,8 @@
               "cylindreeCm3": 1586,
               "puissanceOrigineCh": 125,
               "coupleOrigineNm": 148,
-              "consoOrigineL100": 7.1
+              "consoOrigineL100": 7.1,
+              "platform": "ZC31S"
             }
           ]
         },
@@ -3407,7 +3884,8 @@
               "cylindreeCm3": 1373,
               "puissanceOrigineCh": 140,
               "coupleOrigineNm": 220,
-              "consoOrigineL100": 5.9
+              "consoOrigineL100": 5.9,
+              "platform": "vitara-iv"
             }
           ]
         }
@@ -3431,7 +3909,8 @@
               "cylindreeCm3": 4969,
               "puissanceOrigineCh": 477,
               "coupleOrigineNm": 530,
-              "consoOrigineL100": 11.4
+              "consoOrigineL100": 11.4,
+              "platform": "USC10"
             }
           ]
         },
@@ -3449,7 +3928,8 @@
               "cylindreeCm3": 4969,
               "puissanceOrigineCh": 423,
               "coupleOrigineNm": 505,
-              "consoOrigineL100": 11.7
+              "consoOrigineL100": 11.7,
+              "platform": "USE20"
             }
           ]
         },
@@ -3467,7 +3947,8 @@
               "cylindreeCm3": 4969,
               "puissanceOrigineCh": 477,
               "coupleOrigineNm": 530,
-              "consoOrigineL100": 11.5
+              "consoOrigineL100": 11.5,
+              "platform": "gs-f"
             }
           ]
         }
@@ -3491,7 +3972,8 @@
               "cylindreeCm3": 1598,
               "puissanceOrigineCh": 207,
               "coupleOrigineNm": 275,
-              "consoOrigineL100": 7.4
+              "consoOrigineL100": 7.4,
+              "platform": "ds3-racing"
             }
           ]
         },
@@ -3509,7 +3991,8 @@
               "cylindreeCm3": 1587,
               "puissanceOrigineCh": 125,
               "coupleOrigineNm": 152,
-              "consoOrigineL100": 7.3
+              "consoOrigineL100": 7.3,
+              "platform": "c2-vts"
             }
           ]
         },
@@ -3527,7 +4010,8 @@
               "cylindreeCm3": 1587,
               "puissanceOrigineCh": 118,
               "coupleOrigineNm": 145,
-              "consoOrigineL100": 7.6
+              "consoOrigineL100": 7.6,
+              "platform": "saxo-vts"
             }
           ]
         },
@@ -3545,7 +4029,8 @@
               "cylindreeCm3": 1360,
               "puissanceOrigineCh": 85,
               "coupleOrigineNm": 115,
-              "consoOrigineL100": 6.4
+              "consoOrigineL100": 6.4,
+              "platform": "ax-gt"
             }
           ]
         },
@@ -3563,7 +4048,8 @@
               "cylindreeCm3": 1560,
               "puissanceOrigineCh": 120,
               "coupleOrigineNm": 300,
-              "consoOrigineL100": 4.1
+              "consoOrigineL100": 4.1,
+              "platform": "c4-picasso-ii"
             }
           ]
         },
@@ -3581,7 +4067,8 @@
               "cylindreeCm3": 1998,
               "puissanceOrigineCh": 167,
               "coupleOrigineNm": 190,
-              "consoOrigineL100": 9.4
+              "consoOrigineL100": 9.4,
+              "platform": "xsara-vts"
             }
           ]
         }
@@ -3605,7 +4092,8 @@
               "cylindreeCm3": 1984,
               "puissanceOrigineCh": 230,
               "coupleOrigineNm": 350,
-              "consoOrigineL100": 6.6
+              "consoOrigineL100": 6.6,
+              "platform": "octavia-iii-rs"
             },
             {
               "id": "octavia-3-rs-2.0-tdi",
@@ -3617,7 +4105,8 @@
               "cylindreeCm3": 1968,
               "puissanceOrigineCh": 184,
               "coupleOrigineNm": 380,
-              "consoOrigineL100": 4.5
+              "consoOrigineL100": 4.5,
+              "platform": "octavia-iii-rs"
             }
           ]
         },
@@ -3635,7 +4124,8 @@
               "cylindreeCm3": 1984,
               "puissanceOrigineCh": 245,
               "coupleOrigineNm": 370,
-              "consoOrigineL100": 7
+              "consoOrigineL100": 7,
+              "platform": "octavia-iv-rs"
             }
           ]
         },
@@ -3653,7 +4143,8 @@
               "cylindreeCm3": 1390,
               "puissanceOrigineCh": 180,
               "coupleOrigineNm": 250,
-              "consoOrigineL100": 6
+              "consoOrigineL100": 6,
+              "platform": "fabia-ii-rs"
             }
           ]
         },
@@ -3671,7 +4162,8 @@
               "cylindreeCm3": 1968,
               "puissanceOrigineCh": 240,
               "coupleOrigineNm": 500,
-              "consoOrigineL100": 6.8
+              "consoOrigineL100": 6.8,
+              "platform": "kodiaq-rs"
             }
           ]
         },
@@ -3689,7 +4181,8 @@
               "cylindreeCm3": 1968,
               "puissanceOrigineCh": 190,
               "coupleOrigineNm": 400,
-              "consoOrigineL100": 4.9
+              "consoOrigineL100": 4.9,
+              "platform": "superb-iii"
             }
           ]
         }
@@ -3713,7 +4206,8 @@
               "cylindreeCm3": 2891,
               "puissanceOrigineCh": 510,
               "coupleOrigineNm": 600,
-              "consoOrigineL100": 9.4
+              "consoOrigineL100": 9.4,
+              "platform": "giulia-quadrifoglio"
             }
           ]
         },
@@ -3731,7 +4225,8 @@
               "cylindreeCm3": 3179,
               "puissanceOrigineCh": 250,
               "coupleOrigineNm": 300,
-              "consoOrigineL100": 12.5
+              "consoOrigineL100": 12.5,
+              "platform": "156-gta"
             }
           ]
         },
@@ -3749,7 +4244,8 @@
               "cylindreeCm3": 1742,
               "puissanceOrigineCh": 240,
               "coupleOrigineNm": 340,
-              "consoOrigineL100": 7.8
+              "consoOrigineL100": 7.8,
+              "platform": "giulietta-qv"
             }
           ]
         },
@@ -3767,7 +4263,8 @@
               "cylindreeCm3": 1742,
               "puissanceOrigineCh": 240,
               "coupleOrigineNm": 350,
-              "consoOrigineL100": 6.8
+              "consoOrigineL100": 6.8,
+              "platform": "4c"
             }
           ]
         },
@@ -3785,7 +4282,8 @@
               "cylindreeCm3": 2891,
               "puissanceOrigineCh": 510,
               "coupleOrigineNm": 600,
-              "consoOrigineL100": 10.7
+              "consoOrigineL100": 10.7,
+              "platform": "stelvio-quadrifoglio"
             }
           ]
         },
@@ -3803,7 +4301,8 @@
               "cylindreeCm3": 1742,
               "puissanceOrigineCh": 240,
               "coupleOrigineNm": 340,
-              "consoOrigineL100": 7.9
+              "consoOrigineL100": 7.9,
+              "platform": "giulietta-veloce"
             }
           ]
         }
@@ -3827,7 +4326,8 @@
               "cylindreeCm3": 1368,
               "puissanceOrigineCh": 145,
               "coupleOrigineNm": 206,
-              "consoOrigineL100": 6.5
+              "consoOrigineL100": 6.5,
+              "platform": "500-abarth"
             },
             {
               "id": "500-abarth-695",
@@ -3839,7 +4339,8 @@
               "cylindreeCm3": 1368,
               "puissanceOrigineCh": 180,
               "coupleOrigineNm": 250,
-              "consoOrigineL100": 6.7
+              "consoOrigineL100": 6.7,
+              "platform": "500-abarth"
             }
           ]
         },
@@ -3857,7 +4358,8 @@
               "cylindreeCm3": 1368,
               "puissanceOrigineCh": 155,
               "coupleOrigineNm": 230,
-              "consoOrigineL100": 6.9
+              "consoOrigineL100": 6.9,
+              "platform": "grande-punto-abarth"
             }
           ]
         },
@@ -3875,7 +4377,8 @@
               "cylindreeCm3": 1368,
               "puissanceOrigineCh": 100,
               "coupleOrigineNm": 131,
-              "consoOrigineL100": 6.8
+              "consoOrigineL100": 6.8,
+              "platform": "panda-100hp"
             }
           ]
         }
@@ -3899,7 +4402,8 @@
               "cylindreeCm3": 1591,
               "puissanceOrigineCh": 204,
               "coupleOrigineNm": 275,
-              "consoOrigineL100": 6.7
+              "consoOrigineL100": 6.7,
+              "platform": "i20-n"
             }
           ]
         },
@@ -3917,7 +4421,8 @@
               "cylindreeCm3": 1998,
               "puissanceOrigineCh": 250,
               "coupleOrigineNm": 353,
-              "consoOrigineL100": 7.5
+              "consoOrigineL100": 7.5,
+              "platform": "i30-n"
             },
             {
               "id": "i30n-performance",
@@ -3929,7 +4434,8 @@
               "cylindreeCm3": 1998,
               "puissanceOrigineCh": 275,
               "coupleOrigineNm": 378,
-              "consoOrigineL100": 7.7
+              "consoOrigineL100": 7.7,
+              "platform": "i30-n"
             }
           ]
         },
@@ -3947,7 +4453,8 @@
               "cylindreeCm3": 1998,
               "puissanceOrigineCh": 280,
               "coupleOrigineNm": 392,
-              "consoOrigineL100": 8.5
+              "consoOrigineL100": 8.5,
+              "platform": "kona-n"
             }
           ]
         },
@@ -3965,7 +4472,8 @@
               "cylindreeCm3": 1598,
               "puissanceOrigineCh": 136,
               "coupleOrigineNm": 320,
-              "consoOrigineL100": 5.3
+              "consoOrigineL100": 5.3,
+              "platform": "tucson-iii"
             }
           ]
         },
@@ -3983,7 +4491,8 @@
               "cylindreeCm3": 1998,
               "puissanceOrigineCh": 275,
               "coupleOrigineNm": 378,
-              "consoOrigineL100": 8
+              "consoOrigineL100": 8,
+              "platform": "veloster-n"
             }
           ]
         }
@@ -4007,7 +4516,8 @@
               "cylindreeCm3": 3342,
               "puissanceOrigineCh": 370,
               "coupleOrigineNm": 510,
-              "consoOrigineL100": 10.2
+              "consoOrigineL100": 10.2,
+              "platform": "stinger-gt"
             }
           ]
         },
@@ -4025,7 +4535,8 @@
               "cylindreeCm3": 1591,
               "puissanceOrigineCh": 204,
               "coupleOrigineNm": 265,
-              "consoOrigineL100": 7.1
+              "consoOrigineL100": 7.1,
+              "platform": "ceed-gt"
             }
           ]
         },
@@ -4043,7 +4554,8 @@
               "cylindreeCm3": 1591,
               "puissanceOrigineCh": 204,
               "coupleOrigineNm": 265,
-              "consoOrigineL100": 7.2
+              "consoOrigineL100": 7.2,
+              "platform": "proceed-gt"
             }
           ]
         },
@@ -4061,7 +4573,8 @@
               "cylindreeCm3": 998,
               "puissanceOrigineCh": 100,
               "coupleOrigineNm": 172,
-              "consoOrigineL100": 5.4
+              "consoOrigineL100": 5.4,
+              "platform": "rio-iv"
             }
           ]
         }
@@ -4085,7 +4598,8 @@
               "cylindreeCm3": 1969,
               "puissanceOrigineCh": 367,
               "coupleOrigineNm": 470,
-              "consoOrigineL100": 8.1
+              "consoOrigineL100": 8.1,
+              "platform": "v60-polestar"
             }
           ]
         },
@@ -4103,7 +4617,8 @@
               "cylindreeCm3": 1969,
               "puissanceOrigineCh": 367,
               "coupleOrigineNm": 470,
-              "consoOrigineL100": 8
+              "consoOrigineL100": 8,
+              "platform": "s60-polestar"
             }
           ]
         },
@@ -4121,7 +4636,8 @@
               "cylindreeCm3": 1969,
               "puissanceOrigineCh": 390,
               "coupleOrigineNm": 640,
-              "consoOrigineL100": 2.1
+              "consoOrigineL100": 2.1,
+              "platform": "xc60-t8"
             }
           ]
         },
@@ -4139,7 +4655,46 @@
               "cylindreeCm3": 2127,
               "puissanceOrigineCh": 155,
               "coupleOrigineNm": 240,
-              "consoOrigineL100": 10.5
+              "consoOrigineL100": 10.5,
+              "platform": "240-turbo"
+            }
+          ]
+        },
+        {
+          "id": "740-turbo",
+          "name": "740 Turbo",
+          "motorisations": [
+            {
+              "id": "740-turbo-2.3",
+              "label": "2.3 Turbo B230FT 180",
+              "codeMoteur": "B230FT",
+              "platform": "740",
+              "anneeDebut": 1984,
+              "anneeFin": 1992,
+              "carburant": "essence",
+              "cylindreeCm3": 2316,
+              "puissanceOrigineCh": 180,
+              "coupleOrigineNm": 280,
+              "consoOrigineL100": 11
+            }
+          ]
+        },
+        {
+          "id": "940-turbo",
+          "name": "940 Turbo",
+          "motorisations": [
+            {
+              "id": "940-turbo-2.3",
+              "label": "2.3 Turbo B230FT 180",
+              "codeMoteur": "B230FT",
+              "platform": "940",
+              "anneeDebut": 1990,
+              "anneeFin": 1998,
+              "carburant": "essence",
+              "cylindreeCm3": 2316,
+              "puissanceOrigineCh": 180,
+              "coupleOrigineNm": 280,
+              "consoOrigineL100": 11
             }
           ]
         }
@@ -4163,7 +4718,8 @@
               "cylindreeCm3": 1998,
               "puissanceOrigineCh": 192,
               "coupleOrigineNm": 280,
-              "consoOrigineL100": 6.1
+              "consoOrigineL100": 6.1,
+              "platform": "F56"
             }
           ]
         },
@@ -4181,7 +4737,8 @@
               "cylindreeCm3": 1998,
               "puissanceOrigineCh": 231,
               "coupleOrigineNm": 320,
-              "consoOrigineL100": 6.5
+              "consoOrigineL100": 6.5,
+              "platform": "F56"
             }
           ]
         },
@@ -4199,7 +4756,8 @@
               "cylindreeCm3": 1598,
               "puissanceOrigineCh": 175,
               "coupleOrigineNm": 240,
-              "consoOrigineL100": 6.4
+              "consoOrigineL100": 6.4,
+              "platform": "R56"
             }
           ]
         },
@@ -4217,7 +4775,8 @@
               "cylindreeCm3": 1598,
               "puissanceOrigineCh": 210,
               "coupleOrigineNm": 245,
-              "consoOrigineL100": 8.1
+              "consoOrigineL100": 8.1,
+              "platform": "R53"
             }
           ]
         },
@@ -4235,7 +4794,8 @@
               "cylindreeCm3": 1998,
               "puissanceOrigineCh": 306,
               "coupleOrigineNm": 450,
-              "consoOrigineL100": 8
+              "consoOrigineL100": 8,
+              "platform": "F60"
             }
           ]
         }
@@ -4259,7 +4819,8 @@
               "cylindreeCm3": 5000,
               "puissanceOrigineCh": 575,
               "coupleOrigineNm": 700,
-              "consoOrigineL100": 11.9
+              "consoOrigineL100": 11.9,
+              "platform": "f-type-r"
             }
           ]
         },
@@ -4277,7 +4838,8 @@
               "cylindreeCm3": 5000,
               "puissanceOrigineCh": 600,
               "coupleOrigineNm": 700,
-              "consoOrigineL100": 12.1
+              "consoOrigineL100": 12.1,
+              "platform": "xe-sv-project-8"
             }
           ]
         },
@@ -4295,7 +4857,8 @@
               "cylindreeCm3": 5000,
               "puissanceOrigineCh": 510,
               "coupleOrigineNm": 625,
-              "consoOrigineL100": 12.6
+              "consoOrigineL100": 12.6,
+              "platform": "X150"
             }
           ]
         }
@@ -4319,7 +4882,8 @@
               "cylindreeCm3": 2996,
               "puissanceOrigineCh": 400,
               "coupleOrigineNm": 550,
-              "consoOrigineL100": 10.6
+              "consoOrigineL100": 10.6,
+              "platform": "defender-p400"
             }
           ]
         },
@@ -4337,7 +4901,8 @@
               "cylindreeCm3": 5000,
               "puissanceOrigineCh": 575,
               "coupleOrigineNm": 700,
-              "consoOrigineL100": 13.5
+              "consoOrigineL100": 13.5,
+              "platform": "range-rover-sport-svr"
             }
           ]
         },
@@ -4355,7 +4920,8 @@
               "cylindreeCm3": 1999,
               "puissanceOrigineCh": 180,
               "coupleOrigineNm": 430,
-              "consoOrigineL100": 5.9
+              "consoOrigineL100": 5.9,
+              "platform": "range-rover-evoque-ii"
             }
           ]
         }
@@ -4379,7 +4945,8 @@
               "cylindreeCm3": 999,
               "puissanceOrigineCh": 90,
               "coupleOrigineNm": 160,
-              "consoOrigineL100": 5.3
+              "consoOrigineL100": 5.3,
+              "platform": "sandero-iii"
             }
           ]
         },
@@ -4397,7 +4964,8 @@
               "cylindreeCm3": 1332,
               "puissanceOrigineCh": 130,
               "coupleOrigineNm": 240,
-              "consoOrigineL100": 6.2
+              "consoOrigineL100": 6.2,
+              "platform": "duster-ii"
             }
           ]
         },
@@ -4415,7 +4983,8 @@
               "cylindreeCm3": 1461,
               "puissanceOrigineCh": 90,
               "coupleOrigineNm": 220,
-              "consoOrigineL100": 3.6
+              "consoOrigineL100": 3.6,
+              "platform": "logan-ii"
             }
           ]
         }

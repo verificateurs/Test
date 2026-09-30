@@ -1,28 +1,55 @@
 import type { CategoryTemplate } from "./types";
 
+// ─── Plausibilité marque × produit ─────────────────────────────────────────
+// Les 13 marques de cette catégorie (data/brands.json) sont des spécialistes
+// réels qui ne fabriquent chacun qu'un sous-ensemble des types de pièces du
+// catalogue préparation moteur (ex: NGK fait des bougies/bobines, pas des
+// kits d'admission carbone ; Walbro fait des pompes à carburant, pas des
+// turbos). Sans contrainte, le générateur associait n'importe quel produit à
+// n'importe quelle marque de la catégorie (cf. bug QA : bobines d'allumage
+// vendues sous BMC/COBB/DeatschWerks/Eventuri). eligibleBrandIds restreint
+// donc, pour CHAQUE BaseNameEntry de cette catégorie, la liste des ids de
+// marques plausibles d'après leur activité réelle (voir data/brands.json
+// pour la description de chaque marque). Toutes les autres catégories ont
+// des marques suffisamment homogènes (ex: toutes des marques de chimie
+// carrosserie) pour ne pas avoir besoin de cette contrainte.
+const KN = "k-n";
+const BMC = "bmc-filter";
+const FORGE = "forge-motorsport";
+const MISHIMOTO = "mishimoto";
+const WAGNER = "wagner-tuning";
+const APR = "apr";
+const HKS = "hks";
+const WALBRO = "walbro";
+const DEATSCHWERKS = "deatschwerks";
+const NGK = "ngk";
+const EVENTURI = "eventuri";
+const COBB = "cobb-tuning";
+const GARRETT = "garrett";
+
 export const template: CategoryTemplate = {
   baseNames: [
-    { name: "Filtre à air sport lavable", group: "part", motorProfile: "any-performance" },
-    { name: "Kit admission directe carbone", group: "part", motorProfile: "turbo-petrol" },
-    { name: "Dump valve de décharge turbo", group: "part", motorProfile: "turbo-petrol" },
-    { name: "Intercooler frontal performance", group: "part", motorProfile: "turbo-petrol" },
-    { name: "Kit pipes aluminium renforcées", group: "part", motorProfile: "turbo-petrol" },
-    { name: "Radiateur aluminium haute capacité", group: "part", motorProfile: "any-performance" },
-    { name: "Refroidisseur d'huile", group: "part", forceUniversel: true },
-    { name: "Turbine turbo compétition", group: "part", motorProfile: "turbo-petrol" },
-    { name: "Pompe à carburant haute pression", group: "part", forceUniversel: true },
-    { name: "Short shifter court", group: "part", motorProfile: "any-performance" },
-    { name: "Silencieux d'admission compétition", group: "part", motorProfile: "turbo-petrol" },
-    { name: "Kit durites silicone renforcées", group: "part", motorProfile: "any-performance" },
-    { name: "Conduite d'huile turbo renforcée", group: "part", motorProfile: "turbo-petrol" },
-    { name: "Plaque de sous-caisse allégée", group: "part", motorProfile: "any-performance" },
-    { name: "Filtre conique universel", group: "filter", forceUniversel: true, noFinish: true },
-    { name: "Jeu d'injecteurs gros débit", group: "set4", motorProfile: "any-performance" },
-    { name: "Bougies d'allumage iridium", group: "set4", motorProfile: "any-performance" },
-    { name: "Bobines d'allumage renforcées", group: "set4", motorProfile: "any-performance" },
-    { name: "Reprogrammation ECU Stage 1", group: "ecu", motorProfile: "any-performance", noFinish: true },
-    { name: "Reprogrammation ECU Stage 2", group: "ecu", motorProfile: "turbo-petrol", noFinish: true },
-    { name: "Boîtier additionnel piggyback", group: "ecu", motorProfile: "turbo-petrol", noFinish: true },
+    { name: "Filtre à air sport lavable", group: "part", motorProfile: "any-performance", eligibleBrandIds: [KN, BMC] },
+    { name: "Kit admission directe carbone", group: "part", motorProfile: "turbo-petrol", eligibleBrandIds: [KN, BMC, EVENTURI, APR, HKS] },
+    { name: "Dump valve de décharge turbo", group: "part", motorProfile: "turbo-petrol", eligibleBrandIds: [FORGE, HKS] },
+    { name: "Intercooler frontal performance", group: "part", motorProfile: "turbo-petrol", eligibleBrandIds: [FORGE, MISHIMOTO, WAGNER, APR, HKS] },
+    { name: "Kit pipes aluminium renforcées", group: "part", motorProfile: "turbo-petrol", eligibleBrandIds: [FORGE, WAGNER, MISHIMOTO] },
+    { name: "Radiateur aluminium haute capacité", group: "part", motorProfile: "any-performance", eligibleBrandIds: [MISHIMOTO, FORGE] },
+    { name: "Refroidisseur d'huile", group: "part", forceUniversel: true, eligibleBrandIds: [MISHIMOTO, FORGE] },
+    { name: "Turbine turbo compétition", group: "part", motorProfile: "turbo-petrol", eligibleBrandIds: [GARRETT, HKS] },
+    { name: "Pompe à carburant haute pression", group: "part", forceUniversel: true, eligibleBrandIds: [WALBRO, DEATSCHWERKS] },
+    { name: "Short shifter court", group: "part", motorProfile: "any-performance", eligibleBrandIds: [HKS] },
+    { name: "Silencieux d'admission compétition", group: "part", motorProfile: "turbo-petrol", eligibleBrandIds: [KN, BMC, HKS] },
+    { name: "Kit durites silicone renforcées", group: "part", motorProfile: "any-performance", eligibleBrandIds: [FORGE, MISHIMOTO, WAGNER] },
+    { name: "Conduite d'huile turbo renforcée", group: "part", motorProfile: "turbo-petrol", eligibleBrandIds: [FORGE, HKS] },
+    { name: "Plaque de sous-caisse allégée", group: "part", motorProfile: "any-performance", eligibleBrandIds: [MISHIMOTO, FORGE] },
+    { name: "Filtre conique universel", group: "filter", forceUniversel: true, noFinish: true, eligibleBrandIds: [KN, BMC] },
+    { name: "Jeu d'injecteurs gros débit", group: "set4", motorProfile: "any-performance", eligibleBrandIds: [DEATSCHWERKS, WALBRO] },
+    { name: "Bougies d'allumage iridium", group: "set4", motorProfile: "any-performance", eligibleBrandIds: [NGK] },
+    { name: "Bobines d'allumage renforcées", group: "set4", motorProfile: "any-performance", eligibleBrandIds: [NGK] },
+    { name: "Reprogrammation ECU Stage 1", group: "ecu", motorProfile: "any-performance", noFinish: true, eligibleBrandIds: [APR, COBB, HKS] },
+    { name: "Reprogrammation ECU Stage 2", group: "ecu", motorProfile: "turbo-petrol", noFinish: true, eligibleBrandIds: [APR, COBB] },
+    { name: "Boîtier additionnel piggyback", group: "ecu", motorProfile: "turbo-petrol", noFinish: true, eligibleBrandIds: [COBB, HKS] },
   ],
   formatVariants: [
     { label: "Pièce unique", sizeMultiplier: 1.0, group: "part" },

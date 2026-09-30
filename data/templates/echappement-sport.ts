@@ -17,8 +17,11 @@ export const template: CategoryTemplate = {
     { name: "Downpipe catless compétition", group: "single", motorProfile: "turbo-petrol" },
     { name: "Downpipe hi-flow catalysé", group: "single", motorProfile: "turbo-petrol" },
     { name: "Downpipe inox 200 cellules", group: "single", motorProfile: "turbo-petrol" },
-    { name: "Collecteur d'échappement performance", group: "single", motorProfile: "turbo-petrol" },
-    { name: "Header collecteur tubulaire compétition", group: "single", motorProfile: "turbo-petrol" },
+    // Les collecteurs/headers 4-2-1 sont un mod classique des moteurs
+    // atmosphériques (ex: Honda B16A) autant que turbo — contrairement au
+    // downpipe, qui ne remplace un élément qu'en aval d'un turbo.
+    { name: "Collecteur d'échappement performance", group: "single", motorProfile: "any-performance" },
+    { name: "Header collecteur tubulaire compétition", group: "single", motorProfile: "any-performance" },
     { name: "Adaptateur de sonde lambda haute température", group: "single", forceUniversel: true },
     { name: "Embouts d'échappement inox", group: "pair", forceUniversel: true },
     { name: "Embouts d'échappement carbone", group: "pair", forceUniversel: true },
