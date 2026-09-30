@@ -8,7 +8,7 @@ import type { ImmatriculationResponse } from "@/app/api/immatriculation/[plaque]
 import { isValidPlateFormat } from "@/lib/plate-lookup";
 
 type GarageMode = "manuel" | "plaque";
-type PlateStatus = "idle" | "not-found" | "found";
+type PlateStatus = "idle" | "not-found" | "rate-limited" | "found";
 
 // GarageStore.get() parses the cookie into a new object on every call, so
 // useSyncExternalStore needs a cached snapshot to avoid re-rendering (and
@@ -43,6 +43,7 @@ export function GarageSelector() {
   const [plateMatch, setPlateMatch] = useState<GarageVehicle | null>(null);
   const [plateVehicleDetails, setPlateVehicleDetails] = useState<ImmatriculationResponse["vehicle"] | null>(null);
   const [plateSearching, setPlateSearching] = useState(false);
+  const [plateConfirmed, setPlateConfirmed] = useState(false);
 
   const dialogRef = useRef<HTMLDialogElement>(null);
 
@@ -85,6 +86,22 @@ export function GarageSelector() {
     setPlateStatus("idle");
     setPlateMatch(null);
     setPlateVehicleDetails(null);
+    setPlateConfirmed(false);
+  }
+
+  /** L'utilisateur indique que la résolution par plaque est incorrecte : on
+   * repart sur une sélection manuelle vierge plutôt que de garder des champs
+   * pré-remplis avec un véhicule potentiellement erroné. */
+  function handleRejectPlateMatch() {
+    setPlateInput("");
+    setPlateStatus("idle");
+    setPlateMatch(null);
+    setPlateVehicleDetails(null);
+    setPlateConfirmed(false);
+    setSelMarque("");
+    setSelModele("");
+    setSelCode("");
+    setMode("manuel");
   }
 
   // Close on backdrop click
@@ -141,12 +158,17 @@ export function GarageSelector() {
     setPlateSearching(true);
     setPlateMatch(null);
     setPlateVehicleDetails(null);
+    setPlateConfirmed(false);
     try {
       const res = await fetch(`/api/immatriculation/${encodeURIComponent(searchedPlate)}`);
       // L'utilisateur a pu modifier le champ pendant l'attente de la réponse : on ignore
       // une réponse devenue obsolète plutôt que d'afficher un résultat qui ne correspond
       // plus à la plaque affichée.
       if (searchedPlate !== plateInput) return;
+      if (res.status === 429) {
+        setPlateStatus("rate-limited");
+        return;
+      }
       if (!res.ok) {
         setPlateStatus("not-found");
         return;
@@ -160,9 +182,10 @@ export function GarageSelector() {
         platform: data.vehicle.platform,
         motorisation: data.vehicle.motorisation,
       };
-      setSelMarque(found.marque);
-      setSelModele(found.modele);
-      setSelCode(found.codeMoteur);
+      // On ne pré-remplit pas la sélection manuelle (selMarque/selModele/selCode) : si
+      // l'utilisateur bascule sur l'onglet « Par véhicule » sans confirmer, "Enregistrer"
+      // ne doit pas pouvoir sauvegarder ce véhicule arbitraire sans passer par la case de
+      // confirmation dédiée à la plaque.
       setPlateMatch(found);
       setPlateVehicleDetails(data.vehicle);
       setPlateStatus("found");
@@ -233,7 +256,10 @@ export function GarageSelector() {
           {tree && mode === "plaque" && (
             <div className="garage-selects">
               <p className="plate-disclaimer">
-                Démo — plaque fictive, non connectée au fichier SIV officiel.
+                <strong>Démo — aucune recherche réelle.</strong> Cette plaque n&rsquo;est pas
+                interrogée auprès du fichier SIV officiel : le véhicule ci-dessous est choisi de
+                façon arbitraire (mais toujours la même pour une plaque donnée) dans notre
+                catalogue, uniquement pour illustrer la fonctionnalité.
               </p>
 
               <div className="form-field">
@@ -242,18 +268,19 @@ export function GarageSelector() {
                   id="plate-input"
                   type="text"
                   className="plate-input"
-                  placeholder="AA-123-AA"
+                  placeholder="AA-123-AA ou 1234 AB 56"
                   value={plateInput}
                   onChange={(e) => {
                     setPlateInput(e.target.value.toUpperCase());
                     setPlateStatus("idle");
                     setPlateMatch(null);
+                    setPlateConfirmed(false);
                   }}
                   onKeyDown={handlePlateKeyDown}
                   maxLength={10}
                 />
                 {plateInput.length > 0 && !plateFormatValid && (
-                  <span className="plate-hint">Format attendu : AA-123-AA</span>
+                  <span className="plate-hint">Format attendu : AA-123-AA (SIV) ou 1234 AB 56 (FNI)</span>
                 )}
               </div>
 
@@ -268,7 +295,7 @@ export function GarageSelector() {
 
               {plateStatus === "found" && plateMatch && (
                 <div className="plate-result plate-result--found">
-                  <div>{plateMatch.marque} {plateMatch.modele} — {plateMatch.motorisation} détectée</div>
+                  <div>Résolution démo : {plateMatch.marque} {plateMatch.modele} — {plateMatch.motorisation}</div>
                   {plateVehicleDetails && (plateVehicleDetails.puissanceOrigineCh || plateVehicleDetails.coupleOrigineNm) && (
                     <div className="plate-hint" style={{ marginTop: 4 }}>
                       Origine :{" "}
@@ -277,6 +304,17 @@ export function GarageSelector() {
                       {plateVehicleDetails.coupleOrigineNm && `${plateVehicleDetails.coupleOrigineNm} Nm`}
                     </div>
                   )}
+                  <label className="plate-confirm">
+                    <input
+                      type="checkbox"
+                      checked={plateConfirmed}
+                      onChange={(e) => setPlateConfirmed(e.target.checked)}
+                    />
+                    Je confirme que c&rsquo;est bien mon véhicule
+                  </label>
+                  <button type="button" className="plate-reject-link" onClick={handleRejectPlateMatch}>
+                    Ce n&rsquo;est pas mon véhicule ? Utilisez la sélection manuelle
+                  </button>
                 </div>
               )}
 
@@ -286,14 +324,20 @@ export function GarageSelector() {
                 </div>
               )}
 
+              {plateStatus === "rate-limited" && (
+                <div className="plate-result plate-result--empty">
+                  Trop de recherches. Réessayez dans une minute, ou utilisez l&rsquo;onglet « Par véhicule ».
+                </div>
+              )}
+
               <div style={{ display: "flex", gap: "var(--space-md)", marginTop: "var(--space-lg)" }}>
                 <button
                   className="btn btn-primary"
                   onClick={handleSavePlate}
-                  disabled={plateStatus !== "found" || !plateMatch}
+                  disabled={plateStatus !== "found" || !plateMatch || !plateConfirmed}
                   style={{ flex: 1 }}
                 >
-                  Enregistrer
+                  Confirmer et enregistrer
                 </button>
               </div>
             </div>
@@ -446,6 +490,26 @@ export function GarageSelector() {
         }
         .plate-result--empty {
           color: var(--text-muted);
+        }
+        .plate-confirm {
+          display: flex;
+          align-items: center;
+          gap: var(--space-sm);
+          margin-top: var(--space-md);
+          font-size: var(--text-sm);
+          cursor: pointer;
+        }
+        .plate-reject-link {
+          display: block;
+          margin-top: var(--space-sm);
+          background: none;
+          border: none;
+          padding: 0;
+          color: var(--text-muted);
+          font-size: var(--text-sm);
+          text-decoration: underline;
+          cursor: pointer;
+          text-align: left;
         }
       `}</style>
     </>

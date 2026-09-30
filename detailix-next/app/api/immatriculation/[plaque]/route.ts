@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
-import { isValidPlateFormat, plateToVehicleIndex } from "@/lib/plate-lookup";
+import { isValidPlateFormat, plateToVehicleId } from "@/lib/plate-lookup";
 import { getEngineCompatibleProducts } from "@/lib/engine-products";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 export const dynamic = "force-dynamic";
 
@@ -51,29 +52,40 @@ function parseIncludedProductIds(raw: string): string[] {
   }
 }
 
-export async function GET(_request: Request, { params }: { params: Promise<{ plaque: string }> }) {
-  const { plaque } = await params;
+export async function GET(request: Request, { params }: { params: Promise<{ plaque: string }> }) {
   const headers = { "Cache-Control": "private, no-store" };
+
+  // Endpoint public, sans authentification : protégé par IP uniquement, comme
+  // lib/rate-limit.ts le documente (x-forwarded-for n'est fiable que derrière
+  // un proxy de confiance qui le réécrit).
+  const ip = request.headers.get("x-forwarded-for") ?? "unknown";
+  const { allowed } = checkRateLimit(`immatriculation:${ip}`);
+  if (!allowed) {
+    return NextResponse.json(
+      { error: "Trop de recherches. Réessayez dans 1 minute." },
+      { status: 429, headers }
+    );
+  }
+
+  const { plaque } = await params;
 
   if (!isValidPlateFormat(plaque)) {
     return NextResponse.json(
-      { error: "Format de plaque invalide. Format attendu : AA-123-AA." },
+      { error: "Format de plaque invalide. Format attendu : AA-123-AA (SIV) ou 1234 AB 56 (FNI)." },
       { status: 400, headers }
     );
   }
 
   // Catalogue déterministe : la même plaque (normalisée) pointe toujours vers le même
   // véhicule, mais l'association est arbitraire — ce n'est pas une vraie recherche SIV.
-  // `id` (asc) donne un ordre stable indépendant de l'ordre d'insertion en base.
-  const ids = await db.vehicle.findMany({ select: { id: true }, orderBy: { id: "asc" } });
-  const index = plateToVehicleIndex(plaque, ids.length);
-  if (index === null) {
+  const ids = await db.vehicle.findMany({ select: { id: true } });
+  const vehicleId = plateToVehicleId(plaque, ids.map((v) => v.id));
+  if (vehicleId === null) {
     return NextResponse.json(
       { error: "Aucun véhicule dans le catalogue pour résoudre cette plaque." },
       { status: 404, headers }
     );
   }
-  const vehicleId = ids[index].id;
 
   const vehicle = await db.vehicle.findUnique({ where: { id: vehicleId } });
   if (!vehicle) {
