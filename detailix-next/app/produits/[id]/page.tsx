@@ -10,6 +10,7 @@ import { getGarageVehicle } from "@/lib/garage";
 import { getWishlistedProductIds } from "@/lib/wishlist";
 import { ProductCard } from "@/components/ProductCard";
 import { WishlistButton } from "@/components/wishlist/WishlistButton";
+import { SplitPaymentBadge } from "@/components/commande/SplitPaymentBadge";
 import { Breadcrumb, JsonLd, breadcrumbJsonLd } from "@/components/Breadcrumb";
 import { AddToCartButton } from "./AddToCartButton";
 import type { Metadata } from "next";
@@ -138,6 +139,8 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
               <span style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)" }}>TTC</span>
               <WishlistButton productId={product.id} initialSaved={wishlistedIds.has(product.id)} />
             </div>
+
+            <SplitPaymentBadge amountEur={price} />
 
             {/* Stock */}
             <div style={{ marginBottom: "var(--space-md)", display: "flex", gap: "var(--space-sm)", flexWrap: "wrap" }}>

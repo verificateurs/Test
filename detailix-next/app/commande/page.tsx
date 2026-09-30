@@ -3,6 +3,7 @@
 import { useActionState, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { CartStore } from "@/components/cart/CartStore";
+import { SplitPaymentBadge } from "@/components/commande/SplitPaymentBadge";
 import { createOrderAction } from "./actions";
 
 const EMPTY_CART: ReturnType<typeof CartStore.getItems> = [];
@@ -72,6 +73,8 @@ export default function CommandePage() {
             <span>Total TTC</span>
             <span style={{ color: "var(--accent)" }}>{total.toLocaleString("fr-FR", { style: "currency", currency: "EUR" })}</span>
           </div>
+
+          <SplitPaymentBadge amountEur={total} />
 
           <form
             action={dispatch}
