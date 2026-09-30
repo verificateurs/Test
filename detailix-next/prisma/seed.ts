@@ -62,14 +62,16 @@ async function main() {
     }
   }
 
-  // vehicles.json uses { name, models: [{ name, motorisations: [{ label, codeMoteur, ...specs }] }] }
+  // vehicles.json uses { name, models: [{ name, motorisations: [{ id, label, codeMoteur, platform?, ...specs }] }] }
+  // `id` (pas codeMoteur) est la clé unique du véhicule — un codeMoteur peut équiper
+  // plusieurs chassis (ex: B16A sur EG6/EK4/DC2), voir Vehicle dans schema.prisma.
   const vehiclesData = loadJson("vehicles.json");
   const makes: Array<{
     name: string;
     models: Array<{
       name: string;
       motorisations: Array<{
-        label: string; codeMoteur: string;
+        id: string; label: string; codeMoteur: string; platform?: string | null;
         anneeDebut?: number | null; anneeFin?: number | null;
         carburant?: string | null; cylindreeCm3?: number | null;
         puissanceOrigineCh?: number | null; coupleOrigineNm?: number | null;
@@ -78,10 +80,16 @@ async function main() {
     }>;
   }> = vehiclesData.makes;
 
+  const seenVehicleIds = new Set<string>();
   for (const make of makes) {
     for (const model of make.models) {
       for (const m of model.motorisations) {
+        if (seenVehicleIds.has(m.id)) {
+          throw new Error(`vehicles.json: id de motorisation dupliqué "${m.id}" (doit être unique globalement).`);
+        }
+        seenVehicleIds.add(m.id);
         const specs = {
+          platform: m.platform ?? null,
           anneeDebut: m.anneeDebut ?? null,
           anneeFin: m.anneeFin ?? null,
           carburant: (m.carburant as Carburant | undefined) ?? null,
@@ -91,9 +99,10 @@ async function main() {
           consoOrigineL100: m.consoOrigineL100 ?? null,
         };
         await prisma.vehicle.upsert({
-          where: { codeMoteur: m.codeMoteur },
-          update: { marque: make.name, modele: model.name, motorisation: m.label, ...specs },
+          where: { id: m.id },
+          update: { codeMoteur: m.codeMoteur, marque: make.name, modele: model.name, motorisation: m.label, ...specs },
           create: {
+            id: m.id,
             codeMoteur: m.codeMoteur,
             marque: make.name,
             modele: model.name,

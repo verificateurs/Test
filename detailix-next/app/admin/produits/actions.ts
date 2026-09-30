@@ -19,15 +19,16 @@ const productSchema = z.object({
   homologation: z.enum(["route_ouverte", "usage_piste", "non_applicable"]).optional(),
 });
 
-// Matches the shape lib/compat.ts::parseCompatCodes expects — anything else
+// Matches the shape lib/compat.ts::parseCompat expects — anything else
 // (e.g. a bare "universel" string, or an object missing/mis-typed `codes`)
 // must be rejected here rather than silently stored.
 const compatSchema = z.discriminatedUnion("type", [
   z.object({ type: z.literal("universel") }).strict(),
   z.object({ type: z.literal("codesMoteurs"), codes: z.array(z.string().min(1)).min(1) }).strict(),
+  z.object({ type: z.literal("plateformes"), codes: z.array(z.string().min(1)).min(1) }).strict(),
 ]);
 
-const COMPAT_ERROR = 'Format compatibilité invalide : attendu {"type":"universel"} ou {"type":"codesMoteurs","codes":["..."]}.';
+const COMPAT_ERROR = 'Format compatibilité invalide : attendu {"type":"universel"}, {"type":"codesMoteurs","codes":["..."]} ou {"type":"plateformes","codes":["..."]}.';
 
 type State = { error?: string; success?: string } | null;
 

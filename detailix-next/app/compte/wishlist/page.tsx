@@ -2,7 +2,7 @@ import Link from "next/link";
 import { requireUser } from "@/lib/auth/session";
 import { db } from "@/lib/db";
 import { computePrice } from "@/lib/pricing";
-import { parseCompatCodes } from "@/lib/compat";
+import { parseCompat } from "@/lib/compat";
 import { ProductCard } from "@/components/ProductCard";
 import type { Metadata } from "next";
 
@@ -40,7 +40,7 @@ export default async function WishlistPage() {
                 categoryId={product.categoryId}
                 price={computePrice(product.prixAchat)}
                 stockQty={product.stockQty}
-                compatCodes={parseCompatCodes(product.compatibilite)}
+                compat={parseCompat(product.compatibilite)}
                 wishlisted
               />
             ))}

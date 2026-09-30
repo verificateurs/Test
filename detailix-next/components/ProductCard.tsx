@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { GarageStore } from "./garage/GarageStore";
 import { WishlistButton } from "./wishlist/WishlistButton";
+import { isCompatible, type ParsedCompat } from "@/lib/compat";
 
 interface ProductCardProps {
   id: string;
@@ -13,8 +14,7 @@ interface ProductCardProps {
   categoryId: string;
   price: number;
   stockQty: number;
-  /** "universel" or array of compatible engine codes */
-  compatCodes?: string[] | "universel";
+  compat?: ParsedCompat;
   /** Whether the current visitor already has this product in their wishlist (absent = not saved; for an anonymous visitor, clicking the button redirects to /connexion). */
   wishlisted?: boolean;
 }
@@ -44,7 +44,7 @@ export function ProductCard({
   categoryId,
   price,
   stockQty,
-  compatCodes,
+  compat,
   wishlisted,
 }: ProductCardProps) {
   const inStock = stockQty > 0;
@@ -52,15 +52,15 @@ export function ProductCard({
 
   useEffect(() => {
     function check() {
-      if (!compatCodes) { setCompatible(null); return; }
-      if (compatCodes === "universel") { setCompatible(true); return; }
+      if (!compat) { setCompatible(null); return; }
+      if (compat.mode === "universel") { setCompatible(true); return; }
       const garage = GarageStore.get();
       if (!garage) { setCompatible(null); return; }
-      setCompatible(compatCodes.includes(garage.codeMoteur));
+      setCompatible(isCompatible(compat, garage));
     }
     check();
     return GarageStore.subscribe(check);
-  }, [compatCodes]);
+  }, [compat]);
 
   return (
     <Link href={`/produits/${id}`} className="tile" aria-label={`${name} — ${brandName}`}>

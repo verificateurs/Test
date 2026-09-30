@@ -15,6 +15,8 @@ export interface CatalogExtra {
   brandId?: string;
   /** codeMoteur of the garage's active vehicle, if any (read server-side from the cookie). */
   vehicleCodeMoteur?: string | null;
+  /** platform/chassis code of the garage's active vehicle, if any (compat "plateformes"). */
+  vehiclePlatform?: string | null;
 }
 
 export interface CatalogQuery {
@@ -95,16 +97,20 @@ export function buildCatalogQuery(searchParams: RawSearchParams, extra: CatalogE
     };
   }
 
-  if (parsed.compatible && extra.vehicleCodeMoteur) {
+  if (parsed.compatible && (extra.vehicleCodeMoteur || extra.vehiclePlatform)) {
     // `compatibilite` is a JSON string (no native JSON querying in SQLite via Prisma here).
     // Rather than loading every candidate row into memory to filter in JS — which would
     // desync `count()`/pagination from the actual filtered result set — we match on the
     // quoted JSON substrings directly in the `where` clause. Matching the quoted form
-    // (`"universel"` / `"<codeMoteur>"`) rather than a bare substring avoids false
-    // positives such as a stored code "N47D20" matching a query for "N47".
+    // (`"universel"` / `"<codeMoteur>"` / `"<platform>"`) rather than a bare substring
+    // avoids false positives such as a stored code "N47D20" matching a query for "N47".
+    // A platform code could theoretically collide with a codeMoteur string and match the
+    // wrong compat mode — acceptable for a substring-based filter, see lib/compat.ts for
+    // the authoritative (mode-aware) check used to render the actual compat badge.
     where.OR = [
       { compatibilite: { contains: '"universel"' } },
-      { compatibilite: { contains: `"${extra.vehicleCodeMoteur}"` } },
+      ...(extra.vehicleCodeMoteur ? [{ compatibilite: { contains: `"${extra.vehicleCodeMoteur}"` } }] : []),
+      ...(extra.vehiclePlatform ? [{ compatibilite: { contains: `"${extra.vehiclePlatform}"` } }] : []),
     ];
   }
 

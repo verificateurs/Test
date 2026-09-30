@@ -60,7 +60,7 @@ export function GarageSelector() {
       if (vehicle) {
         setSelMarque(vehicle.marque);
         setSelModele(vehicle.modele);
-        setSelCode(vehicle.codeMoteur);
+        setSelCode(vehicle.id);
       }
       return;
     }
@@ -73,7 +73,7 @@ export function GarageSelector() {
         if (vehicle) {
           setSelMarque(vehicle.marque);
           setSelModele(vehicle.modele);
-          setSelCode(vehicle.codeMoteur);
+          setSelCode(vehicle.id);
         }
       })
       .finally(() => setLoadingTree(false));
@@ -104,12 +104,14 @@ export function GarageSelector() {
 
   function handleSave() {
     if (!selCode || !currentModele) return;
-    const moto = currentModele.motorisations.find((m) => m.codeMoteur === selCode);
+    const moto = currentModele.motorisations.find((m) => m.id === selCode);
     if (!moto) return;
     GarageStore.set({
+      id: moto.id,
       marque: selMarque,
       modele: selModele,
-      codeMoteur: selCode,
+      codeMoteur: moto.codeMoteur,
+      platform: moto.platform,
       motorisation: moto.label,
     });
     closeDialog();
@@ -151,9 +153,11 @@ export function GarageSelector() {
       }
       const data: ImmatriculationResponse = await res.json();
       const found: GarageVehicle = {
+        id: data.vehicle.id,
         marque: data.vehicle.marque,
         modele: data.vehicle.modele,
         codeMoteur: data.vehicle.codeMoteur,
+        platform: data.vehicle.platform,
         motorisation: data.vehicle.motorisation,
       };
       setSelMarque(found.marque);
@@ -246,7 +250,7 @@ export function GarageSelector() {
                     setPlateMatch(null);
                   }}
                   onKeyDown={handlePlateKeyDown}
-                  maxLength={9}
+                  maxLength={10}
                 />
                 {plateInput.length > 0 && !plateFormatValid && (
                   <span className="plate-hint">Format attendu : AA-123-AA</span>
@@ -336,7 +340,7 @@ export function GarageSelector() {
                 >
                   <option value="">— Choisir —</option>
                   {currentModele?.motorisations.map((m) => (
-                    <option key={m.codeMoteur} value={m.codeMoteur}>
+                    <option key={m.id} value={m.id}>
                       {m.label} ({m.codeMoteur})
                     </option>
                   ))}

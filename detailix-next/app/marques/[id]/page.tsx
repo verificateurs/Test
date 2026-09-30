@@ -3,7 +3,7 @@ export const dynamic = "force-dynamic";
 import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
 import { computePrice } from "@/lib/pricing";
-import { parseCompatCodes } from "@/lib/compat";
+import { parseCompat } from "@/lib/compat";
 import { ProductCard } from "@/components/ProductCard";
 import { buildCatalogQuery, computeTotalPages, type RawSearchParams } from "@/lib/catalog-query";
 import { getGarageVehicle } from "@/lib/garage";
@@ -65,6 +65,7 @@ export default async function BrandPage({
   const query = buildCatalogQuery(resolvedSearchParams, {
     brandId: id,
     vehicleCodeMoteur: vehicle?.codeMoteur,
+    vehiclePlatform: vehicle?.platform,
   });
 
   const [products, total, brandProductCount] = await Promise.all([
@@ -153,7 +154,7 @@ export default async function BrandPage({
                         categoryId={p.categoryId}
                         price={computePrice(p.prixAchat)}
                         stockQty={p.stockQty}
-                        compatCodes={parseCompatCodes(p.compatibilite)}
+                        compat={parseCompat(p.compatibilite)}
                         wishlisted={wishlistedIds.has(p.id)}
                       />
                     ))}

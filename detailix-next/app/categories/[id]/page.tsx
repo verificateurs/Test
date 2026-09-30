@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { db } from "@/lib/db";
 import { computePrice } from "@/lib/pricing";
-import { parseCompatCodes } from "@/lib/compat";
+import { parseCompat } from "@/lib/compat";
 import { ProductCard } from "@/components/ProductCard";
 import { buildCatalogQuery, computeTotalPages, type RawSearchParams } from "@/lib/catalog-query";
 import { getGarageVehicle } from "@/lib/garage";
@@ -62,6 +62,7 @@ export default async function CategoryPage({
   const query = buildCatalogQuery(resolvedSearchParams, {
     categoryId: id,
     vehicleCodeMoteur: vehicle?.codeMoteur,
+    vehiclePlatform: vehicle?.platform,
   });
 
   const [products, total] = await Promise.all([
@@ -347,7 +348,7 @@ export default async function CategoryPage({
                     categoryId={p.categoryId}
                     price={computePrice(p.prixAchat)}
                     stockQty={p.stockQty}
-                    compatCodes={parseCompatCodes(p.compatibilite)}
+                    compat={parseCompat(p.compatibilite)}
                     wishlisted={wishlistedIds.has(p.id)}
                   />
                 ))}

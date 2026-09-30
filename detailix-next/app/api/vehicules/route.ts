@@ -8,7 +8,7 @@ export interface VehiculeTree {
     label: string;
     modeles: {
       label: string;
-      motorisations: { codeMoteur: string; label: string }[];
+      motorisations: { id: string; codeMoteur: string; platform: string | null; label: string }[];
     }[];
   }[];
 }
@@ -17,13 +17,13 @@ export async function GET() {
   const vehicles = await db.vehicle.findMany({ orderBy: [{ marque: "asc" }, { modele: "asc" }, { motorisation: "asc" }] });
 
   const tree: VehiculeTree = { marques: [] };
-  const marqueMap = new Map<string, Map<string, { codeMoteur: string; label: string }[]>>();
+  const marqueMap = new Map<string, Map<string, VehiculeTree["marques"][number]["modeles"][number]["motorisations"]>>();
 
   for (const v of vehicles) {
     if (!marqueMap.has(v.marque)) marqueMap.set(v.marque, new Map());
     const modeles = marqueMap.get(v.marque)!;
     if (!modeles.has(v.modele)) modeles.set(v.modele, []);
-    modeles.get(v.modele)!.push({ codeMoteur: v.codeMoteur, label: v.motorisation });
+    modeles.get(v.modele)!.push({ id: v.id, codeMoteur: v.codeMoteur, platform: v.platform, label: v.motorisation });
   }
 
   for (const [marque, modeles] of marqueMap) {

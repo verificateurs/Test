@@ -64,8 +64,18 @@ model BrandReview {
   comment  String
 }
 
+// `id` identifie une motorisation précise d'un modèle (ex: "honda-civic-ek4-b16a"),
+// et EST la clé primaire réelle du véhicule — PAS `codeMoteur`. Un même code moteur
+// (ex: B16A) équipe souvent plusieurs chassis (EG6, EK4, DC2...), donc `codeMoteur`
+// n'est délibérément PAS unique : c'est ce qui permet à un produit lié à un moteur
+// (compat "codesMoteurs") de matcher tous les véhicules qui le partagent — plus
+// réaliste qu'un modèle 1 moteur = 1 véhicule. `platform` (code chassis, ex: "EK",
+// "8N", "E36") sert à la compat des pièces liées au châssis (kits carrosserie,
+// jantes, covering) plutôt qu'au moteur, voir lib/compat.ts.
 model Vehicle {
-  codeMoteur         String     @id
+  id                 String     @id
+  codeMoteur         String
+  platform           String?
   marque             String
   modele             String
   motorisation       String
@@ -76,12 +86,16 @@ model Vehicle {
   puissanceOrigineCh Int?
   coupleOrigineNm    Int?
   consoOrigineL100   Float?     // consommation mixte WLTP indicative, L/100km
-  stagePacks         StagePack[]
 
   @@index([marque, modele])
+  @@index([codeMoteur])
+  @@index([platform])
 }
 
-// Packs de préparation moteur (Stage 1/2/3) rattachés à un code moteur précis.
+// Packs de préparation moteur (Stage 1/2/3) rattachés à un code moteur précis
+// (pas à un véhicule précis : pas de relation Prisma vers Vehicle car codeMoteur
+// n'est plus unique — délibéré, voir Vehicle ci-dessus. Une cartographie Stage 1
+// pour un K20C1 s'applique à tous les véhicules qui le partagent).
 // Gains indicatifs uniquement — dépendent du véhicule réel, à valider sur banc
 // par un préparateur avant toute installation. `homologation` reprend
 // l'enum déjà utilisée sur Product : les stages impliquant une cartographie
@@ -89,7 +103,6 @@ model Vehicle {
 model StagePack {
   id                String       @id @default(cuid())
   codeMoteur        String
-  vehicle           Vehicle      @relation(fields: [codeMoteur], references: [codeMoteur])
   stage             Int          // 1, 2, 3
   label             String
   description       String

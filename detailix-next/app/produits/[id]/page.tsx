@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { db } from "@/lib/db";
 import { computePrice } from "@/lib/pricing";
-import { parseCompatCodes } from "@/lib/compat";
+import { parseCompat, isCompatible } from "@/lib/compat";
 import { getGarageVehicle } from "@/lib/garage";
 import { getWishlistedProductIds } from "@/lib/wishlist";
 import { ProductCard } from "@/components/ProductCard";
@@ -55,14 +55,10 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
   const price = computePrice(product.prixAchat);
   const inStock = product.stockQty > 0;
 
-  const compatCodes = parseCompatCodes(product.compatibilite);
+  const compat = parseCompat(product.compatibilite);
   const vehicle = await getGarageVehicle();
   const compatible: boolean | null =
-    compatCodes === "universel"
-      ? true
-      : Array.isArray(compatCodes) && vehicle
-        ? compatCodes.includes(vehicle.codeMoteur)
-        : null;
+    compat?.mode === "universel" ? true : compat && vehicle ? isCompatible(compat, vehicle) : null;
 
   const sameBrandProducts = await db.product.findMany({
     where: { brandId: product.brandId, id: { not: product.id } },
@@ -177,18 +173,18 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
             )}
 
             {/* Compatibilité */}
-            {compatCodes === "universel" && (
+            {compat?.mode === "universel" && (
               <div style={{ marginTop: "var(--space-md)", fontSize: "var(--text-sm)", color: "var(--text-muted)" }}>
                 Compatible avec tous véhicules
               </div>
             )}
-            {Array.isArray(compatCodes) && compatCodes.length > 0 && (
+            {compat && compat.mode !== "universel" && compat.codes.length > 0 && (
               <div style={{ marginTop: "var(--space-lg)", padding: "var(--space-md)", background: "var(--bg-card)", borderRadius: "var(--radius)", border: "1px solid var(--border)" }}>
                 <div style={{ fontWeight: 600, marginBottom: "var(--space-sm)", fontSize: "var(--text-sm)" }}>
-                  Codes moteur compatibles
+                  {compat.mode === "codesMoteurs" ? "Codes moteur compatibles" : "Châssis compatibles"}
                 </div>
                 <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--space-sm)" }}>
-                  {compatCodes.map((code) => (
+                  {compat.codes.map((code) => (
                     <span key={code} className="badge" style={{ background: "var(--accent-soft)", color: "var(--accent)", fontSize: "var(--text-xs)" }}>
                       {code}
                     </span>
@@ -215,7 +211,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
                   categoryId={p.categoryId}
                   price={computePrice(p.prixAchat)}
                   stockQty={p.stockQty}
-                  compatCodes={parseCompatCodes(p.compatibilite)}
+                  compat={parseCompat(p.compatibilite)}
                   wishlisted={wishlistedIds.has(p.id)}
                 />
               ))}
