@@ -3,7 +3,7 @@
 import { z } from "zod";
 import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
-import { requireAdmin } from "@/lib/auth/session";
+import { requireAdminRole } from "@/lib/auth/session";
 import { verifyTotp } from "@/lib/auth/totp";
 import { checkRateLimit } from "@/lib/rate-limit";
 
@@ -19,7 +19,7 @@ const disableSchema = z.object({
 type State = { error: string } | null;
 
 export async function enable2faAction(_prev: State, fd: FormData): Promise<State> {
-  const user = await requireAdmin();
+  const user = await requireAdminRole();
 
   const { allowed } = checkRateLimit(`2fa-enable:${user.id}`);
   if (!allowed) {
@@ -48,7 +48,7 @@ export async function enable2faAction(_prev: State, fd: FormData): Promise<State
 }
 
 export async function disable2faAction(_prev: State, fd: FormData): Promise<State> {
-  const user = await requireAdmin();
+  const user = await requireAdminRole();
 
   const { allowed } = checkRateLimit(`2fa-disable:${user.id}`);
   if (!allowed) {

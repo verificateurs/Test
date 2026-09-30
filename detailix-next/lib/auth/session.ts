@@ -67,10 +67,27 @@ export async function requireUser() {
   return s.user;
 }
 
-export async function requireAdmin() {
+/** Rôle ADMIN uniquement, SANS exiger la 2FA — réservé à /compte/securite et
+ * ses Server Actions (enable/disable 2FA), qui doivent rester atteignables
+ * par un admin qui n'a justement pas encore activé sa 2FA. Tout le reste du
+ * back-office doit passer par requireAdmin() ci-dessous, pas par celui-ci. */
+export async function requireAdminRole() {
   const s = await getSession();
   if (!s || s.user.role !== ("ADMIN" as Role)) redirect("/connexion");
   return s.user;
+}
+
+export async function requireAdmin() {
+  const user = await requireAdminRole();
+  // La 2FA est optionnelle à l'activation (/compte/securite) mais obligatoire
+  // pour accéder au reste back-office : un compte ADMIN sans TOTP n'a que son
+  // mot de passe comme barrière, la cible la plus exposée à un brute force (le
+  // rate limiting est en mémoire, donc faible sur une plateforme multi-instance
+  // comme Vercel — voir lib/rate-limit.ts). Redirige vers l'activation plutôt
+  // que de bloquer : /compte/securite (et ses actions) utilisent
+  // requireAdminRole(), pas requireAdmin(), donc jamais de boucle.
+  if (!user.totpEnabled) redirect("/compte/securite?admin2fa=required");
+  return user;
 }
 
 export async function requirePro() {

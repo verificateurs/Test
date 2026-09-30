@@ -20,6 +20,12 @@ const checkoutSchema = z.object({
 
 type CheckoutState = { error: string } | null;
 
+// Marque les erreurs métier volontairement renvoyées telles quelles au client
+// (stock, promo, produit introuvable). Toute erreur non marquée (ex: un
+// message Prisma brut sur un incident inattendu) est remplacée par un message
+// générique avant de sortir de l'action — voir le catch plus bas.
+class CheckoutError extends Error {}
+
 export async function createOrderAction(
   _prev: CheckoutState,
   fd: FormData
@@ -95,8 +101,8 @@ export async function createOrderAction(
       // before any write.
       for (const [productId, qty] of qtyByProductId) {
         const product = productMap.get(productId);
-        if (!product) throw new Error(`Produit introuvable: ${productId}`);
-        if (product.stockQty < qty) throw new Error(`Stock insuffisant: ${product.name}`);
+        if (!product) throw new CheckoutError(`Produit introuvable: ${productId}`);
+        if (product.stockQty < qty) throw new CheckoutError(`Stock insuffisant: ${product.name}`);
       }
 
       // Decrement stock once per product with the aggregated quantity. Uses
@@ -108,7 +114,7 @@ export async function createOrderAction(
           where: { id: productId, stockQty: { gte: qty } },
           data: { stockQty: { decrement: qty } },
         });
-        if (count !== 1) throw new Error(`Stock insuffisant: ${product.name}`);
+        if (count !== 1) throw new CheckoutError(`Stock insuffisant: ${product.name}`);
       }
 
       let discountPercent = 0;
@@ -122,7 +128,7 @@ export async function createOrderAction(
           },
           data: { usedCount: { increment: 1 } },
         });
-        if (count !== 1) throw new Error("Code promo invalide ou expiré.");
+        if (count !== 1) throw new CheckoutError("Code promo invalide ou expiré.");
         discountPercent = promoRecord.discountPercent;
       }
 
@@ -160,7 +166,11 @@ export async function createOrderAction(
 
     orderId = order.id;
   } catch (err) {
-    const msg = err instanceof Error ? err.message : "Erreur lors de la commande.";
+    // Seules les erreurs métier volontaires (CheckoutError) remontent leur message
+    // au client — tout le reste (erreur Prisma inattendue, timeout...) est loggé
+    // côté serveur et remplacé par un message générique pour ne rien exposer.
+    if (!(err instanceof CheckoutError)) console.error("Erreur checkout inattendue:", err);
+    const msg = err instanceof CheckoutError ? err.message : "Erreur lors de la commande, réessayez.";
     return { error: msg };
   }
 
